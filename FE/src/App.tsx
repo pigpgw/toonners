@@ -1,9 +1,10 @@
 import "./App.css";
+import styles from "./test.module.scss";
 
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1 className={styles.text}>Vite + React</h1>
     </>
   );
 }
