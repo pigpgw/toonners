@@ -22,8 +22,14 @@
 
     "baseUrl": ".",
     "paths": {
-      "@test1/*": ["src/test1/*"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@slices/*": ["src/slices/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src", "**/*.ts", "**/*.tsx"],
