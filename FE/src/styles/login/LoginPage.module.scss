@@ -1,0 +1,19 @@
+.btn-container {
+  button {
+    width: 313px;
+    height: 50px;
+  }
+}
+
+.onAnimation {
+  animation: fadeIn 3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
