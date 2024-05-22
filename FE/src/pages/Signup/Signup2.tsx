@@ -5,8 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Input from "../../components/common/Input/index";
 import axios from "axios";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
-import Button from "@/components/common/Button";
-import ConfirmButton from "@/components/common/Button/Confirm";
 
 type Webtoon = {
   _id: string;
@@ -83,7 +81,7 @@ const Signup2 = () => {
 
   const goNext = () => {
     console.log("고른거 서버에 전달?", select);
-    navigator("/success");
+    navigator("/signup/3");
   };
 
   return (
@@ -124,7 +122,9 @@ const Signup2 = () => {
           </div>
         </div>
       </div>
-      <button className={styles.confirm} onClick={goNext}>확인</button>
+      <button className={styles.confirm} onClick={goNext}>
+        확인
+      </button>
     </div>
   );
 };
