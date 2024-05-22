@@ -1,4 +1,3 @@
-import { MouseEventHandler } from "react";
 import styles from "@styles/common/Tag.module.scss";
 
 interface Props {
@@ -7,7 +6,7 @@ interface Props {
   types?: "primary" | "secondary" | "gray";
   checked?: boolean;
   clickable?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  onClick?: () => void;
 }
 
 const Tag = ({ label, size, types = "primary", clickable = false, ...rest }: Props) => {
