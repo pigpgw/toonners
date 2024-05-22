@@ -9,7 +9,7 @@ const Redirect = () => {
   useEffect(() => {
     const postCode = async () => {
       try {
-        const response = await axios.post("http://localhost:4000", { code });
+        const response = await axios.post("http://localhost:4000", { code }); 
         if (response.status === 200) {
           //  토큰 로컬 스토리지에 세팅하고 페이지 라우팅
           navigate("/home/chatroom");
@@ -19,7 +19,7 @@ const Redirect = () => {
       } catch (e) {
         console.error(e);
         alert("로그인에 실패했습니다.");
-        navigate("/");
+        navigate('/')
       }
     };
 
