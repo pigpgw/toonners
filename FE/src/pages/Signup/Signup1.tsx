@@ -24,7 +24,7 @@ const Signup1 = () => {
   return (
     <div className={styles.container}>
       <Text types="headline" bold="bold">
-        반가워요! xxx님
+        반가워요!
         <br />
         어떤 웹툰을 보고있나요?
       </Text>
@@ -32,7 +32,7 @@ const Signup1 = () => {
       <Text types="title" bold="bold">
         내 닉네임을 만들어 볼까요?
       </Text>
-      <InputWithButton inputText={nickname} btnName="확인" inputChange={onChange} onSubmit={nextStep}/>
+      <InputWithButton inputText={nickname} btnName="확인" inputChange={onChange} onSubmit={nextStep} placeHolder="닉네임을 입력해주세요"/>
     </div>
   );
 };
