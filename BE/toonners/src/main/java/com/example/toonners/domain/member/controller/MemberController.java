@@ -31,6 +31,6 @@ public class MemberController {
                                                   @RequestBody UpdateMemberRequest request,
                                                   @RequestHeader("Authorization") String token) {
         InfoResponse result = memberService.updateMember(id, request, token);
-        return null;
+        return ApiResponse.createSuccessWithMessage(result, "정상적으로 수정되었습니다");
     }
 }
