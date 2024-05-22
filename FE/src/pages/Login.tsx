@@ -1,19 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import styles from "@styles/login/LoginPage.module.scss";
+import KakaoButton from "@/components/login/KakaoButton";
+import Button from "@/components/login/Button";
+import styles from "@/styles/login/Login.module.scss";
 
-const LoginPage = () => {
-  const navigate = useNavigate();
-  const clickLogin = () => {
-    navigate("/home1");
-  };
+const Login = () => {
   return (
-    <>
-      <div>스플래쉬</div>
-      <div className={styles.onAnimation}>
-        <button onClick={clickLogin}>로그인</button>
-        <button onClick={clickLogin}>둘러보기</button>
-      </div>
-    </>
+    <div className={styles.btnContainer}>
+      <KakaoButton />
+      <Button types="none">로그인 없이 둘러보기</Button>
+    </div>
   );
 };
-export default LoginPage;
+
+export default Login;
