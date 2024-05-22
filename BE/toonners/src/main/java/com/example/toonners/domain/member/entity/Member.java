@@ -2,6 +2,7 @@ package com.example.toonners.domain.member.entity;
 
 import com.example.toonners.common.BaseEntity;
 import com.example.toonners.config.constant.Role;
+import com.example.toonners.domain.member.dto.request.UpdateMemberRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,6 +43,24 @@ public class Member extends BaseEntity {
         authorities.add(simpleAuthority);
 
         return authorities;
+    }
+
+    public void updateFields(UpdateMemberRequest updateMemberRequest) {
+        if (updateMemberRequest.getNickname() != null) {
+            nickname = updateMemberRequest.getNickname();
+        }
+        if (updateMemberRequest.getDescription() != null) {
+            description = updateMemberRequest.getDescription();
+        }
+        if (updateMemberRequest.getImage() != null) {
+            image = updateMemberRequest.getImage();
+        }
+        if (updateMemberRequest.getFavoriteToons() != null) {
+            favoriteToons = updateMemberRequest.getFavoriteToons();
+        }
+        if (updateMemberRequest.getWatchingToons() != null) {
+            watchingToons = updateMemberRequest.getWatchingToons();
+        }
     }
 
 }
