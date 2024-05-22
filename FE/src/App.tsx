@@ -6,12 +6,14 @@ import CommonPage from "@pages/CommonPage";
 import NewRecomand from "@routes/NewRecomand";
 import NewChatRoom from "@routes/NewChatRoom";
 import Signup from "@routes/Signup";
+import Redirect from "./pages/Redirect";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/login/kakao" element={<Redirect />} />
         <Route path="/signup/*" element={<Signup />} />
 
         <Route path="/home/*" element={<HomePage />} />
