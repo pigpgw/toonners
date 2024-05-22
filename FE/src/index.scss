@@ -50,7 +50,8 @@
   --color-black: #000;
   --color-primary: #2b00d6;
   --color-secondary: #b8de2a;
-  --color-accent: #ff521d;
+  --color-accent-1: #ff521d;
+  --color-accent-2: #fe9ccd;
 
   --spacing-0: 0px;
   --spacing-1: 2px;
@@ -78,6 +79,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: black;
 }
 
 body {

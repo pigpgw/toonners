@@ -11,7 +11,7 @@ import Arrow from "@components/common/Arrow";
 const CommonPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <div>
+    <div style={{ margin: "0 20px" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
         <Text types="caption">Caption caption, Regular</Text>
         <Text types="body-1">Body-1 body-1, Regular</Text>

@@ -1,13 +1,14 @@
 .arrow {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  gap: 3px;
+  margin-right: 0;
   width: 64px;
+  line-height: 100%;
   color: var(--color-gray-2);
   cursor: pointer;
 
-  & > svg {
+  > svg {
     font-size: large;
   }
 }
