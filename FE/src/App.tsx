@@ -1,9 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.scss";
-import Login from "./pages/Login";
-import NewRecomand from "./routes/NewRecomand";
-import NewChatRoom from "./routes/NewChatRoom";
-import Signup from "./routes/Signup";
+import Login from "@pages/Login";
+import HomePage from "@pages/HomePage";
+import CommonPage from "@pages/CommonPage";
+import NewRecomand from "@routes/NewRecomand";
+import NewChatRoom from "@routes/NewChatRoom";
+import Signup from "@routes/Signup";
 
 function App() {
   return (
@@ -12,8 +14,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup/*" element={<Signup />} />
 
-        <Route path="/home/chatroom" element={<div>홈 단톡방</div>} />
-        <Route path="/home/recommend" element={<div>홈 추천글</div>} />
+        <Route path="/home/*" element={<HomePage />} />
 
         <Route path="/chatroom/:id" element={<div>단톡방 상세</div>} />
         <Route path="/chatroomlist" element={<div>단톡방 리스트</div>} />
@@ -26,6 +27,7 @@ function App() {
 
         <Route path="/mypage" element={<div>마이페이지</div>} />
         <Route path="/profile/:userId" element={<div>상대방 프로필</div>} />
+        <Route path="/common" element={<CommonPage />} />
         <Route path="*" element={<div>잘못된 경로</div>} />
       </Routes>
     </>
