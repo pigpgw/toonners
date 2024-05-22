@@ -18,17 +18,13 @@ public class InfoResponse {
     private String nickname;
     private String description;
     private String image;
-    private Set<String> keywords;
     private Set<String> favoriteToons;
     private Set<String> watchingToons;
 
     public static InfoResponse fromEntity(Member member) {
-        Set<String> keywordSet = new HashSet<>();
         Set<String> favoriteToonSet = new HashSet<>();
         Set<String> watchingToonSet = new HashSet<>();
-        if (member.getKeywords() != null) {
-            keywordSet = member.getKeywords();
-        }
+
         if (member.getFavoriteToons() != null) {
             favoriteToonSet = member.getFavoriteToons();
         }
@@ -41,7 +37,6 @@ public class InfoResponse {
                 .nickname(member.getNickname())
                 .description(member.getDescription())
                 .image(member.getImage())
-                .keywords(keywordSet)
                 .favoriteToons(favoriteToonSet)
                 .watchingToons(watchingToonSet)
                 .build();

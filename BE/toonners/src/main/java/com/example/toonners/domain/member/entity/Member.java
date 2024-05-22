@@ -27,7 +27,6 @@ public class Member extends BaseEntity {
     private String nickname;
     private String description;
     private String image;
-    private Set<String> keywords;
     private Set<String> favoriteToons;
     private Set<String> watchingToons;
 
