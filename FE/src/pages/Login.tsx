@@ -28,8 +28,8 @@ export default Login;
 
 const KakaoButton = ({ ...rest }) => {
   const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
-  const REST_API_KEY = 'b53d2404d55238fab9d1509ecd3afe2d';  
-  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_CLIENT_ID = 'b53d2404d55238fab9d1509ecd3afe2d';  
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const loginHandler = () => {
     window.location.href = link;
