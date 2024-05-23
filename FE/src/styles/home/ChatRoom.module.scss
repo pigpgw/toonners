@@ -1,0 +1,48 @@
+.first {
+  position: relative;
+  margin: 0 40px;
+
+  > div:nth-child(1),
+  > div:nth-child(3) {
+    margin: 18px 0;
+  }
+}
+
+.webtoon {
+  // height: 70vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 10px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.second {
+  height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 40px;
+
+  > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    margin: 18px 0;
+    > div:nth-child(2) {
+      > div:nth-child(2) {
+        margin-top: 10px;
+      }
+    }
+  }
+  > div:nth-child(2) {
+    margin: 18px 0;
+  }
+}
+
