@@ -81,7 +81,8 @@ const Signup2 = () => {
 
   const goNext = () => {
     console.log("고른거 서버에 전달?", select);
-    navigator("/signup/3");
+    if (select.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
+    else navigator("/signup/3");
   };
 
   return (
