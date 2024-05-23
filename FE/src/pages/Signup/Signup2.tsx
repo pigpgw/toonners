@@ -3,7 +3,7 @@ import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
-import SearchedWebtoonContainer from "@/components/Webtoon/SearchedWebtoonContainer";
+import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 
 type Webtoon = {
@@ -71,22 +71,22 @@ const Signup2 = () => {
           <br />
           어떤 웹툰을 보고있나요?
         </Text>
-        <SearchedWebtoonContainer
+        <SelectedWebtoonBox
           selectedList={select}
           removeSelect={removeSelect}
           lastSelectedWebtoonRef={lastSelectedWebtoonRef}
         />
       </div>
-      <div style={{ width: "390px" }}>
-        <SearchWebtoonContainer
-          webtoonTitle={search}
-          webToonList={webtoons}
-          onChange={onChange}
-          handleSelect={handleSelect}
-          height={546}
-        />
-      </div>
-      <button className={styles.confirm} onClick={goNext}>확인</button>
+      <SearchWebtoonContainer
+        webtoonTitle={search}
+        webToonList={webtoons}
+        onChange={onChange}
+        handleSelect={handleSelect}
+        height={500}
+      />
+      <button className={styles.confirm} onClick={goNext}>
+        확인
+      </button>
     </>
   );
 };

@@ -16,17 +16,19 @@ const Signup3 = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Text types="headline" bold="bold">
-        반가워요! 000님
-        <br />
-        서비스명에 오신 걸 환영해요.
-      </Text>
-      <img src={MainImg} alt="" className={styles.mainImg} />
+    <>
+      <div className={styles.container}>
+        <Text types="headline" bold="bold">
+          반가워요! 000님
+          <br />
+          서비스명에 오신 걸 환영해요.
+        </Text>
+        <img src={MainImg} alt="" className={styles.mainImg} />
+      </div>
       <button className={styles.confirm} onClick={nextStep}>
         확인
       </button>
-    </div>
+    </>
   );
 };
 

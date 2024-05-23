@@ -1,4 +1,4 @@
-import styles from "../../styles/webtoon/SelectedWebtoonContiner.module.scss";
+import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
 import WebtoonPlusBtn from "./plusBtn";
 
@@ -17,16 +17,16 @@ interface Props {
   removeSelect: (webtoon: Webtoon) => void;
 }
 
-const SearchedWebtoonContainer = ({ selectedList, removeSelect, lastSelectedWebtoonRef }: Props) => {
+const SelectedWebtoonBox = ({ selectedList, removeSelect, lastSelectedWebtoonRef }: Props) => {
   return (
-    <div className={styles.SearchedWebtoonContainer}>
+    <div className={styles.SelectedWebtoonBox}>
       {selectedList.map((webtoon, index) => (
         <div key={`${index}_li`} ref={index === selectedList.length - 1 ? lastSelectedWebtoonRef : null}>
           <SearchedWebtoonCard
             title={webtoon.title}
             imgUrl={webtoon.img}
             clicked={true}
-            onAdd={() => removeSelect(webtoon)}
+            onRemove={() => removeSelect(webtoon)}
           />
         </div>
       ))}
@@ -35,4 +35,4 @@ const SearchedWebtoonContainer = ({ selectedList, removeSelect, lastSelectedWebt
   );
 };
 
-export default SearchedWebtoonContainer;
+export default SelectedWebtoonBox;
