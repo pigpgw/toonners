@@ -82,6 +82,15 @@
       color: var(--color-gray-2);
     }
   }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 40px;
+    > div:nth-child(1) {
+      margin-bottom: 30px;
+    }
+  }
 }
 
 .webtoon {
@@ -190,8 +199,13 @@
 
     > div {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      gap: 16px;
+      > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+      }
     }
   }
 
