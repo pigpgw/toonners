@@ -1,12 +1,27 @@
-.btn-container {
-  button {
-    width: 313px;
-    height: 50px;
-  }
+.mainContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainImg{
+  width: 100%;
+  height: 300px;
+
+  margin-bottom: 0px;
 }
 
 .onAnimation {
-  animation: fadeIn 3s ease-in;
+  animation: fadeIn 2s ease-in;
 }
 
 @keyframes fadeIn {
