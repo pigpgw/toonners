@@ -1,11 +1,10 @@
 import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup2.module.scss";
+import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import Input from "../../components/common/Input/index";
-import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SearchedWebtoonContainer from "@/components/Webtoon/SearchedWebtoonContainer";
+import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 
 type Webtoon = {
   title: string;
@@ -65,37 +64,30 @@ const Signup2 = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Text types="headline" bold="bold">
-        반가워요!
-        <br />
-        어떤 웹툰을 보고있나요?
-      </Text>
-      <SearchedWebtoonContainer selectedList={select} removeSelect={removeSelect} lastSelectedWebtoonRef={lastSelectedWebtoonRef}> 
-
-      </SearchedWebtoonContainer>
-      <div className={styles.searchBox}>
-        <div className={styles.searchInputBox}>
-          <Input value={search} placeholder="검색어 입력" types="search" onChange={onChange} />
-          <div className={styles.searchedWebtoonContainer}>
-            {webtoons?.map((webtoon, index) => (
-              <SearchedWebtoonCard
-                key={`${index}_li`}
-                title={webtoon.title}
-                imgUrl={webtoon.img}
-                clicked={false}
-                onClick={() => {
-                  handleSelect(webtoon);
-                }}
-              ></SearchedWebtoonCard>
-            ))}
-          </div>
-        </div>
+    <>
+      <div className={styles.container}>
+        <Text types="headline" bold="bold">
+          반가워요!
+          <br />
+          어떤 웹툰을 보고있나요?
+        </Text>
+        <SearchedWebtoonContainer
+          selectedList={select}
+          removeSelect={removeSelect}
+          lastSelectedWebtoonRef={lastSelectedWebtoonRef}
+        />
       </div>
-      <button className={styles.confirm} onClick={goNext}>
-        확인
-      </button>
-    </div>
+      <div style={{ width: "390px" }}>
+        <SearchWebtoonContainer
+          webtoonTitle={search}
+          webToonList={webtoons}
+          onChange={onChange}
+          handleSelect={handleSelect}
+          height={546}
+        />
+      </div>
+      <button className={styles.confirm} onClick={goNext}>확인</button>
+    </>
   );
 };
 

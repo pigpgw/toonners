@@ -1,17 +1,10 @@
+import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import axios from "axios";
 
-type Webtoon = {
-  title: string;
-  url: string;
-  img: string;
-  updateDays: string[];
-  fanCount: number;
-};
-
-const fetchWetboonInfo = async (title: string): Promise<Webtoon[]> => {
+const fetchWetboonInfo = async (title: string): Promise<WebtoonConfig[]> => {
   const response = await axios.get(`https://korea-webtoon-api.herokuapp.com/search?keyword=${title}`);
   const webttonData = response.data.webtoons || [];
-  const filteredWebtoons = webttonData.map((webtoon: Webtoon) => ({
+  const filteredWebtoons = webttonData.map((webtoon: WebtoonConfig) => ({
     title: webtoon.title,
     url: webtoon.url,
     img: webtoon.img,

@@ -26,11 +26,11 @@ const SearchedWebtoonContainer = ({ selectedList, removeSelect, lastSelectedWebt
             title={webtoon.title}
             imgUrl={webtoon.img}
             clicked={true}
-            onClick={() => removeSelect(webtoon)}
+            onAdd={() => removeSelect(webtoon)}
           />
         </div>
       ))}
-      {selectedList.length < 3 ? <WebtoonPlusBtn /> : null}
+      {selectedList.length < 4 ? <WebtoonPlusBtn /> : null}
     </div>
   );
 };
