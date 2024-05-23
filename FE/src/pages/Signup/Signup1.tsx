@@ -26,7 +26,7 @@ const Signup1 = () => {
       <Text types="headline" bold="bold">
         반가워요!
         <br />
-        어떤 웹툰을 보고있나요?
+        서비스명에 오신 걸 환영해요.
       </Text>
       <br />
       <Text types="title" bold="bold">
