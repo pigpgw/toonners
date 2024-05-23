@@ -5,25 +5,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Input from "../../components/common/Input/index";
 import axios from "axios";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
+import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 
 type Webtoon = {
-  _id: string;
-  webtoonId: number;
   title: string;
-  author: string;
   url: string;
   img: string;
-  service: string;
   updateDays: string[];
   fanCount: number;
-  searchKeyword: string;
-  additional: {
-    new: boolean;
-    adult: boolean;
-    rest: boolean;
-    up: boolean;
-    singularityList: unknown[];
-  };
 };
 
 const Signup2 = () => {
@@ -39,17 +28,9 @@ const Signup2 = () => {
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await axios.get(`https://korea-webtoon-api.herokuapp.com/search?keyword=${search}`);
-        const webtoonsData = response.data.webtoons || [];
-        const filteredWebtoons = webtoonsData.map((webtoon: Webtoon) => ({
-          title: webtoon.title,
-          url: webtoon.url,
-          img: webtoon.img,
-          updateDays: webtoon.updateDays,
-          fanCount: webtoon.fanCount,
-        }));
-        setWebtoons(filteredWebtoons);
-        console.log(response.data);
+        const response = await fetchWetboonInfo(search);
+        setWebtoons(response);
+        console.log(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
