@@ -1,16 +1,26 @@
 import styles from "@styles/common/Header.module.scss";
-import InequalitySign from "../InequalitySign";
-import Button from "../../common/Button/Confirm";
+import Text from "@components/common/Text";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import ConfirmButton from "../Button/Confirm";
 
-const Header = () => {
-  const clickExitBtn = () => {
-    console.log("화살표 버튼 누름");
-  };
+interface Props {
+  title: string;
+  button?: boolean;
+  buttonName?: string;
+  before: () => void;
+}
 
+const Header = ({ title, button, buttonName, before }: Props) => {
+  const isButton = button ? "--visible" : "";
   return (
-    <div className={styles.container}>
-      <InequalitySign onClick={clickExitBtn} />
-      <Button>공유</Button>
+    <div className={styles.header}>
+      <KeyboardArrowLeftIcon onClick={before} />
+      <Text types="sub-header" bold="semi-bold">
+        {title}
+      </Text>
+      <div className={styles[`header__button${isButton}`]}>
+        <ConfirmButton>{buttonName}</ConfirmButton>
+      </div>
     </div>
   );
 };

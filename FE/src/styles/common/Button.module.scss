@@ -36,3 +36,20 @@
 
   cursor: pointer;
 }
+
+.plus {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  color: white;
+  background: linear-gradient(135deg, #0038f5, var(--color-accent-1));
+  > svg {
+    font-size: 48px;
+  }
+}

@@ -1,10 +1,10 @@
+import { useState } from "react";
 import styles from "@styles/home/Home.module.scss";
 import Text from "@components/common/Text";
 import Tag from "@components/common/Tag";
 import Profile from "@components/common/Profile";
 import Bookmark from "@components/common/Tag/Bookmark";
 import { Rating } from "@mui/material";
-import { useState } from "react";
 
 interface Props {
   imgCount: number;
@@ -37,7 +37,7 @@ const FeedItem = ({ imgCount }: Props) => {
           <Tag label="# 태그" types="gray" size="big" />
         </div>
         <div className={styles.feed__profile}>
-          <Profile name="Nickname" />
+          <Profile name="Nickname" size="medium" />
           <Bookmark label="스크랩" checked={check} onChange={setCheck} />
         </div>
       </div>
