@@ -23,4 +23,6 @@ public class SignUpRequest {
     private Role role;
     private String oauthType;
 
+    private String password;
+
 }

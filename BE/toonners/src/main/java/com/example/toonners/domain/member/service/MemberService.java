@@ -1,10 +1,14 @@
 package com.example.toonners.domain.member.service;
 
+import com.example.toonners.config.constant.Role;
 import com.example.toonners.config.jwt.TokenProvider;
+import com.example.toonners.domain.member.dto.request.SignInRequest;
+import com.example.toonners.domain.member.dto.request.SignUpRequest;
 import com.example.toonners.domain.member.dto.request.UpdateMemberRequest;
 import com.example.toonners.domain.member.dto.response.InfoResponse;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
@@ -33,6 +37,35 @@ public class MemberService extends DefaultOAuth2UserService {
         Member updatedMember = memberRepository.save(member);
 
         return InfoResponse.fromEntity(updatedMember);
+    }
+
+    /**
+     * 기능 테스트를 위한 회원가입 및 로그인
+     **/
+    public void signup(SignUpRequest request) {
+        boolean exists = memberRepository.existsByEmail(request.getEmail());
+        if (exists) {
+            throw new DuplicatedUserException();
+        }
+
+        Member member = memberRepository.save(setAccount(request));
+
+    }
+
+    public Member signin(SignInRequest request) {
+
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(RuntimeException::new);
+        return member;
+    }
+
+    // 내부 메서드
+    private Member setAccount(SignUpRequest request) {
+        return Member.builder()
+                .email(request.getEmail())
+                .role(Role.MEMBER)
+                .nickname(request.getNickname())
+                .build();
     }
 
 }

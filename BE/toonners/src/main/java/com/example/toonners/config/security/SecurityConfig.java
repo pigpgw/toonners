@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -51,7 +53,7 @@ public class SecurityConfig {
                                 .requestMatchers("/login/**", "/oauth2/**",
                                         "/**")
                                 .permitAll() // 해당 경로는 인증 없이 접근 가능
-                                .requestMatchers("/members/**") // 해당 경로는 인증이 필요
+                                .requestMatchers("/member/**") // 해당 경로는 인증이 필요
                                 .hasRole("MEMBER") // ROLE 이 MEMBER 가 포함된 경우에만 인증 가능
                         ;
                     } catch (Exception e) {
@@ -79,4 +81,10 @@ public class SecurityConfig {
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
 }
