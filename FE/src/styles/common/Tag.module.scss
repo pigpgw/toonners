@@ -23,7 +23,7 @@ $border-radius: 4px;
 }
 
 %primary {
-  background: linear-gradient(45deg, #0038f5, #9f03ff);
+  background: linear-gradient(45deg, #0038f5, var(--color-accent-1));
 }
 
 %secondary {

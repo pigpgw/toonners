@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
+import Redirect from "@pages/Redirect";
 import Login from "@pages/Login";
+import Signup from "@routes/Signup";
 import HomePage from "@pages/HomePage";
 import CommonPage from "@pages/CommonPage";
 import NewRecomand from "@routes/NewRecomand";
 import NewChatRoom from "@routes/NewChatRoom";
-import Signup from "@routes/Signup";
-import Redirect from "./pages/Redirect";
+import ChatRoomListFrame from "@components/home/chatroom/ChatRoomListFrame";
+import ChatRoomMain from "@components/home/chatroom/main/ChatRoomMain";
 
 function App() {
   return (
@@ -18,10 +20,11 @@ function App() {
 
         <Route path="/home/*" element={<HomePage />} />
 
-        <Route path="/chatroom/:id" element={<div>단톡방 상세</div>} />
-        <Route path="/chatroomlist" element={<div>단톡방 리스트</div>} />
+        <Route path="/chatroom/:id" element={<ChatRoomMain />} />
+        <Route path="/chatroom/today" element={<ChatRoomListFrame types="today" />} />
+        <Route path="/chatroom/rest" element={<ChatRoomListFrame types="rest" />} />
 
-        <Route path="/chatroom/new/*" element={<NewChatRoom />} />
+        <Route path="/chatroom/create/*" element={<NewChatRoom />} />
         <Route path="/chatroom/search" element={<div>단톡방 검색</div>} />
 
         <Route path="/recommend/:id" element={<div>추천글 상세</div>} />

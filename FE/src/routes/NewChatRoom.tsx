@@ -1,11 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import CreateChatRoom1 from "@components/home/chatroom/create/CreateChatRoom1";
+import CreateChatRoom2 from "@components/home/chatroom/create/CreateChatRoom2";
 
 const NewChatRoom = () => (
   <Routes>
     <Route path="/" element={<Navigate to="1" />} />
-    <Route path="1" element={<div>단톡방 새로만들기 단계 1입니다.</div>} />
-    <Route path="2" element={<div>단톡방 새로만들기 단계 2입니다.</div>} />
-    <Route path="3" element={<div>단톡방 새로만들기 단계 3입니다.</div>} />
+    <Route path="1" element={<CreateChatRoom1 />} />
+    <Route path="2" element={<CreateChatRoom2 />} />
   </Routes>
 );
 

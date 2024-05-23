@@ -8,12 +8,20 @@ interface Props {
   inputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
   placeHolder?: string;
+  color?: "gray-1" | "white";
 }
 
-const InputWithButton = ({ inputText, inputChange, onSubmit, btnName, placeHolder }: Props) => {
+const InputWithButton = ({ inputText, inputChange, onSubmit, btnName, placeHolder, color }: Props) => {
   return (
     <div className={styles.InputWithButton}>
-      <input className={styles.input} type="text" value={inputText} placeholder={placeHolder} onChange={inputChange} />
+      <input
+        style={{ backgroundColor: `var(--color-${color}` }}
+        className={styles.input}
+        type="text"
+        value={inputText}
+        placeholder={placeHolder}
+        onChange={inputChange}
+      />
       <button className={styles.btn} onClick={onSubmit}>
         {btnName}
       </button>
@@ -22,4 +30,3 @@ const InputWithButton = ({ inputText, inputChange, onSubmit, btnName, placeHolde
 };
 
 export default InputWithButton;
-    

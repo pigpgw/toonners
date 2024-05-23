@@ -1,11 +1,12 @@
+import { useState } from "react";
 import Input from "@components/common/Input";
-import Text from "@/components/common/Text";
+import Text from "@components/common/Text";
 import TextArea from "@components/common/TextArea";
 import Button from "@components/common/Button";
 import ConfirmButton from "@components/common/Button/Confirm";
 import Tag from "@components/common/Tag";
 import Bookmark from "@components/common/Tag/Bookmark";
-import { useState } from "react";
+import CreateButton from "@components/common/Button/Create";
 import Arrow from "@components/common/Arrow";
 
 const CommonPage = () => {
@@ -70,6 +71,9 @@ const CommonPage = () => {
         </div>
       </div>
       <Arrow onClick={() => console.log("click")} />
+      <br />
+      <br />
+      <CreateButton onClick={() => console.log("click")} />
     </div>
   );
 };

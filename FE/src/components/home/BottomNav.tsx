@@ -1,8 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styles from "@styles/home/Home.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import FaceIcon from "@mui/icons-material/Face";
-import { useNavigate } from "react-router-dom";
 
 const ButtomNav = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ButtomNav = () => {
   };
 
   const handleSearch = () => {
-    navigate("/chatroom/search");
+    navigate("/chatroom/rest");
   };
 
   const handleMyPage = () => {};
