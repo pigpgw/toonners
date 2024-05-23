@@ -13,17 +13,12 @@
 }
 
 .itemContainer {
-    width: 66px;
-    height: 88px;
+    width: 80px;
+    height: 66px;
+    position: relative;
     img {
         width: 66px;
         height: 66px;
         border-radius: 20px;
-    }
-    p {
-        margin: 0;
-        width: 100%;
-        height: 20px;
-        overflow: hidden;
     }
 }

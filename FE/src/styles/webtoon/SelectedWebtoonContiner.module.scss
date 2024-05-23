@@ -1,0 +1,20 @@
+.SearchedWebtoonContainer {
+  width: 312px;
+  height: 90px;
+  display: flex;
+  margin-top: 16px;
+  overflow-x: scroll;
+  gap: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:-webkit-scrollbar-track {
+    -webkit-appearance: none;
+  }
+}

@@ -3,9 +3,9 @@ import styles from "@/styles/signup/Signup2.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import Input from "../../components/common/Input/index";
-import axios from "axios";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import SearchedWebtoonContainer from "@/components/Webtoon/SearchedWebtoonContainer";
 
 type Webtoon = {
   title: string;
@@ -30,7 +30,6 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setWebtoons(response);
-        console.log(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
@@ -61,7 +60,6 @@ const Signup2 = () => {
   const navigator = useNavigate();
 
   const goNext = () => {
-    console.log("고른거 서버에 전달?", select);
     if (select.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
     else navigator("/signup/3");
   };
@@ -73,19 +71,9 @@ const Signup2 = () => {
         <br />
         어떤 웹툰을 보고있나요?
       </Text>
-      <div className={styles.selectedItemContainer}>
-        {select.map((webtoon, index) => (
-          <div key={`${index}_li`} ref={index === select.length - 1 ? lastSelectedWebtoonRef : null}>
-            <SearchedWebtoonCard
-              title={webtoon.title}
-              imgUrl={webtoon.img}
-              clicked={true}
-              onClick={() => removeSelect(webtoon)}
-            />
-          </div>
-        ))}
-        {select.length < 4 ? <div className={styles.dummy}>+</div> : null}
-      </div>
+      <SearchedWebtoonContainer selectedList={select} removeSelect={removeSelect} lastSelectedWebtoonRef={lastSelectedWebtoonRef}> 
+
+      </SearchedWebtoonContainer>
       <div className={styles.searchBox}>
         <div className={styles.searchInputBox}>
           <Input value={search} placeholder="검색어 입력" types="search" onChange={onChange} />

@@ -2,23 +2,6 @@
   padding: 68px 38px;
 }
 
-.selectedItemContainer {
-  width: 312px;
-  height: 90px;
-  display: flex;
-  margin-top: 16px;
-  overflow-x: scroll;
-  gap: 15px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  &:-webkit-scrollbar-track {
-    -webkit-appearance: none;
-  }
-}
-
 .searchBox {
   width: 100%;
 }

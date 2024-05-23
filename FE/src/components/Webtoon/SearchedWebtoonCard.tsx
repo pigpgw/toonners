@@ -1,5 +1,6 @@
 import styles from "@/styles/webtoon/SearchedWebtoonCard.module.scss";
 import { ReactNode } from "react";
+// import DeleteWebtoonBtn from "./deleteBtn";
 
 interface Props {
   title: string;
@@ -15,7 +16,7 @@ const SearchedWebtoonCard = ({ title, imgUrl, key, onClick, children, clicked }:
     <div key={key} className={styles.itemContainer} onClick={onClick}>
       {children}
       <img className={styles.img} src={imgUrl} alt="" />
-      <p className={styles.title}>{title}</p>
+      {/* <p className={styles.title}>{title}</p> */}
     </div>
   ) : (
     <div key={key} className={styles.ClickeditemContainer} onClick={onClick}>
