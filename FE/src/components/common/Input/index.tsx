@@ -6,6 +6,7 @@ interface Props {
   placeholder: string;
   types?: "default" | "search";
   value?: string | number;
+  colors?: "gray-1" | "white";
 }
 
 const InputTextField = styled(TextField)({
@@ -23,10 +24,11 @@ const InputTextField = styled(TextField)({
   },
 });
 
-const Input = ({ types, ...rest }: Props & TextFieldProps) => {
+const Input = ({ types, colors, ...rest }: Props & TextFieldProps) => {
   return (
     <InputTextField
       className={styles.input}
+      style={{ backgroundColor: `var(--color-${colors})` }}
       InputProps={
         types === "search"
           ? {
