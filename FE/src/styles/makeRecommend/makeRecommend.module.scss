@@ -1,0 +1,41 @@
+.container {
+  padding: 64px 37px;
+}
+
+.inputcontainer {
+  width: 310px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin: 10px 40px;
+}
+
+.textarea {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 12px;
+  gap: 10px;
+
+  width: 310px;
+  height: 210px;
+
+  background: #eeeeee;
+  border-radius: 10px;
+
+  border: 0;
+  margin: 20px 0;
+}
+
+.line {
+  width: 100%;
+}
+
+.btnContainer {
+  height: 98px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}

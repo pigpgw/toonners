@@ -5,7 +5,7 @@ import Login from "@pages/Login";
 import Signup from "@routes/Signup";
 import HomePage from "@pages/HomePage";
 import CommonPage from "@pages/CommonPage";
-import NewRecomand from "@routes/NewRecomand";
+import NewRecommend from "@routes/NewRecommend";
 import NewChatRoom from "@routes/NewChatRoom";
 import ChatRoomListFrame from "@components/home/chatroom/ChatRoomListFrame";
 import ChatRoomMain from "@components/home/chatroom/main/ChatRoomMain";
@@ -28,7 +28,7 @@ function App() {
         <Route path="/chatroom/search" element={<div>단톡방 검색</div>} />
 
         <Route path="/recommend/:id" element={<div>추천글 상세</div>} />
-        <Route path="/recommend/new/*" element={<NewRecomand />} />
+        <Route path="/recommend/new/*" element={<NewRecommend />} />
 
         <Route path="/mypage" element={<div>마이페이지</div>} />
         <Route path="/profile/:userId" element={<div>상대방 프로필</div>} />

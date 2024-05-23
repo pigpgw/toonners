@@ -29,10 +29,15 @@ const Signup1 = () => {
         서비스명에 오신 걸 환영해요.
       </Text>
       <br />
-      <Text types="title" bold="bold">
-        내 닉네임을 만들어 볼까요?
-      </Text>
-      <InputWithButton inputText={nickname} btnName="확인" inputChange={onChange} onSubmit={nextStep} placeHolder="닉네임을 입력해주세요"/>
+      <p className={styles.subTitle}>내 닉네임을 만들어 볼까요?</p>
+      <InputWithButton
+        inputText={nickname}
+        btnName="확인"
+        inputChange={onChange}
+        onSubmit={nextStep}
+        placeHolder="닉네임을 입력해주세요"
+        color="gray-1"
+      />
     </div>
   );
 };

@@ -1,29 +1,17 @@
 import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup2.module.scss";
+import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import Input from "../../components/common/Input/index";
-import axios from "axios";
-import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
+import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
+import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 
 type Webtoon = {
-  _id: string;
-  webtoonId: number;
   title: string;
-  author: string;
   url: string;
   img: string;
-  service: string;
   updateDays: string[];
   fanCount: number;
-  searchKeyword: string;
-  additional: {
-    new: boolean;
-    adult: boolean;
-    rest: boolean;
-    up: boolean;
-    singularityList: unknown[];
-  };
 };
 
 const Signup2 = () => {
@@ -39,17 +27,8 @@ const Signup2 = () => {
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await axios.get(`https://korea-webtoon-api.herokuapp.com/search?keyword=${search}`);
-        const webtoonsData = response.data.webtoons || [];
-        const filteredWebtoons = webtoonsData.map((webtoon: Webtoon) => ({
-          title: webtoon.title,
-          url: webtoon.url,
-          img: webtoon.img,
-          updateDays: webtoon.updateDays,
-          fanCount: webtoon.fanCount,
-        }));
-        setWebtoons(filteredWebtoons);
-        console.log(response.data);
+        const response = await fetchWetboonInfo(search);
+        setWebtoons(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
@@ -80,52 +59,35 @@ const Signup2 = () => {
   const navigator = useNavigate();
 
   const goNext = () => {
-    console.log("고른거 서버에 전달?", select);
-    navigator("/signup/3");
+    if (select.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
+    else navigator("/signup/3");
   };
 
   return (
-    <div className={styles.container}>
-      <Text types="headline" bold="bold">
-        반가워요!
-        <br />
-        어떤 웹툰을 보고있나요?
-      </Text>
-      <div className={styles.selectedItemContainer}>
-        {select.map((webtoon, index) => (
-          <div key={`${index}_li`} ref={index === select.length - 1 ? lastSelectedWebtoonRef : null}>
-            <SearchedWebtoonCard
-              title={webtoon.title}
-              imgUrl={webtoon.img}
-              clicked={true}
-              onClick={() => removeSelect(webtoon)}
-            />
-          </div>
-        ))}
-        {select.length < 4 ? <div className={styles.dummy}>+</div> : null}
+    <>
+      <div className={styles.container}>
+        <Text types="headline" bold="bold">
+          반가워요!
+          <br />
+          어떤 웹툰을 보고있나요?
+        </Text>
+        <SelectedWebtoonBox
+          selectedList={select}
+          removeSelect={removeSelect}
+          lastSelectedWebtoonRef={lastSelectedWebtoonRef}
+        />
       </div>
-      <div className={styles.searchBox}>
-        <div className={styles.searchInputBox}>
-          <Input value={search} placeholder="검색어 입력" types="search" onChange={onChange} />
-          <div className={styles.searchedWebtoonContainer}>
-            {webtoons?.map((webtoon, index) => (
-              <SearchedWebtoonCard
-                key={`${index}_li`}
-                title={webtoon.title}
-                imgUrl={webtoon.img}
-                clicked={false}
-                onClick={() => {
-                  handleSelect(webtoon);
-                }}
-              ></SearchedWebtoonCard>
-            ))}
-          </div>
-        </div>
-      </div>
+      <SearchWebtoonContainer
+        webtoonTitle={search}
+        webToonList={webtoons}
+        onChange={onChange}
+        handleSelect={handleSelect}
+        height={500}
+      />
       <button className={styles.confirm} onClick={goNext}>
         확인
       </button>
-    </div>
+    </>
   );
 };
 
