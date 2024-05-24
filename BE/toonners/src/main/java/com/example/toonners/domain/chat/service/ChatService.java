@@ -12,6 +12,8 @@ import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ChatService {
@@ -20,7 +22,6 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
-    private final ToonDataRepository toonDataRepository;
 
     public ChatInfoResponse createChat(
             String token, CreateChatRequest request
@@ -40,5 +41,16 @@ public class ChatService {
         chatRepository.save(chatMessage);
 
         return ChatInfoResponse.fromEntity(chatMessage);
+    }
+
+    public List<ChatInfoResponse> searchChatByChatRoom(String token, Long chatRoomId) {
+        // 맴버 인지 확인
+        String emailFromToken = tokenProvider.getEmailFromToken(token);
+        if (!memberRepository.existsByEmail(emailFromToken)) {
+            throw new UserDoesNotExistException();
+        }
+
+        List<Chat> chatList = chatRepository.findAllByChatRoomId(chatRoomId);
+        return chatList.stream().map(ChatInfoResponse::fromEntity).toList();
     }
 }

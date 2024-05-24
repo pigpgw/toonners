@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ChatRoomInfoResponse {
+    private Long chatRoomId;
     private String toonName;
     private String toonImageUrl;
     private String toonSiteUrl;
@@ -23,6 +24,7 @@ public class ChatRoomInfoResponse {
             rating = chatRoom.getRatingTotalPoint() / chatRoom.getRatingCount();
         }
         return ChatRoomInfoResponse.builder()
+                .chatRoomId(chatRoom.getId())
                 .toonName(chatRoom.getToonName())
                 .toonImageUrl(chatRoom.getToonImageUrl())
                 .toonSiteUrl(chatRoom.getToonSiteUrl())
