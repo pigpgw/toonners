@@ -77,3 +77,14 @@
     font-size: 48px;
   }
 }
+
+.EditBtn {
+  align-items: center;
+  padding: 5px 8px;
+  height: 30px;
+
+  opacity: 0.4;
+  /* primary */
+  border: 1px solid #2b00d6;
+  border-radius: 10px;
+}

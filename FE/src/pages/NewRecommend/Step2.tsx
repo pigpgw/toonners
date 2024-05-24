@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Step1 = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  // const [select, setSelect] = useState<WebtoonConfig>();
+  const [select, setSelect] = useState<WebtoonConfig>();
 
   useEffect(() => {
     const fetchWebtoons = async () => {
@@ -36,22 +36,10 @@ const Step1 = () => {
 
   const navigate = useNavigate();
 
-  const clickNextBtn = () => {
-    navigate("/recommend/new/3");
-    console.log(webtoons);
-  };
-
   const selectWebtoon = (webtoon: WebtoonConfig) => {
-    const resetClickedWebtoons = webtoons.map((item) => ({
-      ...item,
-      clicked: false,
-    }));
-
-    const updatedWebtoons = resetClickedWebtoons.map((item) =>
-      item.title === webtoon.title ? { ...item, clicked: true } : item,
-    );
-    console.log(updatedWebtoons)
-    setWebtoons(updatedWebtoons);
+    setSelect(webtoon);
+    console.log("고른 웹툰", select);
+    navigate("/recommend/new/3");
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,9 +61,6 @@ const Step1 = () => {
         handleSelect={selectWebtoon}
         height={670}
       />
-      <button className={styles.confirm} onClick={clickNextBtn}>
-        확인
-      </button>
     </>
   );
 };

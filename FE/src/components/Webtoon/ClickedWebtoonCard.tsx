@@ -6,14 +6,14 @@ interface Props {
   title: string;
   imgUrl: string;
   children?: ReactNode;
-  onRemove: () => void;
+  onRemove?: () => void;
 }
 
 const ClickedWebtoonCard = ({ imgUrl, onRemove, children }: Props) => {
   return (
     <div className={styles.ClickeditemContainer} onClick={onRemove}>
       {children}
-      <DeleteWebtoonBtn onClick={onRemove} />
+      {onRemove && <DeleteWebtoonBtn />}
       <img className={styles.img} src={imgUrl} alt="" />
     </div>
   );

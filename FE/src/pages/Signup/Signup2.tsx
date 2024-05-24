@@ -21,6 +21,7 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setWebtoons(response);
+        console.log(response)
       } catch (e) {
         console.error("오류 발생", e);
       }

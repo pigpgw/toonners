@@ -1,0 +1,89 @@
+.container {
+  overflow-y: scroll;
+  padding: 26px 20px;
+
+  > :nth-child(1) {
+    padding: 0 0 20px;
+  }
+}
+
+.ProfileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 20px;
+  gap: 10px;
+
+  width: 349px;
+  height: 198px;
+  margin-top: 20px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profileImg {
+  width: 66px;
+  height: 66px;
+}
+
+// myWebtoonContainer
+.myWebtoonContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+
+  margin-top: 20px;
+  .myWebtoonSubContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.line {
+  width: 100%;
+  border: 1px solid var(--color-gray-1);
+}
+
+.FeedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+  margin-top: 20px;
+
+  > :nth-child(1) {
+    padding: 5px 0 20px 0;
+  }
+}
+
+.withdrawBtn {
+  margin-top: 20px;
+  padding: 15px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+}
