@@ -2,7 +2,7 @@ import styles from "@styles/home/Home.module.scss";
 import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
 import Button from "@components/common/Button";
-import { Rating } from "@mui/material";
+import Rating from "@components/common/Rating";
 
 const TodayChatItem = () => {
   return (
@@ -16,7 +16,7 @@ const TodayChatItem = () => {
           <Text types="title" bold="semi-bold">
             웹툰 이름입니다.
           </Text>
-          <Rating value={3} sx={{ fontSize: "12px" }} readOnly />
+          <Rating defaultValue={3} sizes="small" readOnly />
           <Tag label="🔥 NNN" size="small" />
         </div>
       </div>
