@@ -8,6 +8,10 @@ import com.example.toonners.domain.member.dto.request.UpdateMemberRequest;
 import com.example.toonners.domain.member.dto.response.InfoResponse;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.domain.toondata.dto.request.ToonInsertRequest;
+import com.example.toonners.domain.toondata.entity.ToonData;
+import com.example.toonners.domain.toondata.repository.ToonDataRepository;
+import com.example.toonners.exception.chatRoom.ChatRoomAlreadyExistException;
 import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
@@ -15,12 +19,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class MemberService extends DefaultOAuth2UserService {
 
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
+    private final ToonDataRepository toonDataRepository;
 
     public InfoResponse updateMember(Long memberId
             , UpdateMemberRequest request, String token) {
@@ -33,10 +41,26 @@ public class MemberService extends DefaultOAuth2UserService {
             throw new UnauthorizedRequestException();
         }
 
+        if (request.getWatchingToons() != null) {
+            Set<ToonInsertRequest> watchingToons = request.getWatchingToons();
+            // set을 Iterator 안에 담기
+            insertToonsToDb(watchingToons);
+
+        }
+
+        if (request.getFavoriteToons() != null) {
+            Set<ToonInsertRequest> favoriteToons = request.getFavoriteToons();
+            // set을 Iterator 안에 담기
+            insertToonsToDb(favoriteToons);
+        }
+
         member.updateFields(request);
         Member updatedMember = memberRepository.save(member);
 
-        return InfoResponse.fromEntity(updatedMember);
+        InfoResponse infoResponse = InfoResponse.fromEntity(updatedMember);
+        infoResponse.setWatchingToons(request.getWatchingToons());
+        infoResponse.setFavoriteToons(request.getFavoriteToons());
+        return infoResponse;
     }
 
     /**
@@ -66,6 +90,25 @@ public class MemberService extends DefaultOAuth2UserService {
                 .role(Role.MEMBER)
                 .nickname(request.getNickname())
                 .build();
+    }
+
+    private Set<String> insertToonsToDb(Set<ToonInsertRequest> watchingToons) {
+        Set<String> titleSet = new HashSet<>();
+        for (ToonInsertRequest watchingToon : watchingToons) {
+            if (toonDataRepository.findByTitle(watchingToon.getTitle()).isEmpty()) {
+                toonDataRepository.save(ToonData.builder()
+                        .title(watchingToon.getTitle())
+                        .imageUrl(watchingToon.getImageUrl())
+                        .siteUrl(watchingToon.getSiteUrl())
+                        .rating(watchingToon.getRating())
+                        .days(watchingToon.getDays())
+                        .build());
+            } else {
+                throw new ChatRoomAlreadyExistException();
+            }
+            titleSet.add(watchingToon.getTitle());
+        }
+        return titleSet;
     }
 
 }

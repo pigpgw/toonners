@@ -1,6 +1,7 @@
 package com.example.toonners.domain.member.dto.response;
 
 import com.example.toonners.domain.member.entity.Member;
+import com.example.toonners.domain.toondata.dto.request.ToonInsertRequest;
 import lombok.*;
 
 import java.util.HashSet;
@@ -18,19 +19,12 @@ public class InfoResponse {
     private String nickname;
     private String description;
     private String image;
-    private Set<String> favoriteToons;
-    private Set<String> watchingToons;
+    private Set<ToonInsertRequest> favoriteToons;
+    private Set<ToonInsertRequest> watchingToons;
 
     public static InfoResponse fromEntity(Member member) {
-        Set<String> favoriteToonSet = new HashSet<>();
-        Set<String> watchingToonSet = new HashSet<>();
-
-        if (member.getFavoriteToons() != null) {
-            favoriteToonSet = member.getFavoriteToons();
-        }
-        if (member.getWatchingToons() != null) {
-            watchingToonSet = member.getWatchingToons();
-        }
+        Set<ToonInsertRequest> favoriteToonSet = new HashSet<>();
+        Set<ToonInsertRequest> watchingToonSet = new HashSet<>();
         return InfoResponse.builder()
                 .id(member.getId())
                 .email(member.getEmail())
