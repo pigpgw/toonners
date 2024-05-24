@@ -1,10 +1,13 @@
 import styles from "@styles/common/Input.module.scss";
+import Text from "@components/common/Text";
 import { InputAdornment, TextField, TextFieldProps, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "@mui/icons-material/Send";
 
 interface Props {
+  label?: string;
   placeholder: string;
-  types?: "default" | "search";
+  types: "default" | "search" | "message";
   value?: string | number;
   colors?: "gray-1" | "white";
 }
@@ -18,30 +21,50 @@ const InputTextField = styled(TextField)({
       borderColor: "var(--color-gray-1)",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "var(--color-black)",
+      borderColor: "var(--color-primary)",
       borderWidth: "1px",
+    },
+    "& .MuiInputAdornment-positionEnd": {
+      color: "var(--color-primary)",
     },
   },
 });
 
-const Input = ({ types, colors, ...rest }: Props & TextFieldProps) => {
+const setAdornment = {
+  default: {},
+  search: {
+    startAdornment: (
+      <InputAdornment position="start">
+        <SearchIcon />
+      </InputAdornment>
+    ),
+  },
+  message: {
+    endAdornment: (
+      <InputAdornment position="end">
+        <SendIcon sx={{ fontSize: "medium" }} />
+      </InputAdornment>
+    ),
+  },
+};
+
+const Input = ({ label, types = "default", colors = "gray-1", ...rest }: Props & TextFieldProps) => {
   return (
-    <InputTextField
-      className={styles.input}
-      style={{ backgroundColor: `var(--color-${colors})` }}
-      InputProps={
-        types === "search"
-          ? {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }
-          : {}
-      }
-      {...rest}
-    />
+    <div className={styles.input}>
+      {label !== "" && (
+        <div className={styles.input__label}>
+          <Text types="body-2" bold="bold">
+            {label}
+          </Text>
+        </div>
+      )}
+      <InputTextField
+        className={styles.input__field}
+        style={{ backgroundColor: `var(--color-${colors})` }}
+        InputProps={setAdornment[types]}
+        {...rest}
+      />
+    </div>
   );
 };
 

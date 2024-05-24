@@ -26,15 +26,10 @@ const CreateChatRoom1 = () => {
         </div>
         <Input types="search" placeholder="웹툰 제목을 입력하세요." />
         <div className={styles.webtoon}>
-          <SearchedWebtoonCard
-            title="웹툰 제목"
-            imgUrl=""
-            clicked={false}
-            onClick={() => navigate("/chatroom/create/2")}
-          />
-          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} onClick={() => setOpen(true)} />
-          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} onClick={() => console.log("dd")} />
-          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} onClick={() => console.log("dd")} />
+          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} />
+          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} />
+          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} />
+          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} />
         </div>
       </div>
       {open && (

@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
 import Text from "@components/common/Text";
-import Tag from "@/components/common/Tag";
-import Input from "@/components/common/Input";
-import ChatItem from "./ChatItem";
-import { useNavigate } from "react-router-dom";
+import Input from "@components/common/Input";
+import Badge from "@components/common/Badge";
+import ChatItem from "@components/home/chatroom/main/ChatItem";
 
 const ChatRoomMain = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const ChatRoomMain = () => {
   };
   return (
     <>
-      <Header title="" before={handleBack} button={true} buttonName="스크랩" />
+      <Header title="" before={handleBack} />
       {/* <Accordion sx={{ boxShadow: "none", borderRadius: "0px" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Text types="sub-header" bold="semi-bold">
@@ -24,7 +24,7 @@ const ChatRoomMain = () => {
       </Accordion> */}
       <div className={styles.main}>
         <div>
-          <Tag label="🔥600" size="small" />
+          <Badge label="🔥 NN" sizes="small" types="primary" />
           <Text types="sub-header" bold="semi-bold">
             웹툰 이름
           </Text>
@@ -43,7 +43,7 @@ const ChatRoomMain = () => {
             />
           </div>
           <div>
-            <Input placeholder="내용을 입력해주세요." colors="white" />
+            <Input types="message" placeholder="내용을 입력해주세요." colors="white" />
           </div>
         </div>
       </div>

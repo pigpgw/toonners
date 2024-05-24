@@ -13,6 +13,19 @@
     background-color: var(--color-primary);
   }
 
+  &.__black {
+    height: 55px;
+    background-color: var(--color-black);
+  }
+
+  &.__small {
+    width: 48px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 10px;
+    line-height: 100%;
+  }
+
   &:active {
     box-shadow: 2px 2px 10px 0px rgba(248, 248, 248, 0.251) inset;
   }
@@ -21,6 +34,17 @@
     background-color: var(--color-gray-2);
     pointer-events: none;
     cursor: default;
+  }
+
+  &__kakao {
+    @extend .button;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: 55px;
+    color: #371d1e;
+    background-color: #fee500;
   }
 }
 

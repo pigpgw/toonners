@@ -1,7 +1,7 @@
 import styles from "@styles/home/Home.module.scss";
 import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
-import ConfirmButton from "@/components/common/Button/Confirm";
+import Button from "@components/common/Button";
 
 const RestChatItem = () => {
   return (
@@ -14,12 +14,14 @@ const RestChatItem = () => {
           </Text>
           <Text>소개글</Text>
           <div className={styles.rest__tags}>
-            <Tag label="# 태그" types="gray" size="big" />
-            <Tag label="# 태그" types="gray" size="big" />
+            <Tag label="# 태그" sizes="small" />
+            <Tag label="# 태그" sizes="small" />
           </div>
         </div>
       </div>
-      <ConfirmButton>참여</ConfirmButton>
+      <Button types="primary" sizes="small">
+        참여
+      </Button>
     </div>
   );
 };

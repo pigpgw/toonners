@@ -1,4 +1,5 @@
 import styles from "@styles/common/Tag.module.scss";
+import Text from "@components/common/Text";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
@@ -13,8 +14,8 @@ const Bookmark = ({ label, checked, onChange }: Props) => {
     <div className={styles.bookmark}>
       <input id={label} type="checkbox" onChange={({ target: { checked } }) => onChange(checked)} />
       <label htmlFor={label}>
-        {checked ? <BookmarkIcon sx={{ fontSize: "small" }} /> : <BookmarkBorderIcon sx={{ fontSize: "small" }} />}
-        <span>{label}</span>
+        {checked ? <BookmarkIcon sx={{ fontSize: "medium" }} /> : <BookmarkBorderIcon sx={{ fontSize: "medium" }} />}
+        <Text>스크랩</Text>
       </label>
     </div>
   );
