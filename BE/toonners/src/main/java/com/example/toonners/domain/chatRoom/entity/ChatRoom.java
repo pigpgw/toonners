@@ -4,6 +4,8 @@ import com.example.toonners.domain.toondata.entity.ToonData;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @ToString
@@ -26,6 +28,7 @@ public class ChatRoom {
     private String contexts;
     private Long fireTotalCount;
     private Long fireTodayCount;
+    private String updatedDays;
 
     @OneToOne
     private ToonData toonData;

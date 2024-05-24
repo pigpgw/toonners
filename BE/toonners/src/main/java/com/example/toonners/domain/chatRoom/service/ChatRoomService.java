@@ -4,7 +4,7 @@ import com.example.toonners.config.jwt.TokenProvider;
 import com.example.toonners.domain.chatRoom.dto.request.CreateChatRoomRequest;
 import com.example.toonners.domain.chatRoom.dto.response.ChatRoomInfoResponse;
 import com.example.toonners.domain.chatRoom.entity.ChatRoom;
-import com.example.toonners.domain.chatRoom.repository.ChatRoomReposititory;
+import com.example.toonners.domain.chatRoom.repository.ChatRoomRepository;
 import com.example.toonners.domain.member.repository.MemberRepository;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ChatRoomService {
 
-    private final ChatRoomReposititory chatRoomReposititory;
+    private final ChatRoomRepository chatRoomRepository;
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
     private final ToonDataRepository toonDataRepository;
@@ -49,10 +49,16 @@ public class ChatRoomService {
             throw new ChatRoomAlreadyExistException();
         }
 
-        ChatRoom chatRoom = chatRoomReposititory.save(ChatRoom.builder()
+        StringBuilder updatedDays = new StringBuilder();
+        for (int i = 0; i < request.getUpdateDay().size(); i++) {
+            updatedDays.append(request.getUpdateDay().get(i));
+        }
+
+        ChatRoom chatRoom = chatRoomRepository.save(ChatRoom.builder()
                 .toonName(request.getToonName())
                 .toonImageUrl(request.getToonImage())
                 .toonSiteUrl(request.getToonUrl())
+                .updatedDays(updatedDays.toString())
                 .contexts(request.getContexts())
                 .build());
 
@@ -67,12 +73,23 @@ public class ChatRoomService {
         Long memberId = tokenProvider.getMemberFromToken(token).getId();
 
         // 인기 순으로 전체 조회
-        List<ChatRoom> chatRoomList = chatRoomReposititory.findAll(
+        List<ChatRoom> chatRoomList = chatRoomRepository.findAll(
                 Sort.by(Sort.Direction.DESC, "fireTotalCount"));
 
-        List<ChatRoomInfoResponse> responseList = chatRoomList.stream()
+        return chatRoomList.stream()
                 .map(ChatRoomInfoResponse::fromEntity).toList();
+    }
 
-        return responseList;
+    @Transactional
+    public List<ChatRoomInfoResponse> searchUpdatedChatRoom(String token) {
+
+        // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
+        Long memberId = tokenProvider.getMemberFromToken(token).getId();
+
+        String day = "mon";
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
+
+        return chatRoomList.stream()
+                .map(ChatRoomInfoResponse::fromEntity).toList();
     }
 }
