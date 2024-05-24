@@ -18,13 +18,13 @@ const HomeTab = () => {
     <div className={styles.tabList}>
       <div className={styles[`tab__chat${clicked}`]} onClick={handleChatroom}>
         <Text types="headline" bold="semi-bold">
-          채팅
+          Talk
         </Text>
         {clicked !== "" && <div />}
       </div>
       <div className={styles[`tab__feed${clicked}`]} onClick={handleRecommend}>
         <Text types="headline" bold="semi-bold">
-          피드
+          Feed
         </Text>
         {clicked === "" && <div />}
       </div>
