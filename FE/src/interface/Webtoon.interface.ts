@@ -5,3 +5,7 @@ export interface WebtoonConfig {
   updateDays: string[];
   fanCount: number;
 }
+
+export interface WebttonInterface extends WebtoonConfig {
+  clicked: boolean;
+}

@@ -13,15 +13,16 @@
 }
 
 .ClickeditemContainer {
-    width: 80px;
+  width: 80px;
+  height: 66px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  img {
+    width: 66px;
     height: 66px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-        width: 66px;
-        height: 66px;
-        border-radius: 20px;
-    }
+    border-radius: 20px;
+  }
 }

@@ -4,12 +4,11 @@
 
 .inputcontainer {
   width: 310px;
-  height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  margin: 10px 40px;
+  margin: 20px 40px 20px 40px;
 }
 
 .textarea {
@@ -29,13 +28,26 @@
   margin: 20px 0;
 }
 
-.line {
-  width: 100%;
-}
-
 .btnContainer {
-  height: 98px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+}
+
+.AddButton {
+  width: 314px;
+  height: 114px;
+
+  box-shadow: 2px 2px 2px 4px var(--color-gray-1);
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-gray-2);
+
+  font-size:40px;
+
+  margin-top: 30px;
 }

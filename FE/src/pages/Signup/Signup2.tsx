@@ -1,24 +1,16 @@
 import Text from "@/components/common/Text";
 import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-
-type Webtoon = {
-  title: string;
-  url: string;
-  img: string;
-  updateDays: string[];
-  fanCount: number;
-};
+import { WebtoonConfig } from "@/interface/Webtoon.interface";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<Webtoon[]>([]);
-  const [select, setSelect] = useState<Webtoon[]>([]);
-  const lastSelectedWebtoonRef = useRef<HTMLDivElement | null>(null);
+  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  const [select, setSelect] = useState<WebtoonConfig[]>([]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -37,22 +29,21 @@ const Signup2 = () => {
     else setWebtoons([]);
   }, [search]);
 
-  useEffect(() => {
-    if (lastSelectedWebtoonRef.current) {
-      lastSelectedWebtoonRef.current.scrollIntoView({ behavior: "smooth" });
+  const handleSelect = (webtoon: WebtoonConfig) => {
+    if (select.length >= 4) {
+      alert("최대 4개의 웹툰만 선택할 수 있습니다.");
+      return;
     }
-  }, [select]);
 
-  const handleSelect = (webtoon: Webtoon) => {
-    if (!select?.some((item) => item.title === webtoon.title)) {
+    if (!select.some((item) => item.title === webtoon.title)) {
       setSelect((prevSelect) => [...prevSelect, webtoon]);
       setSearch("");
     } else {
-      alert("이미 있습니다.");
+      alert("이미 선택된 웹툰입니다.");
     }
   };
 
-  const removeSelect = (webtoon: Webtoon) => {
+  const removeSelect = (webtoon: WebtoonConfig) => {
     setSelect((prevSelect) => prevSelect.filter((item) => item.title !== webtoon.title));
   };
 
@@ -71,11 +62,7 @@ const Signup2 = () => {
           <br />
           어떤 웹툰을 보고있나요?
         </Text>
-        <SelectedWebtoonBox
-          selectedList={select}
-          removeSelect={removeSelect}
-          lastSelectedWebtoonRef={lastSelectedWebtoonRef}
-        />
+        <SelectedWebtoonBox selectedList={select} removeSelect={removeSelect} />
       </div>
       <SearchWebtoonContainer
         webtoonTitle={search}
