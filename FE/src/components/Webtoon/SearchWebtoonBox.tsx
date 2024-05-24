@@ -3,12 +3,11 @@ import styles from "@/styles/webtoon/SearchWebtoonBox.module.scss";
 import Input from "../common/Input";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { ChangeEvent } from "react";
-import { WebttonInterface } from "@/interface/Webtoon.interface";
 
 interface Props {
   height: number;
   webtoonTitle: string | undefined;
-  webToonList: WebttonInterface[] | undefined;
+  webToonList: WebtoonConfig[] | undefined;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSelect: (webtoon: WebtoonConfig) => void;
 }

@@ -1,8 +1,8 @@
 import styles from "@styles/home/Home.module.scss";
-import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
-import ConfirmButton from "@components/common/Button/Confirm";
-import { Rating } from "@mui/material";
+import Button from "@components/common/Button";
+import Rating from "@components/common/Rating";
+import Badge from "@components/common/Badge";
 
 const TodayChatItem = () => {
   return (
@@ -16,11 +16,13 @@ const TodayChatItem = () => {
           <Text types="title" bold="semi-bold">
             웹툰 이름입니다.
           </Text>
-          <Rating value={3} sx={{ fontSize: "12px" }} readOnly />
-          <Tag label="🔥 NNN" size="small" />
+          <Rating defaultValue={3} sizes="small" readOnly />
+          <Badge label="🔥 NN" sizes="small" types="primary" />
         </div>
       </div>
-      <ConfirmButton>참여</ConfirmButton>
+      <Button types="primary" sizes="small">
+        참여
+      </Button>
     </div>
   );
 };

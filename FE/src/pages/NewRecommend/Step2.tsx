@@ -6,12 +6,11 @@ import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { useNavigate } from "react-router-dom";
-import { WebttonInterface } from "@/interface/Webtoon.interface";
 
 const Step1 = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebttonInterface[]>([]);
-  // const [select, setSelect] = useState<WebttonInterface>();
+  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  // const [select, setSelect] = useState<WebtoonConfig>();
 
   useEffect(() => {
     const fetchWebtoons = async () => {
@@ -42,7 +41,7 @@ const Step1 = () => {
     console.log(webtoons);
   };
 
-  const selectWebtoon = (webtoon: WebttonInterface) => {
+  const selectWebtoon = (webtoon: WebtoonConfig) => {
     const resetClickedWebtoons = webtoons.map((item) => ({
       ...item,
       clicked: false,

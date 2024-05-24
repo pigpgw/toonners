@@ -30,7 +30,13 @@ const Step1 = () => {
     <>
       <Header title="웹툰 추천하기" before={clickOutBtn} buttonName="공유" button={true} />
       <div className={styles.inputcontainer}>
-        <Input placeholder="제목을 입력하세요" colors="gray-1" value={title} onChange={inputTitleChange} />
+        <Input
+          types="default"
+          placeholder="제목을 입력하세요"
+          colors="gray-1"
+          value={title}
+          onChange={inputTitleChange}
+        />
         <textarea
           value={content}
           onChange={inputContentChange}
