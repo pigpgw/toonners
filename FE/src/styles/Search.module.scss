@@ -1,0 +1,51 @@
+.search {
+  height: calc(100svh - 68px);
+  overflow-y: auto;
+  > div:nth-child(1) {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 30px 0;
+  box-sizing: border-box;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  // 타이틀
+  > span:nth-child(1) {
+    margin: 0 40px;
+  }
+  > hr {
+    width: calc(100% - 40px);
+    margin-top: 20px;
+    border: 0px;
+    border-top: 1px solid var(--color-gray-1);
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0 20px;
+  > div {
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+  }
+}
+
+.none {
+  margin: 40px 40px;
+  text-align: center;
+  color: var(--color-gray-2);
+}
