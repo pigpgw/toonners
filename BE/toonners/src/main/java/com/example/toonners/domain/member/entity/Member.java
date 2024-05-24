@@ -3,6 +3,7 @@ package com.example.toonners.domain.member.entity;
 import com.example.toonners.common.BaseEntity;
 import com.example.toonners.config.constant.Role;
 import com.example.toonners.domain.member.dto.request.UpdateMemberRequest;
+import com.example.toonners.domain.toondata.dto.request.ToonInsertRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -56,10 +58,17 @@ public class Member extends BaseEntity {
             image = updateMemberRequest.getImage();
         }
         if (updateMemberRequest.getFavoriteToons() != null) {
-            favoriteToons = updateMemberRequest.getFavoriteToons();
+            favoriteToons = updateMemberRequest.getFavoriteToons()
+                    .stream()
+                    .map(ToonInsertRequest::getTitle)
+                    .collect(Collectors.toSet());
+            ;
         }
         if (updateMemberRequest.getWatchingToons() != null) {
-            watchingToons = updateMemberRequest.getWatchingToons();
+            watchingToons = updateMemberRequest.getWatchingToons()
+                    .stream()
+                    .map(ToonInsertRequest::getTitle)
+                    .collect(Collectors.toSet());
         }
     }
 
