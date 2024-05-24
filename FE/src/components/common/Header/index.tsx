@@ -1,7 +1,7 @@
 import styles from "@styles/common/Header.module.scss";
 import Text from "@components/common/Text";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import ConfirmButton from "../Button/Confirm";
+import Button from "@components/common/Button";
 
 interface Props {
   title: string;
@@ -19,7 +19,9 @@ const Header = ({ title, button, buttonName, before }: Props) => {
         {title}
       </Text>
       <div className={styles[`header__button${isButton}`]}>
-        <ConfirmButton>{buttonName}</ConfirmButton>
+        <Button types="primary" sizes="small">
+          {buttonName}
+        </Button>
       </div>
     </div>
   );

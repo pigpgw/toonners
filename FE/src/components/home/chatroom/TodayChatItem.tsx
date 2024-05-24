@@ -1,7 +1,7 @@
 import styles from "@styles/home/Home.module.scss";
 import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
-import ConfirmButton from "@components/common/Button/Confirm";
+import Button from "@components/common/Button";
 import { Rating } from "@mui/material";
 
 const TodayChatItem = () => {
@@ -20,7 +20,9 @@ const TodayChatItem = () => {
           <Tag label="🔥 NNN" size="small" />
         </div>
       </div>
-      <ConfirmButton>참여</ConfirmButton>
+      <Button types="primary" sizes="small">
+        참여
+      </Button>
     </div>
   );
 };

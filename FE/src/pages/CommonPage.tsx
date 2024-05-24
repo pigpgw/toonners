@@ -48,7 +48,9 @@ const CommonPage = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: "15px", marginBottom: "50px" }}>
         <Button types="primary">Button</Button>
         <Button disabled>Disable Button</Button>
-        <ConfirmButton>확인</ConfirmButton>
+        <Button types="primary" sizes="small">
+          참여
+        </Button>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px", marginBottom: "50px" }}>
         <div style={{ display: "flex", gap: "5px" }}>
