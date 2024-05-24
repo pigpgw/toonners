@@ -1,4 +1,5 @@
 .first {
+  height: calc(100svh - 68px - 18px);
   margin: 0 40px;
 
   > div:nth-child(1),
@@ -8,6 +9,9 @@
 }
 
 .webtoon {
+  // 전체 높이 - 텍스트 - 텍스트 마진 - 인풋 - 인풋 마진 - 하단 여백
+  height: calc(100% - 26px - 18px - 44px - 18px - 40px);
+  overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
