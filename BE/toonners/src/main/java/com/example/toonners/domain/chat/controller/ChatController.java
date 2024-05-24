@@ -5,10 +5,9 @@ import com.example.toonners.domain.chat.dto.request.CreateChatRequest;
 import com.example.toonners.domain.chat.dto.response.ChatInfoResponse;
 import com.example.toonners.domain.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +20,15 @@ public class ChatController {
             @RequestHeader("Authorization") String token,
             @RequestBody CreateChatRequest request
     ) {
-       return ApiResponse.createSuccessWithMessage(
-               chatService.createChat(token, request),"챗 보내기 성공");
+        return ApiResponse.createSuccessWithMessage(
+                chatService.createChat(token, request), "챗 보내기 성공");
+    }
+
+    @GetMapping("/chat/search/chatroom")
+    public ApiResponse<List<ChatInfoResponse>> searchChatByChatRoom(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "chatroom-id") Long chatRoomId
+    ) {
+        return ApiResponse.createSuccess(chatService.searchChatByChatRoom(token, chatRoomId));
     }
 }
