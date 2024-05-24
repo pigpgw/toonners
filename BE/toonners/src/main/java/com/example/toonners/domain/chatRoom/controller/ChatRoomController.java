@@ -5,10 +5,9 @@ import com.example.toonners.domain.chatRoom.dto.request.CreateChatRoomRequest;
 import com.example.toonners.domain.chatRoom.dto.response.ChatRoomInfoResponse;
 import com.example.toonners.domain.chatRoom.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,4 +24,12 @@ public class ChatRoomController {
 
         return ApiResponse.createSuccessWithMessage(response, "채팅방 생성 완료");
     }
+
+    @GetMapping("/chatroom/search/all")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchAllChatRoom(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchAllChatRoom(token));
+    }
+
 }

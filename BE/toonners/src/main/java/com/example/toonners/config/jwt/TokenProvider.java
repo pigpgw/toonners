@@ -1,5 +1,8 @@
 package com.example.toonners.config.jwt;
 
+import com.example.toonners.domain.member.entity.Member;
+import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.exception.member.UserDoesNotExistException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -23,6 +26,8 @@ import java.util.Date;
 @Slf4j
 @RequiredArgsConstructor
 public class TokenProvider {
+
+    private final MemberRepository memberRepository;
     private static final long TOKEN_EXPIRE_TIME = 1000 * 60 * 60;
 
     @Value("${spring.jwt.secret-key}")
@@ -74,6 +79,11 @@ public class TokenProvider {
     public String getEmailFromToken(String token) {
         String jwtToken = token.replace("Bearer ","");
         return parsedClaims(jwtToken).getSubject();
+    }
+
+    public Member getMemberFromToken(String token){
+        return memberRepository.findByEmail(getEmailFromToken(token))
+                .orElseThrow(UserDoesNotExistException::new);
     }
 
     private Claims parsedClaims(String token) {
