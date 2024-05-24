@@ -4,6 +4,7 @@ import Text from "@components/common/Text";
 
 interface Props {
   children: ReactNode;
+  types?: "primary" | "black";
   sizes?: "small" | "big";
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
