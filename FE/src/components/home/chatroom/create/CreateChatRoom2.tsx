@@ -16,7 +16,7 @@ const CreateChatRoom2 = () => {
       <Header title="방 만들기" before={handleBack} />
       <div className={styles.second}>
         <div>
-          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} onClick={() => console.log("dd")} />
+          <SearchedWebtoonCard title="웹툰 제목" imgUrl="" clicked={false} />
           <div>
             <Text types="title" bold="semi-bold">
               간단한 소개글을 입력해주세요. (선택)
