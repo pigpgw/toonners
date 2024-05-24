@@ -1,7 +1,7 @@
-import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
-import MainImg from "../../assets/images/login/main.png";
+import styles from "@/styles/signup/Signup.module.scss";
+import Text from "@/components/common/Text";
+import MainImg from "@assets/images/login/MainImg.svg?react";
 
 const Signup3 = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Signup3 = () => {
           <br />
           서비스명에 오신 걸 환영해요.
         </Text>
-        <img src={MainImg} alt="" className={styles.mainImg} />
+        <MainImg />
       </div>
       <button className={styles.confirm} onClick={nextStep}>
         확인
