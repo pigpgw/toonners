@@ -1,8 +1,8 @@
 import styles from "@styles/home/Home.module.scss";
-import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
 import Button from "@components/common/Button";
 import Rating from "@components/common/Rating";
+import Badge from "@components/common/Badge";
 
 const TodayChatItem = () => {
   return (
@@ -17,7 +17,7 @@ const TodayChatItem = () => {
             웹툰 이름입니다.
           </Text>
           <Rating defaultValue={3} sizes="small" readOnly />
-          <Tag label="🔥 NNN" size="small" />
+          <Badge label="🔥 NN" sizes="small" types="primary" />
         </div>
       </div>
       <Button types="primary" sizes="small">

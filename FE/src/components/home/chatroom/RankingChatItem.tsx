@@ -1,13 +1,13 @@
 import styles from "@styles/home/Home.module.scss";
-import Tag from "@/components/common/Tag";
 import Text from "@components/common/Text";
+import Badge from "@components/common/Badge";
 
 const RankingChatItem = () => {
   return (
     <div className={styles.ranking__item}>
       <div className={styles.ranking__img}>
         <div />
-        <Tag label="🔥 NN" size="small" />
+        <Badge label="🔥 NN" sizes="small" types="primary" />
       </div>
       <div>
         <Text types="title" bold="semi-bold">
