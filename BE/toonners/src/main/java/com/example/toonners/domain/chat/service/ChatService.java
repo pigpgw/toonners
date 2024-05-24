@@ -37,6 +37,7 @@ public class ChatService {
                         .orElseThrow(UserDoesNotExistException::new))
                 .contexts(request.getContexts())
                 .build();
+        chatRepository.save(chatMessage);
 
         return ChatInfoResponse.fromEntity(chatMessage);
     }
