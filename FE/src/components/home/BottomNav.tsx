@@ -11,7 +11,7 @@ const ButtomNav = () => {
   };
 
   const handleSearch = () => {
-    navigate("/chatroom/rest");
+    navigate("/search");
   };
 
   const handleMyPage = () => {};

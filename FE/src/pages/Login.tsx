@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   const goHome = () => {
-    navigate("/home/chatroom");
+    navigate("/home");
   };
   return (
     // MainImg
