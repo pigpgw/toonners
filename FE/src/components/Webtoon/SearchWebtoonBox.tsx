@@ -3,11 +3,12 @@ import styles from "@/styles/webtoon/SearchWebtoonBox.module.scss";
 import Input from "../common/Input";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { ChangeEvent } from "react";
+import { WebttonInterface } from "@/interface/Webtoon.interface";
 
 interface Props {
   height: number;
   webtoonTitle: string | undefined;
-  webToonList: WebtoonConfig[] | undefined;
+  webToonList: WebttonInterface[] | undefined;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSelect: (webtoon: WebtoonConfig) => void;
 }
@@ -23,7 +24,7 @@ const SearchWebtoonBox = ({ webtoonTitle, webToonList, onChange, handleSelect, h
               key={`${index}_li`}
               title={webtoon.title}
               imgUrl={webtoon.img}
-              clicked={false}
+              clicked={webtoon.clicked}
               onClick={() => handleSelect(webtoon)}
             />
           ))}

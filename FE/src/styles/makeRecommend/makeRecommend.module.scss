@@ -51,3 +51,32 @@
 
   margin-top: 30px;
 }
+
+
+.confirm {
+    position: absolute;
+    background-color: var(--color-primary);
+    width: 313px;
+    height: 44px;
+    margin-left: 40px;
+    padding: var(--spacing-5);
+    box-sizing: border-box;
+  
+    color: var(--color-white);
+    border: none;
+    border-radius: 50px;
+    position: absolute;
+    top: 92%;
+  
+    cursor: pointer;
+    &:active {
+      box-shadow: 2px 2px 10px 0px rgba(248, 248, 248, 0.251) inset;
+    }
+  
+    &:disabled {
+      background-color: var(--color-gray-2);
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+  

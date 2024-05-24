@@ -5,17 +5,24 @@ import Text from "@/components/common/Text";
 import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { useNavigate } from "react-router-dom";
+import { WebttonInterface } from "@/interface/Webtoon.interface";
 
 const Step1 = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  const [select, setSelect] = useState<WebtoonConfig>();
+  const [webtoons, setWebtoons] = useState<WebttonInterface[]>([]);
+  // const [select, setSelect] = useState<WebttonInterface>();
 
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
         const response = await fetchWetboonInfo(search);
-        setWebtoons(response);
+        setWebtoons(
+          response.map((item) => ({
+            ...item,
+            clicked: false,
+          })),
+        );
       } catch (e) {
         console.error("오류 발생", e);
       }
@@ -24,12 +31,28 @@ const Step1 = () => {
     else setWebtoons([]);
   }, [search]);
 
-  const clickBtn = () => {
+  const clickOutBtn = () => {
     console.log("나가기 버튼 누름");
   };
 
-  const selectWebtoon = (webtoon: WebtoonConfig) => {
-    setSelect(webtoon);
+  const navigate = useNavigate();
+
+  const clickNextBtn = () => {
+    navigate("/recommend/new/3");
+    console.log(webtoons);
+  };
+
+  const selectWebtoon = (webtoon: WebttonInterface) => {
+    const resetClickedWebtoons = webtoons.map((item) => ({
+      ...item,
+      clicked: false,
+    }));
+
+    const updatedWebtoons = resetClickedWebtoons.map((item) =>
+      item.title === webtoon.title ? { ...item, clicked: true } : item,
+    );
+    console.log(updatedWebtoons)
+    setWebtoons(updatedWebtoons);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +61,22 @@ const Step1 = () => {
 
   return (
     <>
-      <Header title="웹툰 추천하기" before={clickBtn} buttonName="공유" />
+      <Header title="웹툰 추천하기" before={clickOutBtn} buttonName="공유" />
       <div className={styles.inputcontainer}>
         <Text types="sub-header" bold="bold">
           어떤 웹툰에 대해 이야기할까요?
         </Text>
-        {/* <Input placeholder="플레이스 홀더" colors="gray-1" types="search" value={search} onChange={onChange} /> */}
       </div>
-      <SearchWebtoonBox webtoonTitle={search} onChange={onChange} webToonList={webtoons} handleSelect={selectWebtoon} height={670}/>
+      <SearchWebtoonBox
+        webtoonTitle={search}
+        onChange={onChange}
+        webToonList={webtoons}
+        handleSelect={selectWebtoon}
+        height={670}
+      />
+      <button className={styles.confirm} onClick={clickNextBtn}>
+        확인
+      </button>
     </>
   );
 };

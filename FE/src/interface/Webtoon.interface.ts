@@ -7,5 +7,5 @@ export interface WebtoonConfig {
 }
 
 export interface WebttonInterface extends WebtoonConfig {
-  clicked: boolean;
+  clicked?: boolean;
 }
