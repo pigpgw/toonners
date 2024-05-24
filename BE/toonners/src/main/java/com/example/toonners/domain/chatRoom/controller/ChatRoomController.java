@@ -32,4 +32,11 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService.searchAllChatRoom(token));
     }
 
+    @GetMapping("/chatroom/search/updated-day")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchUpdatedChatRoom(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchUpdatedChatRoom(token));
+    }
+
 }
