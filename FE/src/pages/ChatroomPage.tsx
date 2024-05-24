@@ -5,7 +5,7 @@ import RankingChat from "@/components/home/chatroom/RankingChat";
 import RestChat from "@/components/home/chatroom/RestChat";
 import TodayChat from "@/components/home/chatroom/TodayChat";
 import CreateButton from "@/components/common/Button/Create";
-import { useNavigate } from "react-router-dom";
+import Banner from "@assets/images/home/banner1.svg?react";
 
 const CHAT_CONTENTS = [
   {
@@ -32,9 +32,9 @@ const CHAT_CONTENTS = [
 ];
 
 const ChatroomPage = () => {
-  const navigate = useNavigate();
   return (
     <div className={styles.chatroom}>
+      <Banner className={styles.banner} />
       <MyChatRoom />
       {CHAT_CONTENTS.map((item, key) => {
         return (
