@@ -1,5 +1,4 @@
 .first {
-  position: relative;
   margin: 0 40px;
 
   > div:nth-child(1),
@@ -9,7 +8,6 @@
 }
 
 .webtoon {
-  // height: 70vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;

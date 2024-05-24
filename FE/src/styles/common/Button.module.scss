@@ -61,19 +61,86 @@
   cursor: pointer;
 }
 
-.plus {
+.create__open {
   position: sticky;
-  bottom: 0;
-  right: 0;
+  bottom: 88px;
+
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 100%;
-  color: white;
-  background: linear-gradient(135deg, #0038f5, var(--color-accent-1));
-  > svg {
-    font-size: 48px;
+  justify-content: flex-end;
+
+  // 열기 버튼
+  > div:nth-child(1) {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    color: var(--color-white);
+    background: linear-gradient(135deg, #0038f5, var(--color-accent-1));
+    box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+    > svg {
+      font-size: 48px;
+    }
+  }
+}
+
+.create__close {
+  position: sticky;
+  bottom: 88px;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  // 이동 버튼 목록
+  > div:nth-child(1) {
+    position: absolute;
+    bottom: 100px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    // 이동 버튼 한 개
+    > div {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      border-radius: 10px;
+      background-color: var(--color-white);
+      box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+      cursor: pointer;
+      > svg {
+        font-size: medium;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  // 닫기 버튼
+  > div:nth-child(2) {
+    position: absolute;
+    bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    color: var(--color-gray-2);
+    background-color: var(--color-gray-1);
+    box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+    > svg {
+      font-size: 48px;
+    }
   }
 }

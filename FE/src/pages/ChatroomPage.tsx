@@ -48,7 +48,7 @@ const ChatroomPage = () => {
           />
         );
       })}
-      <CreateButton onClick={() => navigate("/chatroom/create")} />
+      <CreateButton />
     </div>
   );
 };
