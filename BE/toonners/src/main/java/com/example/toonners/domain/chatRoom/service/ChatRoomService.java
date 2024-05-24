@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -86,10 +87,31 @@ public class ChatRoomService {
         // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
         Long memberId = tokenProvider.getMemberFromToken(token).getId();
 
-        String day = "mon";
+        String day = whichDay();
         List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
 
         return chatRoomList.stream()
                 .map(ChatRoomInfoResponse::fromEntity).toList();
+    }
+
+    public static String whichDay() {
+        LocalDate date = LocalDate.now();
+        int day = date.getDayOfWeek().getValue();
+        if (day == 1) {
+            return "mon";
+        } else if (day == 2) {
+            return "tue";
+        } else if (day == 3) {
+            return "wed";
+        } else if (day == 4) {
+            return "thu";
+        } else if (day == 5) {
+            return "fri";
+        } else if (day == 6) {
+            return "sat";
+        } else if (day == 7) {
+            return "sun";
+        }
+        return null;
     }
 }
