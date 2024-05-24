@@ -11,8 +11,11 @@ import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.chatRoom.ChatRoomAlreadyExistException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -55,5 +58,21 @@ public class ChatRoomService {
 
         return ChatRoomInfoResponse.fromEntity(chatRoom);
 
+    }
+
+    @Transactional
+    public List<ChatRoomInfoResponse> searchAllChatRoom(String token) {
+
+        // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
+        Long memberId = tokenProvider.getMemberFromToken(token).getId();
+
+        // 인기 순으로 전체 조회
+        List<ChatRoom> chatRoomList = chatRoomReposititory.findAll(
+                Sort.by(Sort.Direction.DESC, "fireTotalCount"));
+
+        List<ChatRoomInfoResponse> responseList = chatRoomList.stream()
+                .map(ChatRoomInfoResponse::fromEntity).toList();
+
+        return responseList;
     }
 }
