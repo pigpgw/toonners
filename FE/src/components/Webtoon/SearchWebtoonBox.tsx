@@ -23,8 +23,8 @@ const SearchWebtoonBox = ({ webtoonTitle, webToonList, onChange, handleSelect, h
               key={`${index}_li`}
               title={webtoon.title}
               imgUrl={webtoon.img}
-              clicked={false}
-              onAdd={() => handleSelect(webtoon)}
+              clicked={webtoon.clicked}
+              onClick={() => handleSelect(webtoon)}
             />
           ))}
         </div>

@@ -4,4 +4,6 @@ export interface WebtoonConfig {
   img: string;
   updateDays: string[];
   fanCount: number;
+  clicked?: boolean;
 }
+
