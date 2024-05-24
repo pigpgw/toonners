@@ -47,6 +47,7 @@
   --color-beige: #f4f1e8;
   --color-gray-1: #eeeeee;
   --color-gray-2: #949494;
+  --color-gray-3: #3b3b3b;
   --color-black: #000;
   --color-primary: #2b00d6;
   --color-secondary: #b8de2a;
@@ -66,8 +67,8 @@
 
   --font-display: 32px;
   --font-headline: 24px;
-  --font-title: 18px;
-  --font-subheader: 20px;
+  --font-title: 16px;
+  --font-subheader: 18px;
   --font-body-1: 14px;
   --font-body-2: 14px;
   --font-button: 12px;
@@ -87,7 +88,7 @@ html {
 
 body {
   max-width: 390px;
-  min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
   background-color: white;
 
