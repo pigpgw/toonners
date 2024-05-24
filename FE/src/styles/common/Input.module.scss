@@ -1,7 +1,10 @@
-$color-gray-1: var(--color-gray-1);
-
 .input {
-  width: 100%;
-  background-color: $color-gray-1;
-  border-radius: 10px;
+  &__label {
+    margin-bottom: 2px;
+  }
+  &__field {
+    width: 100%;
+    background-color: var(--color-gray-1);
+    border-radius: 10px;
+  }
 }

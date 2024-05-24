@@ -1,15 +1,21 @@
 .InputWithButton {
   width: 329px;
-  display: flex;
-  justify-content: center;
-  
+
   .input {
-    border: 0;
-    width: 245px;
-    align-items: center;
-    border-radius: 10px;
-    background-color: var(--color-gray-1);
-    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    > input {
+      border: 0;
+      width: 245px;
+      align-items: center;
+      border-radius: 10px;
+      background-color: var(--color-gray-1);
+      padding-left: 10px;
+
+      &__label {
+        margin-bottom: 2px;
+      }
+    }
   }
 
   .btn {

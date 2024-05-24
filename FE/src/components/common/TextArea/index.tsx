@@ -9,14 +9,14 @@ const TextAreaField = styled(TextField)({
       borderColor: "var(--color-gray-1)",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "var(--color-black)",
+      borderColor: "var(--color-primary)",
       borderWidth: "1px",
     },
   },
 });
 
 const TextArea = ({ ...rest }: TextFieldProps) => {
-  return <TextAreaField multiline className={styles.input} {...rest} />;
+  return <TextAreaField multiline className={styles.input__field} {...rest} />;
 };
 
 export default TextArea;
