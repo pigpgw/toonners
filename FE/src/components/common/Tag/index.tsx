@@ -1,24 +1,23 @@
 import styles from "@styles/common/Tag.module.scss";
 
 interface Props {
-  label: string;
-  size?: "small" | "big";
-  types?: "primary" | "secondary" | "gray";
-  checked?: boolean;
+  sizes: "small" | "medium" | "large";
   clickable?: boolean;
+  checked?: boolean;
+  label: string;
   onClick?: () => void;
 }
 
-const Tag = ({ label, size, types = "primary", clickable = false, ...rest }: Props) => {
+const Tag = ({ sizes = "medium", clickable = false, label, ...rest }: Props) => {
   return clickable ? (
-    <div className={styles.checkbox} {...rest}>
+    <div className={[styles.tag].join(" ")} {...rest}>
       <input id={label} type="checkbox" />
-      <label htmlFor={label}>
-        <span># {label}</span>
+      <label htmlFor={label} className={styles[`__${sizes}`]}>
+        <span>{label}</span>
       </label>
     </div>
   ) : (
-    <div className={styles[`tag__${size}--${types}`]}>
+    <div className={[styles.tag, styles[`__${sizes}`]].join(" ")} {...rest}>
       <span>{label}</span>
     </div>
   );

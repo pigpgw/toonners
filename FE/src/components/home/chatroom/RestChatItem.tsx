@@ -14,8 +14,8 @@ const RestChatItem = () => {
           </Text>
           <Text>소개글</Text>
           <div className={styles.rest__tags}>
-            <Tag label="# 태그" types="gray" size="big" />
-            <Tag label="# 태그" types="gray" size="big" />
+            <Tag label="# 태그" sizes="small" />
+            <Tag label="# 태그" sizes="small" />
           </div>
         </div>
       </div>
