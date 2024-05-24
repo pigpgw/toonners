@@ -15,17 +15,11 @@ const FeedItem = ({ imgCount }: Props) => {
 
   return (
     <div className={styles.feed__item}>
-      {imgCount === 1 ? (
-        <div className={styles.feed__img}>
-          <div></div>
-        </div>
-      ) : (
-        <div className={styles.feed__imgs}>
-          {Array.from({ length: imgCount }, () => 0).map((_, key) => {
-            return <div key={key}></div>;
-          })}
-        </div>
-      )}
+      <div className={styles.feed__imgs}>
+        {Array.from({ length: imgCount }, () => 0).map((_, key) => {
+          return <div key={key}></div>;
+        })}
+      </div>
       <div className={styles.feed__img}></div>
       <div className={styles.feed__info}>
         <div>
