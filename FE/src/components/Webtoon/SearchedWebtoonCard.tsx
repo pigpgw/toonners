@@ -6,7 +6,7 @@ interface Props {
   imgUrl: string;
   clicked?: boolean;
   children?: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const SearchedWebtoonCard = ({ title, imgUrl, clicked, onClick, children }: Props) => {
