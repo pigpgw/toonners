@@ -14,7 +14,9 @@ const ButtomNav = () => {
     navigate("/search");
   };
 
-  const handleMyPage = () => {};
+  const handleMyPage = () => {
+    navigate("/mypage");
+  };
 
   return (
     <div className={styles.nav}>

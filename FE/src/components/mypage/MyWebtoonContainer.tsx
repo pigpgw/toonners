@@ -6,17 +6,17 @@ import EditBtn from "../common/Button/Edit";
 
 interface Props {
   webtoonList: WebtoonConfig[];
-  clickEditBtn: () => void;
+  onEditMode: () => void;
 }
 
-const MyWebtoonContainer = ({ webtoonList, clickEditBtn }: Props) => {
+const MyWebtoonContainer = ({ webtoonList, onEditMode }: Props) => {
   return (
     <div className={styles.myWebtoonContainer}>
       <div className={styles.myWebtoonSubContainer}>
         <Text types="title" bold="bold">
           내가 보는 웹툰
         </Text>
-        <EditBtn btnName="편집하기" onClick={clickEditBtn}></EditBtn>
+        <EditBtn btnName="편집하기" onClick={onEditMode}></EditBtn>
       </div>
       <SelectedWebtoonBox selectedList={webtoonList} />
     </div>

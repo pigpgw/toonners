@@ -6,11 +6,12 @@ import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { useUserStore } from "@/slices/useStore";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  const [select, setSelect] = useState<WebtoonConfig[]>([]);
+  const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -21,7 +22,8 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setWebtoons(response);
-        console.log(response)
+        // console.log(response)
+        // console.log(response.filter(item => item.updateDays.length >= 2))
       } catch (e) {
         console.error("오류 발생", e);
       }
@@ -31,13 +33,13 @@ const Signup2 = () => {
   }, [search]);
 
   const handleSelect = (webtoon: WebtoonConfig) => {
-    if (select.length >= 4) {
+    if (user.seeWebttonList.length >= 4) {
       alert("최대 4개의 웹툰만 선택할 수 있습니다.");
       return;
     }
 
-    if (!select.some((item) => item.title === webtoon.title)) {
-      setSelect((prevSelect) => [...prevSelect, webtoon]);
+    if (!user.seeWebttonList.some((item) => item.title === webtoon.title)) {
+      addSeeWebtoon(webtoon);
       setSearch("");
     } else {
       alert("이미 선택된 웹툰입니다.");
@@ -45,14 +47,17 @@ const Signup2 = () => {
   };
 
   const removeSelect = (webtoon: WebtoonConfig) => {
-    setSelect((prevSelect) => prevSelect.filter((item) => item.title !== webtoon.title));
+    removeSeeWebtoon(webtoon);
   };
 
   const navigator = useNavigate();
 
   const goNext = () => {
-    if (select.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
-    else navigator("/signup/3");
+    if (user.seeWebttonList.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
+    else {
+      console.log(user);
+      navigator("/signup/3");
+    }
   };
 
   return (
@@ -63,7 +68,7 @@ const Signup2 = () => {
           <br />
           어떤 웹툰을 보고있나요?
         </Text>
-        <SelectedWebtoonBox selectedList={select} removeSelect={removeSelect} />
+        <SelectedWebtoonBox selectedList={user.seeWebttonList} removeSelect={removeSelect} />
       </div>
       <SearchWebtoonContainer
         webtoonTitle={search}
