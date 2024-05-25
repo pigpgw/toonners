@@ -83,6 +83,13 @@ public class ChatRoomService {
     }
 
     @Transactional
+    public List<ChatRoomInfoResponse> searchAllChatRoomByPartOfChatRoomName(
+            String partOfChatRoomName) {
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByToonNameContains(partOfChatRoomName);
+        return chatRoomList.stream().map(ChatRoomInfoResponse::fromEntity).toList();
+    }
+
+    @Transactional
     public List<ChatRoomInfoResponse> searchUpdatedChatRoom(String token) {
 
         // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
