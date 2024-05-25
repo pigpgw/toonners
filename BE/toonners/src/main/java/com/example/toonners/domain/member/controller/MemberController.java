@@ -40,6 +40,14 @@ public class MemberController {
         return ApiResponse.createSuccessWithMessage(result, "정상적으로 수정되었습니다");
     }
 
+    @GetMapping("/member/search/my-info")
+    public ApiResponse<InfoResponse> searchMyInfo(
+            @RequestHeader("Authorization") String token
+    ) {
+        InfoResponse response = memberService.searchMyInfo(token);
+        return ApiResponse.createSuccess(response);
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/

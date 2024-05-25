@@ -17,8 +17,10 @@ import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -58,6 +60,11 @@ public class MemberService extends DefaultOAuth2UserService {
         infoResponse.setWatchingToons(request.getWatchingToons());
         infoResponse.setFavoriteToons(request.getFavoriteToons());
         return infoResponse;
+    }
+
+    @Transactional
+    public InfoResponse searchMyInfo(String token) {
+        return InfoResponse.fromEntity(tokenProvider.getMemberFromToken(token));
     }
 
     /**
