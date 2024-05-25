@@ -4,8 +4,6 @@ import com.example.toonners.domain.toondata.entity.ToonData;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Builder
 @ToString
@@ -33,10 +31,20 @@ public class ChatRoom {
     @OneToOne
     private ToonData toonData;
 
+    // 개인 상호 작용 결과 저장하는 메서드 - 북마크, 불이모지
     public void setRatingTotalPoint(Float stars) {
         this.ratingTotalPoint = stars;
     }
+
     public void setRatingCount(Long count) {
         this.ratingCount = count;
+    }
+
+    public void setFireTotalCount(Long count) {
+        this.fireTotalCount = count;
+    }
+
+    public void setFireTodayCount(Long count) {
+        this.fireTodayCount = count;
     }
 }
