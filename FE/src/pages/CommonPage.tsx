@@ -94,7 +94,7 @@ const CommonPage = () => {
       </div>
       <div style={{ display: "flex", gap: "5px" }}>
         <Arrow onClick={() => console.log("click")} />
-        <CreateButton onClick={() => console.log("click")} />
+        <CreateButton />
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
         <Rating sizes="small" onChange={(_, value) => changeValue(value)} />

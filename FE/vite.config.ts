@@ -10,6 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: [
+      { find: "@api", replacement: "/src/api" },
       { find: "@assets", replacement: "/src/assets" },
       { find: "@components", replacement: "/src/components" },
       { find: "@routes", replacement: "/src/routes" },
