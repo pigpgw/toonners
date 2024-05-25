@@ -59,5 +59,11 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService
                 .searchAllChatRoomByPartOfChatRoomName(partOfChatRoomName));
     }
+    @GetMapping("/chatroom/search/top10")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomTop10(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchChatRoomTop10(token));
+    }
 
 }
