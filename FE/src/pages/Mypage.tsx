@@ -2,7 +2,7 @@
 // Mypage Component
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { geOnMyData, updateUserData } from "@/api/myPage";
+import { getOnMyData, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import MainProfile from "@components/mypage/MainProfile";
 import Text from "@/components/common/Text";
@@ -37,8 +37,7 @@ const Mypage = () => {
         nickname: user.nickname,
         description: user.introduction,
       });
-
-      const res = await geOnMyData();
+  
     } catch (e) {
       console.log(e);
     }
@@ -47,7 +46,7 @@ const Mypage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await geOnMyData();
+        const res = await getOnMyData();
         console.log("응답 체크", res);
         setfetchUser(res.data);
       } catch (error) {
@@ -73,9 +72,9 @@ const Mypage = () => {
     navigate("/mypage/feed");
   };
 
-  useEffect(() => {
-    console.log(user.nickname);
-  });
+  useEffect(()=> {
+    console.log(user.nickname)
+  })
 
   return (
     <>

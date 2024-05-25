@@ -15,7 +15,7 @@ interface Props {
 }
 
 const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, offEditMode }: Props) => {
-  const { user, setIntroDuction, setUserNickname } = useUserStore();
+  const { setIntroDuction, setUserNickname } = useUserStore();
 
   const nicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserNickname(e.target.value);
