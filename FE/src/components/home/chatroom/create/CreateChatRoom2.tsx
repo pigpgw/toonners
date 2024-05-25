@@ -1,22 +1,35 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
-import Text from "@/components/common/Text";
-import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
-import TextArea from "@/components/common/TextArea";
-import Button from "@/components/common/Button";
-import { useNavigate } from "react-router-dom";
-import { useChatStore } from "@/slices/chatSlice";
-import { useState } from "react";
+import Text from "@components/common/Text";
+import SearchedWebtoonCard from "@components/Webtoon/SearchedWebtoonCard";
+import TextArea from "@components/common/TextArea";
+import Button from "@components/common/Button";
+import Modal from "@components/common/Modal";
+import { postChatRoom } from "@api/chat";
+import { useChatActions, useChatStore } from "@slices/chatSlice";
 
 const CreateChatRoom2 = () => {
   const navigate = useNavigate();
-  const selected = useChatStore((state) => state.selected);
+  const [selected, chatroomInfo] = useChatStore(useShallow((state) => [state.selected, state.chatroomInfo]));
   const [description, setDescription] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const { setChatRoomInfo } = useChatActions();
 
-  const createChatRoom = () => {
-    console.log(selected);
-    console.log(description);
-    navigate("/chatroom/1");
+  const createChatRoom = async () => {
+    const data = {
+      toonName: selected.title,
+      toonImage: selected.img,
+      toonUrl: selected.url,
+      fanCounts: selected.fanCount,
+      updateDay: selected.updateDays,
+      contexts: description,
+    };
+    const res = await postChatRoom(data);
+    setChatRoomInfo(res);
+    setModalOpen(true);
   };
 
   const handleBack = () => {
@@ -44,6 +57,20 @@ const CreateChatRoom2 = () => {
           <Button onClick={createChatRoom}>방 만들기</Button>
         </div>
       </div>
+      {modalOpen && (
+        <Modal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onClick={() => navigate(`/chatroom/${chatroomInfo.chatRoomId}`)}
+          title={
+            <div className={styles.text}>
+              <Text types="title" bold="semi-bold">
+                새로운 채팅방이 생성되었습니다 !
+              </Text>
+            </div>
+          }
+        ></Modal>
+      )}
     </>
   );
 };
