@@ -49,4 +49,12 @@ public class FeedController {
         return ApiResponse.createSuccess(reponseList);
     }
 
+    @GetMapping("/feed/search/detail/parent-feed")
+    public ApiResponse<FeedInfoResponse> searchDetailParentFeed(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "parent-feed-id") Long parentFeedId
+    ) {
+        FeedInfoResponse response = feedService.searchDetailFeed(token, parentFeedId);
+        return ApiResponse.createSuccess(response);
+    }
 }
