@@ -1,5 +1,6 @@
 package com.example.toonners.domain.bookmark.entity;
 
+import com.example.toonners.domain.feed.entity.Feed;
 import com.example.toonners.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,7 +25,8 @@ public class Bookmark {
     private Member member;
 
     private String bookmarkType;
-    private Long bookmarkTypeId;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FEED_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Feed feed;
 }
