@@ -5,8 +5,8 @@ import Header from "@components/common/Header";
 import Input from "@components/common/Input";
 import ChatItem from "@components/home/chatroom/main/ChatItem";
 import CustomAccordion from "./Accordian";
-import { getChatCommentList, postChatComment } from "@api/chat";
-import { ChatCommentConfig } from "@/interface/ChatRoom.interface";
+import { getChatCommentList, getChatRoom, postChatComment } from "@api/chat";
+import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
 const USER_ID = 2; // 테스트용 userId
 
@@ -15,6 +15,15 @@ const ChatRoomMain = () => {
   const params = useParams();
   const { id } = params;
 
+  const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>({
+    toonName: "",
+    toonImageUrl: "",
+    toonSiteUrl: "",
+    chatRoomId: 0,
+    contexts: "",
+    fireTotalCount: 0,
+    rating: 0,
+  });
   const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
   const [comment, setComment] = useState("");
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -38,10 +47,15 @@ const ChatRoomMain = () => {
   };
 
   useEffect(() => {
+    const getChatRoomInfo = async () => {
+      const res = await getChatRoom(id!);
+      setChatroomInfo(res);
+    };
     const getChatComments = async () => {
       const res = await getChatCommentList(id!);
       setChatList(res);
     };
+    getChatRoomInfo();
     getChatComments();
   }, []);
 
@@ -55,8 +69,8 @@ const ChatRoomMain = () => {
 
   return (
     <>
-      <Header title="웹툰 이름" before={handleBack} />
-      <CustomAccordion />
+      <Header title={chatroomInfo.toonName} before={handleBack} />
+      <CustomAccordion info={chatroomInfo} />
       <div className={styles.main}>
         <div className={styles.main__chat}>
           <div className={styles.chat__list}>

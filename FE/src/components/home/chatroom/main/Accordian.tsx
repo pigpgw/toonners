@@ -5,8 +5,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Text from "@/components/common/Text";
 import Rating from "@/components/common/Rating";
+import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
-const CustomAccordion = () => {
+interface Props {
+  info: ChatRoomInfoConfig;
+}
+
+const CustomAccordion = ({ info }: Props) => {
   return (
     <>
       <Accordion
@@ -36,16 +41,16 @@ const CustomAccordion = () => {
         <AccordionDetails>
           <div className={styles.info}>
             <div>
-              <img />
+              <img src={info.toonImageUrl} alt="웹툰 이미지" />
             </div>
             <div>
               <div>
                 <Text types="caption">추천 평점</Text>
-                <Rating sizes="medium" />
+                <Rating defaultValue={info.rating} sizes="medium" readOnly />
               </div>
               <div>
                 <Text types="caption">소개글</Text>
-                <Text types="caption">내용</Text>
+                <Text types="caption">{info.contexts}</Text>
               </div>
             </div>
           </div>
