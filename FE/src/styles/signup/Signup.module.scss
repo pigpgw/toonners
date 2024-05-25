@@ -1,7 +1,7 @@
 .container {
-  padding: 60px 30px 30px 30px;
+  padding: 20px 30px 20px 30px;
   .subTitle {
-    margin-top: 80px;
+    margin-top: 30px;
     margin-bottom: 20px;
     font-weight: bold;
   }
@@ -16,21 +16,7 @@
   width: 100%;
 }
 
-.dummy {
-  width: 66px;
-  height: 66px;
-  border: 1px dashed rgb(129, 129, 129);
-  border-radius: 20px;
-  background-color: rgb(232, 232, 232);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  color: gray;
-  margin: 0;
-}
-
-.confirm {
+  .confirm {
   position: absolute;
   background-color: var(--color-primary);
   width: 313px;
@@ -42,7 +28,7 @@
   color: var(--color-white);
   border: none;
   border-radius: 50px;
-  position: absolute;
+  position: fixed;
   top: 92%;
 
   cursor: pointer;
