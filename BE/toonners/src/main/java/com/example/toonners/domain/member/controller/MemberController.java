@@ -32,11 +32,11 @@ public class MemberController {
         return kakaoUserService.kakaoLogin(code, response);
     }
 
-    @PutMapping("/member/update/{member_id}")
-    public ApiResponse<InfoResponse> updateMember(@PathVariable(value = "member_id") Long id,
-                                                  @RequestBody UpdateMemberRequest request,
-                                                  @RequestHeader("Authorization") String token) {
-        InfoResponse result = memberService.updateMember(id, request, token);
+    @PutMapping("/member/update")
+    public ApiResponse<InfoResponse> updateMember(
+            @RequestBody UpdateMemberRequest request,
+            @RequestHeader("Authorization") String token) {
+        InfoResponse result = memberService.updateMember(request, token);
         return ApiResponse.createSuccessWithMessage(result, "정상적으로 수정되었습니다");
     }
 
