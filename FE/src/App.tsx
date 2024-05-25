@@ -15,6 +15,7 @@ import EditSeeWtnPage from "./pages/mypage/EditSeeWtnPage";
 import EditLikedWtnPage from "./pages/mypage/EditLikedWtnPage";
 import MyScrapPage from "./pages/mypage/MyScrapPage";
 import MyFeedPage from "./pages/mypage/MyFeedPage";
+import FeedDetail from "./components/home/feed/FeedDetail";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
         <Route path="/chatroom/create/*" element={<NewChatRoom />} />
         <Route path="/search" element={<SearchPage />} />
 
-        <Route path="/recommend/:id" element={<div>추천글 상세</div>} />
+        <Route path="/recommend/:id" element={<FeedDetail />} />
         <Route path="/recommend/new/*" element={<NewRecommend />} />
 
         <Route path="/mypage" element={<Mypage />} />
