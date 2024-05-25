@@ -37,7 +37,7 @@ const ChatRoomListFrame = ({ types }: Props) => {
               <div key={key}>
                 {
                   {
-                    today: <TodayChatItem />,
+                    today: <TodayChatItem item={item} />,
                     rest: <RestChatItem item={item} />,
                   }[types]
                 }
