@@ -32,12 +32,28 @@ public class MemberController {
         return kakaoUserService.kakaoLogin(code, response);
     }
 
-    @PutMapping("/member/update/{member_id}")
-    public ApiResponse<InfoResponse> updateMember(@PathVariable(value = "member_id") Long id,
-                                                  @RequestBody UpdateMemberRequest request,
-                                                  @RequestHeader("Authorization") String token) {
-        InfoResponse result = memberService.updateMember(id, request, token);
+    @PutMapping("/member/update")
+    public ApiResponse<InfoResponse> updateMember(
+            @RequestBody UpdateMemberRequest request,
+            @RequestHeader("Authorization") String token) {
+        InfoResponse result = memberService.updateMember(request, token);
         return ApiResponse.createSuccessWithMessage(result, "정상적으로 수정되었습니다");
+    }
+
+    @GetMapping("/member/search/my-info")
+    public ApiResponse<InfoResponse> searchMyInfo(
+            @RequestHeader("Authorization") String token
+    ) {
+        InfoResponse response = memberService.searchMyInfo(token);
+        return ApiResponse.createSuccess(response);
+    }
+
+    @GetMapping("/member/search/member-info")
+    public ApiResponse<InfoResponse> searchMemberInfo(
+            @RequestParam(value = "member-id") Long memberId
+    ) {
+        InfoResponse response = memberService.searchMemberInfo(memberId);
+        return ApiResponse.createSuccess(response);
     }
 
     /**

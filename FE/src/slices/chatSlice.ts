@@ -27,7 +27,7 @@ export const initialState = {
     toonName: "",
     toonImageUrl: "",
     toonSiteUrl: "",
-    contents: "",
+    contexts: "",
     rating: 0,
     fireTotalCount: 0,
   },

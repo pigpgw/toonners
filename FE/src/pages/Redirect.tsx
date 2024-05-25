@@ -15,15 +15,9 @@ const Redirect = () => {
           },
         });
         if (response.status === 200) {
-          console.log("토큰 확인", response.headers.authorization);
-          if (response.headers.authorization) {
-            const res = response.headers.authorization.trim().replace(/^Bearer\s+/i, "");
-            localStorage.setItem("accessToken", res);
-            console.log("토큰만 추출:", res);
-          } else {
-            console.log("Authorization 헤더가 존재하지 않습니다.");
-          }
-
+          //  토큰 로컬 스토리지에 세팅하고 페이지 라우팅
+          const token = response.headers["authorization"];
+          localStorage.setItem("token", token.replace("BEARER ", ""));
           navigate("/home");
         } else {
           throw new Error("서버 응답이 200이 아닙니다.");

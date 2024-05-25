@@ -33,4 +33,10 @@ public class ChatRoom {
     @OneToOne
     private ToonData toonData;
 
+    public void setRatingTotalPoint(Float stars) {
+        this.ratingTotalPoint = stars;
+    }
+    public void setRatingCount(Long count) {
+        this.ratingCount = count;
+    }
 }

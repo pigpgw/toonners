@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 public class FeedInfoResponse {
-
+    private Long parentFeedId;
     private Long writerMemberId;
     private String writerMemberImage;
     private String feedTitle;
@@ -23,12 +23,15 @@ public class FeedInfoResponse {
     private Set<String> hashtags;
     private Set<ChildFeedResponse> childFeedList;
 
+    private boolean bookmarked;
+
     public static FeedInfoResponse fromEntity(Feed feed) {
 
         String hasgtagsString = feed.getHashtagVibe() + feed.getHashtagGenre();
         hasgtagsString = hasgtagsString.replaceAll("#", " ").trim();
         Set<String> hashtagSet = new HashSet<>(Arrays.asList(hasgtagsString.split(" ")));
         return FeedInfoResponse.builder()
+                .parentFeedId(feed.getId())
                 .writerMemberId(feed.getWriter().getId())
                 .writerMemberImage(feed.getWriter().getImage())
                 .feedTitle(feed.getTitle())

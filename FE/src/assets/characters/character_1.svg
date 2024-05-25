@@ -1,5 +1,6 @@
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="100.5" cy="99.5" r="44.5" fill="#FF521D"/>
+<rect width="200" height="200" fill="white"/>
+<circle cx="100.5" cy="99.5" r="44.5" fill="#FE9CCD"/>
 <ellipse cx="87.5" cy="78" rx="2.5" ry="3" fill="black"/>
 <ellipse cx="114.5" cy="78" rx="2.5" ry="3" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M93.3451 87.2443C93.7624 86.8826 94.394 86.9277 94.7557 87.3451C97.7867 90.8424 103.213 90.8424 106.244 87.3451C106.606 86.9277 107.238 86.8826 107.655 87.2443C108.072 87.606 108.117 88.2376 107.756 88.6549C103.927 93.0725 97.0729 93.0725 93.2443 88.6549C92.8826 88.2376 92.9277 87.606 93.3451 87.2443Z" fill="black"/>

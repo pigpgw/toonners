@@ -17,6 +17,7 @@ import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,11 +30,9 @@ public class MemberService extends DefaultOAuth2UserService {
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
 
-    public InfoResponse updateMember(Long memberId
-            , UpdateMemberRequest request, String token) {
+    public InfoResponse updateMember(UpdateMemberRequest request, String token) {
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(UserDoesNotExistException::new);
+        Member member = tokenProvider.getMemberFromToken(token);
         String requestEmail = tokenProvider.getEmailFromToken(token);
 
         if (!member.getEmail().equals(requestEmail)) {
@@ -60,6 +59,18 @@ public class MemberService extends DefaultOAuth2UserService {
         infoResponse.setWatchingToons(request.getWatchingToons());
         infoResponse.setFavoriteToons(request.getFavoriteToons());
         return infoResponse;
+    }
+
+    @Transactional
+    public InfoResponse searchMyInfo(String token) {
+        return InfoResponse.fromEntity(tokenProvider.getMemberFromToken(token));
+    }
+
+    @Transactional
+    public InfoResponse searchMemberInfo(Long memberId) {
+        return InfoResponse.fromEntity(memberRepository.findById(memberId)
+                .orElseThrow(UserDoesNotExistException::new)
+        );
     }
 
     /**
