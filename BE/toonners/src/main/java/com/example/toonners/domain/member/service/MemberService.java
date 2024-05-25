@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -52,25 +53,27 @@ public class MemberService extends DefaultOAuth2UserService {
             insertToonsToDb(favoriteToons);
         }
 
+
         member.updateFields(request);
         Member updatedMember = memberRepository.save(member);
-
         InfoResponse infoResponse = InfoResponse.fromEntity(updatedMember);
         infoResponse.setWatchingToons(request.getWatchingToons());
         infoResponse.setFavoriteToons(request.getFavoriteToons());
+
         return infoResponse;
     }
 
     @Transactional
     public InfoResponse searchMyInfo(String token) {
-        return InfoResponse.fromEntity(tokenProvider.getMemberFromToken(token));
+        Member member = tokenProvider.getMemberFromToken(token);
+        return getInfoResponse(member);
     }
 
     @Transactional
     public InfoResponse searchMemberInfo(Long memberId) {
-        return InfoResponse.fromEntity(memberRepository.findById(memberId)
-                .orElseThrow(UserDoesNotExistException::new)
-        );
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(UserDoesNotExistException::new);
+        return getInfoResponse(member);
     }
 
     /**
@@ -119,6 +122,35 @@ public class MemberService extends DefaultOAuth2UserService {
             titleSet.add(watchingToon.getTitle());
         }
         return titleSet;
+    }
+
+    private void insertToonSetToResponse(Set<String> member, Set<ToonInsertRequest> watchingToonSet) {
+        for (String toon : member) {
+            ToonData toonData = toonDataRepository.findByTitle(toon).orElseThrow();
+            watchingToonSet.add(ToonInsertRequest.builder()
+                    .title(toonData.getTitle())
+                    .imageUrl(toonData.getImageUrl())
+                    .siteUrl(toonData.getSiteUrl())
+                    .build());
+        }
+    }
+
+    private InfoResponse getInfoResponse(Member member) {
+        InfoResponse infoResponse = InfoResponse.fromEntity(member);
+        //
+        Set<ToonInsertRequest> favoriteToonSet = new HashSet<>();
+        if (member.getFavoriteToons() != null) {
+            insertToonSetToResponse(member.getFavoriteToons(), favoriteToonSet);
+        }
+        //
+        Set<ToonInsertRequest> watchingToonSet = new HashSet<>();
+        if (member.getWatchingToons() != null) {
+            insertToonSetToResponse(member.getWatchingToons(), watchingToonSet);
+        }
+        //
+        infoResponse.setFavoriteToons(favoriteToonSet);
+        infoResponse.setWatchingToons(watchingToonSet);
+        return infoResponse;
     }
 
 }
