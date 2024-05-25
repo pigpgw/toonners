@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -65,6 +64,13 @@ public class MemberService extends DefaultOAuth2UserService {
     @Transactional
     public InfoResponse searchMyInfo(String token) {
         return InfoResponse.fromEntity(tokenProvider.getMemberFromToken(token));
+    }
+
+    @Transactional
+    public InfoResponse searchMemberInfo(Long memberId) {
+        return InfoResponse.fromEntity(memberRepository.findById(memberId)
+                .orElseThrow(UserDoesNotExistException::new)
+        );
     }
 
     /**
