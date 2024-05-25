@@ -8,28 +8,11 @@ import Text from "@/components/common/Text";
 import FeedDetailCard from "./FeedDetailCard";
 import Bookmark from "@/components/common/Tag/Bookmark";
 import { getFeedItem, postBookMark } from "@/api/feed";
-import { FeedListConfig } from "@/interface/Feed.interface";
+import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
 
 const FeedDetail = () => {
   const [checked, setChecked] = useState(false);
-  const [detail, setDetail] = useState<FeedListConfig>({
-    parentFeedId: 0,
-    bookmarked: false,
-    childFeedList: [
-      {
-        hashtagGenre: [],
-        hashtagVibe: [],
-        starring: 0,
-        toonImage: "",
-        toonName: "",
-      },
-    ],
-    feedContexts: "",
-    feedTitle: "",
-    hashtags: [],
-    writerMemberId: 0,
-    writerMemberImage: "",
-  });
+  const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
   const params = useParams();
   const { id } = params;
 

@@ -17,3 +17,22 @@ export interface ChildFeedListConfig {
   toonImage: string;
   toonName: string;
 }
+
+export const initialFeedList = {
+  parentFeedId: 0,
+  bookmarked: false,
+  childFeedList: [
+    {
+      hashtagGenre: [],
+      hashtagVibe: [],
+      starring: 0,
+      toonImage: "",
+      toonName: "",
+    },
+  ],
+  feedContexts: "",
+  feedTitle: "",
+  hashtags: [],
+  writerMemberId: 0,
+  writerMemberImage: "",
+};
