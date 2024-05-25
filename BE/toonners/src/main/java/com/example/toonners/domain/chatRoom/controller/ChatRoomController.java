@@ -39,4 +39,10 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService.searchUpdatedChatRoom(token));
     }
 
+    @GetMapping("/chatroom/search/detail/{chatRoomId}")
+    public ApiResponse<ChatRoomInfoResponse> searchChatRoomDetail(
+            @PathVariable(value = "chatRoomId") Long chatRoomId
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchChatRoomDetail(chatRoomId));
+    }
 }
