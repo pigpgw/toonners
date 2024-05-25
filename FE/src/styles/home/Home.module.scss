@@ -320,17 +320,12 @@
     // 장르/분위기
     > div:nth-child(2) {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 6px;
       padding: 12px;
       > div {
-        display: grid;
-        grid-template-columns: 1.2fr 8.8fr;
-        align-items: center;
-        > div {
-          display: flex;
-          gap: 4px;
-        }
+        display: flex;
+        gap: 4px;
       }
     }
     // 소개글
