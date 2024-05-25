@@ -11,6 +11,7 @@ public enum ErrorCode {
 
     // chatRoom error code
     CHATROOM_ALREADY_EXIST("이미 채팅방이 존재합니다."),
+    CHATROOM_DOSE_NOT_EXIST("존재하지 않는 채팅방입니다."),
 
     // feed error code
     FEED_DOSE_NOT_EXIST("존재하지 않는 글입니다.")

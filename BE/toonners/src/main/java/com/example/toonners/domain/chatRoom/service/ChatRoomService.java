@@ -9,6 +9,7 @@ import com.example.toonners.domain.member.repository.MemberRepository;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.chatRoom.ChatRoomAlreadyExistException;
+import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExist;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -94,6 +95,13 @@ public class ChatRoomService {
                 .map(ChatRoomInfoResponse::fromEntity).toList();
     }
 
+    @Transactional
+    public ChatRoomInfoResponse searchChatRoomDetail(Long chatroomId) {
+        return ChatRoomInfoResponse.fromEntity(chatRoomRepository
+                .findById(chatroomId).orElseThrow(ChatRoomDoseNotExist::new));
+    }
+
+    //내부 메서드
     public static String whichDay() {
         LocalDate date = LocalDate.now();
         int day = date.getDayOfWeek().getValue();
