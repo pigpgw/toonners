@@ -26,7 +26,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Objects;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -96,6 +96,9 @@ public class KakaoUserService {
         String email = sId + "@tooners.com";
         Member user = memberRepository.findByEmail(email).orElse(null);
 
+        //비밀번호 랜덤 생성
+        String password = UUID.randomUUID().toString();
+
         if (user == null) {
             // 회원가입
             String nickName = kakaoUserInfo.getNickname();
@@ -103,6 +106,7 @@ public class KakaoUserService {
             SignUpRequest socialUser = SignUpRequest.builder()
                     .email(email)
                     .nickname(nickName)
+                    .password(password)
                     .oauthType("kakao")
                     .build();
             user = memberRepository.save(setAccount(socialUser));
@@ -118,6 +122,7 @@ public class KakaoUserService {
                 .email(request.getEmail())
                 .oauthType(request.getOauthType())
                 .role(Role.MEMBER)
+                .password(request.getPassword())
                 .build();
     }
 

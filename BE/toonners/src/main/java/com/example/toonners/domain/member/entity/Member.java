@@ -37,6 +37,8 @@ public class Member extends BaseEntity {
     private Role role;
     private String oauthType;
 
+    private String password;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Role userRole = this.getRole();
         String authority = userRole.getKey();
