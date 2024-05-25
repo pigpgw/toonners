@@ -2,12 +2,15 @@ import styles from "@styles/home/Home.module.scss";
 import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
 import Button from "@components/common/Button";
+import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  item: any;
+  item: ChatRoomInfoConfig;
 }
 
 const RestChatItem = ({ item }: Props) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.rest__item}>
       <div>
@@ -25,7 +28,7 @@ const RestChatItem = ({ item }: Props) => {
           </div>
         </div>
       </div>
-      <Button types="primary" sizes="small">
+      <Button types="primary" sizes="small" onClick={() => navigate(`/chatroom/${item.chatRoomId}`)}>
         참여
       </Button>
     </div>

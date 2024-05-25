@@ -20,7 +20,7 @@ interface Props {
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }: Props) => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className={styles.frame}>
       <div className={styles.chatroom__title}>
         <div>
           <Text types="sub-header" bold="semi-bold">
@@ -33,7 +33,7 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }
       <div className={styles[`${keyword}`]}>
         {list.map((item, i) => {
           return {
-            today: <TodayChatItem key={i} />,
+            today: <TodayChatItem key={i} item={item} />,
             rank: <RankingChatItem key={i} />,
             rest: <RestChatItem key={i} item={item} />,
           }[keyword];

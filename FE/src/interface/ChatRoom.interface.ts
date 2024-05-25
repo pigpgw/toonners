@@ -3,7 +3,7 @@ export interface ChatRoomInfoConfig {
   toonName: string;
   toonImageUrl: string;
   toonSiteUrl: string;
-  contents: string;
+  contexts: string;
   rating: number;
   fireTotalCount: number;
 }

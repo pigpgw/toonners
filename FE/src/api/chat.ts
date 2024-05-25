@@ -5,6 +5,11 @@ const getAllChatRoomList = async () => {
   return res.data.data;
 };
 
+const getTodayChatRoomList = async () => {
+  const res = await Axios.get("http://localhost:8080/chatroom/search/updated-day");
+  return res.data.data;
+};
+
 const postChatRoom = async (data: {
   toonName: string;
   toonImage: string;
@@ -17,4 +22,4 @@ const postChatRoom = async (data: {
   return res.data.data;
 };
 
-export { getAllChatRoomList, postChatRoom };
+export { getAllChatRoomList, getTodayChatRoomList, postChatRoom };

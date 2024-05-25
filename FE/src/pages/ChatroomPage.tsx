@@ -4,7 +4,7 @@ import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/common/Button/Create";
-import { getAllChatRoomList } from "@api/chat";
+import { getAllChatRoomList, getTodayChatRoomList } from "@api/chat";
 
 interface ChatContentsConfig {
   keyword: "today" | "rank" | "rest";
@@ -51,10 +51,11 @@ const getRandomItems = (list: []) => {
 };
 
 const ChatroomPage = () => {
+  const [todayList, setTodayList] = useState([]);
   const [restList, setRestList] = useState([]);
 
   useEffect(() => {
-    const getChatroomList = async () => {
+    const getRestList = async () => {
       const res = await getAllChatRoomList();
       if (res.length <= 3) setRestList(res);
       else {
@@ -63,34 +64,46 @@ const ChatroomPage = () => {
       }
     };
 
-    getChatroomList();
+    const getTodayList = async () => {
+      const res = await getTodayChatRoomList();
+      if (res.length <= 3) setTodayList(res);
+      else {
+        const result = getRandomItems(res);
+        setTodayList(result);
+      }
+    };
+
+    getTodayList();
+    getRestList();
   }, []);
 
   return (
-    <div className={styles.chatroom}>
+    <>
       <Banner className={styles.banner} />
-      <MyChatRoom />
-      {CHAT_CONTENTS.map((item, key) => {
-        return (
-          <HomeChatListFrame
-            key={key}
-            keyword={item.keyword}
-            title={item.title}
-            subtitle={item.subtitle}
-            isMore={item.isMore}
-            more={item.more}
-            list={
-              {
-                today: [],
-                rank: [],
-                rest: restList,
-              }[item.keyword]
-            }
-          />
-        );
-      })}
-      <CreateButton />
-    </div>
+      <div className={styles.chatroom}>
+        <MyChatRoom />
+        {CHAT_CONTENTS.map((item, key) => {
+          return (
+            <HomeChatListFrame
+              key={key}
+              keyword={item.keyword}
+              title={item.title}
+              subtitle={item.subtitle}
+              isMore={item.isMore}
+              more={item.more}
+              list={
+                {
+                  today: todayList,
+                  rank: [],
+                  rest: restList,
+                }[item.keyword]
+              }
+            />
+          );
+        })}
+        <CreateButton />
+      </div>
+    </>
   );
 };
 
