@@ -5,10 +5,9 @@ import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
 import com.example.toonners.domain.feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,4 +23,13 @@ public class FeedController {
         FeedInfoResponse response = feedService.createFeed(token, request);
         return ApiResponse.createSuccessWithMessage(response, "피드 생성 성공");
     }
+
+    @GetMapping("feed/search/all/parent-feed")
+    public ApiResponse<List<FeedInfoResponse>> searchAllParentFeed(
+            @RequestHeader("Authorization") String token
+    ) {
+        List<FeedInfoResponse> reponseList = feedService.searchAllParentFeed(token);
+        return ApiResponse.createSuccess(reponseList);
+    }
+
 }

@@ -27,7 +27,9 @@ public class FeedService {
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
 
+        // 토큰으로 맴버 정보 찾기
         Member member = tokenProvider.getMemberFromToken(token);
+        // 부모 피드 먼저 생성.
         Feed parentFeed = Feed.builder()
                 .writer(member)
                 .title(request.getTitle())
@@ -35,14 +37,15 @@ public class FeedService {
                 .childFeed(new LinkedList<>())
                 .parentFlag(true)
                 .build();
-
+        feedRepository.save(parentFeed);
+        //부모 피드 해시태그에 string으로 넘겨주기 위한 스트링빌더 생성
+        //검색 용이하게 string으로 저장
         StringBuilder hashtagsGenre = new StringBuilder();
         StringBuilder hashtagsVibe = new StringBuilder();
-
-        feedRepository.save(parentFeed);
-
+        //자식 피드 생성.
         List<ChildFeedRequest> recommendToons = request.getRecommendToons();
         for (ChildFeedRequest toon : recommendToons) {
+            //웹툰 데이터 없으면 웹툰 db에 삽입
             if (toonDataRepository.findByTitle(toon.getTitle()).isEmpty()) {
                 toonDataRepository.save(ToonData.builder()
                         .title(toon.getTitle())
@@ -52,6 +55,7 @@ public class FeedService {
                         .days(toon.getDays())
                         .build());
             }
+            //클라이언트로 반환 해줄 때 해시태그 set으로 반환해주기 위해 '#'으로 구분자 만들어서 string으로 변환
             StringBuilder vibes = new StringBuilder();
             for (String hashtagVibe : toon.getHashtagVibe()) {
                 vibes.append("#");
@@ -63,6 +67,7 @@ public class FeedService {
                 genres.append("#").append(hashtagGenre);
                 hashtagsGenre.append(genres);
             }
+            // 자식 피드 생성 후 저장 및 부모 피드에 담기
             Feed childfeed = Feed.builder()
                     .toon(toonDataRepository.findByTitle(toon.getTitle())
                             .orElseThrow())
@@ -75,11 +80,18 @@ public class FeedService {
             parentFeed.getChildFeed().add(childfeed);
             feedRepository.save(childfeed);
         }
+        //부모 피드 해시태그에 저장
         parentFeed.setHashtagGenre(hashtagsGenre.toString());
         parentFeed.setHashtagVibe(hashtagsVibe.toString());
 
         return FeedInfoResponse.fromEntity(feedRepository.save(parentFeed));
 
+    }
+
+    @Transactional
+    public List<FeedInfoResponse> searchAllParentFeed(String token) {
+        List<Feed> feedList = feedRepository.findAllByParentFlag(true);
+        return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
     }
 
 }
