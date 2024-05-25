@@ -7,8 +7,9 @@ import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
+import Header from "@/components/common/Header";
 
-const Signup2 = () => {
+const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
@@ -22,8 +23,6 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setWebtoons(response);
-        // console.log(response)
-        // console.log(response.filter(item => item.updateDays.length >= 2))
       } catch (e) {
         console.error("오류 발생", e);
       }
@@ -56,17 +55,19 @@ const Signup2 = () => {
     if (user.seeWebttonList.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
     else {
       console.log(user);
-      navigator("/signup/3");
+      navigator("/mypage");
     }
+  };
+  const cancle = () => {
+    navigator("/mypage");
   };
 
   return (
     <>
+      <Header title="내가 보는 웹툰" before={cancle} />
       <div className={styles.container}>
         <Text types="headline" bold="bold">
-          반가워요!
-          <br />
-          어떤 웹툰을 보고있나요?
+          어떤 웹툰을 추가할까요?
         </Text>
         <SelectedWebtoonBox selectedList={user.seeWebttonList} removeSelect={removeSelect} />
       </div>
@@ -84,4 +85,4 @@ const Signup2 = () => {
   );
 };
 
-export default Signup2;
+export default EditSeeWtnPage;
