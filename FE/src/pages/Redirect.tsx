@@ -9,7 +9,11 @@ const Redirect = () => {
   useEffect(() => {
     const postCode = async () => {
       try {
-        const response = await axios.post("http://localhost:4000", { code });
+        const response = await axios.post(`http://localhost:8080/oauth2/callback/kakao`, code, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
         if (response.status === 200) {
           //  토큰 로컬 스토리지에 세팅하고 페이지 라우팅
           navigate("/home");
