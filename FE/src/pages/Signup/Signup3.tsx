@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "@/styles/signup/Signup.module.scss";
 import Text from "@/components/common/Text";
 import MainImg from "@assets/images/login/MainImg.svg?react";
+import { useUserStore } from "@/slices/useStore";
 
 const Signup3 = () => {
   const navigate = useNavigate();
+  const { user } = useUserStore();
 
   const nextStep = () => {
     try {
@@ -19,7 +21,7 @@ const Signup3 = () => {
     <>
       <div className={styles.container}>
         <Text types="headline" bold="bold">
-          반가워요! 000님
+          반가워요! {user.nickname}님
           <br />
           서비스명에 오신 걸 환영해요.
         </Text>

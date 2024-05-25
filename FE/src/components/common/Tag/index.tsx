@@ -11,7 +11,7 @@ interface Props {
 const Tag = ({ sizes = "medium", clickable = false, label, ...rest }: Props) => {
   return clickable ? (
     <div className={[styles.tag].join(" ")} {...rest}>
-      <input id={label} type="checkbox" />
+      <input id={label} type="checkbox" checked/>
       <label htmlFor={label} className={styles[`__${sizes}`]}>
         <span>{label}</span>
       </label>
