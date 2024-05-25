@@ -3,6 +3,9 @@ package com.example.toonners.domain.feed.service;
 import com.example.toonners.config.jwt.TokenProvider;
 import com.example.toonners.domain.bookmark.entity.Bookmark;
 import com.example.toonners.domain.bookmark.repository.BookmarkRepository;
+import com.example.toonners.domain.chatRoom.entity.ChatRoom;
+import com.example.toonners.domain.chatRoom.repository.ChatRoomRepository;
+import com.example.toonners.domain.chatRoom.service.ChatRoomService;
 import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
 import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
@@ -27,6 +30,8 @@ public class FeedService {
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
     private final BookmarkRepository bookmarkRepository;
+    private final ChatRoomRepository chatRoomRepository;
+    private final ChatRoomService chatRoomService;
 
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
@@ -49,13 +54,29 @@ public class FeedService {
         //자식 피드 생성.
         List<ChildFeedRequest> recommendToons = request.getRecommendToons();
         for (ChildFeedRequest toon : recommendToons) {
+            if (chatRoomRepository.findByToonName(toon.getTitle()).isPresent()) {
+                // 채팅방 별점 = total_point / count
+                ChatRoom chatRoom = chatRoomRepository.findByToonName(toon.getTitle()).orElseThrow();
+                // 웹툰 추천 시 별점 채팅방 총 별점에 추가
+                chatRoom.setRatingTotalPoint(
+                        (chatRoom.getRatingTotalPoint() != null)
+                                ? chatRoom.getRatingTotalPoint() + toon.getStarring()
+                                : toon.getStarring());
+                // 웹툰 추천 시 별점 count 1 증가
+                if (chatRoom.getRatingCount() != null) {
+                    chatRoom.setRatingCount(chatRoom.getRatingCount() + 1L);
+                } else {
+                    chatRoom.setRatingCount(1L);
+                }
+                chatRoomRepository.save(chatRoom);
+            }
             //웹툰 데이터 없으면 웹툰 db에 삽입
             if (toonDataRepository.findByTitle(toon.getTitle()).isEmpty()) {
                 toonDataRepository.save(ToonData.builder()
                         .title(toon.getTitle())
                         .imageUrl(toon.getImageUrl())
                         .siteUrl(toon.getSiteUrl())
-                        .rating(toon.getStarring())
+                        .rating(toon.getRating())
                         .days(toon.getDays())
                         .build());
             }
