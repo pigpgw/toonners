@@ -6,11 +6,15 @@ import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { useNavigate } from "react-router-dom";
+import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 
-const Step1 = () => {
+const Step2 = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [select, setSelect] = useState<WebtoonConfig>();
+  const { recommendationData } = useRecommendationStore();
+  const { setImgUrlAndTitle } = useRecommendConfigStore();
 
   useEffect(() => {
     const fetchWebtoons = async () => {
@@ -31,15 +35,24 @@ const Step1 = () => {
   }, [search]);
 
   const clickOutBtn = () => {
+    navigate("/recommend/new/1");
     console.log("나가기 버튼 누름");
   };
 
   const navigate = useNavigate();
 
   const selectWebtoon = (webtoon: WebtoonConfig) => {
-    setSelect(webtoon);
-    console.log("고른 웹툰", select);
-    navigate("/recommend/new/3");
+    if (recommendationData.recommendationList.filter((item) => item.webtoonTitle === webtoon.title).length !== 0) {
+      alert("이미 추천한 웹툰입니다.");
+      return;
+    }
+    if (webtoon.title && webtoon.img) {
+      setSelect(webtoon);
+      setImgUrlAndTitle(webtoon.img, webtoon.title);
+      navigate("/recommend/new/3");
+    } else {
+      console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");
+    }
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,4 +78,4 @@ const Step1 = () => {
   );
 };
 
-export default Step1;
+export default Step2;

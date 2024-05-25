@@ -2,8 +2,8 @@ import styles from "@/styles/webtoon/SearchedWebtoonCard.module.scss";
 import { ReactNode } from "react";
 
 interface Props {
-  title: string;
-  imgUrl: string;
+  title: string | undefined;
+  imgUrl: string | undefined;
   clicked?: boolean;
   children?: ReactNode;
   onClick?: () => void;
