@@ -29,11 +29,9 @@ public class MemberService extends DefaultOAuth2UserService {
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
 
-    public InfoResponse updateMember(Long memberId
-            , UpdateMemberRequest request, String token) {
+    public InfoResponse updateMember(UpdateMemberRequest request, String token) {
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(UserDoesNotExistException::new);
+        Member member = tokenProvider.getMemberFromToken(token);
         String requestEmail = tokenProvider.getEmailFromToken(token);
 
         if (!member.getEmail().equals(requestEmail)) {
