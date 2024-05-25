@@ -2,7 +2,7 @@ import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
-import Input from "@components/common/Input";
+import InputWithButton from "@/components/common/InputWithButton";
 import ChatItem from "@components/home/chatroom/main/ChatItem";
 import CustomAccordion from "./Accordian";
 import { getChatCommentList, getChatRoom, postChatComment } from "@api/chat";
@@ -46,6 +46,10 @@ const ChatRoomMain = () => {
     setComment("");
   };
 
+  const handleEmoji = async () => {
+    console.log("cick");
+  };
+
   useEffect(() => {
     const getChatRoomInfo = async () => {
       const res = await getChatRoom(id!);
@@ -62,7 +66,6 @@ const ChatRoomMain = () => {
   useEffect(() => {
     // 맨 처음 로딩 시 스크롤이 제일 하단에 위치.
     if (endRef.current) {
-      console.log(endRef);
       endRef.current.scrollIntoView();
     }
   }, [chatList]);
@@ -98,13 +101,15 @@ const ChatRoomMain = () => {
             <div ref={endRef} />
           </div>
           <div>
-            <Input
+            <InputWithButton
+              btnName="🔥"
               types="message"
-              value={comment}
-              placeholder="내용을 입력해주세요."
+              inputText={comment}
+              placeHolder="내용을 입력해주세요."
               colors="white"
-              submit={writeChatComment}
-              onChange={(e) => setComment(e.target.value)}
+              onSubmit={handleEmoji}
+              messageBtn={writeChatComment}
+              inputChange={(e) => setComment(e.target.value)}
               onKeyDown={handleEnter}
             />
           </div>
