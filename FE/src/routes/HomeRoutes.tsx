@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router";
-import RecommendPage from "@pages/RecommendPage";
+import FeedPage from "@pages/FeedPage";
 import ChatroomPage from "@pages/ChatroomPage";
 
 const HomeRoutes = () => {
   return (
     <Routes>
       <Route index path="/" element={<ChatroomPage />} />
-      <Route path="/recommend" element={<RecommendPage />} />
+      <Route path="/recommend" element={<FeedPage />} />
     </Routes>
   );
 };

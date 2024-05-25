@@ -1,13 +1,13 @@
 import styles from "@styles/common/Profile.module.scss";
 import { Avatar } from "@mui/material";
 import Text from "@components/common/Text";
-import { useEffect } from "react";
+import { MouseEvent, useEffect } from "react";
 
 interface Props {
   name: string;
   size: "small" | "medium" | "large";
   number: string;
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 const Profile = ({ name, size, number = "2", ...rest }: Props) => {
