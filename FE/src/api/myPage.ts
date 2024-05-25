@@ -15,9 +15,9 @@ interface UserDataConfig {
   favorite_toons: WatchingToonCofing[];
 }
 
-export const updateUserData = async (userData: Partial<UserDataConfig>): Promise<unknown> => {
+export const updateUserData = async (userData: unknown): Promise<unknown> => {
   try {
-    const response = await Axios.put(`${BASE_URL}/user/update`, userData);
+    const response = await Axios.put(`${BASE_URL}/member/update`, userData);
     console.log("Response data:", response.data);
     return response.data;
   } catch (error) {
@@ -45,3 +45,14 @@ export const getonMyScrap = async (): Promise<unknown> => {
     console.log("내가 작성한 북마크 가져오기 오류");
   }
 };
+
+export const geOnMyData = async (): Promise<unknown> => {
+    try {
+      const response = await Axios.get(`${BASE_URL}/member/search/my-info`);
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      console.log("내가 작성한 북마크 가져오기 오류");
+    }
+  };
+  

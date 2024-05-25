@@ -36,14 +36,14 @@ const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, off
         )}
       </div>
       {editMode ? (
-        <input type="text" className={styles.EditInput} value={user.nickname} onChange={nicknameChange} />
+        <input type="text" className={styles.EditInput} value={nickName} onChange={nicknameChange} /> 
       ) : (
         <Text types="title" bold="bold">
           {nickName}
         </Text>
       )}
       {editMode ? (
-        <input type="text" className={styles.EditInput} value={user.introduction} onChange={introductionChange} />
+        <input type="text" className={styles.EditInput} value={introduction} onChange={introductionChange} />
       ) : (
         <Text types="body-1" bold="semi-bold">
           {introduction}

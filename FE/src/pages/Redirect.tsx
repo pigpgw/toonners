@@ -18,6 +18,7 @@ const Redirect = () => {
           //  토큰 로컬 스토리지에 세팅하고 페이지 라우팅
           const token = response.headers["authorization"];
           localStorage.setItem("token", token.replace("BEARER ", ""));
+          localStorage.setItem("accessToken", response.data.id);
           navigate("/signup/1");
         } else {
           throw new Error("서버 응답이 200이 아닙니다.");
