@@ -82,6 +82,7 @@ const ChatRoomMain = () => {
                 <ChatItem
                   key={i}
                   mine={true}
+                  memberId={chat.memberId}
                   nickname={chat.memberNickname}
                   profileImg={chat.memberImage}
                   time={chat.createdAt}
@@ -91,6 +92,7 @@ const ChatRoomMain = () => {
                 <ChatItem
                   key={i}
                   mine={false}
+                  memberId={chat.memberId}
                   nickname={chat.memberNickname}
                   profileImg={chat.memberImage}
                   time={chat.createdAt}
