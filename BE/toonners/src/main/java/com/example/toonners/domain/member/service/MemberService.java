@@ -11,7 +11,6 @@ import com.example.toonners.domain.member.repository.MemberRepository;
 import com.example.toonners.domain.toondata.dto.request.ToonInsertRequest;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
-import com.example.toonners.exception.chatRoom.ChatRoomAlreadyExistException;
 import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
@@ -104,7 +103,7 @@ public class MemberService extends DefaultOAuth2UserService {
                         .days(watchingToon.getDays())
                         .build());
             } else {
-                throw new ChatRoomAlreadyExistException();
+//                throw new ChatRoomAlreadyExistException();
             }
             titleSet.add(watchingToon.getTitle());
         }
