@@ -51,4 +51,13 @@ public class ChatRoomController {
             @PathVariable(value = "toonname") String toonName) {
         return ApiResponse.createSuccess(chatRoomService.existChatRoom(toonName));
     }
+
+    @GetMapping("/chatroom/search/chatroom-list")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchAllChatRoomByPartOfChatRoomName(
+            @RequestParam(value = "part-of-name") String partOfChatRoomName
+    ) {
+        return ApiResponse.createSuccess(chatRoomService
+                .searchAllChatRoomByPartOfChatRoomName(partOfChatRoomName));
+    }
+
 }

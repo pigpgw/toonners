@@ -13,4 +13,6 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     List<ChatRoom> findByUpdatedDaysLike(String day);
 
     Optional<ChatRoom> findByToonName(String toonName);
+
+    List<ChatRoom> findByToonNameContains(String partOfChatRoomName);
 }
