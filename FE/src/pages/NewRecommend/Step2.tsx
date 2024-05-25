@@ -7,6 +7,7 @@ import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
+import { getTodayChatRoomList } from "@/api/chat";
 
 const Step2 = () => {
   const [search, setSearch] = useState<string>("");
@@ -14,7 +15,7 @@ const Step2 = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [select, setSelect] = useState<WebtoonConfig>();
   const { recommendationData } = useRecommendationStore();
-  const { setImgUrlAndTitle } = useRecommendConfigStore();
+  const { setimageUrlAndTitle } = useRecommendConfigStore();
 
   useEffect(() => {
     const fetchWebtoons = async () => {
@@ -34,6 +35,14 @@ const Step2 = () => {
     else setWebtoons([]);
   }, [search]);
 
+  useEffect(() => {
+    const et = async() => {
+      const res = await getTodayChatRoomList()
+      console.log(res)
+    }
+    et()
+  })
+
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
     console.log("나가기 버튼 누름");
@@ -42,13 +51,13 @@ const Step2 = () => {
   const navigate = useNavigate();
 
   const selectWebtoon = (webtoon: WebtoonConfig) => {
-    if (recommendationData.recommendationList.filter((item) => item.webtoonTitle === webtoon.title).length !== 0) {
+    if (recommendationData.recommendToons.filter((item) => item.title === webtoon.title).length !== 0) {
       alert("이미 추천한 웹툰입니다.");
       return;
     }
     if (webtoon.title && webtoon.img) {
       setSelect(webtoon);
-      setImgUrlAndTitle(webtoon.img, webtoon.title);
+      setimageUrlAndTitle(webtoon.img, webtoon.title, webtoon.url, webtoon.updateDays);
       navigate("/recommend/new/3");
     } else {
       console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");

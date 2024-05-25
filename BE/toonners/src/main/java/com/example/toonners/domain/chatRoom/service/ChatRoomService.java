@@ -83,6 +83,13 @@ public class ChatRoomService {
     }
 
     @Transactional
+    public List<ChatRoomInfoResponse> searchAllChatRoomByPartOfChatRoomName(
+            String partOfChatRoomName) {
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByToonNameContains(partOfChatRoomName);
+        return chatRoomList.stream().map(ChatRoomInfoResponse::fromEntity).toList();
+    }
+
+    @Transactional
     public List<ChatRoomInfoResponse> searchUpdatedChatRoom(String token) {
 
         // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
@@ -99,6 +106,11 @@ public class ChatRoomService {
     public ChatRoomInfoResponse searchChatRoomDetail(Long chatroomId) {
         return ChatRoomInfoResponse.fromEntity(chatRoomRepository
                 .findById(chatroomId).orElseThrow(ChatRoomDoseNotExist::new));
+    }
+
+    @Transactional
+    public boolean existChatRoom(String toonName) {
+        return chatRoomRepository.findByToonName(toonName).isPresent();
     }
 
     //내부 메서드

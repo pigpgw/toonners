@@ -45,4 +45,19 @@ public class ChatRoomController {
     ) {
         return ApiResponse.createSuccess(chatRoomService.searchChatRoomDetail(chatRoomId));
     }
+
+    @GetMapping("/chatroom/check-chatroom/{toonname}")
+    public ApiResponse<Boolean> existChatRoom(
+            @PathVariable(value = "toonname") String toonName) {
+        return ApiResponse.createSuccess(chatRoomService.existChatRoom(toonName));
+    }
+
+    @GetMapping("/chatroom/search/chatroom-list")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchAllChatRoomByPartOfChatRoomName(
+            @RequestParam(value = "part-of-name") String partOfChatRoomName
+    ) {
+        return ApiResponse.createSuccess(chatRoomService
+                .searchAllChatRoomByPartOfChatRoomName(partOfChatRoomName));
+    }
+
 }

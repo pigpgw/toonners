@@ -1,12 +1,12 @@
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
-import Input from "@components/common/Input";
+import InputWithButton from "@/components/common/InputWithButton";
 import ChatItem from "@components/home/chatroom/main/ChatItem";
-import { useEffect, useState } from "react";
-import { getChatCommentList, postChatComment } from "@/api/chat";
-import { ChatCommentConfig } from "@/interface/ChatRoom.interface";
 import CustomAccordion from "./Accordian";
+import { getChatCommentList, getChatRoom, postChatComment } from "@api/chat";
+import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
 const USER_ID = 2; // 테스트용 userId
 
@@ -15,33 +15,65 @@ const ChatRoomMain = () => {
   const params = useParams();
   const { id } = params;
 
+  const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>({
+    toonName: "",
+    toonImageUrl: "",
+    toonSiteUrl: "",
+    chatRoomId: 0,
+    contexts: "",
+    fireTotalCount: 0,
+    rating: 0,
+  });
   const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
   const [comment, setComment] = useState("");
+  const endRef = useRef<HTMLDivElement | null>(null);
 
   const handleBack = () => {
     navigate("/home");
   };
 
+  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter" || comment === "") return;
+    writeChatComment();
+  };
+
   const writeChatComment = async () => {
-    const res = await postChatComment({
+    const res: ChatCommentConfig = await postChatComment({
       chatRoomId: id!,
       contexts: comment,
     });
-    console.log(res);
+    setChatList([...chatList, res]);
+    setComment("");
+  };
+
+  const handleEmoji = async () => {
+    console.log("cick");
   };
 
   useEffect(() => {
+    const getChatRoomInfo = async () => {
+      const res = await getChatRoom(id!);
+      setChatroomInfo(res);
+    };
     const getChatComments = async () => {
       const res = await getChatCommentList(id!);
       setChatList(res);
     };
+    getChatRoomInfo();
     getChatComments();
   }, []);
 
+  useEffect(() => {
+    // 맨 처음 로딩 시 스크롤이 제일 하단에 위치.
+    if (endRef.current) {
+      endRef.current.scrollIntoView();
+    }
+  }, [chatList]);
+
   return (
     <>
-      <Header title="웹툰 이름" before={handleBack} />
-      <CustomAccordion />
+      <Header title={chatroomInfo.toonName} before={handleBack} />
+      <CustomAccordion info={chatroomInfo} />
       <div className={styles.main}>
         <div className={styles.main__chat}>
           <div className={styles.chat__list}>
@@ -50,6 +82,7 @@ const ChatRoomMain = () => {
                 <ChatItem
                   key={i}
                   mine={true}
+                  memberId={chat.memberId}
                   nickname={chat.memberNickname}
                   profileImg={chat.memberImage}
                   time={chat.createdAt}
@@ -59,6 +92,7 @@ const ChatRoomMain = () => {
                 <ChatItem
                   key={i}
                   mine={false}
+                  memberId={chat.memberId}
                   nickname={chat.memberNickname}
                   profileImg={chat.memberImage}
                   time={chat.createdAt}
@@ -66,15 +100,19 @@ const ChatRoomMain = () => {
                 />
               );
             })}
+            <div ref={endRef} />
           </div>
           <div>
-            <Input
+            <InputWithButton
+              btnName="🔥"
               types="message"
-              value={comment}
-              placeholder="내용을 입력해주세요."
+              inputText={comment}
+              placeHolder="내용을 입력해주세요."
               colors="white"
-              onChange={(e) => setComment(e.target.value)}
-              submit={writeChatComment}
+              onSubmit={handleEmoji}
+              messageBtn={writeChatComment}
+              inputChange={(e) => setComment(e.target.value)}
+              onKeyDown={handleEnter}
             />
           </div>
         </div>

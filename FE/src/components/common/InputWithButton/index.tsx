@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "@styles/common/InputWithButton.module.scss";
 import Text from "@components/common/Text";
+import Input from "../Input";
 
 interface Props {
   btnName: string;
@@ -9,11 +10,25 @@ interface Props {
   inputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
   placeHolder?: string;
-  color?: "gray-1" | "white";
+  colors?: "gray-1" | "white";
   label?: string;
+  types: "default" | "search" | "message";
+  messageBtn?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputWithButton = ({ inputText, inputChange, onSubmit, btnName, placeHolder, color, label }: Props) => {
+const InputWithButton = ({
+  inputText,
+  inputChange,
+  onSubmit,
+  btnName,
+  placeHolder,
+  colors,
+  label,
+  types = "default",
+  messageBtn,
+  onKeyDown,
+}: Props) => {
   return (
     <div className={styles.InputWithButton}>
       {label !== "" && (
@@ -24,12 +39,14 @@ const InputWithButton = ({ inputText, inputChange, onSubmit, btnName, placeHolde
         </div>
       )}
       <div className={styles.input}>
-        <input
-          style={{ backgroundColor: `var(--color-${color}` }}
-          type="text"
+        <Input
+          types={types}
           value={inputText}
-          placeholder={placeHolder}
+          colors={colors}
+          placeholder={placeHolder ? placeHolder : ""}
           onChange={inputChange}
+          submit={messageBtn}
+          onKeyDown={onKeyDown}
         />
         <button className={styles.btn} onClick={onSubmit}>
           {btnName}

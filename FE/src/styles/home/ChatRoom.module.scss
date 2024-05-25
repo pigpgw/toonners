@@ -119,8 +119,11 @@
   > div:nth-child(1) {
     width: 66px;
     height: 66px;
-    border-radius: 20px;
-    background-color: var(--color-gray-1);
+    > img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
   }
   > div:nth-child(2) {
     display: flex;

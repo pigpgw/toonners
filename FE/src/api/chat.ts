@@ -11,6 +11,11 @@ const getTodayChatRoomList = async () => {
   return res.data.data;
 };
 
+const getChatRoom = async (roomId: string) => {
+  const res = await Axios.get(HOST + `/chatroom/search/detail/${roomId}`);
+  return res.data.data;
+};
+
 const postChatRoom = async (data: {
   toonName: string;
   toonImage: string;
@@ -30,7 +35,7 @@ const getChatCommentList = async (roomId: string) => {
 
 const postChatComment = async (data: { chatRoomId: string; contexts: string }) => {
   const res = await Axios.post(HOST + "/chat/create", data);
-  return res;
+  return res.data.data;
 };
 
-export { getAllChatRoomList, getTodayChatRoomList, postChatRoom, getChatCommentList, postChatComment };
+export { getAllChatRoomList, getTodayChatRoomList, getChatRoom, postChatRoom, getChatCommentList, postChatComment };

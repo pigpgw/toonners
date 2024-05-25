@@ -5,11 +5,16 @@ import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import { useUserStore } from "@/slices/useStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ButtomNav from "@/components/home/BottomNav";
+import ButtomNav from "@/components/mypage/ButtonNav";
 
 const Mypage = () => {
   const { user } = useUserStore();
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+
+  })
+
 
   const onEditMode = () => {
     setEditMode(true);

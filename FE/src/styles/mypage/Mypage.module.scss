@@ -109,5 +109,31 @@
 }
 
 .wrp {
-    width: 100%;
+  width: 100%;
+}
+
+.nav {
+  width: 390px;
+  height: 88px;
+  position: sticky;
+  bottom: 0px;
+  background-color: var(--color-white);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  > div {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:nth-child(3) {
+      color: var(--color-primary);
+    }
+    &:nth-child(2),
+    &:nth-child(1) {
+      color: var(--color-gray-2);
+    }
+  }
 }

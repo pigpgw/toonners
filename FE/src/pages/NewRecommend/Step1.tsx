@@ -6,23 +6,27 @@ import AddButton from "@/components/newRecommend/Button";
 import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import WebtoonCard from "@/components/newRecommend/WebtoonCard";
+import { postNewRecommend } from "@/api/recommend";
 
 const Step1 = () => {
-  const { recommendationData, setPostTitle, setPostContent, clearRecommendations } = useRecommendationStore();
+  const { recommendationData, setPostTitle, setPostcotexts, clearRecommendations } = useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const clickShareBtn = () => {
-    console.log("나가기 버튼 누름");
+  const clickShareBtn = async () => {
     if (recommendationData.title.length === 0) {
       alert("추천글 제목을 입력해주세요");
       return;
     }
-    clearRecommendations();
-    resetRecommendConfig();
-    alert('등록이 완료되었습니다.!')
-    navigate("/home");
-    
+    try {
+      await postNewRecommend(recommendationData);
+      clearRecommendations();
+      resetRecommendConfig();
+      alert("등록이 완료되었습니다.!");
+      navigate("/home");
+    } catch (e) {
+      alert(e);
+    }
   };
 
   const navigate = useNavigate();
@@ -36,13 +40,13 @@ const Step1 = () => {
   };
 
   const inputContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPostContent(e.target.value);
+    setPostcotexts(e.target.value);
   };
 
   useEffect(() => {
     console.log(recommendationData);
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [recommendationData?.recommendationList?.length]);
+  }, [recommendationData?.recommendToons?.length]);
 
   useEffect(() => {
     resetRecommendConfig();
@@ -61,24 +65,24 @@ const Step1 = () => {
           onChange={inputTitleChange}
         />
         <textarea
-          value={recommendationData.content}
+          value={recommendationData.cotexts}
           onChange={inputContentChange}
           className={styles.textarea}
           placeholder="내용을 입력하세요"
         />
-        {recommendationData?.recommendationList?.map((item, index) => {
+        {recommendationData?.recommendToons?.map((item, index) => {
           return (
             <WebtoonCard
               key={index}
-              title={item.webtoonTitle}
-              score={item.score}
-              imgUrl={item.imgUrl}
-              moodList={item.mood}
-              genreList={item.genre}
+              title={item.title}
+              score={item.starring}
+              imgUrl={item.imageUrl}
+              moodList={item.hashtagVibe}
+              genreList={item.hashtagGenre}
             />
           );
         })}
-        {recommendationData.recommendationList.length < 4 && <AddButton onClick={goNextPage} />}
+        {recommendationData.recommendToons.length < 4 && <AddButton onClick={goNextPage} />}
         <div ref={scrollRef}></div>
       </div>
     </>

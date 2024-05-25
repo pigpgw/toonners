@@ -57,9 +57,9 @@ const Step3 = () => {
 
   const storeData = () => {
     const config = {
-      score: rating,
-      genre: selectedGenres,
-      mood: selectedMoods,
+      starring: rating,
+      hashtagGenre: selectedGenres,
+      hashtagVibe: selectedMoods,
     };
     setRecommendConfig(config);
   };
@@ -69,7 +69,7 @@ const Step3 = () => {
       <Header title="웹툰 추천하기" before={clickOutBtn} buttonName="공유" />
       <div className={styles.container}>
         <div style={{ marginLeft: "85px" }}>
-          <SearchedWebtoonCard title={recommendConfig.webtoonTitle} imgUrl={recommendConfig.imgUrl || ""} />
+          <SearchedWebtoonCard title={recommendConfig.title} imgUrl={recommendConfig.imageUrl || ""} />
         </div>
         <hr className={styles.line} style={{ marginTop: "50px" }} />
         <Text types="title" bold="bold">

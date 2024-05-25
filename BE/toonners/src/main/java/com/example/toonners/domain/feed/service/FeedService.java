@@ -153,6 +153,7 @@ public class FeedService {
         return feedInfoResponse;
     }
 
+    @Transactional
     public List<FeedInfoResponse> searchBookmarkedFeeds(String token) {
         Member member = tokenProvider.getMemberFromToken(token);
         List<FeedInfoResponse> feedInfoResponses = bookmarkRepository.findByMemberIdAndBookmarkType(member.getId(), "feed")
@@ -160,6 +161,14 @@ public class FeedService {
         for (FeedInfoResponse feedInfoResponse : feedInfoResponses) {
             feedInfoResponse.setBookmarked(true);
         }
+        return feedInfoResponses;
+    }
+
+    @Transactional
+    public List<FeedInfoResponse> searchAllParentFeedByPartOfTitle(String token, String partOfTitle) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        List<Feed> feedList = feedRepository.findAllByTitleContains(partOfTitle);
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
         return feedInfoResponses;
     }
 

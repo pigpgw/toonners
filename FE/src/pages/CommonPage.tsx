@@ -61,15 +61,17 @@ const CommonPage = () => {
           btnName="확인"
           onSubmit={() => console.log("")}
           placeHolder="닉네임을 입력해주세요"
-          color="gray-1"
+          colors="gray-1"
+          types="default"
         />
         <InputWithButton
           inputText="닉네임"
           btnName="확인"
           onSubmit={() => console.log("")}
           placeHolder="닉네임을 입력해주세요"
-          color="gray-1"
+          colors="gray-1"
           label="닉네임"
+          types="default"
         />
         <TextArea value={`text area \ntext area \ntext area`} />
       </div>
