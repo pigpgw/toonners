@@ -1,12 +1,10 @@
 import styles from "@styles/common/Logo.module.scss";
-import Text from "../Text";
+import LogoImg from "@assets/images/home/Logo.svg?react";
 
 const Logo = () => {
   return (
     <div className={styles.logo}>
-      <Text types="display" bold="semi-bold">
-        LOGO
-      </Text>
+      <LogoImg />
     </div>
   );
 };

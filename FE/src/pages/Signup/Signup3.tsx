@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "@/styles/signup/Signup.module.scss";
 import Text from "@/components/common/Text";
-import MainImg from "@assets/images/login/MainImg.svg?react";
+import Complete from "@assets/images/login/Complete.svg?react";
 import { useUserStore } from "@/slices/useStore";
 
 const Signup3 = () => {
@@ -25,7 +25,7 @@ const Signup3 = () => {
           <br />
           서비스명에 오신 걸 환영해요.
         </Text>
-        <MainImg />
+        <Complete />
       </div>
       <button className={styles.confirm} onClick={nextStep}>
         확인
