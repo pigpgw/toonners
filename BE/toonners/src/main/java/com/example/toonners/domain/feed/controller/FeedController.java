@@ -24,11 +24,19 @@ public class FeedController {
         return ApiResponse.createSuccessWithMessage(response, "피드 생성 성공");
     }
 
-    @GetMapping("feed/search/all/parent-feed")
+    @GetMapping("/feed/search/all/parent-feed")
     public ApiResponse<List<FeedInfoResponse>> searchAllParentFeed(
             @RequestHeader("Authorization") String token
     ) {
         List<FeedInfoResponse> reponseList = feedService.searchAllParentFeed(token);
+        return ApiResponse.createSuccess(reponseList);
+    }
+
+    @GetMapping("/feed/search/my-parent-feed")
+    public ApiResponse<List<FeedInfoResponse>> searchAllMyParentFeed(
+            @RequestHeader("Authorization") String token
+    ) {
+        List<FeedInfoResponse> reponseList = feedService.searchAllMyParentFeed(token);
         return ApiResponse.createSuccess(reponseList);
     }
 

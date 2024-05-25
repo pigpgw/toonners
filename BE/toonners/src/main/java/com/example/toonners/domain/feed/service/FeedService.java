@@ -94,4 +94,11 @@ public class FeedService {
         return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
     }
 
+    @Transactional
+    public List<FeedInfoResponse> searchAllMyParentFeed(String token) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        List<Feed> feedList = feedRepository.findAllByParentFlagAndWriterId(true, member.getId());
+        return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
+    }
+
 }
