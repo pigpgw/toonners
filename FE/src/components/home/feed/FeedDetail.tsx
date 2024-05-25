@@ -9,12 +9,18 @@ import { useState } from "react";
 
 const FeedDetail = () => {
   const [checked, setChecked] = useState(false);
+  const params = useParams();
+  const { id } = params;
+
+  const setBookMark = async () => {
+    await postBookMark(id!);
+  };
   return (
     <>
       <Header
-        title="피드 제목"
+        title={detail.feedTitle}
         before={() => console.log("before")}
-        button={<Bookmark label="스크랩" checked={checked} onChange={setChecked} />}
+        button={<Bookmark label="스크랩" checked={checked} onChange={setChecked} onClick={setBookMark} />}
       />
       <div className={styles.feed__detail}>
         <div>
