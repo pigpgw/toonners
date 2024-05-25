@@ -1,6 +1,7 @@
 package com.example.toonners.domain.feed.service;
 
 import com.example.toonners.config.jwt.TokenProvider;
+import com.example.toonners.domain.bookmark.repository.BookmarkRepository;
 import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
 import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
@@ -24,6 +25,7 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
@@ -91,27 +93,57 @@ public class FeedService {
 
     @Transactional
     public List<FeedInfoResponse> searchAllParentFeed(String token) {
+        // 북마크 정보 알기 위한 맴버 정보 조회
+        Member member = tokenProvider.getMemberFromToken(token);
+        // 보여줄 피드 리스트
         List<Feed> feedList = feedRepository.findAllByParentFlag(true);
-        return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
+        // response 로 변환
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        return feedInfoResponses;
     }
 
     @Transactional
     public List<FeedInfoResponse> searchAllMyParentFeed(String token) {
         Member member = tokenProvider.getMemberFromToken(token);
         List<Feed> feedList = feedRepository.findAllByParentFlagAndWriterId(true, member.getId());
-        return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        return feedInfoResponses;
     }
 
     @Transactional
     public List<FeedInfoResponse> searchAllParentFeedByMember(String token, Long memberId) {
+        Member member = tokenProvider.getMemberFromToken(token);
         List<Feed> feedList = feedRepository.findAllByParentFlagAndWriterId(true, memberId);
-        return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        return feedInfoResponses;
     }
 
     @Transactional
     public FeedInfoResponse searchDetailFeed(String token, Long parentFeedId) {
+        Member member = tokenProvider.getMemberFromToken(token);
         Feed feed = feedRepository.findById(parentFeedId)
                 .orElseThrow(FeedDoseNotExistException::new);
-        return FeedInfoResponse.fromEntity(feed);
+        FeedInfoResponse feedInfoResponse = FeedInfoResponse.fromEntity(feed);
+        if (bookmarkRepository.findByMemberIdAndBookmarkTypeIdAndBookmarkType(
+                member.getId(), feed.getId(), "feed").isPresent()) {
+            feedInfoResponse.setBookmarked(true);
+        }
+        return feedInfoResponse;
+    }
+
+    // 내부 메서드
+    private List<FeedInfoResponse> getFeedInfoResponses(Member member, List<Feed> feedList) {
+        List<FeedInfoResponse> feedInfoResponses = feedList.stream()
+                .map(FeedInfoResponse::fromEntity).toList();
+        // 피드 id와 맴버 id 로 북마크 객체 조회 및 response에 내 북마크 정보 삽입.
+        for (int i = 0; i < feedInfoResponses.size(); i++) {
+            Feed feed = feedList.get(i);
+            FeedInfoResponse feedInfoResponse = feedInfoResponses.get(i);
+            if (bookmarkRepository.findByMemberIdAndBookmarkTypeIdAndBookmarkType(
+                    member.getId(), feed.getId(), "feed").isPresent()) {
+                feedInfoResponse.setBookmarked(true);
+            }
+        }
+        return feedInfoResponses;
     }
 }

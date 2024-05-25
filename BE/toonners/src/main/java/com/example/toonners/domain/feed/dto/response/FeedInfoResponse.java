@@ -23,6 +23,8 @@ public class FeedInfoResponse {
     private Set<String> hashtags;
     private Set<ChildFeedResponse> childFeedList;
 
+    private boolean bookmarked;
+
     public static FeedInfoResponse fromEntity(Feed feed) {
 
         String hasgtagsString = feed.getHashtagVibe() + feed.getHashtagGenre();
