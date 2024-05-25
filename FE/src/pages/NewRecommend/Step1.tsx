@@ -5,7 +5,7 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import AddButton from "@/components/newRecommend/Button";
 import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import WebtoonCard from "@/components/newRecommend/webtoonCard";
+import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostContent, clearRecommendations } = useRecommendationStore();
