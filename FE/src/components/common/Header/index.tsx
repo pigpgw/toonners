@@ -1,17 +1,15 @@
 import styles from "@styles/common/Header.module.scss";
 import Text from "@components/common/Text";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import Button from "@components/common/Button";
+import { ReactNode } from "react";
 
 interface Props {
   title: string;
-  button?: boolean;
-  buttonName?: string;
+  button?: ReactNode;
   before: () => void;
-  onClick?: () => void;
 }
 
-const Header = ({ title, button, buttonName, before, onClick }: Props) => {
+const Header = ({ title, button, before }: Props) => {
   const isButton = button ? "--visible" : "";
   return (
     <div className={styles.header}>
@@ -19,11 +17,7 @@ const Header = ({ title, button, buttonName, before, onClick }: Props) => {
       <Text types="sub-header" bold="semi-bold">
         {title}
       </Text>
-      <div className={styles[`header__button${isButton}`]}>
-        <Button types="primary" sizes="small" onClick={onClick}>
-          {buttonName}
-        </Button>
-      </div>
+      <div className={styles[`header__button${isButton}`]}>{button}</div>
     </div>
   );
 };

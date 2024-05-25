@@ -5,6 +5,7 @@ import Text from "../../components/common/Text/index";
 import Tag from "@/components/common/Tag";
 import { useNavigate } from "react-router-dom";
 import Rating from "@/components/common/Rating";
+import Button from "@/components/common/Button";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import { useState } from "react";
 
@@ -66,7 +67,17 @@ const Step3 = () => {
 
   return (
     <>
-      <Header title="웹툰 추천하기" before={clickOutBtn} buttonName="공유" />
+      <Header
+        title="웹툰 추천하기"
+        before={clickOutBtn}
+        button={
+          <Button types="primary" sizes="small">
+            <Text types="button" bold="medium">
+              공유
+            </Text>
+          </Button>
+        }
+      />
       <div className={styles.container}>
         <div style={{ marginLeft: "85px" }}>
           <SearchedWebtoonCard title={recommendConfig.title} imgUrl={recommendConfig.imageUrl || ""} />

@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 import { postNewRecommend } from "@/api/recommend";
+import Button from "@/components/common/Button";
+import Text from "@/components/common/Text";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostcotexts, clearRecommendations } = useRecommendationStore();
@@ -55,7 +57,17 @@ const Step1 = () => {
 
   return (
     <>
-      <Header title="웹툰 추천하기" before={clickShareBtn} buttonName="공유" button={true} onClick={clickShareBtn} />
+      <Header
+        title="웹툰 추천하기"
+        before={clickShareBtn}
+        button={
+          <Button types="primary" sizes="small" onClick={clickShareBtn}>
+            <Text types="button" bold="medium">
+              공유
+            </Text>
+          </Button>
+        }
+      />
       <div className={styles.inputcontainer}>
         <Input
           types="default"

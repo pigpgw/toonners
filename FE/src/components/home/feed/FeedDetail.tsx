@@ -4,11 +4,18 @@ import Profile from "@/components/common/Profile";
 import Tag from "@/components/common/Tag";
 import Text from "@/components/common/Text";
 import FeedDetailCard from "./FeedDetailCard";
+import Bookmark from "@/components/common/Tag/Bookmark";
+import { useState } from "react";
 
 const FeedDetail = () => {
+  const [checked, setChecked] = useState(false);
   return (
     <>
-      <Header title="피드 제목" before={() => console.log("before")} />
+      <Header
+        title="피드 제목"
+        before={() => console.log("before")}
+        button={<Bookmark label="스크랩" checked={checked} onChange={setChecked} />}
+      />
       <div className={styles.feed__detail}>
         <div>
           <Profile name="닉네임" size="medium" number="6" />
