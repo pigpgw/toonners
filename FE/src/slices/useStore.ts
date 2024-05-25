@@ -1,5 +1,5 @@
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
-import create from "zustand";
+import { create } from "zustand";
 
 interface UserConfig {
   nickname: string;

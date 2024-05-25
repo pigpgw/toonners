@@ -76,7 +76,7 @@ const Step3 = () => {
           별점 매기기
         </Text>
         <div className={styles.tagBox}>
-          <Rating sizes="large" onChange={(_, value) => setRating(value)} />
+          <Rating sizes="large" onChange={(_, value) => (value ? setRating(value) : 0)} />
         </div>
         <hr className={styles.line} />
         <Text types="title" bold="bold">
