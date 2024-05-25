@@ -8,9 +8,10 @@ interface Props {
   button?: boolean;
   buttonName?: string;
   before: () => void;
+  onClick?: () => void;
 }
 
-const Header = ({ title, button, buttonName, before }: Props) => {
+const Header = ({ title, button, buttonName, before, onClick }: Props) => {
   const isButton = button ? "--visible" : "";
   return (
     <div className={styles.header}>
@@ -19,7 +20,7 @@ const Header = ({ title, button, buttonName, before }: Props) => {
         {title}
       </Text>
       <div className={styles[`header__button${isButton}`]}>
-        <Button types="primary" sizes="small">
+        <Button types="primary" sizes="small" onClick={onClick}>
           {buttonName}
         </Button>
       </div>
