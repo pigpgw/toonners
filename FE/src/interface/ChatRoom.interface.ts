@@ -7,3 +7,12 @@ export interface ChatRoomInfoConfig {
   rating: number;
   fireTotalCount: number;
 }
+
+export interface ChatCommentConfig {
+  chatRoomId: number;
+  memberId: number;
+  memberNickname: string;
+  memberImage: string;
+  chatMessage: string;
+  createdAt: string;
+}

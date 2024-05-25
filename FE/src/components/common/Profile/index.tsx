@@ -1,14 +1,24 @@
 import styles from "@styles/common/Profile.module.scss";
 import { Avatar } from "@mui/material";
-import Text from "../Text";
+import Text from "@components/common/Text";
+import { useEffect } from "react";
 
 interface Props {
   name: string;
   size: "small" | "medium" | "large";
+  number: string;
   onClick?: () => void;
 }
 
-const Profile = ({ name, size, ...rest }: Props) => {
+const Profile = ({ name, size, number = "2", ...rest }: Props) => {
+  const createImageElement = () => {
+    return new URL(`../../../assets/characters/character_${number}.svg`, import.meta.url).href;
+  };
+
+  useEffect(() => {
+    createImageElement();
+  }, []);
+
   const profileSize = {
     small: { width: 24, height: 24 },
     medium: { width: 36, height: 36 },
@@ -16,7 +26,7 @@ const Profile = ({ name, size, ...rest }: Props) => {
   };
   return (
     <div className={styles.profile} {...rest}>
-      <Avatar sx={profileSize[size]} />
+      <Avatar id="avatar" sx={profileSize[size]} src={createImageElement()} />
       <Text types="title" bold="semi-bold">
         {name}
       </Text>

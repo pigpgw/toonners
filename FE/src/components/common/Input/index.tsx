@@ -10,6 +10,7 @@ interface Props {
   types: "default" | "search" | "message";
   value?: string | number;
   colors?: "gray-1" | "white";
+  submit?: () => void;
 }
 
 const InputTextField = styled(TextField)({
@@ -30,25 +31,24 @@ const InputTextField = styled(TextField)({
   },
 });
 
-const setAdornment = {
-  default: {},
-  search: {
-    startAdornment: (
-      <InputAdornment position="start">
-        <SearchIcon />
-      </InputAdornment>
-    ),
-  },
-  message: {
-    endAdornment: (
-      <InputAdornment position="end">
-        <SendIcon sx={{ fontSize: "medium" }} />
-      </InputAdornment>
-    ),
-  },
-};
-
-const Input = ({ label, types = "default", colors = "gray-1", ...rest }: Props & TextFieldProps) => {
+const Input = ({ label, types = "default", colors = "gray-1", submit, ...rest }: Props & TextFieldProps) => {
+  const setAdornment = {
+    default: {},
+    search: {
+      startAdornment: (
+        <InputAdornment position="start">
+          <SearchIcon />
+        </InputAdornment>
+      ),
+    },
+    message: {
+      endAdornment: (
+        <InputAdornment position="end" onClick={submit}>
+          <SendIcon sx={{ fontSize: "medium" }} />
+        </InputAdornment>
+      ),
+    },
+  };
   return (
     <div className={styles.input}>
       {label !== "" && (
