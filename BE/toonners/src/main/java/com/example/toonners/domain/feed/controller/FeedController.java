@@ -45,7 +45,7 @@ public class FeedController {
             @RequestHeader("Authorization") String token,
             @RequestParam(value = "member-id") Long memberId
     ) {
-        List<FeedInfoResponse> reponseList = feedService.searchAllMyParentFeed(token);
+        List<FeedInfoResponse> reponseList = feedService.searchAllParentFeedByMember(token, memberId);
         return ApiResponse.createSuccess(reponseList);
     }
 
