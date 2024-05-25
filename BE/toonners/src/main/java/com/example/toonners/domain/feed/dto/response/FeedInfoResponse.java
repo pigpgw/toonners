@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 public class FeedInfoResponse {
-
+    private Long parentFeedId;
     private Long writerMemberId;
     private String writerMemberImage;
     private String feedTitle;
@@ -29,6 +29,7 @@ public class FeedInfoResponse {
         hasgtagsString = hasgtagsString.replaceAll("#", " ").trim();
         Set<String> hashtagSet = new HashSet<>(Arrays.asList(hasgtagsString.split(" ")));
         return FeedInfoResponse.builder()
+                .parentFeedId(feed.getId())
                 .writerMemberId(feed.getWriter().getId())
                 .writerMemberImage(feed.getWriter().getImage())
                 .feedTitle(feed.getTitle())

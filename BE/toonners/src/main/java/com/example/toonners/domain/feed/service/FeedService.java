@@ -9,6 +9,7 @@ import com.example.toonners.domain.feed.repository.FeedRepository;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
+import com.example.toonners.exception.feed.FeedDoseNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,5 +106,12 @@ public class FeedService {
     public List<FeedInfoResponse> searchAllParentFeedByMember(String token, Long memberId) {
         List<Feed> feedList = feedRepository.findAllByParentFlagAndWriterId(true, memberId);
         return feedList.stream().map(FeedInfoResponse::fromEntity).toList();
+    }
+
+    @Transactional
+    public FeedInfoResponse searchDetailFeed(String token, Long parentFeedId) {
+        Feed feed = feedRepository.findById(parentFeedId)
+                .orElseThrow(FeedDoseNotExistException::new);
+        return FeedInfoResponse.fromEntity(feed);
     }
 }
