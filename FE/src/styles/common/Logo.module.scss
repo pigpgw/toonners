@@ -1,4 +1,8 @@
 .logo {
-  padding: 2px 0 2px 5px;
+  width: 144px;
+  padding: 10px 20px 0px 15px;
   box-sizing: border-box;
+  > svg {
+    width: 100%;
+  }
 }

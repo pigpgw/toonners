@@ -15,7 +15,9 @@ const Bookmark = ({ label, checked, onChange }: Props) => {
       <input id={label} type="checkbox" onChange={({ target: { checked } }) => onChange(checked)} />
       <label htmlFor={label}>
         {checked ? <BookmarkIcon sx={{ fontSize: "medium" }} /> : <BookmarkBorderIcon sx={{ fontSize: "medium" }} />}
-        <Text>스크랩</Text>
+        <Text types="button" bold="medium">
+          스크랩
+        </Text>
       </label>
     </div>
   );

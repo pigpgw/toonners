@@ -21,7 +21,7 @@ const SearchList = ({ title }: Props) => {
           {CHATROOM_DATA.length > 0 ? (
             <div className={styles.items}>
               {CHATROOM_DATA.map((_, key) => {
-                return <RestChatItem key={key} />;
+                // return <RestChatItem key={key} />;
               })}
             </div>
           ) : (
@@ -36,7 +36,7 @@ const SearchList = ({ title }: Props) => {
           {RECOMMEND_DATA.length > 0 ? (
             <div className={styles.items}>
               {RECOMMEND_DATA.map((_, key) => {
-                return <FeedItem imgCount={4} key={key} />;
+                // return <FeedItem key={key} />;
               })}
             </div>
           ) : (
