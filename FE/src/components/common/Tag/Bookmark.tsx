@@ -7,12 +7,13 @@ interface Props {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
+  onClick?: () => void;
 }
 
-const Bookmark = ({ label, checked, onChange }: Props) => {
+const Bookmark = ({ label, checked, onChange, onClick }: Props) => {
   return (
     <div className={styles.bookmark}>
-      <input id={label} type="checkbox" onChange={({ target: { checked } }) => onChange(checked)} />
+      <input id={label} type="checkbox" onChange={({ target: { checked } }) => onChange(checked)} onClick={onClick} />
       <label htmlFor={label}>
         {checked ? <BookmarkIcon sx={{ fontSize: "medium" }} /> : <BookmarkBorderIcon sx={{ fontSize: "medium" }} />}
         <Text types="button" bold="medium">

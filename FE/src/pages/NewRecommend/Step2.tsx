@@ -2,6 +2,7 @@ import Header from "@/components/common/Header";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import { useEffect, useState } from "react";
 import Text from "@/components/common/Text";
+import Button from "@/components/common/Button";
 import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
@@ -36,12 +37,12 @@ const Step2 = () => {
   }, [search]);
 
   useEffect(() => {
-    const et = async() => {
-      const res = await getTodayChatRoomList()
-      console.log(res)
-    }
-    et()
-  })
+    const et = async () => {
+      const res = await getTodayChatRoomList();
+      console.log(res);
+    };
+    et();
+  });
 
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
@@ -70,7 +71,17 @@ const Step2 = () => {
 
   return (
     <>
-      <Header title="웹툰 추천하기" before={clickOutBtn} buttonName="공유" />
+      <Header
+        title="웹툰 추천하기"
+        before={clickOutBtn}
+        button={
+          <Button types="primary" sizes="small">
+            <Text types="button" bold="medium">
+              공유
+            </Text>
+          </Button>
+        }
+      />
       <div className={styles.inputcontainer}>
         <Text types="sub-header" bold="bold">
           어떤 웹툰에 대해 이야기할까요?

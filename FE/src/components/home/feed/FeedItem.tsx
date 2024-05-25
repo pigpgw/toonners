@@ -5,7 +5,6 @@ import Text from "@components/common/Text";
 import Tag from "@components/common/Tag";
 import Profile from "@components/common/Profile";
 import Bookmark from "@components/common/Tag/Bookmark";
-import Rating from "@components/common/Rating";
 import { FeedListConfig } from "@/interface/Feed.interface";
 
 interface Props {
@@ -43,7 +42,7 @@ const FeedItem = ({ feed }: Props) => {
           <Text types="sub-header" bold="semi-bold">
             {feed.feedTitle}
           </Text>
-          <Rating defaultValue={3} sizes="small" readOnly />
+          <Text>{feed.feedContexts}</Text>
         </div>
         <div className={styles.rest__tags}>
           {feed.hashtags.length > 0 &&
