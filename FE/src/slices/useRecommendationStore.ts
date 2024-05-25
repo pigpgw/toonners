@@ -1,24 +1,36 @@
 import { create } from "zustand";
 
-interface RecommendConfig {
-  webtoonTitle?: string;
-  imgUrl?: string;
-  score?: number;
-  genre?: string[];
-  mood?: string[];
+interface RecommendToonConfig {
+  starring: number;
+  hashtagGenre: string[];
+  hashtagVibe: string[];
+  title: string;
+  imageUrl: string;
+  imageSiteUrl: string;
+  days: string[];
 }
 
-interface RecommendationConfig {
+interface Config1 {
+  starring?: number;
+  hashtagGenre?: string[];
+  hashtagVibe?: string[];
+  title?: string;
+  imageUrl?: string;
+  imageSiteUrl?: string;
+  days?: string[];
+}
+
+interface Config {
   title: string;
-  content: string;
-  recommendationList: RecommendConfig[];
+  cotexts: string;
+  recommendToons: RecommendToonConfig[];
 }
 
 interface RecommendationStoreConfig {
-  recommendationData: RecommendationConfig;
+  recommendationData: Config;
   setPostTitle: (title: string) => void;
-  setPostContent: (content: string) => void;
-  addRecommendation: (recommendation: RecommendConfig) => void;
+  setPostcotexts: (cotexts: string) => void;
+  addRecommendation: (recommendation: RecommendToonConfig) => void;
   removeRecommendation: (title: string) => void;
   clearRecommendations: () => void;
 }
@@ -26,71 +38,75 @@ interface RecommendationStoreConfig {
 export const useRecommendationStore = create<RecommendationStoreConfig>((set) => ({
   recommendationData: {
     title: "",
-    content: "",
-    recommendationList: [],
+    cotexts: "",
+    recommendToons: [],
   },
   setPostTitle: (title: string) =>
     set((state) => ({
       recommendationData: { ...state.recommendationData, title },
     })),
-  setPostContent: (content: string) =>
+  setPostcotexts: (cotexts: string) =>
     set((state) => ({
-      recommendationData: { ...state.recommendationData, content },
+      recommendationData: { ...state.recommendationData, cotexts },
     })),
-  addRecommendation: (recommendation: RecommendConfig) =>
+  addRecommendation: (recommendation: RecommendToonConfig) =>
     set((state) => ({
       recommendationData: {
         ...state.recommendationData,
-        recommendationList: [...state.recommendationData.recommendationList, recommendation],
+        recommendToons: [...state.recommendationData.recommendToons, recommendation],
       },
     })),
   removeRecommendation: (title: string) =>
     set((state) => ({
       recommendationData: {
         ...state.recommendationData,
-        recommendationList: state.recommendationData.recommendationList.filter((r) => r.webtoonTitle !== title),
+        recommendToons: state.recommendationData.recommendToons.filter((r) => r.title !== title),
       },
     })),
   clearRecommendations: () =>
     set((state) => ({
       recommendationData: {
         ...state.recommendationData,
-        recommendationList: [],
+        recommendToons: [],
       },
     })),
 }));
 
 interface RecommendConfigStore {
-  recommendConfig: RecommendConfig;
-  setRecommendConfig: (config: RecommendConfig) => void;
-  setImgUrlAndTitle: (imgUrl: string, title: string) => void;
+  recommendConfig: RecommendToonConfig;
+  setRecommendConfig: (config: Config1) => void;
+  setimageUrlAndTitle: (imageUrl: string, title: string, imageSiteUrl: string, days: string[]) => void;
   resetRecommendConfig: () => void;
 }
 
 export const useRecommendConfigStore = create<RecommendConfigStore>((set) => ({
   recommendConfig: {
-    webtoonTitle: "",
-    imgUrl: "",
-    score: 0,
-    genre: [],
-    mood: [],
+    title: "",
+    imageUrl: "",
+    imageSiteUrl: "",
+    days: [],
+    starring: 0,
+    hashtagGenre: [],
+    hashtagVibe: [],
   },
-  setImgUrlAndTitle: (imgUrl: string, title: string) =>
+  setimageUrlAndTitle: (imageUrl: string, title: string, imageSiteUrl: string, days: string[]) =>
     set((state) => ({
-      recommendConfig: { ...state.recommendConfig, imgUrl, webtoonTitle: title },
+      recommendConfig: { ...state.recommendConfig, imageUrl, title, imageSiteUrl, days },
     })),
-  setRecommendConfig: (config: RecommendConfig) =>
+  setRecommendConfig: (config: Config1) =>
     set((state) => ({
       recommendConfig: { ...state.recommendConfig, ...config },
     })),
   resetRecommendConfig: () =>
     set({
       recommendConfig: {
-        webtoonTitle: "",
-        imgUrl: "",
-        score: 0,
-        genre: [],
-        mood: [],
+        title: "",
+        imageUrl: "",
+        imageSiteUrl: "",
+        days: [],
+        starring: 0,
+        hashtagGenre: [],
+        hashtagVibe: [],
       },
     }),
 }));

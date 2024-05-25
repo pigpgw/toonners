@@ -77,7 +77,7 @@ const EditLikedWtnPage = () => {
         webToonList={webtoons}
         onChange={onChange}
         handleSelect={handleSelect}
-        height={500}
+        height={400}
       />
       <button className={styles.confirm} onClick={goNext}>
         확인
