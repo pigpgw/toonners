@@ -38,7 +38,34 @@ const CHAT_CONTENTS: ChatContentsConfig[] = [
   },
 ];
 
+// 전체 게시글 중 랜덤 세 개 추출
+const getRandomItems = (list: []) => {
+  const allList = [...list];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = [];
+  while (result.length < 3) {
+    const movenum = allList.splice(Math.floor(Math.random() * allList.length), 1)[0];
+    result.push(movenum);
+  }
+  return result;
+};
+
 const ChatroomPage = () => {
+  const [restList, setRestList] = useState([]);
+
+  useEffect(() => {
+    const getChatroomList = async () => {
+      const res = await getAllChatRoomList();
+      if (res.length <= 3) setRestList(res);
+      else {
+        const result = getRandomItems(res);
+        setRestList(result);
+      }
+    };
+
+    getChatroomList();
+  }, []);
+
   return (
     <div className={styles.chatroom}>
       <Banner className={styles.banner} />

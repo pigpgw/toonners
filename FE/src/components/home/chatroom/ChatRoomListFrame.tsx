@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import styles from "@styles/home/Home.module.scss";
 import Header from "@/components/common/Header";
 import Input from "@components/common/Input";
@@ -13,6 +13,19 @@ interface Props {
 
 const ChatRoomListFrame = ({ types }: Props) => {
   const navigate = useNavigate();
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const getChatroomList = async () => {
+      if (types === "rest") {
+        const res = await getAllChatRoomList();
+        setList(res);
+      }
+    };
+
+    getChatroomList();
+  }, [types]);
+
   return (
     <>
       <Header title={types === "today" ? "오늘 뜬 웹툰" : "전체 Talk"} before={() => navigate(-1)} />

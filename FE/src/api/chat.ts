@@ -1,3 +1,9 @@
+import Axios from "@api/JsonAxios";
+
+const getAllChatRoomList = async () => {
+  const res = await Axios.get("http://localhost:8080/chatroom/search/all");
+  return res.data.data;
+};
 
 const postChatRoom = async (data: {
   toonName: string;
@@ -11,3 +17,4 @@ const postChatRoom = async (data: {
   return res.data.data;
 };
 
+export { getAllChatRoomList, postChatRoom };
