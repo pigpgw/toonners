@@ -10,4 +10,5 @@ import java.util.List;
 public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findAllByParentFlag(Boolean flag);
     List<Feed> findAllByParentFlagAndWriterId(Boolean flag, Long memberId);
+    List<Feed> findAllByTitleContains(String partOfTitle);
 }
