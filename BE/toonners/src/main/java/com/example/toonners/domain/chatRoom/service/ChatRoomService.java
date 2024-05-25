@@ -101,6 +101,11 @@ public class ChatRoomService {
                 .findById(chatroomId).orElseThrow(ChatRoomDoseNotExist::new));
     }
 
+    @Transactional
+    public boolean existChatRoom(String toonName) {
+        return chatRoomRepository.findByToonName(toonName).isPresent();
+    }
+
     //내부 메서드
     public static String whichDay() {
         LocalDate date = LocalDate.now();

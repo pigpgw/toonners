@@ -45,4 +45,10 @@ public class ChatRoomController {
     ) {
         return ApiResponse.createSuccess(chatRoomService.searchChatRoomDetail(chatRoomId));
     }
+
+    @GetMapping("/chatroom/check-chatroom/{toonname}")
+    public ApiResponse<Boolean> existChatRoom(
+            @PathVariable(value = "toonname") String toonName) {
+        return ApiResponse.createSuccess(chatRoomService.existChatRoom(toonName));
+    }
 }
