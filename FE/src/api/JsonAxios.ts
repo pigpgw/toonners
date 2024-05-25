@@ -6,9 +6,8 @@ const Axios = baseAxios.create({
   baseURL: baseURL,
   headers: {
     "content-type": "application/json",
-    // 임시 토큰
-    Authorization:
-      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b3VyQGVtYWlsLmNvbSIsImlhdCI6MTcxNjYyNDgzNywiZXhwIjoxNzE2NjI4NDM3fQ.NXOtIA1n17Aemb26T475tB5YvzmWD_cK-ZdE18CAQ3JIuSsI9YlD8wUJIq0FdkY5AEjV6d4IKKB4PynuTjjeew",
+    // 임시 토큰: 임시 토큰 입력하고 사용.
+    Authorization: "",
   },
 });
 
