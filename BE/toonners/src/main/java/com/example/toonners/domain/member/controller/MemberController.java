@@ -48,6 +48,14 @@ public class MemberController {
         return ApiResponse.createSuccess(response);
     }
 
+    @GetMapping("/member/search/member-info")
+    public ApiResponse<InfoResponse> searchMemberInfo(
+            @RequestParam(value = "member-id") Long memberId
+    ) {
+        InfoResponse response = memberService.searchMemberInfo(memberId);
+        return ApiResponse.createSuccess(response);
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/
