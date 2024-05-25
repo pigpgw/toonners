@@ -5,7 +5,7 @@ import KakaoButton from "@components/common/Button/Kakao";
 import Button from "@components/common/Button";
 
 const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
-const KAKAO_CLIENT_ID = "b53d2404d55238fab9d1509ecd3afe2d";
+const KAKAO_CLIENT_ID = "33391f8684ec1fcb9e918031bb236f4d";
 const link = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const Login = () => {
