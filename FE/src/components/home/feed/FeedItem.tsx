@@ -33,7 +33,7 @@ const FeedItem = ({ imgCount }: Props) => {
           <Tag label="# 태그" sizes="small" />
         </div>
         <div className={styles.feed__profile}>
-          <Profile name="Nickname" size="medium" />
+          <Profile name="Nickname" size="medium" number="" />
           <Bookmark label="스크랩" checked={check} onChange={setCheck} />
         </div>
       </div>

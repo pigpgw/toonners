@@ -40,7 +40,8 @@ const Signup1 = () => {
         inputChange={onChange}
         onSubmit={nextStep}
         placeHolder="닉네임을 입력해주세요"
-        color="gray-1"
+        colors="gray-1"
+        types="default"
       />
     </div>
   );
