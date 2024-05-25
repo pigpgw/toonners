@@ -1,6 +1,7 @@
 package com.example.toonners.domain.feed.service;
 
 import com.example.toonners.config.jwt.TokenProvider;
+import com.example.toonners.domain.bookmark.entity.Bookmark;
 import com.example.toonners.domain.bookmark.repository.BookmarkRepository;
 import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
 import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
@@ -124,11 +125,21 @@ public class FeedService {
         Feed feed = feedRepository.findById(parentFeedId)
                 .orElseThrow(FeedDoseNotExistException::new);
         FeedInfoResponse feedInfoResponse = FeedInfoResponse.fromEntity(feed);
-        if (bookmarkRepository.findByMemberIdAndBookmarkTypeIdAndBookmarkType(
+        if (bookmarkRepository.findByMemberIdAndFeedIdAndBookmarkType(
                 member.getId(), feed.getId(), "feed").isPresent()) {
             feedInfoResponse.setBookmarked(true);
         }
         return feedInfoResponse;
+    }
+
+    public List<FeedInfoResponse> searchBookmarkedFeeds(String token) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        List<FeedInfoResponse> feedInfoResponses = bookmarkRepository.findByMemberIdAndBookmarkType(member.getId(), "feed")
+                .stream().map(Bookmark::getFeed).map(FeedInfoResponse::fromEntity).toList();
+        for (FeedInfoResponse feedInfoResponse : feedInfoResponses) {
+            feedInfoResponse.setBookmarked(true);
+        }
+        return feedInfoResponses;
     }
 
     // 내부 메서드
@@ -139,7 +150,7 @@ public class FeedService {
         for (int i = 0; i < feedInfoResponses.size(); i++) {
             Feed feed = feedList.get(i);
             FeedInfoResponse feedInfoResponse = feedInfoResponses.get(i);
-            if (bookmarkRepository.findByMemberIdAndBookmarkTypeIdAndBookmarkType(
+            if (bookmarkRepository.findByMemberIdAndFeedIdAndBookmarkType(
                     member.getId(), feed.getId(), "feed").isPresent()) {
                 feedInfoResponse.setBookmarked(true);
             }

@@ -27,7 +27,7 @@ public class BookmarkService {
         Feed feed = feedRepository.findById(parentFeedId).orElseThrow(FeedDoseNotExistException::new);
 
         Optional<Bookmark> existingMark = bookmarkRepository
-                .findByMemberIdAndBookmarkTypeIdAndBookmarkType(
+                .findByMemberIdAndFeedIdAndBookmarkType(
                         member.getId(), parentFeedId, "feed");
 
         if (existingMark.isPresent()) {
@@ -38,7 +38,7 @@ public class BookmarkService {
         bookmarkRepository.save(Bookmark.builder()
                 .member(member)
                 .bookmarkType("feed")
-                .bookmarkTypeId(parentFeedId)
+                .feed(feed)
                 .build());
         return "북마크 완료";
     }

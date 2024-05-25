@@ -57,4 +57,12 @@ public class FeedController {
         FeedInfoResponse response = feedService.searchDetailFeed(token, parentFeedId);
         return ApiResponse.createSuccess(response);
     }
+
+    @GetMapping("/feed/search/bookmarked")
+    public ApiResponse<List<FeedInfoResponse>> searchBookmarkedFeeds(
+            @RequestHeader("Authorization") String token
+    ) {
+        List<FeedInfoResponse> responseList = feedService.searchBookmarkedFeeds(token);
+        return ApiResponse.createSuccess(responseList);
+    }
 }
