@@ -6,9 +6,18 @@ const Axios = baseAxios.create({
   baseURL: baseURL,
   headers: {
     "content-type": "application/json",
-    // 임시 토큰: 임시 토큰 입력하고 사용.
-    Authorization: "",
   },
 });
+
+Axios.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("token");
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 export default Axios;
