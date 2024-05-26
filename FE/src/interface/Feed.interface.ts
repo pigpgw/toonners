@@ -8,6 +8,7 @@ export interface FeedListConfig {
   hashtags: string[];
   writerMemberId: number;
   writerMemberImage: string;
+  writerMemberNickname: string;
 }
 
 export interface ChildFeedListConfig {
