@@ -4,16 +4,16 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../../components/common/Text/index";
 import Tag from "@/components/common/Tag";
 import { useNavigate } from "react-router-dom";
-import Rating from "@/components/common/Rating";
+// import Rating from "@/components/common/Rating";
 import Button from "@/components/common/Button";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 const Step3 = () => {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [rating, setRating] = useState<number>(0);
+  // const [setRating] = useState<number>(0);
   const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
-  const { recommendConfig, setRecommendConfig, resetRecommendConfig } = useRecommendConfigStore();
+  const { recommendConfig, resetRecommendConfig } = useRecommendConfigStore();
   const { addRecommendation } = useRecommendationStore();
 
   const navigate = useNavigate();
@@ -37,17 +37,17 @@ const Step3 = () => {
   const genres = ["공포", "로맨스", "판타지", "학원물"];
   const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
 
-  const storeData = useCallback(() => {
-    setRecommendConfig({
-      starring: rating,
-      hashtagGenre: selectedGenres,
-      hashtagVibe: selectedMoods,
-    });
-  }, [rating, selectedGenres, selectedMoods, setRecommendConfig]);
+  // const storeData = useCallback(() => {
+  //   setRecommendConfig({
+  //     starring: rating,
+  //     hashtagGenre: selectedGenres,
+  //     hashtagVibe: selectedMoods,
+  //   });
+  // }, [rating, selectedGenres, selectedMoods, setRecommendConfig]);
 
-  useEffect(() => {
-    storeData();
-  }, [storeData, selectedGenres, selectedMoods, rating]);
+  // useEffect(() => {
+  //   storeData();
+  // }, [storeData, selectedGenres, selectedMoods, rating]);
 
   const toggleGenreSelection = (label: string) => {
     setSelectedGenres((prev) => {
@@ -97,7 +97,7 @@ const Step3 = () => {
           별점 매기기
         </Text>
         <div className={styles.tagBox}>
-          <Rating sizes="large" onChange={(_, value) => value && setRating(value)} />
+          {/* <Rating sizes="large" onChange={(_, value) => value && setRating(value)} /> */}
         </div>
         <hr className={styles.line} />
         <Text types="title" bold="bold">

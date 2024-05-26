@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getOnMyData, updateUserData } from "@/api/myPage";
-import { useUserStore } from "@/slices/useStore";
 import MainProfile from "@components/mypage/MainProfile";
 import Text from "@/components/common/Text";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
@@ -20,10 +18,9 @@ type User = {
 };
 
 const Mypage = () => {
-  const [fetchUser, setFetchUser] = useState<User | null>(); 
+  const [fetchUser] = useState<User | null>(); 
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
-  const { user } = useUserStore();
 
   const onEditMode = () => {
     setEditMode(true);
@@ -36,30 +33,31 @@ const Mypage = () => {
   };
 
   const offEditMode = async () => {
-    setEditMode(false);
-    try {
-      await updateUserData({
-        nickname: user.nickname,
-        description: user.introduction,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    // setEditMode(false);
+    // try {
+    //   await updateUserData({
+    //     nickname: user.nickname,
+    //     description: user.introduction,
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    console.log('sd')
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getOnMyData();
-        console.log("응답 체크", res);
-        // setFetchUser(res?.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await getOnMyData();
+  //       console.log("응답 체크", res);
+  //       setFetchUser(res?.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const editSeeWebtoonList = () => {
     navigate("/modify/seeWebtoonList");
