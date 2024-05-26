@@ -6,7 +6,6 @@ import Signup from "@routes/Signup";
 import Mypage from "./pages/Mypage";
 import HomePage from "@pages/HomePage";
 import SearchPage from "@pages/SearchPage";
-import CommonPage from "@pages/CommonPage";
 import NewRecommend from "@routes/NewRecommend";
 import NewChatRoom from "@routes/NewChatRoom";
 import ChatRoomListFrame from "@components/home/chatroom/ChatRoomListFrame";
@@ -42,7 +41,6 @@ function App() {
           <Route path="/profile/:userId" element={<div>상대방 프로필</div>} />
           <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
           <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
-          <Route path="/common" element={<CommonPage />} />
         </Route>
       </Routes>
     </>

@@ -21,7 +21,6 @@ const FeedDetailCard = ({ item }: Props) => {
 
   const checkIsExist = async () => {
     const res = await getIsExist(item.toonName);
-    console.log(res);
     if (res === -1) {
       setIsExist(false);
     } else {
