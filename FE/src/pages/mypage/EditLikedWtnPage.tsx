@@ -61,7 +61,7 @@ const EditLikedWtnPage = () => {
       const data = {
         watchingToons: webtoons.map((toon) => ({
           title: toon.title,
-          imageUrl: toon.img,
+          imageUrl: toon.imageUrl,
           days: toon.updateDays,
         })),
       };
