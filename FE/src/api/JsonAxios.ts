@@ -27,7 +27,7 @@ Axios.interceptors.response.use(
   (error: AxiosError) => {
     const res = error.response as AxiosResponse;
     const { status } = res;
-    if (status === 401) {
+    if (localStorage.getItem("accessToken") && status === 401) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       window.location.href = "/";
