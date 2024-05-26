@@ -43,6 +43,11 @@ const getSearchChatRoom = async (keyword: string) => {
   return res.data.data;
 };
 
+const postFireComment = async (roomId: string) => {
+  const res = await Axios.post(HOST + `/fire/on`, { chatRoomId: roomId });
+  return res.data.data;
+};
+
 export {
   getAllChatRoomList,
   getTodayChatRoomList,
