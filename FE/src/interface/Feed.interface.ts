@@ -36,4 +36,5 @@ export const initialFeedList = {
   hashtags: [],
   writerMemberId: 0,
   writerMemberImage: "",
+  writerMemberNickname: "",
 };
