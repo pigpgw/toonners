@@ -12,12 +12,11 @@ import { getChatCommentList, getChatRoom, postChatComment, postFireComment } fro
 import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { initialState } from "@/slices/chatSlice";
 
-const USER_ID = 2; // 테스트용 userId
-
 const ChatRoomMain = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
+  const userId = Number(localStorage.getItem("userId"));
 
   const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>(initialState.chatroomInfo);
   const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
@@ -80,7 +79,7 @@ const ChatRoomMain = () => {
         <div className={styles.main__chat}>
           <div className={styles.chat__list}>
             {chatList.map((chat, i) => {
-              return chat.memberId === USER_ID ? (
+              return chat.memberId === userId ? (
                 <ChatItem
                   key={i}
                   mine={true}
