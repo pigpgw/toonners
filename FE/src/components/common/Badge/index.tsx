@@ -4,12 +4,17 @@ interface Props {
   sizes: "small" | "medium" | "large";
   types: "primary" | "secondary" | "tertiary" | "gray";
   label: string;
+  clickable?: boolean;
   onClick?: () => void;
 }
 
-const Badge = ({ sizes, types, label, ...rest }: Props) => {
+const Badge = ({ sizes, types, label, clickable, ...rest }: Props) => {
   return (
-    <div className={[styles.badge, styles[`__${sizes}`], styles[`__${types}`]].join(" ")} {...rest}>
+    <div
+      className={[styles.badge, styles[`__${sizes}`], styles[`__${types}`]].join(" ")}
+      style={{ cursor: clickable ? "pointer" : "default" }}
+      {...rest}
+    >
       <span>{label}</span>
     </div>
   );

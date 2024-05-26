@@ -80,7 +80,7 @@ const EditLikedWtnPage = () => {
 
   return (
     <>
-      <Header title="인생 웹툰" before={cancle} />
+      <Header title="인생 웹툰" before beforeClick={cancle} />
       <div className={styles.container}>
         <Text types="headline" bold="bold">
           어떤 웹툰을 추가할까요?

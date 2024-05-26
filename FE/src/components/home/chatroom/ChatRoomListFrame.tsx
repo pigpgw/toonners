@@ -4,7 +4,6 @@ import Header from "@/components/common/Header";
 import Input from "@components/common/Input";
 import TodayChatItem from "@components/home/chatroom/TodayChatItem";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
-import { useNavigate } from "react-router-dom";
 import { getAllChatRoomList } from "@/api/chat";
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
 }
 
 const ChatRoomListFrame = ({ types }: Props) => {
-  const navigate = useNavigate();
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -28,7 +26,7 @@ const ChatRoomListFrame = ({ types }: Props) => {
 
   return (
     <>
-      <Header title={types === "today" ? "오늘 뜬 웹툰" : "전체 Talk"} before={() => navigate(-1)} />
+      <Header before title={types === "today" ? "오늘 뜬 웹툰" : "전체 Talk"} />
       <div className={styles.chatroom__list}>
         <Input types="search" placeholder="웹툰 이름을 입력하세요." />
         <div className={styles[`${types}`]}>

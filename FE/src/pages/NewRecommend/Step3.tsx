@@ -79,7 +79,8 @@ const Step3 = () => {
     <>
       <Header
         title="웹툰 추천하기"
-        before={clickOutBtn}
+        before
+        beforeClick={clickOutBtn}
         button={
           <Button types="primary" sizes="small">
             <Text types="button" bold="medium">

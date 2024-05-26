@@ -22,6 +22,7 @@ const ChatRoomMain = () => {
   const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
   const [comment, setComment] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
 
   const handleBack = () => {
@@ -33,9 +34,18 @@ const ChatRoomMain = () => {
     writeChatComment();
   };
 
+  const getChatRoomInfo = async () => {
+    const res = await getChatRoom(id!);
+    setChatroomInfo(res);
+  };
+
   const sendFireComment = async () => {
     const res = await postFireComment(id!);
-    if (res === "이미 누르셨습니다.") setModalOpen(true);
+    if (res === "이미 누르셨습니다.") {
+      setIsClicked(true);
+    }
+    setModalOpen(true);
+    getChatRoomInfo();
   };
 
   const writeChatComment = async () => {
@@ -48,10 +58,6 @@ const ChatRoomMain = () => {
   };
 
   useEffect(() => {
-    const getChatRoomInfo = async () => {
-      const res = await getChatRoom(id!);
-      setChatroomInfo(res);
-    };
     const getChatComments = async () => {
       const res = await getChatCommentList(id!);
       setChatList(res);
@@ -71,7 +77,8 @@ const ChatRoomMain = () => {
     <>
       <Header
         title={chatroomInfo.toonName}
-        before={handleBack}
+        before
+        beforeClick={handleBack}
         button={
           <Badge
             label={`🔥 ${chatroomInfo.fireTotalCount === null ? 0 : chatroomInfo.fireTotalCount}`}
@@ -132,9 +139,19 @@ const ChatRoomMain = () => {
           btnTitle="확인"
           title={
             <div className={styles.text}>
-              <Text types="title" bold="semi-bold">
-                이미 참여하셨습니다.
-              </Text>
+              {isClicked ? (
+                <>
+                  <Text types="title" bold="semi-bold">
+                    이미 참여하셨습니다.
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text types="title" bold="semi-bold">
+                    🔥 공감 버튼을 눌렀습니다.
+                  </Text>
+                </>
+              )}
             </div>
           }
         />

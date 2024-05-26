@@ -49,7 +49,12 @@ const FeedItem = ({ feed }: Props) => {
             })}
         </div>
         <div className={styles.feed__profile}>
-          <Profile name="Nickname" size="medium" number={feed.writerMemberImage} onClick={(e) => handleProfile(e)} />
+          <Profile
+            name={feed.writerMemberNickname}
+            size="medium"
+            number={feed.writerMemberImage}
+            onClick={(e) => handleProfile(e)}
+          />
           {/* <div onClick={(e) => e.stopPropagation()}>
             <Bookmark label="스크랩" checked={check} onChange={setCheck} />
           </div> */}

@@ -70,7 +70,7 @@ const Step2 = () => {
 
   return (
     <>
-      <Header title="웹툰 추천하기" before={clickOutBtn} />
+      <Header title="웹툰 추천하기" before beforeClick={clickOutBtn} />
       <div className={styles.inputcontainer}>
         <Text types="sub-header" bold="bold">
           어떤 웹툰에 대해 이야기할까요?

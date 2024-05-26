@@ -2,18 +2,26 @@ import styles from "@styles/common/Header.module.scss";
 import Text from "@components/common/Text";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   title: string;
   button?: ReactNode;
-  before: () => void;
+  before?: boolean;
+  beforeClick?: () => void;
 }
 
-const Header = ({ title, button, before }: Props) => {
+const Header = ({ title, button, before, beforeClick }: Props) => {
+  const navigate = useNavigate();
+  const handleBefore = () => navigate(-1);
   const isButton = button ? "--visible" : "";
+
   return (
     <div className={styles.header}>
-      <KeyboardArrowLeftIcon onClick={before} />
+      <KeyboardArrowLeftIcon
+        sx={{ visibility: before ? "visible" : "hidden" }}
+        onClick={beforeClick ? beforeClick : handleBefore}
+      />
       <Text types="sub-header" bold="semi-bold">
         {title}
       </Text>

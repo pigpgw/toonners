@@ -1,4 +1,3 @@
-
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
 import { ChangeEvent, useState } from "react";
@@ -35,7 +34,7 @@ const MyFeedPage = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="내가 작성한 피드" before={goMypage} />
+      <Header title="내가 작성한 피드" before beforeClick={goMypage} />
       <div style={{ width: "340px", margin: "30px 0" }}>
         <Input
           value={searchQuery}

@@ -56,8 +56,8 @@ const EditSeeWtnPage = () => {
       alert("보고있는 웹툰을 1개 이상 추가해주세요");
       return;
     }
-    
-    cancle()
+
+    cancle();
   };
   const cancle = () => {
     navigator("/mypage");
@@ -65,7 +65,7 @@ const EditSeeWtnPage = () => {
 
   return (
     <>
-      <Header title="내가 보는 웹툰" before={cancle} />
+      <Header title="내가 보는 웹툰" before beforeClick={cancle} />
       <div className={styles.container}>
         <Text types="headline" bold="bold">
           어떤 웹툰을 추가할까요?

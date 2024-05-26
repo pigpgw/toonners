@@ -51,7 +51,7 @@ const CreateChatRoom1 = () => {
 
   return (
     <>
-      <Header title="방 만들기" before={handleBack} />
+      <Header title="방 만들기" before beforeClick={handleBack} />
       <div className={styles.first}>
         <div>
           <Text types="sub-header" bold="semi-bold">

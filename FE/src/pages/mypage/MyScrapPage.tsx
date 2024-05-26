@@ -33,7 +33,7 @@ const MyScrapPage = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="내 스크랩" before={goMypage} />
+      <Header title="내 스크랩" before beforeClick={goMypage} />
       <div style={{ width: "340px", margin: "30px 0" }}>
         <Input
           value={searchQuery}
