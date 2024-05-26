@@ -3,13 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
 import InputWithButton from "@/components/common/InputWithButton";
+import Modal from "@/components/common/Modal";
+import Text from "@/components/common/Text";
+import Badge from "@/components/common/Badge";
 import ChatItem from "@components/home/chatroom/main/ChatItem";
 import CustomAccordion from "./Accordian";
 import { getChatCommentList, getChatRoom, postChatComment, postFireComment } from "@api/chat";
 import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { initialState } from "@/slices/chatSlice";
-import Modal from "@/components/common/Modal";
-import Text from "@/components/common/Text";
 
 const USER_ID = 2; // 테스트용 userId
 
@@ -69,7 +70,11 @@ const ChatRoomMain = () => {
 
   return (
     <>
-      <Header title={chatroomInfo.toonName} before={handleBack} />
+      <Header
+        title={chatroomInfo.toonName}
+        before={handleBack}
+        button={<Badge label={`🔥 ${chatroomInfo.fireTotalCount}`} sizes="small" types="primary" />}
+      />
       <CustomAccordion info={chatroomInfo} />
       <div className={styles.main}>
         <div className={styles.main__chat}>
