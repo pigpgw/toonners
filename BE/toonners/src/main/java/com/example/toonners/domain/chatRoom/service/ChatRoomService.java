@@ -115,8 +115,11 @@ public class ChatRoomService {
     }
 
     @Transactional
-    public boolean existChatRoom(String toonName) {
-        return chatRoomRepository.findByToonName(toonName).isPresent();
+    public Long existChatRoom(String toonName) {
+        if (chatRoomRepository.findByToonName(toonName).isPresent()) {
+            return chatRoomRepository.findByToonName(toonName).orElseThrow().getId();
+        }
+        return -1L;
     }
 
     //내부 메서드
