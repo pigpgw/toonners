@@ -1,0 +1,233 @@
+.container {
+  overflow-y: scroll;
+  padding: 26px 20px;
+
+  > :nth-child(1) {
+    padding: 0 0 20px;
+  }
+}
+
+// main profile component부분
+.ProfileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 20px 20px;
+  gap: 10px;
+
+  width: 349px;
+  height: 180px;
+  margin-top: 20px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ImgContainer {
+  background-color: var(--color-gray-1);
+  border-radius: 10px;
+  .profileImg {
+    width: 66px;
+    height: 66px;
+  }
+}
+
+.EditInput {
+  padding: 5px;
+  gap: 16px;
+
+  width: 309px;
+  height: 44px;
+
+  border: 0;
+
+  border-bottom: 1px solid blue;
+}
+
+// myWebtoonContainer
+.myWebtoonContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+
+  margin-top: 20px;
+  .myWebtoonSubContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.line {
+  width: 100%;
+  border: 1px solid var(--color-gray-1);
+}
+
+.FeedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+  margin-top: 20px;
+
+  > :nth-child(1) {
+    padding: 5px 0 20px 0;
+  }
+}
+
+.withdrawBtn {
+  margin-top: 20px;
+  padding: 20px 20px;
+  width: 349px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: var(--font-body-1);
+}
+
+.wrp {
+  width: 100%;
+}
+
+.nav {
+  width: 390px;
+  height: 88px;
+  position: sticky;
+  bottom: 0px;
+  background-color: var(--color-white);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  > div {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:nth-child(3) {
+      color: var(--color-primary);
+    }
+    &:nth-child(2),
+    &:nth-child(1) {
+      color: var(--color-gray-2);
+    }
+  }
+}
+
+// feed
+.feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin: 30px 20px 0 20px;
+  img {
+    width: 66px;
+    height: 94px;
+  }
+
+  &__item {
+    width: 348px;
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &__imgs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+    > div {
+      width: 66px;
+      height: 94px;
+      border-radius: 6px;
+      background-color: var(--color-gray-1);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+
+    > div:nth-child(1) {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__detail {
+    height: calc(100svh - 68px);
+    overflow-y: auto;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    > div {
+      margin: 0 20px;
+    }
+    // 닉네임
+    > div:nth-child(1) {
+      display: flex;
+      align-items: center;
+      height: 48px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--color-gray-1);
+    }
+    // 장르/분위기
+    > div:nth-child(2) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px;
+      > div {
+        display: flex;
+        gap: 4px;
+      }
+    }
+    // 소개글
+    > div:nth-child(3) {
+      padding: 8px 0 20px 0;
+    }
+    // 웹툰 목록
+    > div:nth-child(4) {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}

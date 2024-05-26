@@ -1,0 +1,72 @@
+%primary {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+%gray {
+  color: var(--color-black);
+  background-color: var(--color-gray-1);
+}
+
+.tag,
+.tag label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  @extend %gray;
+
+  &.__small {
+    height: 26px;
+    padding: 4px 12px;
+    font-size: var(--font-caption);
+  }
+  &.__medium {
+    height: 33px;
+    padding: 6px 12px;
+    font-size: var(--font-body-2);
+    font-weight: 500;
+  }
+  &.__large {
+    height: 33px;
+    padding: 4px 12px;
+    font-size: var(--font-title);
+    font-weight: 600;
+  }
+}
+
+.tag label {
+  cursor: pointer;
+}
+
+.tag input[type="checkbox"] {
+  display: none;
+  &:checked {
+    & + label {
+      @extend %primary;
+    }
+    & + label::before {
+      @extend %gray;
+    }
+  }
+}
+
+.bookmark {
+  display: flex;
+  & > input[type="checkbox"] {
+    display: none;
+  }
+
+  & > label {
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 10px;
+    color: var(--color-accent-1);
+    border: 1.5px solid var(--color-accent-1);
+    background-color: var(--color-white);
+    cursor: pointer;
+  }
+}

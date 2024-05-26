@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "Noto Sans KR";
+  font-weight: 300;
+  src:
+    url("./assets/fonts/NotoSansKR-Light.ttf") format("woff2"),
+    url("./assets/fonts/NotoSansKR-Light.ttf") format("woff"),
+    url("./assets/fonts/NotoSansKR-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  src:
+    url("./assets/fonts/NotoSansKR-Regular.ttf") format("woff2"),
+    url("./assets/fonts/NotoSansKR-Regular.ttf") format("woff"),
+    url("./assets/fonts/NotoSansKR-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-weight: 500;
+  src: url("./assets/fonts/NotoSansKR-Medium.ttf") format("woff2");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  font-weight: 600;
+  src:
+    url("./assets/fonts/NotoSansKR-SemiBold.ttf") format("woff2"),
+    url("./assets/fonts/NotoSansKR-SemiBold.ttf") format("woff"),
+    url("./assets/fonts/NotoSansKR-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  font-weight: 700;
+  src:
+    url("./assets/fonts/NotoSansKR-Bold.ttf") format("woff2"),
+    url("./assets/fonts/NotoSansKR-Bold.ttf") format("woff"),
+    url("./assets/fonts/NotoSansKR-Bold.ttf") format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+
+  --color-white: #fff;
+  --color-beige: #f4f1e8;
+  --color-gray-1: #eeeeee;
+  --color-gray-2: #949494;
+  --color-gray-3: #3b3b3b;
+  --color-black: #000;
+  --color-primary: #2b00d6;
+  --color-secondary: #b8de2a;
+  --color-accent-1: #ff521d;
+  --color-accent-2: #fe9ccd;
+
+  --spacing-0: 0px;
+  --spacing-1: 2px;
+  --spacing-2: 4px;
+  --spacing-3: 8px;
+  --spacing-5: 12px;
+  --spacing-6: 20px;
+  --spacing-7: 24px;
+  --spacing-8: 32px;
+  --spacing-9: 40px;
+  --spacing-10: 48px;
+
+  --font-display: 32px;
+  --font-headline: 24px;
+  --font-title: 16px;
+  --font-sub-header: 18px;
+  --font-body-1: 14px;
+  --font-body-2: 14px;
+  --font-button: 12px;
+  --font-caption: 10px;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: black;
+}
+
+body {
+  max-width: 390px;
+  min-height: 100svh;
+  margin: 0 auto;
+  background-color: white;
+
+  // 드래그 방지
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
