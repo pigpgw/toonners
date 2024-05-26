@@ -2,7 +2,7 @@ import Text from "@/components/common/Text";
 import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+// import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
@@ -10,7 +10,7 @@ import { useUserStore } from "@/slices/useStore";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  const [webtoons] = useState<WebtoonConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +20,8 @@ const Signup2 = () => {
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await fetchWetboonInfo(search);
-        setWebtoons(response);
+        // const response = await fetchWetboonInfo(search);
+        // setWebtoons(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
