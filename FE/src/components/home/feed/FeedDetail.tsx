@@ -34,7 +34,7 @@ const FeedDetail = () => {
     <>
       <Header
         title={detail.feedTitle}
-        before={() => console.log("before")}
+        before
         button={<Bookmark label="스크랩" checked={checked} onChange={setChecked} onClick={setBookMark} />}
       />
       <div className={styles.feed__detail}>

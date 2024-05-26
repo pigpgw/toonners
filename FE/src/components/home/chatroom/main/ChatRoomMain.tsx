@@ -77,7 +77,8 @@ const ChatRoomMain = () => {
     <>
       <Header
         title={chatroomInfo.toonName}
-        before={handleBack}
+        before
+        beforeClick={handleBack}
         button={
           <Badge
             label={`🔥 ${chatroomInfo.fireTotalCount === null ? 0 : chatroomInfo.fireTotalCount}`}

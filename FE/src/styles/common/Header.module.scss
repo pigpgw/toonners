@@ -5,6 +5,9 @@
   width: 100%;
   padding: 18px 40px;
   box-sizing: border-box;
+  > svg {
+    cursor: pointer;
+  }
 
   > span:nth-child(2) {
     width: 100%;
