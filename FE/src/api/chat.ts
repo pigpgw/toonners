@@ -38,4 +38,17 @@ const postChatComment = async (data: { chatRoomId: string; contexts: string }) =
   return res.data.data;
 };
 
-export { getAllChatRoomList, getTodayChatRoomList, getChatRoom, postChatRoom, getChatCommentList, postChatComment };
+const getSearchChatRoom = async (keyword: string) => {
+  const res = await Axios.get(HOST + `/chatroom/search/chatroom-list?part-of-name=${keyword}`);
+  return res.data.data;
+};
+
+export {
+  getAllChatRoomList,
+  getTodayChatRoomList,
+  getChatRoom,
+  postChatRoom,
+  getChatCommentList,
+  postChatComment,
+  getSearchChatRoom,
+};

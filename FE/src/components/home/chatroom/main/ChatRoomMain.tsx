@@ -7,6 +7,7 @@ import ChatItem from "@components/home/chatroom/main/ChatItem";
 import CustomAccordion from "./Accordian";
 import { getChatCommentList, getChatRoom, postChatComment } from "@api/chat";
 import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
+import { initialState } from "@/slices/chatSlice";
 
 const USER_ID = 2; // 테스트용 userId
 
@@ -15,15 +16,7 @@ const ChatRoomMain = () => {
   const params = useParams();
   const { id } = params;
 
-  const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>({
-    toonName: "",
-    toonImageUrl: "",
-    toonSiteUrl: "",
-    chatRoomId: 0,
-    contexts: "",
-    fireTotalCount: 0,
-    rating: 0,
-  });
+  const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>(initialState.chatroomInfo);
   const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
   const [comment, setComment] = useState("");
   const endRef = useRef<HTMLDivElement | null>(null);

@@ -15,4 +15,9 @@ const postBookMark = async (feedId: string) => {
   await Axios.post(HOST + `/bookmark/feed?feed-id=${feedId}`);
 };
 
-export { getFeedList, getFeedItem, postBookMark };
+const getSearchFeed = async (keyword: string) => {
+  const res = await Axios.get(HOST + `/feed/search/feed-list?part-of-title=${keyword}`);
+  return res.data.data;
+};
+
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed };

@@ -2,15 +2,16 @@ import styles from "@styles/Search.module.scss";
 import Text from "@components/common/Text";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
 import FeedItem from "@components/home/feed/FeedItem";
+import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
+import { FeedListConfig } from "@/interface/Feed.interface";
 
 interface Props {
-  title: "chatroom" | "recommend";
+  title: "chatroom" | "feed";
+  chatroom: ChatRoomInfoConfig[];
+  feed: FeedListConfig[];
 }
 
-const CHATROOM_DATA: number[] = [];
-const RECOMMEND_DATA: number[] = [1, 2, 3];
-
-const SearchList = ({ title }: Props) => {
+const SearchList = ({ title, chatroom, feed }: Props) => {
   return (
     <div className={styles.contents}>
       <Text types="sub-header" bold="semi-bold">
@@ -18,10 +19,10 @@ const SearchList = ({ title }: Props) => {
       </Text>
       {title === "chatroom" ? (
         <>
-          {CHATROOM_DATA.length > 0 ? (
+          {chatroom.length > 0 ? (
             <div className={styles.items}>
-              {CHATROOM_DATA.map((_, key) => {
-                // return <RestChatItem key={key} />;
+              {chatroom.map((item, i) => {
+                return <RestChatItem key={i} item={item} />;
               })}
             </div>
           ) : (
@@ -33,10 +34,10 @@ const SearchList = ({ title }: Props) => {
         </>
       ) : (
         <>
-          {RECOMMEND_DATA.length > 0 ? (
+          {feed.length > 0 ? (
             <div className={styles.items}>
-              {RECOMMEND_DATA.map((_, key) => {
-                // return <FeedItem key={key} />;
+              {feed.map((item, i) => {
+                return <FeedItem key={i} feed={item} />;
               })}
             </div>
           ) : (
