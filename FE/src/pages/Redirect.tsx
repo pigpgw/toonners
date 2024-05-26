@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const HOST = import.meta.env.VITE_BASE_API_URL;
 const Redirect = () => {
   const navigate = useNavigate();
   const code = new URL(document.location.toString()).searchParams.get("code");
@@ -9,7 +10,7 @@ const Redirect = () => {
   useEffect(() => {
     const postCode = async () => {
       try {
-        const response = await axios.post(`http://localhost:8080/oauth2/callback/kakao`, code, {
+        const response = await axios.post(HOST + `/oauth2/callback/kakao`, code, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -17,8 +18,8 @@ const Redirect = () => {
         if (response.status === 200) {
           //  토큰 로컬 스토리지에 세팅하고 페이지 라우팅
           const token = response.headers["authorization"];
-          localStorage.setItem("token", token.replace("BEARER ", ""));
-          localStorage.setItem("accessToken", response.data.id);
+          localStorage.setItem("accessToken", token.replace("BEARER ", ""));
+          localStorage.setItem("userId", response.data.id); // 유저ID
           navigate("/signup/1");
         } else {
           throw new Error("서버 응답이 200이 아닙니다.");
