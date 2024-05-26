@@ -8,16 +8,17 @@ interface Props {
   open: boolean;
   onClose: () => void;
   title: ReactNode;
+  btnTitle: string;
   onClick: () => void;
 }
 
-const Modal = ({ open, onClose, title, onClick }: Props) => {
+const Modal = ({ open, onClose, title, btnTitle, onClick }: Props) => {
   return (
     <MuiModal open={open} onClose={onClose}>
       <div className={styles.modal}>
         <CloseIcon onClick={onClose} />
         {title}
-        <Button onClick={onClick}>참여하기</Button>
+        <Button onClick={onClick}>{btnTitle}</Button>
       </div>
     </MuiModal>
   );

@@ -34,7 +34,7 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }
         {list.map((item, i) => {
           return {
             today: <TodayChatItem key={i} item={item} />,
-            rank: <RankingChatItem key={i} />,
+            rank: <RankingChatItem key={i} item={item} />,
             rest: <RestChatItem key={i} item={item} />,
           }[keyword];
         })}

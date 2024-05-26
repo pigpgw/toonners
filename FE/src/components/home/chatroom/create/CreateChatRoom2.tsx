@@ -62,6 +62,7 @@ const CreateChatRoom2 = () => {
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           onClick={() => navigate(`/chatroom/${chatroomInfo.chatRoomId}`)}
+          btnTitle="참여하기"
           title={
             <div className={styles.text}>
               <Text types="title" bold="semi-bold">
@@ -69,7 +70,7 @@ const CreateChatRoom2 = () => {
               </Text>
             </div>
           }
-        ></Modal>
+        />
       )}
     </>
   );

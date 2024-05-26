@@ -8,6 +8,17 @@ export interface ChatRoomInfoConfig {
   fireTotalCount: number;
 }
 
+export interface RankChatRoomInfoConfig extends ChatRoomInfoConfig {
+  chatList: {
+    chatMessage: string;
+    chatRoomId: number;
+    createdAt: string;
+    memberId: number;
+    memberImage: string;
+    memberNickname: string;
+  }[];
+}
+
 export interface ChatCommentConfig {
   chatRoomId: number;
   memberId: number;

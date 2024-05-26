@@ -11,6 +11,11 @@ const getTodayChatRoomList = async () => {
   return res.data.data;
 };
 
+const getRankingChatRoomList = async () => {
+  const res = await Axios.get(HOST + "/chatroom/search/top3");
+  return res.data.data;
+};
+
 const getChatRoom = async (roomId: string) => {
   const res = await Axios.get(HOST + `/chatroom/search/detail/${roomId}`);
   return res.data.data;
@@ -20,8 +25,8 @@ const postChatRoom = async (data: {
   toonName: string;
   toonImage: string;
   toonUrl: string;
-  fanCounts: number;
-  updateDay: string[];
+  fanCounts: number | undefined;
+  updateDay: string[] | undefined;
   contexts: string;
 }) => {
   const res = await Axios.post(HOST + "/chatroom/create", data);
@@ -43,6 +48,16 @@ const getSearchChatRoom = async (keyword: string) => {
   return res.data.data;
 };
 
+const getIsExist = async (title: string) => {
+  const res = await Axios.get(HOST + `/chatroom/check-chatroom/${title}`);
+  return res.data.data;
+};
+
+const postFireComment = async (roomId: string) => {
+  const res = await Axios.post(HOST + `/fire/on`, { chatRoomId: roomId });
+  return res.data.data;
+};
+
 export {
   getAllChatRoomList,
   getTodayChatRoomList,
@@ -51,4 +66,7 @@ export {
   getChatCommentList,
   postChatComment,
   getSearchChatRoom,
+  getRankingChatRoomList,
+  getIsExist,
+  postFireComment,
 };
