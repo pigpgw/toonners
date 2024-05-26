@@ -1,6 +1,9 @@
 package com.example.toonners.domain.chatRoom.service;
 
 import com.example.toonners.config.jwt.TokenProvider;
+import com.example.toonners.domain.chat.dto.response.ChatInfoResponse;
+import com.example.toonners.domain.chat.entity.Chat;
+import com.example.toonners.domain.chat.repository.ChatRepository;
 import com.example.toonners.domain.chatRoom.dto.request.CreateChatRoomRequest;
 import com.example.toonners.domain.chatRoom.dto.response.ChatRoomInfoResponse;
 import com.example.toonners.domain.chatRoom.entity.ChatRoom;
@@ -27,6 +30,7 @@ public class ChatRoomService {
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
     private final ToonDataRepository toonDataRepository;
+    private final ChatRepository chatRepository;
 
     @Transactional
     public ChatRoomInfoResponse createChatroom(
@@ -90,9 +94,15 @@ public class ChatRoomService {
     }
 
     @Transactional
-    public List<ChatRoomInfoResponse> searchChatRoomTop10(String token) {
-        List<ChatRoom> chatRoomList = chatRoomRepository.findTop10ByOrderByFireTotalCountDesc();
-        return chatRoomList.stream().map(ChatRoomInfoResponse::fromEntity).toList();
+    public List<ChatRoomInfoResponse> searchChatRoomTop3(String token) {
+        List<ChatRoom> chatRoomList = chatRoomRepository.findTop3ByOrderByFireTotalCountDesc();
+        List<ChatRoomInfoResponse> responseList = chatRoomList.stream()
+                .map(ChatRoomInfoResponse::fromEntity).toList();
+        for (int i = 0; i < responseList.size(); i++) {
+            List<Chat> chatList = chatRepository.findTop3ByChatRoomOrderByCreatedAtDesc(chatRoomList.get(i));
+            responseList.get(i).setChatList(chatList.stream().map(ChatInfoResponse::fromEntity).toList());
+        }
+        return responseList;
     }
 
     @Transactional

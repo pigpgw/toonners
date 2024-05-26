@@ -16,5 +16,5 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
     List<ChatRoom> findByToonNameContains(String partOfChatRoomName);
 
-    List<ChatRoom> findTop10ByOrderByFireTotalCountDesc();
+    List<ChatRoom> findTop3ByOrderByFireTotalCountDesc();
 }

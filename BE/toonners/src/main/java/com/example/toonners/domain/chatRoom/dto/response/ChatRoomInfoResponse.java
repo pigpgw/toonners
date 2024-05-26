@@ -1,7 +1,10 @@
 package com.example.toonners.domain.chatRoom.dto.response;
 
+import com.example.toonners.domain.chat.dto.response.ChatInfoResponse;
 import com.example.toonners.domain.chatRoom.entity.ChatRoom;
 import lombok.*;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,6 +20,7 @@ public class ChatRoomInfoResponse {
     private Float rating;
     private String contexts;
     private Long fireTotalCount;
+    private List<ChatInfoResponse> chatList;
 
     public static ChatRoomInfoResponse fromEntity(ChatRoom chatRoom) {
         float rating = 0f;
