@@ -11,10 +11,7 @@ const Mypage = () => {
   const { user } = useUserStore();
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-
-  })
-
+  useEffect(() => {});
 
   const onEditMode = () => {
     setEditMode(true);

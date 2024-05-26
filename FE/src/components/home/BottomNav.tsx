@@ -6,6 +6,10 @@ import FaceIcon from "@mui/icons-material/Face";
 
 const ButtomNav = () => {
   const navigate = useNavigate();
+  const pathname = window.location.pathname;
+  const primary = "var(--color-primary)";
+  const gray_2 = "var(--color-gray-2)";
+
   const handleHome = () => {
     navigate("/home");
   };
@@ -21,13 +25,13 @@ const ButtomNav = () => {
   return (
     <div className={styles.nav}>
       <div onClick={handleHome}>
-        <HomeIcon />
+        <HomeIcon sx={{ color: pathname === "/home" ? primary : gray_2 }} />
       </div>
       <div onClick={handleSearch}>
-        <SearchIcon />
+        <SearchIcon sx={{ color: pathname === "/search" ? primary : gray_2 }} />
       </div>
       <div onClick={handleMyPage}>
-        <FaceIcon />
+        <FaceIcon sx={{ color: pathname === "/mypage" ? primary : gray_2 }} />
       </div>
     </div>
   );
