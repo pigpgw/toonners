@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/Home.module.scss";
 import Header from "@/components/common/Header";
 import Profile from "@/components/common/Profile";
@@ -11,10 +11,11 @@ import { getFeedItem, postBookMark } from "@/api/feed";
 import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
 
 const FeedDetail = () => {
-  const [checked, setChecked] = useState(false);
-  const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
+  const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
+  const [checked, setChecked] = useState(false);
+  const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
 
   const setBookMark = async () => {
     await postBookMark(id!);
@@ -39,7 +40,12 @@ const FeedDetail = () => {
       />
       <div className={styles.feed__detail}>
         <div>
-          <Profile name="닉네임" size="medium" number={detail.writerMemberImage} />
+          <Profile
+            name="닉네임"
+            size="medium"
+            number={detail.writerMemberImage}
+            onClick={() => navigate(`/profile/${detail.writerMemberId}`)}
+          />
         </div>
         <div>
           {detail.hashtags.length > 0 &&
