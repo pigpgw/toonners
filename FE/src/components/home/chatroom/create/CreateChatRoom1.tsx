@@ -9,17 +9,26 @@ import Modal from "@/components/common/Modal";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useChatActions } from "@/slices/chatSlice";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { getIsExist } from "@/api/chat";
 
 const CreateChatRoom1 = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState("");
+  const [isExist, setIsExist] = useState(0);
   const [webtoonList, setWebtoonList] = useState<WebtoonConfig[]>([]);
   const { setSelected } = useChatActions();
 
-  const setSelectedWebtoon = (webtoon: WebtoonConfig) => {
-    setSelected(webtoon);
-    navigate("/chatroom/create/2");
+  const checkIsExist = async (webtoon: WebtoonConfig) => {
+    const res = await getIsExist(webtoon.title);
+    if (res !== -1) {
+      setIsExist(res);
+      setOpen(true);
+      return;
+    } else {
+      setSelected(webtoon);
+      navigate("/chatroom/create/2");
+    }
   };
 
   useEffect(() => {
@@ -63,7 +72,7 @@ const CreateChatRoom1 = () => {
                 title={webtoon.title}
                 imgUrl={webtoon.img}
                 clicked={false}
-                onClick={() => setSelectedWebtoon(webtoon)}
+                onClick={() => checkIsExist(webtoon)}
               />
             );
           })}
@@ -73,6 +82,7 @@ const CreateChatRoom1 = () => {
         <Modal
           open={open}
           onClose={() => setOpen(false)}
+          btnTitle="참여하기"
           title={
             <div className={styles.text}>
               <Text types="title" bold="semi-bold">
@@ -83,7 +93,7 @@ const CreateChatRoom1 = () => {
               </Text>
             </div>
           }
-          onClick={() => navigate("/chatroom/1")}
+          onClick={() => navigate(`/chatroom/${isExist}`)}
         />
       )}
     </>
