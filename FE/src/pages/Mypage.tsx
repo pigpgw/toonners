@@ -37,7 +37,6 @@ const Mypage = () => {
         nickname: user.nickname,
         description: user.introduction,
       });
-  
     } catch (e) {
       console.log(e);
     }
@@ -72,13 +71,13 @@ const Mypage = () => {
     navigate("/mypage/feed");
   };
 
-  useEffect(()=> {
-    console.log(user.nickname)
-  })
+  useEffect(() => {
+    console.log(user.nickname);
+  });
 
   return (
     <>
-      {fetchUser ? (
+      {user ? (
         <div className={styles.container}>
           <Text types="headline" bold="bold">
             마이페이지
@@ -94,12 +93,12 @@ const Mypage = () => {
           />
           <MyWebtoonContainer
             category="내가 보는 웹툰"
-            webtoonList={fetchUser.watchingToons}
+            webtoonList={user.seeWebttonList}
             onEditMode={editSeeWebttonList}
           />
           <MyWebtoonContainer
             category="인생 웹툰"
-            webtoonList={fetchUser.favoriteToons}
+            webtoonList={user.likedWebToonList}
             onEditMode={editLikedWebToonList}
           />
           <div className={styles.FeedContainer}>

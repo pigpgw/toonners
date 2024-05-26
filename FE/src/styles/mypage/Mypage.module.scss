@@ -137,3 +137,97 @@
     }
   }
 }
+
+// feed
+.feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin: 30px 20px 0 20px;
+  img {
+    width: 66px;
+    height: 94px;
+  }
+
+  &__item {
+    width: 348px;
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &__imgs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+    > div {
+      width: 66px;
+      height: 94px;
+      border-radius: 6px;
+      background-color: var(--color-gray-1);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+
+    > div:nth-child(1) {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__detail {
+    height: calc(100svh - 68px);
+    overflow-y: auto;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    > div {
+      margin: 0 20px;
+    }
+    // 닉네임
+    > div:nth-child(1) {
+      display: flex;
+      align-items: center;
+      height: 48px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--color-gray-1);
+    }
+    // 장르/분위기
+    > div:nth-child(2) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px;
+      > div {
+        display: flex;
+        gap: 4px;
+      }
+    }
+    // 소개글
+    > div:nth-child(3) {
+      padding: 8px 0 20px 0;
+    }
+    // 웹툰 목록
+    > div:nth-child(4) {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}
