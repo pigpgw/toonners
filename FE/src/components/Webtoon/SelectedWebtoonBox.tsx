@@ -14,7 +14,7 @@ const SelectedWebtoonBox = ({ selectedList, removeSelect }: Props) => {
         <ClickedWebtoonCard
           key={webtoon.title}
           title={webtoon.title}
-          imgUrl={webtoon.img}
+          imgUrl={webtoon.imageUrl}
           onRemove={removeSelect ? () => removeSelect(webtoon) : undefined}
         />
       ))}

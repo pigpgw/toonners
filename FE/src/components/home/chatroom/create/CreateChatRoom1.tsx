@@ -70,7 +70,7 @@ const CreateChatRoom1 = () => {
               <SearchedWebtoonCard
                 key={i}
                 title={webtoon.title}
-                imgUrl={webtoon.img}
+                imgUrl={webtoon.imageUrl}
                 clicked={false}
                 onClick={() => checkIsExist(webtoon)}
               />

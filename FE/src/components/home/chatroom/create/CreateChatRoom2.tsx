@@ -21,7 +21,7 @@ const CreateChatRoom2 = () => {
   const createChatRoom = async () => {
     const data = {
       toonName: selected.title,
-      toonImage: selected.img,
+      toonImage: selected.imageUrl,
       toonUrl: selected.url,
       fanCounts: selected.fanCount,
       updateDay: selected.updateDays,
@@ -41,7 +41,7 @@ const CreateChatRoom2 = () => {
       <Header title="방 만들기" before={handleBack} />
       <div className={styles.second}>
         <div>
-          <SearchedWebtoonCard title={selected.title} imgUrl={selected.img} clicked={false} />
+          <SearchedWebtoonCard title={selected.title} imgUrl={selected.imageUrl} clicked={false} />
           <div>
             <Text types="title" bold="semi-bold">
               간단한 소개글을 입력해주세요. (선택)

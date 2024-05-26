@@ -17,7 +17,7 @@ const Signup3 = () => {
         description: user.introduction,
         watchingToons: user.seeWebttonList.map(toon => ({
           title: toon.title,
-          imageUrl: toon.img,
+          imageUrl: toon.imageUrl,
           days: toon.updateDays
         }))
       };
