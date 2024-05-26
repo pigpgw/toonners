@@ -41,7 +41,8 @@ jobs:
         run: chmod +x ./BE/toonners/gradlew
         shell: bash
       - name: Build with Gradle
-        run: ./BE/toonners/gradlew build
+        run: ./gradlew build
+        working-directory: ./BE/toonners
         shell: bash
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
