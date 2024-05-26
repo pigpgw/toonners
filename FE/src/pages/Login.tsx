@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "@styles/login/LoginPage.module.scss";
 import MainImg from "@assets/images/login/MainImg.svg?react";
@@ -18,6 +19,11 @@ const Login = () => {
   const goHome = () => {
     navigate("/home");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) navigate("/home");
+  }, []);
+
   return (
     // MainImg
     <div className={styles.mainContainer}>

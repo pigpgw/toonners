@@ -4,11 +4,12 @@ interface Props {
   sizes: "small" | "medium" | "large";
   types: "primary" | "secondary" | "tertiary" | "gray";
   label: string;
+  onClick?: () => void;
 }
 
-const Badge = ({ sizes, types, label }: Props) => {
+const Badge = ({ sizes, types, label, ...rest }: Props) => {
   return (
-    <div className={[styles.badge, styles[`__${sizes}`], styles[`__${types}`]].join(" ")}>
+    <div className={[styles.badge, styles[`__${sizes}`], styles[`__${types}`]].join(" ")} {...rest}>
       <span>{label}</span>
     </div>
   );

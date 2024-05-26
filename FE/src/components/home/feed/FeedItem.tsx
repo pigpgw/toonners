@@ -1,10 +1,9 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "@styles/home/Home.module.scss";
 import Text from "@components/common/Text";
 import Tag from "@components/common/Tag";
 import Profile from "@components/common/Profile";
-import Bookmark from "@components/common/Tag/Bookmark";
 import { FeedListConfig } from "@/interface/Feed.interface";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 
 const FeedItem = ({ feed }: Props) => {
   const navigate = useNavigate();
-  const [check, setCheck] = useState(false);
 
   const handleFeedItem = () => {
     navigate(`/recommend/${feed.parentFeedId}`);
@@ -52,9 +50,9 @@ const FeedItem = ({ feed }: Props) => {
         </div>
         <div className={styles.feed__profile}>
           <Profile name="Nickname" size="medium" number={feed.writerMemberImage} onClick={(e) => handleProfile(e)} />
-          <div onClick={(e) => e.stopPropagation()}>
+          {/* <div onClick={(e) => e.stopPropagation()}>
             <Bookmark label="스크랩" checked={check} onChange={setCheck} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
