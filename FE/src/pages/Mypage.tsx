@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "@/api/myPage";
+import { getOnMyData, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import MainProfile from "@components/mypage/MainProfile";
 import Text from "@/components/common/Text";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
-import ButtomNav from "@/components/mypage/ButtonNav";
+import BottomNav from "@/components/mypage/ButtonNav"; 
 
 type User = {
   id: number;
@@ -15,12 +15,12 @@ type User = {
   nickname: string;
   description: string;
   image: string | null;
-  favoriteToons: any;
-  watchingToons: any;
+  favoriteToons: any[];
+  watchingToons: any[];
 };
 
 const Mypage = () => {
-  const [fetchUser,] = useState<User | null>(null);
+  const [fetchUser, setFetchUser] = useState<User | null>(); 
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
   const { user } = useUserStore();
@@ -47,20 +47,21 @@ const Mypage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await getOnMyData();
-  //       console.log("응답 체크", res);
-  //       setfetchUser(res.data);
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getOnMyData();
+        console.log("응답 체크", res);
+        // setFetchUser(res?.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-  const editSeeWebttonList = () => {
+    fetchData();
+  }, []);
+
+  const editSeeWebtoonList = () => {
     navigate("/modify/seeWebtoonList");
   };
 
@@ -95,7 +96,7 @@ const Mypage = () => {
           <MyWebtoonContainer
             category="내가 보는 웹툰"
             webtoonList={fetchUser?.watchingToons}
-            onEditMode={editSeeWebttonList}
+            onEditMode={editSeeWebtoonList}
           />
           <MyWebtoonContainer
             category="인생 웹툰"
@@ -121,7 +122,7 @@ const Mypage = () => {
       ) : (
         <div>Loading...</div>
       )}
-      <ButtomNav />
+      <BottomNav /> {/* 'ButtomNav'를 'BottomNav'로 수정 */}
     </>
   );
 };

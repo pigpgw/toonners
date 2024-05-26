@@ -8,9 +8,9 @@ import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 
-const Signup2 = () => {
+export const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  const [webtoons, setWebtoons] = useState<WebtoonConfig>();
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,12 +22,18 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setWebtoons(response);
+        // console.log(response)
+        // console.log(response.filter(item => item.updateDays.length >= 2))
       } catch (e) {
         console.error("오류 발생", e);
       }
     };
     fetchWebtoons();
   }, [search]);
+
+  useEffect(() => {
+    console.log(webtoons);
+  });
 
   const handleSelect = (webtoon: WebtoonConfig) => {
     if (user.seeWebttonList.length >= 4) {
@@ -80,5 +86,3 @@ const Signup2 = () => {
     </>
   );
 };
-
-export default Signup2;

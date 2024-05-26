@@ -1,6 +1,6 @@
 import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import ClickedWebtoonCard from "./ClickedWebtoonCard";
+import { WebtoonConfig } from "@/interface/Webtoon.interface";
 
 interface Props {
   selectedList: WebtoonConfig[];
