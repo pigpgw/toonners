@@ -72,7 +72,13 @@ const ChatRoomMain = () => {
       <Header
         title={chatroomInfo.toonName}
         before={handleBack}
-        button={<Badge label={`🔥 ${chatroomInfo.fireTotalCount}`} sizes="small" types="primary" />}
+        button={
+          <Badge
+            label={`🔥 ${chatroomInfo.fireTotalCount === null ? 0 : chatroomInfo.fireTotalCount}`}
+            sizes="small"
+            types="primary"
+          />
+        }
       />
       <CustomAccordion info={chatroomInfo} />
       <div className={styles.main}>

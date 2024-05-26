@@ -177,7 +177,12 @@
   // 이미지
   &__item {
     display: flex;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    > div:nth-child(1) {
+      display: flex;
+      gap: 16px;
+    }
   }
 
   &__img {

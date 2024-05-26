@@ -1,9 +1,9 @@
 import styles from "@styles/home/Home.module.scss";
-import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";
 import Button from "@components/common/Button";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { useNavigate } from "react-router-dom";
+import Badge from "@/components/common/Badge";
 
 interface Props {
   item: ChatRoomInfoConfig;
@@ -23,8 +23,11 @@ const RestChatItem = ({ item }: Props) => {
           </Text>
           <Text>{item.contexts}</Text>
           <div className={styles.rest__tags}>
-            <Tag label="# 태그" sizes="small" />
-            <Tag label="# 태그" sizes="small" />
+            <Badge
+              label={`🔥 ${item.fireTotalCount === null ? 0 : item.fireTotalCount}`}
+              sizes="small"
+              types="primary"
+            />
           </div>
         </div>
       </div>

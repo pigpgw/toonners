@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "@styles/home/Home.module.scss";
 import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
-import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
+// import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/common/Button/Create";
 import { getAllChatRoomList, getRankingChatRoomList, getTodayChatRoomList } from "@api/chat";
@@ -92,7 +92,7 @@ const ChatroomPage = () => {
     <>
       <Banner className={styles.banner} />
       <div className={styles.chatroom}>
-        <MyChatRoom />
+        {/* <MyChatRoom /> */}
         {CHAT_CONTENTS.map((item, key) => {
           return (
             <HomeChatListFrame
