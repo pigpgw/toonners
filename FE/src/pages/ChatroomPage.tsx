@@ -4,7 +4,7 @@ import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/common/Button/Create";
-import { getAllChatRoomList, getTodayChatRoomList } from "@api/chat";
+import { getAllChatRoomList, getRankingChatRoomList, getTodayChatRoomList } from "@api/chat";
 
 interface ChatContentsConfig {
   keyword: "today" | "rank" | "rest";
@@ -52,18 +52,10 @@ const getRandomItems = (list: []) => {
 
 const ChatroomPage = () => {
   const [todayList, setTodayList] = useState([]);
+  const [rankList, setrankList] = useState([]);
   const [restList, setRestList] = useState([]);
 
   useEffect(() => {
-    const getRestList = async () => {
-      const res = await getAllChatRoomList();
-      if (res.length <= 3) setRestList(res);
-      else {
-        const result = getRandomItems(res);
-        setRestList(result);
-      }
-    };
-
     const getTodayList = async () => {
       const res = await getTodayChatRoomList();
       if (res.length <= 3) setTodayList(res);
@@ -73,7 +65,26 @@ const ChatroomPage = () => {
       }
     };
 
+    const getRankingList = async () => {
+      const res = await getRankingChatRoomList();
+      if (res.length <= 3) setrankList(res);
+      else {
+        const result = res.slice(0, 3);
+        setrankList(result);
+      }
+    };
+
+    const getRestList = async () => {
+      const res = await getAllChatRoomList();
+      if (res.length <= 3) setRestList(res);
+      else {
+        const result = getRandomItems(res);
+        setRestList(result);
+      }
+    };
+
     getTodayList();
+    getRankingList();
     getRestList();
   }, []);
 
@@ -94,7 +105,7 @@ const ChatroomPage = () => {
               list={
                 {
                   today: todayList,
-                  rank: [],
+                  rank: rankList,
                   rest: restList,
                 }[item.keyword]
               }

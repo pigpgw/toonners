@@ -11,6 +11,11 @@ const getTodayChatRoomList = async () => {
   return res.data.data;
 };
 
+const getRankingChatRoomList = async () => {
+  const res = await Axios.get(HOST + "/chatroom/search/top3");
+  return res.data.data;
+};
+
 const getChatRoom = async (roomId: string) => {
   const res = await Axios.get(HOST + `/chatroom/search/detail/${roomId}`);
   return res.data.data;
