@@ -33,12 +33,12 @@ const WebtoonCard = ({ title, imgUrl, score, moodList, genreList }: Props) => {
       </div>
       <div>
         <Text>장르</Text>
-        <div> {moodList?.map((item: string) => <Tag sizes="small" label={`# ${item}`} />)}</div>
+        <div> {genreList?.map((item: string) => <Tag sizes="small" label={`# ${item}`} />)}</div>
       </div>
 
       <div>
         <Text>분위기</Text>
-        <div>{genreList?.map((item: string) => <Tag sizes="small" label={`# ${item}`} />)}</div>
+        <div>{moodList?.map((item: string) => <Tag sizes="small" label={`# ${item}`} />)}</div>
       </div>
     </div>
   );

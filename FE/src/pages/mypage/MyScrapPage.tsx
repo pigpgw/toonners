@@ -1,4 +1,4 @@
-import { getonMyFeed } from "@/api/myPage";
+import { getonMyScrap } from "@/api/myPage";
 import styles from "@styles/mypage/Mypage.module.scss";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
@@ -21,11 +21,11 @@ const MyScrapPage = () => {
 
   useEffect(() => {
     const fe = async () => {
-      const res = await getonMyFeed();
+      const res = await getonMyScrap();
       setFeedList(res.data);
     };
     fe();
-  });
+  }, []);
 
   return (
     <div

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Rating from "@/components/common/Rating";
 import Button from "@/components/common/Button";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const Step3 = () => {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -17,6 +17,7 @@ const Step3 = () => {
   const { addRecommendation } = useRecommendationStore();
 
   const navigate = useNavigate();
+
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
     resetRecommendConfig();
@@ -24,6 +25,11 @@ const Step3 = () => {
   };
 
   const clickAddWebtoon = () => {
+    if (recommendConfig.hashtagGenre.length === 0 && recommendConfig.hashtagVibe.length === 0) {
+      alert("최소 하나 이상의 장르와 분위기를 골라주세요");
+      return;
+    }
+
     addRecommendation(recommendConfig);
     navigate("/recommend/new/1");
   };
@@ -31,38 +37,42 @@ const Step3 = () => {
   const genres = ["공포", "로맨스", "판타지", "학원물"];
   const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
 
-  const toggleGenreSelection = (label: string) => {
-    if (selectedGenres.length >= 3 && !selectedGenres.includes(label)) {
-      alert("장르는 최대 3개까지 선택 가능합니다.");
-      return;
-    }
-
-    setSelectedGenres((prev: string[]) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label],
-    );
-
-    storeData();
-  };
-
-  const toggleMoodSelection = (label: string) => {
-    if (selectedMoods.length >= 3 && !selectedMoods.includes(label)) {
-      alert("분위기는 최대 3개까지 선택 가능합니다.");
-      return;
-    }
-
-    setSelectedMoods((prev: string[]) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label],
-    );
-    storeData();
-  };
-
-  const storeData = () => {
-    const config = {
+  const storeData = useCallback(() => {
+    setRecommendConfig({
       starring: rating,
       hashtagGenre: selectedGenres,
       hashtagVibe: selectedMoods,
-    };
-    setRecommendConfig(config);
+    });
+  }, [rating, selectedGenres, selectedMoods, setRecommendConfig]);
+
+  useEffect(() => {
+    storeData();
+  }, [storeData, selectedGenres, selectedMoods, rating]);
+
+  const toggleGenreSelection = (label: string) => {
+    setSelectedGenres((prev) => {
+      if (prev.includes(label)) {
+        return prev.filter((item) => item !== label);
+      } else if (prev.length < 3) {
+        return [...prev, label];
+      } else {
+        alert("장르는 최대 3개까지 선택 가능합니다.");
+        return prev;
+      }
+    });
+  };
+
+  const toggleMoodSelection = (label: string) => {
+    setSelectedMoods((prev) => {
+      if (prev.includes(label)) {
+        return prev.filter((item) => item !== label);
+      } else if (prev.length < 3) {
+        return [...prev, label];
+      } else {
+        alert("분위기는 최대 3개까지 선택 가능합니다.");
+        return prev;
+      }
+    });
   };
 
   return (
@@ -87,7 +97,7 @@ const Step3 = () => {
           별점 매기기
         </Text>
         <div className={styles.tagBox}>
-          <Rating sizes="large" onChange={(_, value) => (value ? setRating(value) : 0)} />
+          <Rating sizes="large" onChange={(_, value) => value && setRating(value)} />
         </div>
         <hr className={styles.line} />
         <Text types="title" bold="bold">
@@ -99,11 +109,9 @@ const Step3 = () => {
               key={genre}
               sizes="medium"
               label={`# ${genre}`}
-              onClick={() => {
-                toggleGenreSelection(genre);
-              }}
+              onClick={() => toggleGenreSelection(genre)}
               clickable={selectedGenres.includes(genre)}
-              checked
+              checked={selectedGenres.includes(genre)}
             />
           ))}
         </div>
@@ -117,9 +125,7 @@ const Step3 = () => {
               key={mood}
               sizes="medium"
               label={`# ${mood}`}
-              onClick={() => {
-                toggleMoodSelection(mood);
-              }}
+              onClick={() => toggleMoodSelection(mood)}
               clickable={selectedMoods.includes(mood)}
               checked={selectedMoods.includes(mood)}
             />

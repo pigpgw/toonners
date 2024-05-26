@@ -2,7 +2,6 @@ import Header from "@/components/common/Header";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import { useEffect, useState } from "react";
 import Text from "@/components/common/Text";
-import Button from "@/components/common/Button";
 import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
@@ -14,7 +13,7 @@ const Step2 = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [select, setSelect] = useState<WebtoonConfig>();
+  const [, setSelect] = useState<WebtoonConfig>();
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();
 
@@ -58,7 +57,7 @@ const Step2 = () => {
     }
     if (webtoon.title && webtoon.img) {
       setSelect(webtoon);
-      setimageUrlAndTitle(webtoon.img, webtoon.title, webtoon.url, webtoon.updateDays);
+      setimageUrlAndTitle(webtoon.img, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
       navigate("/recommend/new/3");
     } else {
       console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");
@@ -71,17 +70,7 @@ const Step2 = () => {
 
   return (
     <>
-      <Header
-        title="웹툰 추천하기"
-        before={clickOutBtn}
-        button={
-          <Button types="primary" sizes="small">
-            <Text types="button" bold="medium">
-              공유
-            </Text>
-          </Button>
-        }
-      />
+      <Header title="웹툰 추천하기" before={clickOutBtn} />
       <div className={styles.inputcontainer}>
         <Text types="sub-header" bold="bold">
           어떤 웹툰에 대해 이야기할까요?
@@ -92,7 +81,7 @@ const Step2 = () => {
         onChange={onChange}
         webToonList={webtoons}
         handleSelect={selectWebtoon}
-        height={670}
+        height={75}
       />
     </>
   );

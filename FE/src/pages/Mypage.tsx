@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// Mypage Component
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getOnMyData, updateUserData } from "@/api/myPage";
@@ -28,6 +27,12 @@ const Mypage = () => {
 
   const onEditMode = () => {
     setEditMode(true);
+  };
+
+  const withDraw = () => {
+    localStorage.removeItem("accessToken");
+    alert("회원 탈퇴되었습니다.!");
+    navigate("/");
   };
 
   const offEditMode = async () => {
@@ -71,13 +76,9 @@ const Mypage = () => {
     navigate("/mypage/feed");
   };
 
-  useEffect(() => {
-    console.log(user.nickname);
-  });
-
   return (
     <>
-      {user ? (
+      {fetchUser ? (
         <div className={styles.container}>
           <Text types="headline" bold="bold">
             마이페이지
@@ -87,18 +88,18 @@ const Mypage = () => {
             editMode={editMode}
             onEditMode={onEditMode}
             offEditMode={offEditMode}
-            nickName={user.nickname}
-            introduction={user.introduction}
+            nickName={fetchUser?.nickname}
+            introduction={fetchUser.description}
             imgUrl="asd"
           />
           <MyWebtoonContainer
             category="내가 보는 웹툰"
-            webtoonList={user.seeWebttonList}
+            webtoonList={fetchUser?.watchingToons}
             onEditMode={editSeeWebttonList}
           />
           <MyWebtoonContainer
             category="인생 웹툰"
-            webtoonList={user.likedWebToonList}
+            webtoonList={fetchUser?.favoriteToons}
             onEditMode={editLikedWebToonList}
           />
           <div className={styles.FeedContainer}>
@@ -113,12 +114,13 @@ const Mypage = () => {
               <Text bold="semi-bold">내가 작성한 Feed글</Text>
             </div>
           </div>
-          <div className={styles.withdrawBtn}>서비스 탈퇴하기</div>
+          <div className={styles.withdrawBtn} onClick={withDraw}>
+            서비스 탈퇴하기
+          </div>
         </div>
       ) : (
         <div>Loading...</div>
       )}
-      <div style={{ marginTop: "80px" }}></div>
       <ButtomNav />
     </>
   );

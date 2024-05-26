@@ -33,14 +33,17 @@ interface RecommendationStoreConfig {
   addRecommendation: (recommendation: RecommendToonConfig) => void;
   removeRecommendation: (title: string) => void;
   clearRecommendations: () => void;
+  resetRecommendationData: () => void;
 }
 
+const initialState: Config = {
+  title: "",
+  cotexts: "",
+  recommendToons: [],
+};
+
 export const useRecommendationStore = create<RecommendationStoreConfig>((set) => ({
-  recommendationData: {
-    title: "",
-    cotexts: "",
-    recommendToons: [],
-  },
+  recommendationData: initialState,
   setPostTitle: (title: string) =>
     set((state) => ({
       recommendationData: { ...state.recommendationData, title },
@@ -70,6 +73,10 @@ export const useRecommendationStore = create<RecommendationStoreConfig>((set) =>
         recommendToons: [],
       },
     })),
+  resetRecommendationData: () =>
+    set({
+      recommendationData: initialState,
+    }),
 }));
 
 interface RecommendConfigStore {

@@ -24,7 +24,7 @@ export const getonMyFeed = async (): Promise<unknown> => {
 
 export const getonMyScrap = async (): Promise<unknown> => {
   try {
-    const response = await Axios.get(`${BASE_URL}/bookmark/feed`);
+    const response = await Axios.get(`${BASE_URL}/feed/search/bookmarked`);
     console.log(response.data);
     return response.data;
   } catch (e) {

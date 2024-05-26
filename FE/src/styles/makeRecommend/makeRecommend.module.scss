@@ -54,52 +54,20 @@
   margin-bottom: 10px;
 }
 
-.cardBox {
-  max-height: 300px;
-  overflow-y: scroll;
-}
-
-.confirm {
-  position: absolute;
-  background-color: var(--color-primary);
-  width: 313px;
-  height: 44px;
-  margin-left: 40px;
-  padding: var(--spacing-5);
-  box-sizing: border-box;
-
-  color: var(--color-white);
-  border: none;
-  border-radius: 50px;
-  position: absolute;
-  top: 92%;
-
-  cursor: pointer;
-  &:active {
-    box-shadow: 2px 2px 10px 0px rgba(248, 248, 248, 0.251) inset;
-  }
-
-  &:disabled {
-    background-color: var(--color-gray-2);
-    pointer-events: none;
-    cursor: default;
-  }
-}
-
 // step3
 .tagBox {
   margin-top: 10px;
-
+  width: 200px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: flex-xstart;
   align-content: flex-start;
   padding: 0px;
   gap: 10px;
 
-  width: 310px;
-  height: 70px;
+  width: 400px;
+  height: 50px;
 }
 
 .line {
@@ -109,19 +77,18 @@
 }
 
 .confirm {
-  position: absolute;
   background-color: var(--color-primary);
   width: 313px;
   height: 44px;
   margin-left: 40px;
+  margin-bottom: 10px;
   padding: var(--spacing-5);
   box-sizing: border-box;
 
   color: var(--color-white);
   border: none;
   border-radius: 50px;
-  position: absolute;
-  top: 92%;
+  // position: absolute;
 
   cursor: pointer;
   &:active {
