@@ -1,12 +1,14 @@
+import { getonMyFeed } from "@/api/myPage";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
 import FeedItem from "@/components/home/feed/FeedItem";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MyScrapPage = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
+  const [feedList, setFeedList] = useState([]);
 
   const goMypage = () => {
     navigate("/mypage");
@@ -16,7 +18,14 @@ const MyScrapPage = () => {
     setSearchQuery(e.target.value);
   };
 
-  const dummy = [1, 2, 3, 4];
+  useEffect(() => {
+    const fe = async () => {
+      const res = await getonMyFeed();
+      setFeedList(res.data);
+    };
+    fe();
+  });
+
   return (
     <div
       style={{
@@ -35,10 +44,12 @@ const MyScrapPage = () => {
           placeholder="검색어로 빠르게 스크랩한 글 찾기"
           onChange={onSearchQueryChange}
         />
+        <div style={{ width: "120px" }}>
+          {feedList.map((feed, i) => {
+            return <FeedItem key={i} feed={feed} />;
+          })}
+        </div>
       </div>
-      {dummy.map((item, index) => {
-        return <FeedItem key={index} imgCount={item} />;
-      })}
     </div>
   );
 };
