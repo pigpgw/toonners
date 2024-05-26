@@ -15,11 +15,17 @@ const MyWebtoonContainer = ({ category, webtoonList, onEditMode }: Props) => {
     <div className={styles.myWebtoonContainer}>
       <div className={styles.myWebtoonSubContainer}>
         <Text types="title" bold="bold">
-            {category}
+          {category}
         </Text>
         <EditBtn btnName="편집하기" onClick={onEditMode}></EditBtn>
       </div>
-      <SelectedWebtoonBox selectedList={webtoonList} />
+      {webtoonList && webtoonList.length !== 0 ? (
+        <SelectedWebtoonBox selectedList={webtoonList} />
+      ) : (
+        <div style={{ width: "100%", fontSize: "12px", color: "gray", textAlign: "center", padding: "10px 0" }}>
+          웹툰을 추가해주세요
+        </div>
+      )}
     </div>
   );
 };

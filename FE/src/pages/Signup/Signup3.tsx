@@ -15,16 +15,19 @@ const Signup3 = () => {
       const data = {
         nickname: user.nickname,
         description: user.introduction,
-        watching_toons: user.seeWebttonList.map(toon => ({
+        watchingToons: user.seeWebttonList.map(toon => ({
           title: toon.title,
-          image_url: toon.img,
-          site_url: toon.url,
-          rating: toon.fanCount,
+          imageUrl: toon.img,
           days: toon.updateDays
         }))
       };
       console.log(data);
-      await updateUserData(data);
+      try {
+        await updateUserData(data);
+        alert('가입이 성공적으로 완료되었습니다.')
+      } catch (e) {
+        console.log('eeeorro',e)
+      }
       navigate("/home");
     } catch (e) {
       alert("등록에 실패하였습니다!");

@@ -52,11 +52,12 @@ const EditSeeWtnPage = () => {
   const navigator = useNavigate();
 
   const goNext = () => {
-    if (user.seeWebttonList.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
-    else {
-      console.log(user);
-      navigator("/mypage");
+    if (user.seeWebttonList.length === 0) {
+      alert("보고있는 웹툰을 1개 이상 추가해주세요");
+      return;
     }
+    
+    cancle()
   };
   const cancle = () => {
     navigator("/mypage");
@@ -76,7 +77,7 @@ const EditSeeWtnPage = () => {
         webToonList={webtoons}
         onChange={onChange}
         handleSelect={handleSelect}
-        height={400}
+        height={55}
       />
       <button className={styles.confirm} onClick={goNext}>
         확인

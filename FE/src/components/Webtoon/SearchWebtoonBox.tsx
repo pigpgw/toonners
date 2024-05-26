@@ -14,7 +14,7 @@ interface Props {
 
 const SearchWebtoonBox = ({ webtoonTitle, webToonList, onChange, handleSelect, height }: Props) => {
   return (
-    <div className={styles.searchBox} style={{ height: `${height}px` }}>
+    <div className={styles.searchBox} style={{ height: `${height}vh` }}>
       <div className={styles.searchInputBox}>
         <Input value={webtoonTitle} colors="gray-1" placeholder="검색어 입력" types="search" onChange={onChange} />
         <div className={styles.searchedWebtoonContainer}>

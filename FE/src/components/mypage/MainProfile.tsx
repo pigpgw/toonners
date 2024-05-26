@@ -46,7 +46,7 @@ const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, off
         <input type="text" className={styles.EditInput} value={introduction} onChange={introductionChange} />
       ) : (
         <Text types="body-1" bold="semi-bold">
-          {introduction}
+          {introduction ? introduction : '자기 소개글을 추가해 주세요'}
         </Text>
       )}
     </div>

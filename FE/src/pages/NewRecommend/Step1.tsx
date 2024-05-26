@@ -11,7 +11,7 @@ import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
 
 const Step1 = () => {
-  const { recommendationData, setPostTitle, setPostcotexts, clearRecommendations } = useRecommendationStore();
+  const { recommendationData, setPostTitle, setPostcotexts, resetRecommendationData } = useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -20,9 +20,13 @@ const Step1 = () => {
       alert("추천글 제목을 입력해주세요");
       return;
     }
+    if (recommendationData.recommendToons.length === 0) {
+      alert("웹툰 1가지 이상 추천해주세요");
+      return;
+    }
     try {
       await postNewRecommend(recommendationData);
-      clearRecommendations();
+      resetRecommendationData();
       resetRecommendConfig();
       alert("등록이 완료되었습니다.!");
       navigate("/home");
@@ -35,6 +39,12 @@ const Step1 = () => {
 
   const goNextPage = () => {
     navigate("/recommend/new/2");
+  };
+
+  const goHome = () => {
+    resetRecommendationData();
+    resetRecommendConfig();
+    navigate("/home");
   };
 
   const inputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +69,7 @@ const Step1 = () => {
     <>
       <Header
         title="웹툰 추천하기"
-        before={clickShareBtn}
+        before={goHome}
         button={
           <Button types="primary" sizes="small" onClick={clickShareBtn}>
             <Text types="button" bold="medium">

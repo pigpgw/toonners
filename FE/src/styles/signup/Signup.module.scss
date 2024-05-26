@@ -1,5 +1,5 @@
 .container {
-  padding: 20px 30px 20px 30px;
+  padding: 80px 30px 20px 30px;
   .subTitle {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -27,7 +27,7 @@
   color: var(--color-white);
   border: none;
   border-radius: 50px;
-  position: fixed;
+  position: absolute;
   top: 92%;
 
   cursor: pointer;
