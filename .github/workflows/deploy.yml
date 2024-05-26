@@ -38,10 +38,10 @@ jobs:
           spring.datasource.username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
           spring.datasource.password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+        run: chmod +x ./BE/toonners/gradlew
         shell: bash
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./BE/toonners/gradlew build
         shell: bash
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
