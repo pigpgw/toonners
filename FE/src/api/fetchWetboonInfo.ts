@@ -7,7 +7,7 @@ const fetchWetboonInfo = async (title: string): Promise<WebtoonConfig[]> => {
   const filteredWebtoons = webttonData.map((webtoon: WebtoonConfig) => ({
     title: webtoon.title,
     url: webtoon.url,
-    img: webtoon.img,
+    imageUrl: webtoon.imageUrl,
     updateDays: webtoon.updateDays,
     fanCount: webtoon.fanCount,
   }));

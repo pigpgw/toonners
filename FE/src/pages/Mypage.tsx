@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getOnMyData, updateUserData } from "@/api/myPage";
+import { updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import MainProfile from "@components/mypage/MainProfile";
 import Text from "@/components/common/Text";
@@ -20,7 +20,7 @@ type User = {
 };
 
 const Mypage = () => {
-  const [fetchUser, setfetchUser] = useState<User | null>(null);
+  const [fetchUser,] = useState<User | null>(null);
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
   const { user } = useUserStore();
@@ -47,18 +47,18 @@ const Mypage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getOnMyData();
-        console.log("응답 체크", res);
-        setfetchUser(res.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await getOnMyData();
+  //       console.log("응답 체크", res);
+  //       setfetchUser(res.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const editSeeWebttonList = () => {
     navigate("/modify/seeWebtoonList");

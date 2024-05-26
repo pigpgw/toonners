@@ -18,7 +18,7 @@ export const initialState = {
   selected: {
     title: "",
     url: "",
-    img: "",
+    imageUrl: "",
     updateDays: [],
     fanCount: 0,
   },

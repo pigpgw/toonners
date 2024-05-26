@@ -55,9 +55,9 @@ const Step2 = () => {
       alert("이미 추천한 웹툰입니다.");
       return;
     }
-    if (webtoon.title && webtoon.img) {
+    if (webtoon.title && webtoon.imageUrl) {
       setSelect(webtoon);
-      setimageUrlAndTitle(webtoon.img, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
+      setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
       navigate("/recommend/new/3");
     } else {
       console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");
