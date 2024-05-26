@@ -1,5 +1,4 @@
 export interface WebtoonConfig {
-
   imageUrl: string;
   title: string;
   url: string;
@@ -8,3 +7,11 @@ export interface WebtoonConfig {
   clicked?: boolean;
 }
 
+export interface WebtoonResponseConfig {
+  title: string;
+  url: string;
+  img: string;
+  updateDays: string[];
+  fanCount?: string;
+  clicked?: boolean;
+}

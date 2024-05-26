@@ -10,16 +10,6 @@ interface RecommendToonConfig {
   days: string[];
 }
 
-interface Config1 {
-  starring?: number;
-  hashtagGenre?: string[];
-  hashtagVibe?: string[];
-  title?: string;
-  imageUrl?: string;
-  imageSiteUrl?: string;
-  days?: string[];
-}
-
 interface Config {
   title: string;
   cotexts: string;
@@ -81,7 +71,7 @@ export const useRecommendationStore = create<RecommendationStoreConfig>((set) =>
 
 interface RecommendConfigStore {
   recommendConfig: RecommendToonConfig;
-  setRecommendConfig: (config: Config1) => void;
+  setRecommendConfig: (config: Config) => void;
   setimageUrlAndTitle: (imageUrl: string, title: string, imageSiteUrl: string, days: string[]) => void;
   resetRecommendConfig: () => void;
 }
@@ -100,7 +90,7 @@ export const useRecommendConfigStore = create<RecommendConfigStore>((set) => ({
     set((state) => ({
       recommendConfig: { ...state.recommendConfig, imageUrl, title, imageSiteUrl, days },
     })),
-  setRecommendConfig: (config: Config1) =>
+  setRecommendConfig: (config: Config) =>
     set((state) => ({
       recommendConfig: { ...state.recommendConfig, ...config },
     })),

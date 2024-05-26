@@ -1,8 +1,8 @@
 import Text from "@/components/common/Text";
 import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import React, {  useState } from "react";
+// import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
@@ -11,25 +11,25 @@ import Header from "@/components/common/Header";
 
 const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  const [webtoons] = useState<WebtoonConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  useEffect(() => {
-    const fetchWebtoons = async () => {
-      try {
-        const response = await fetchWetboonInfo(search);
-        setWebtoons(response);
-      } catch (e) {
-        console.error("오류 발생", e);
-      }
-    };
-    if (search) fetchWebtoons();
-    else setWebtoons([]);
-  }, [search]);
+  // useEffect(() => {
+  //   const fetchWebtoons = async () => {
+  //     try {
+  //       const response = await fetchWetboonInfo(search);
+  //       setWebtoons(response);
+  //     } catch (e) {
+  //       console.error("오류 발생", e);
+  //     }
+  //   };
+  //   if (search) fetchWebtoons();
+  //   else setWebtoons([]);
+  // }, [search]);
 
   const handleSelect = (webtoon: WebtoonConfig) => {
     if (user.seeWebttonList.length >= 4) {
