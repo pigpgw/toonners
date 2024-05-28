@@ -131,6 +131,7 @@ public class MemberService extends DefaultOAuth2UserService {
                     .title(toonData.getTitle())
                     .imageUrl(toonData.getImageUrl())
                     .siteUrl(toonData.getSiteUrl())
+                    .days(toonData.getDays())
                     .build());
         }
     }
