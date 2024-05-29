@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig, WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 import Header from "@/components/common/Header";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { getOnMyData, updateUserData } from "@/api/myPage";
 
-const EditSeeWtnPage = () => {
+const EditLikedWtnPage = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
   const { user, addLikedWebToonList, removeLikedWebToonList, resetLikedWebtoon } = useUserStore();
@@ -39,8 +39,14 @@ const EditSeeWtnPage = () => {
       if (res) {
         console.log(res);
         // setFetchUserData(res);
-        res.favoriteToons.map(function (item) {
-          addLikedWebToonList(item);
+        (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
+          addLikedWebToonList({
+            title: item.title,
+            url: item.siteUrl,
+            imageUrl: item.imageUrl,
+            fanCount: item.rating,
+            updateDays: item.days,
+          });
         });
       }
     };
@@ -52,6 +58,7 @@ const EditSeeWtnPage = () => {
     const getWebtoonData = async () => {
       const res = await fetchWetboonInfo(search);
       setWebtoons(res);
+      console.log("웹툰 리스트", res);
     };
     getWebtoonData();
   }, [search]);
@@ -100,4 +107,4 @@ const EditSeeWtnPage = () => {
   );
 };
 
-export default EditSeeWtnPage;
+export default EditLikedWtnPage;

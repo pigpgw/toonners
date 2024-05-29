@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig, WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 import Header from "@/components/common/Header";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
@@ -20,12 +20,12 @@ const EditSeeWtnPage = () => {
   };
 
   const handleSelect = (webtoon: WebtoonConfig) => {
-    if (user.seeWebttonList.length >= 4) {
+    if (user.likedWebToonList.length >= 4) {
       alert("최대 4개의 웹툰만 선택할 수 있습니다.");
       return;
     }
 
-    if (!user.seeWebttonList.some((item) => item.title === webtoon.title)) {
+    if (!user.likedWebToonList.some((item) => item.title === webtoon.title)) {
       addSeeWebtoon(webtoon);
       setSearch("");
     } else {
@@ -39,8 +39,14 @@ const EditSeeWtnPage = () => {
       if (res) {
         console.log(res);
         // setFetchUserData(res);
-        res.watchingToons.map(function (item) {
-          addSeeWebtoon(item);
+        (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
+          addSeeWebtoon({
+            title: item.title,
+            url: item.siteUrl,
+            imageUrl: item.imageUrl,
+            fanCount: item.rating,
+            updateDays: item.days,
+          });
         });
       }
     };
@@ -52,6 +58,7 @@ const EditSeeWtnPage = () => {
     const getWebtoonData = async () => {
       const res = await fetchWetboonInfo(search);
       setWebtoons(res);
+      console.log("웹툰 리스트", res);
     };
     getWebtoonData();
   }, [search]);

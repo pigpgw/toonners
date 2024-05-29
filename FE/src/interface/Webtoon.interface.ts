@@ -3,8 +3,7 @@ export interface WebtoonConfig {
   title: string;
   url: string;
   updateDays?: string[];
-  fanCount?: number;
-  clicked?: boolean;
+  fanCount?: string;
 }
 
 export interface WebtoonResponseConfig {
@@ -21,5 +20,5 @@ export interface UserWebtoonListConfig {
   imageUrl: string;
   siteUrl: string;
   rating?: string;
-  days: string[] | null;
+  days: string[] | undefined;
 }
