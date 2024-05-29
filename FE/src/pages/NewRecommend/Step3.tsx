@@ -21,7 +21,6 @@ const Step3 = () => {
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
     resetRecommendConfig();
-    console.log("나가기 버튼 누름");
   };
 
   const clickAddWebtoon = () => {
@@ -36,18 +35,6 @@ const Step3 = () => {
 
   const genres = ["공포", "로맨스", "판타지", "학원물"];
   const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
-
-  // const storeData = useCallback(() => {
-  //   setRecommendConfig({
-  //     starring: rating,
-  //     hashtagGenre: selectedGenres,
-  //     hashtagVibe: selectedMoods,
-  //   });
-  // }, [rating, selectedGenres, selectedMoods, setRecommendConfig]);
-
-  // useEffect(() => {
-  //   storeData();
-  // }, [storeData, selectedGenres, selectedMoods, rating]);
 
   const toggleGenreSelection = (label: string) => {
     setSelectedGenres((prev) => {

@@ -46,22 +46,16 @@ const Mypage = () => {
     } catch (e) {
       console.log(e);
     }
-    console.log("sd");
   };
   const fetchData = async () => {
     const res = await getOnMyData();
     if (res) {
-      console.log(res);
       setFetchUser(res as User);
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(fetchUser);
-  });
 
   const editSeeWebtoonList = () => {
     navigate("/modify/seeWebtoonList");

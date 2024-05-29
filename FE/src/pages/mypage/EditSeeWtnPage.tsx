@@ -13,7 +13,7 @@ import { getOnMyData, updateUserData } from "@/api/myPage";
 const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  const { user, addSeeWebtoon, removeSeeWebtoon, resetSeeWebtoon } = useUserStore();
+  const { user, addSeeWebtoon, removeSeeWebtoon, resetSeeWebtoon, setUserNickname, setIntroDuction } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -34,11 +34,12 @@ const EditSeeWtnPage = () => {
   };
 
   useEffect(() => {
+    resetSeeWebtoon();
     const fetchData = async () => {
       const res = await getOnMyData();
       if (res) {
-        console.log(res);
-        // setFetchUserData(res);
+        setUserNickname(res.nickname);
+        setIntroDuction(res.description);
         (res.watchingToons as UserWebtoonListConfig[]).map((item) => {
           addSeeWebtoon({
             title: item.title,
@@ -58,7 +59,6 @@ const EditSeeWtnPage = () => {
     const getWebtoonData = async () => {
       const res = await fetchWetboonInfo(search);
       setWebtoons(res);
-      console.log("웹툰 리스트", res);
     };
     getWebtoonData();
   }, [search]);
@@ -75,7 +75,6 @@ const EditSeeWtnPage = () => {
       return;
     }
     await updateUserData({ watchingToons: user.seeWebttonList });
-    console.log("서버에 수정한 웹툰 등록", user.seeWebttonList);
     resetSeeWebtoon();
     cancle();
   };

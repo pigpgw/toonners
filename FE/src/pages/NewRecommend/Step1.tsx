@@ -56,7 +56,6 @@ const Step1 = () => {
   };
 
   useEffect(() => {
-    console.log(recommendationData);
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [recommendationData?.recommendToons?.length]);
 

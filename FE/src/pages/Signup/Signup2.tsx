@@ -22,7 +22,6 @@ const Signup2 = () => {
       try {
         const response = await fetchWetboonInfo(search);
         setFetchWebtoons(response);
-        console.log("체크 웹툰 리스트", serchedWebtoons);
       } catch (e) {
         console.error("오류 발생", e);
       }

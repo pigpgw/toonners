@@ -34,11 +34,10 @@ const EditLikedWtnPage = () => {
   };
 
   useEffect(() => {
+    resetLikedWebtoon();
     const fetchData = async () => {
       const res = await getOnMyData();
       if (res) {
-        console.log(res);
-        // setFetchUserData(res);
         (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
           addLikedWebToonList({
             title: item.title,
@@ -58,7 +57,6 @@ const EditLikedWtnPage = () => {
     const getWebtoonData = async () => {
       const res = await fetchWetboonInfo(search);
       setWebtoons(res);
-      console.log("웹툰 리스트", res);
     };
     getWebtoonData();
   }, [search]);
@@ -75,7 +73,6 @@ const EditLikedWtnPage = () => {
       return;
     }
     await updateUserData({ favoriteToons: user.likedWebToonList });
-    console.log("서버에 수정한 웹툰 등록", user.likedWebToonList);
     resetLikedWebtoon();
     cancle();
   };

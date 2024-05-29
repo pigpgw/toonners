@@ -7,13 +7,11 @@ import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import { getTodayChatRoomList } from "@/api/chat";
 
 const Step2 = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [, setSelect] = useState<WebtoonConfig>();
+  // const [, setSelect] = useState<WebtoonConfig>();
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();
 
@@ -35,17 +33,8 @@ const Step2 = () => {
     else setWebtoons([]);
   }, [search]);
 
-  useEffect(() => {
-    const et = async () => {
-      const res = await getTodayChatRoomList();
-      console.log(res);
-    };
-    et();
-  });
-
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
-    console.log("나가기 버튼 누름");
   };
 
   const navigate = useNavigate();
@@ -56,7 +45,7 @@ const Step2 = () => {
       return;
     }
     if (webtoon.title && webtoon.imageUrl) {
-      setSelect(webtoon);
+      // setSelect(webtoon);
       setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
       navigate("/recommend/new/3");
     } else {

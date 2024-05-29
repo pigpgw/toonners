@@ -10,7 +10,6 @@ interface UserConfig {
 
 interface UserStoreConfig {
   user: UserConfig;
-  //   setUser: (user: UserConfig) => void;
   setUserNickname: (nickname: string) => void;
   setIntroDuction: (introduction: string) => void;
   addSeeWebtoon: (webtoon: WebtoonConfig) => void;

@@ -21,7 +21,6 @@ const Signup3 = () => {
           siteUrl: toon.url,
         })),
       };
-      console.log(data);
       try {
         await updateUserData(data);
         alert("가입이 성공적으로 완료되었습니다.");
