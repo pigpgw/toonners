@@ -20,12 +20,12 @@ const EditSeeWtnPage = () => {
   };
 
   const handleSelect = (webtoon: WebtoonConfig) => {
-    if (user.likedWebToonList.length >= 4) {
+    if (user.seeWebttonList.length >= 4) {
       alert("최대 4개의 웹툰만 선택할 수 있습니다.");
       return;
     }
 
-    if (!user.likedWebToonList.some((item) => item.title === webtoon.title)) {
+    if (!user.seeWebttonList.some((item) => item.title === webtoon.title)) {
       addSeeWebtoon(webtoon);
       setSearch("");
     } else {
@@ -39,7 +39,7 @@ const EditSeeWtnPage = () => {
       if (res) {
         console.log(res);
         // setFetchUserData(res);
-        (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
+        (res.watchingToons as UserWebtoonListConfig[]).map((item) => {
           addSeeWebtoon({
             title: item.title,
             url: item.siteUrl,
