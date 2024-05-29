@@ -1,35 +1,23 @@
 import Text from "@/components/common/Text";
 import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
-import React, {  useState } from "react";
-// import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import React, { useEffect, useState } from "react";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 import Header from "@/components/common/Header";
+import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { getOnMyData, updateUserData } from "@/api/myPage";
 
 const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons] = useState<WebtoonConfig[]>([]);
-  const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
+  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
+  const { user, addSeeWebtoon, removeSeeWebtoon, resetSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-
-  // useEffect(() => {
-  //   const fetchWebtoons = async () => {
-  //     try {
-  //       const response = await fetchWetboonInfo(search);
-  //       setWebtoons(response);
-  //     } catch (e) {
-  //       console.error("오류 발생", e);
-  //     }
-  //   };
-  //   if (search) fetchWebtoons();
-  //   else setWebtoons([]);
-  // }, [search]);
 
   const handleSelect = (webtoon: WebtoonConfig) => {
     if (user.seeWebttonList.length >= 4) {
@@ -45,21 +33,47 @@ const EditSeeWtnPage = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getOnMyData();
+      if (res) {
+        console.log(res);
+        // setFetchUserData(res);
+        res.watchingToons.map(function (item) {
+          addSeeWebtoon(item);
+        });
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const getWebtoonData = async () => {
+      const res = await fetchWetboonInfo(search);
+      setWebtoons(res);
+    };
+    getWebtoonData();
+  }, [search]);
+
   const removeSelect = (webtoon: WebtoonConfig) => {
     removeSeeWebtoon(webtoon);
   };
 
   const navigator = useNavigate();
 
-  const goNext = () => {
+  const goNext = async () => {
     if (user.seeWebttonList.length === 0) {
       alert("보고있는 웹툰을 1개 이상 추가해주세요");
       return;
     }
-
+    await updateUserData({ watchingToons: user.seeWebttonList });
+    console.log("서버에 수정한 웹툰 등록", user.seeWebttonList);
+    resetSeeWebtoon();
     cancle();
   };
   const cancle = () => {
+    resetSeeWebtoon();
     navigator("/mypage");
   };
 

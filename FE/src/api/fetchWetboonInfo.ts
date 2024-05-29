@@ -11,7 +11,7 @@ const fetchWetboonInfo = async (title: string): Promise<WebtoonConfig[]> => {
     updateDays: webtoon.updateDays,
     fanCount: webtoon.fanCount,
   }));
-  return [filteredWebtoons];
+  return filteredWebtoons;
 };
 
 export default fetchWetboonInfo;

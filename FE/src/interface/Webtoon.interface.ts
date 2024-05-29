@@ -15,3 +15,11 @@ export interface WebtoonResponseConfig {
   fanCount?: string;
   clicked?: boolean;
 }
+
+export interface UserWebtoonListConfig {
+  title: string;
+  imageUrl: string;
+  siteUrl: string;
+  rating?: string;
+  days: string[] | null;
+}

@@ -3,7 +3,8 @@ import ClickedWebtoonCard from "./ClickedWebtoonCard";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 
 interface Props {
-  selectedList: WebtoonConfig[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedList: any[];
   removeSelect?: (webtoon: WebtoonConfig) => void;
 }
 

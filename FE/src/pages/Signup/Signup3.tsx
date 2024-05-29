@@ -9,24 +9,24 @@ const Signup3 = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
 
-  const nextStep = async() => {
+  const nextStep = async () => {
     try {
-      // 서버에 유저 프로필 등록
       const data = {
         nickname: user.nickname,
         description: user.introduction,
-        watchingToons: user.seeWebttonList.map(toon => ({
+        watchingToons: user.seeWebttonList.map((toon) => ({
           title: toon.title,
           imageUrl: toon.imageUrl,
-          days: toon.updateDays
-        }))
+          days: toon.updateDays,
+          siteUrl: toon.url,
+        })),
       };
       console.log(data);
       try {
         await updateUserData(data);
-        alert('가입이 성공적으로 완료되었습니다.')
+        alert("가입이 성공적으로 완료되었습니다.");
       } catch (e) {
-        console.log('eeeorro',e)
+        console.log("eeeorro", e);
       }
       navigate("/home");
     } catch (e) {

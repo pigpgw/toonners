@@ -10,13 +10,15 @@ interface UserConfig {
 
 interface UserStoreConfig {
   user: UserConfig;
-//   setUser: (user: UserConfig) => void;
+  //   setUser: (user: UserConfig) => void;
   setUserNickname: (nickname: string) => void;
   setIntroDuction: (introduction: string) => void;
   addSeeWebtoon: (webtoon: WebtoonConfig) => void;
   removeSeeWebtoon: (webtoon: WebtoonConfig) => void;
   addLikedWebToonList: (webtoon: WebtoonConfig) => void;
   removeLikedWebToonList: (webtoon: WebtoonConfig) => void;
+  resetSeeWebtoon: () => void;
+  resetLikedWebtoon: () => void;
 }
 
 export const useUserStore = create<UserStoreConfig>((set) => ({
@@ -26,7 +28,6 @@ export const useUserStore = create<UserStoreConfig>((set) => ({
     seeWebttonList: [],
     likedWebToonList: [],
   },
-//   setUser: (user) => set({ user }),
 
   setUserNickname: (nickname: string) =>
     set((state) => ({
@@ -64,6 +65,22 @@ export const useUserStore = create<UserStoreConfig>((set) => ({
       user: {
         ...state.user,
         likedWebToonList: state.user.likedWebToonList.filter((webtoon) => webtoon !== removeWebtoon),
+      },
+    })),
+
+  resetSeeWebtoon: () =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        seeWebttonList: [],
+      },
+    })),
+
+  resetLikedWebtoon: () =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        likedWebToonList: [],
       },
     })),
 }));

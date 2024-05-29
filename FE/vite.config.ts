@@ -22,4 +22,7 @@ export default defineConfig({
       { find: "@", replacement: "/src" },
     ],
   },
+  optimizeDeps: {
+    exclude: ["chunk-HU3KSRQA.js"],
+  },
 });

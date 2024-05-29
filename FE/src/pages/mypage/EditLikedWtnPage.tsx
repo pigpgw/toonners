@@ -2,35 +2,22 @@ import Text from "@/components/common/Text";
 import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 import Header from "@/components/common/Header";
-import { updateUserData } from "@/api/myPage";
+import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { getOnMyData, updateUserData } from "@/api/myPage";
 
-const EditLikedWtnPage = () => {
+const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  const { user, addLikedWebToonList, removeLikedWebToonList } = useUserStore();
+  const { user, addLikedWebToonList, removeLikedWebToonList, resetLikedWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-
-  useEffect(() => {
-    const fetchWebtoons = async () => {
-      try {
-        const response = await fetchWetboonInfo(search);
-        setWebtoons(response);
-      } catch (e) {
-        console.error("오류 발생", e);
-      }
-    };
-    if (search) fetchWebtoons();
-    else setWebtoons([]);
-  }, [search]);
 
   const handleSelect = (webtoon: WebtoonConfig) => {
     if (user.likedWebToonList.length >= 4) {
@@ -46,6 +33,29 @@ const EditLikedWtnPage = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getOnMyData();
+      if (res) {
+        console.log(res);
+        // setFetchUserData(res);
+        res.favoriteToons.map(function (item) {
+          addLikedWebToonList(item);
+        });
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const getWebtoonData = async () => {
+      const res = await fetchWetboonInfo(search);
+      setWebtoons(res);
+    };
+    getWebtoonData();
+  }, [search]);
+
   const removeSelect = (webtoon: WebtoonConfig) => {
     removeLikedWebToonList(webtoon);
   };
@@ -57,30 +67,19 @@ const EditLikedWtnPage = () => {
       alert("보고있는 웹툰을 1개 이상 추가해주세요");
       return;
     }
-    try {
-      const data = {
-        watchingToons: webtoons.map((toon) => ({
-          title: toon.title,
-          imageUrl: toon.imageUrl,
-          days: toon.updateDays,
-        })),
-      };
-      await updateUserData(data);
-      console.log(user);
-      navigator("/mypage");
-    } catch (e) {
-      alert("잠시 오류가 발생했어요!");
-      navigator("/mypage");
-    }
+    await updateUserData({ favoriteToons: user.likedWebToonList });
+    console.log("서버에 수정한 웹툰 등록", user.likedWebToonList);
+    resetLikedWebtoon();
+    cancle();
   };
-
   const cancle = () => {
+    resetLikedWebtoon();
     navigator("/mypage");
   };
 
   return (
     <>
-      <Header title="인생 웹툰" before beforeClick={cancle} />
+      <Header title="내가 보는 웹툰" before beforeClick={cancle} />
       <div className={styles.container}>
         <Text types="headline" bold="bold">
           어떤 웹툰을 추가할까요?
@@ -92,7 +91,7 @@ const EditLikedWtnPage = () => {
         webToonList={webtoons}
         onChange={onChange}
         handleSelect={handleSelect}
-        height={65}
+        height={55}
       />
       <button className={styles.confirm} onClick={goNext}>
         확인
@@ -101,4 +100,4 @@ const EditLikedWtnPage = () => {
   );
 };
 
-export default EditLikedWtnPage;
+export default EditSeeWtnPage;
