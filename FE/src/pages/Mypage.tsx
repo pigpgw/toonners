@@ -8,22 +8,12 @@ import styles from "../styles/mypage/Mypage.module.scss";
 import BottomNav from "@/components/mypage/ButtonNav";
 import { getOnMyData, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
-
-type User = {
-  id: number;
-  email: string;
-  nickname: string;
-  description: string;
-  image: string | null;
-  favoriteToons: any[];
-  watchingToons: any[];
-};
+import { UserConfig } from "@/interface/Webtoon.interface";
 
 const Mypage = () => {
-  const [fetchUser, setFetchUser] = useState<User | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
-  const { user } = useUserStore();
+  const { user, setUser, setUserNickname, setDescription } = useUserStore();
 
   const onEditMode = () => {
     setEditMode(true);
@@ -40,7 +30,7 @@ const Mypage = () => {
     try {
       await updateUserData({
         nickname: user.nickname,
-        description: user.introduction,
+        description: user.description,
       });
       fetchData();
     } catch (e) {
@@ -49,8 +39,11 @@ const Mypage = () => {
   };
   const fetchData = async () => {
     const res = await getOnMyData();
+    setUserNickname(res.nickname);
+    setDescription(res.description);
     if (res) {
-      setFetchUser(res as User);
+      console.log("res", res);
+      setUser(res as UserConfig);
     }
   };
   useEffect(() => {
@@ -80,30 +73,22 @@ const Mypage = () => {
           마이페이지
         </Text>
         <hr style={{ border: "1px solid white" }} />
-        {fetchUser ? (
-          <>
-            <MainProfile
-              editMode={editMode}
-              onEditMode={onEditMode}
-              offEditMode={offEditMode}
-              nickName={fetchUser.nickname}
-              introduction={fetchUser.description}
-              imgUrl="asd"
-            />
-            <MyWebtoonContainer
-              category="내가 보는 웹툰"
-              webtoonList={fetchUser?.watchingToons}
-              onEditMode={editSeeWebtoonList}
-            />
-            <MyWebtoonContainer
-              category="인생 웹툰"
-              webtoonList={fetchUser?.favoriteToons}
-              onEditMode={editLikedWebToonList}
-            />
-          </>
-        ) : (
-          <div>응애</div>
-        )}
+        <>
+          <MainProfile
+            editMode={editMode}
+            onEditMode={onEditMode}
+            offEditMode={offEditMode}
+            nickName={user.nickname}
+            introduction={user.description}
+            imgUrl="asd"
+          />
+          <MyWebtoonContainer
+            category="내가 보는 웹툰"
+            webtoonList={user.watchingToons}
+            onEditMode={editSeeWebtoonList}
+          />
+          <MyWebtoonContainer category="인생 웹툰" webtoonList={user.favoriteToons} onEditMode={editLikedWebToonList} />
+        </>
         <div className={styles.FeedContainer}>
           <Text types="title" bold="bold">
             Feed
@@ -120,7 +105,7 @@ const Mypage = () => {
           서비스 탈퇴하기
         </div>
       </div>
-      <BottomNav /> {/* 'ButtomNav'를 'BottomNav'로 수정 */}
+      <BottomNav />
     </>
   );
 };

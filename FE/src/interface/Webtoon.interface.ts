@@ -22,3 +22,13 @@ export interface UserWebtoonListConfig {
   rating?: string;
   days: string[] | undefined;
 }
+
+
+export interface UserConfig {
+  nickname: string;
+  email: string;
+  image?: string | null;
+  description: string;
+  watchingToons: UserWebtoonListConfig[];
+  favoriteToons: UserWebtoonListConfig[];
+}

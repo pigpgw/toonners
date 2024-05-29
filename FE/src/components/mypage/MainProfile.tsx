@@ -15,14 +15,14 @@ interface Props {
 }
 
 const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, offEditMode }: Props) => {
-  const { user, setIntroDuction, setUserNickname } = useUserStore();
+  const { user, setDescription, setUserNickname } = useUserStore();
 
   const nicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserNickname(e.target.value);
   };
 
   const introductionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIntroDuction(e.target.value);
+    setDescription(e.target.value);
   };
 
   return (
@@ -43,7 +43,7 @@ const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, off
         </Text>
       )}
       {editMode ? (
-        <input type="text" className={styles.EditInput} value={user.introduction} onChange={introductionChange} />
+        <input type="text" className={styles.EditInput} value={user.description} onChange={introductionChange} />
       ) : (
         <Text types="body-1" bold="semi-bold">
           {introduction ? introduction : "자기 소개글을 추가해 주세요"}

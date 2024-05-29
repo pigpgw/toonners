@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
-  const [serchedWebtoons, setFetchWebtoons] = useState<WebtoonConfig[]>([]);
+  const [serchedWebtoons, setFetchWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +29,13 @@ const Signup2 = () => {
     fetchWebtoons();
   }, [search]);
 
-  const handleSelect = (webtoon: WebtoonConfig) => {
-    if (user.seeWebttonList.length >= 4) {
+  const handleSelect = (webtoon: UserWebtoonListConfig) => {
+    if (user.watchingToons.length >= 4) {
       alert("최대 4개의 웹툰만 선택할 수 있습니다.");
       return;
     }
 
-    if (!user.seeWebttonList.some((item) => item.title === webtoon.title)) {
+    if (!user.watchingToons.some((item) => item.title === webtoon.title)) {
       addSeeWebtoon(webtoon);
       setSearch("");
     } else {
@@ -43,14 +43,14 @@ const Signup2 = () => {
     }
   };
 
-  const removeSelect = (webtoon: WebtoonConfig) => {
+  const removeSelect = (webtoon: UserWebtoonListConfig) => {
     removeSeeWebtoon(webtoon);
   };
 
   const navigator = useNavigate();
 
   const goNext = () => {
-    if (user.seeWebttonList.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
+    if (user.watchingToons.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
     else {
       console.log(user);
       navigator("/signup/3");
@@ -65,7 +65,7 @@ const Signup2 = () => {
           <br />
           어떤 웹툰을 보고있나요?
         </Text>
-        <SelectedWebtoonBox selectedList={user.seeWebttonList} removeSelect={removeSelect} />
+        <SelectedWebtoonBox selectedList={user.watchingToons} removeSelect={removeSelect} />
       </div>
       <SearchWebtoonContainer
         webtoonTitle={search}

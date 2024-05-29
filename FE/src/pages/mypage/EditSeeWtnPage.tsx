@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { UserWebtoonListConfig, WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
 import Header from "@/components/common/Header";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
@@ -12,20 +12,20 @@ import { getOnMyData, updateUserData } from "@/api/myPage";
 
 const EditSeeWtnPage = () => {
   const [search, setSearch] = useState<string>("");
-  const [webtoons, setWebtoons] = useState<WebtoonConfig[]>([]);
-  const { user, addSeeWebtoon, removeSeeWebtoon, resetSeeWebtoon, setUserNickname, setIntroDuction } = useUserStore();
+  const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
+  const { user, addSeeWebtoon, removeSeeWebtoon, resetSeeWebtoon } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const handleSelect = (webtoon: WebtoonConfig) => {
-    if (user.seeWebttonList.length >= 4) {
+  const handleSelect = (webtoon: UserWebtoonListConfig) => {
+    if (user.watchingToons.length >= 4) {
       alert("최대 4개의 웹툰만 선택할 수 있습니다.");
       return;
     }
 
-    if (!user.seeWebttonList.some((item) => item.title === webtoon.title)) {
+    if (!user.watchingToons.some((item) => item.title === webtoon.title)) {
       addSeeWebtoon(webtoon);
       setSearch("");
     } else {
@@ -38,15 +38,13 @@ const EditSeeWtnPage = () => {
     const fetchData = async () => {
       const res = await getOnMyData();
       if (res) {
-        setUserNickname(res.nickname);
-        setIntroDuction(res.description);
         (res.watchingToons as UserWebtoonListConfig[]).map((item) => {
           addSeeWebtoon({
             title: item.title,
-            url: item.siteUrl,
+            siteUrl: item.siteUrl,
             imageUrl: item.imageUrl,
-            fanCount: item.rating,
-            updateDays: item.days,
+            rating: item.rating,
+            days: item.days,
           });
         });
       }
@@ -63,23 +61,21 @@ const EditSeeWtnPage = () => {
     getWebtoonData();
   }, [search]);
 
-  const removeSelect = (webtoon: WebtoonConfig) => {
+  const removeSelect = (webtoon: UserWebtoonListConfig) => {
     removeSeeWebtoon(webtoon);
   };
 
   const navigator = useNavigate();
 
   const goNext = async () => {
-    if (user.seeWebttonList.length === 0) {
+    if (user.watchingToons.length === 0) {
       alert("보고있는 웹툰을 1개 이상 추가해주세요");
       return;
     }
-    await updateUserData({ watchingToons: user.seeWebttonList });
-    resetSeeWebtoon();
+    await updateUserData({ watchingToons: user.watchingToons });
     cancle();
   };
   const cancle = () => {
-    resetSeeWebtoon();
     navigator("/mypage");
   };
 
@@ -90,7 +86,7 @@ const EditSeeWtnPage = () => {
         <Text types="headline" bold="bold">
           어떤 웹툰을 추가할까요?
         </Text>
-        <SelectedWebtoonBox selectedList={user.seeWebttonList} removeSelect={removeSelect} />
+        <SelectedWebtoonBox selectedList={user.watchingToons} removeSelect={removeSelect} />
       </div>
       <SearchWebtoonContainer
         webtoonTitle={search}

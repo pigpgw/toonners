@@ -13,12 +13,12 @@ const Signup3 = () => {
     try {
       const data = {
         nickname: user.nickname,
-        description: user.introduction,
-        watchingToons: user.seeWebttonList.map((toon) => ({
+        description: user.description,
+        watchingToons: user.watchingToons.map((toon) => ({
           title: toon.title,
           imageUrl: toon.imageUrl,
-          days: toon.updateDays,
-          siteUrl: toon.url,
+          days: toon.days,
+          siteUrl: toon.siteUrl,
         })),
       };
       try {

@@ -1,69 +1,69 @@
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserConfig, UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { create } from "zustand";
-
-interface UserConfig {
-  nickname: string;
-  introduction: string;
-  seeWebttonList: WebtoonConfig[];
-  likedWebToonList: WebtoonConfig[];
-}
 
 interface UserStoreConfig {
   user: UserConfig;
+  setUser: (user: UserConfig) => void;
   setUserNickname: (nickname: string) => void;
-  setIntroDuction: (introduction: string) => void;
-  addSeeWebtoon: (webtoon: WebtoonConfig) => void;
-  removeSeeWebtoon: (webtoon: WebtoonConfig) => void;
-  addLikedWebToonList: (webtoon: WebtoonConfig) => void;
-  removeLikedWebToonList: (webtoon: WebtoonConfig) => void;
+  setDescription: (description: string) => void;
+  addSeeWebtoon: (webtoon: UserWebtoonListConfig) => void;
+  removeSeeWebtoon: (webtoon: UserWebtoonListConfig) => void;
+  addFavoriteToons: (webtoon: UserWebtoonListConfig) => void;
+  removeFavoriteToons: (webtoon: UserWebtoonListConfig) => void;
   resetSeeWebtoon: () => void;
-  resetLikedWebtoon: () => void;
+  resetFavoriteToons: () => void;
 }
 
 export const useUserStore = create<UserStoreConfig>((set) => ({
   user: {
     nickname: "",
-    introduction: "",
-    seeWebttonList: [],
-    likedWebToonList: [],
+    email: "",
+    description: "",
+    watchingToons: [],
+    favoriteToons: [],
   },
+
+  setUser: (user: UserConfig) =>
+    set(() => ({
+      user: user,
+    })),
 
   setUserNickname: (nickname: string) =>
     set((state) => ({
       user: { ...state.user, nickname },
     })),
 
-  setIntroDuction: (introduction: string) =>
+  setDescription: (description: string) =>
     set((state) => ({
-      user: { ...state.user, introduction },
+      user: { ...state.user, description },
     })),
 
-  addSeeWebtoon: (webtoon: WebtoonConfig) =>
+  addSeeWebtoon: (webtoon: UserWebtoonListConfig) =>
     set((state) => ({
       user: {
         ...state.user,
-        seeWebttonList: [...state.user.seeWebttonList, webtoon],
+        watchingToons: [...state.user.watchingToons, webtoon],
       },
     })),
 
-  removeSeeWebtoon: (removeWebtoon: WebtoonConfig) =>
+  removeSeeWebtoon: (removeWebtoon: UserWebtoonListConfig) =>
     set((state) => ({
-      user: { ...state.user, seeWebttonList: state.user.seeWebttonList.filter((webtoon) => webtoon !== removeWebtoon) },
+      user: { ...state.user, watchingToons: state.user.watchingToons.filter((webtoon) => webtoon !== removeWebtoon) },
     })),
 
-  addLikedWebToonList: (webtoon: WebtoonConfig) =>
+  addFavoriteToons: (webtoon: UserWebtoonListConfig) =>
     set((state) => ({
       user: {
         ...state.user,
-        likedWebToonList: [...state.user.likedWebToonList, webtoon],
+        favoriteToons: [...state.user.favoriteToons, webtoon],
       },
     })),
 
-  removeLikedWebToonList: (removeWebtoon: WebtoonConfig) =>
+  removeFavoriteToons: (removeWebtoon: UserWebtoonListConfig) =>
     set((state) => ({
       user: {
         ...state.user,
-        likedWebToonList: state.user.likedWebToonList.filter((webtoon) => webtoon !== removeWebtoon),
+        favoriteToons: state.user.favoriteToons.filter((webtoon) => webtoon !== removeWebtoon),
       },
     })),
 
@@ -71,15 +71,15 @@ export const useUserStore = create<UserStoreConfig>((set) => ({
     set((state) => ({
       user: {
         ...state.user,
-        seeWebttonList: [],
+        watchingToons: [],
       },
     })),
 
-  resetLikedWebtoon: () =>
+  resetFavoriteToons: () =>
     set((state) => ({
       user: {
         ...state.user,
-        likedWebToonList: [],
+        favoriteToons: [],
       },
     })),
 }));
