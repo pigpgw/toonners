@@ -10,27 +10,13 @@ const Signup3 = () => {
   const { user } = useUserStore();
 
   const nextStep = async () => {
-    try {
-      const data = {
-        nickname: user.nickname,
-        description: user.description,
-        watchingToons: user.watchingToons.map((toon) => ({
-          title: toon.title,
-          imageUrl: toon.imageUrl,
-          days: toon.days,
-          siteUrl: toon.siteUrl,
-        })),
-      };
       try {
-        await updateUserData(data);
+        await updateUserData(user);
+        navigate("/home");
         alert("가입이 성공적으로 완료되었습니다.");
       } catch (e) {
         console.log("eeeorro", e);
       }
-      navigate("/home");
-    } catch (e) {
-      alert("등록에 실패하였습니다!");
-    }
   };
 
   return (
