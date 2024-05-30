@@ -11,6 +11,7 @@ import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
 import com.example.toonners.domain.feed.entity.Feed;
 import com.example.toonners.domain.feed.repository.FeedRepository;
+import com.example.toonners.domain.like.repository.LikeRepository;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
@@ -32,6 +33,7 @@ public class FeedService {
     private final BookmarkRepository bookmarkRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomService chatRoomService;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
@@ -149,6 +151,9 @@ public class FeedService {
         if (bookmarkRepository.findByMemberIdAndFeedIdAndBookmarkType(
                 member.getId(), feed.getId(), "feed").isPresent()) {
             feedInfoResponse.setBookmarked(true);
+        }
+        if (likeRepository.findByMemberAndFeed(member,feed).isPresent()) {
+            feedInfoResponse.setLiked(true);
         }
         return feedInfoResponse;
     }

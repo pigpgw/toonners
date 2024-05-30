@@ -9,6 +9,7 @@ import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.exception.feed.FeedDoseNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class LikeService {
     private final TokenProvider tokenProvider;
     private final FeedRepository feedRepository;
 
+    @Transactional
     public String OnLikeFeed(String token, Long feedId) {
         // 토큰으로부터 유저 찾아오기
         Member member = tokenProvider.getMemberFromToken(token);
@@ -31,6 +33,8 @@ public class LikeService {
         // 현재 좋아하면 삭제
         if (isLikeOn.isPresent()) {
             likeRepository.delete(isLikeOn.orElse(null));
+            feed.setLikeCounts(feed.getLikeCounts() - 1);
+            feedRepository.save(feed);
             return "하트 삭제 완료";
         }
         // 현재 안 좋아하면 좋아요
@@ -39,6 +43,8 @@ public class LikeService {
                 .feed(feed)
                 .build();
         likeRepository.save(onLike);
+        feed.setLikeCounts((feed.getLikeCounts() != null) ? feed.getLikeCounts() + 1 : 1);
+        feedRepository.save(feed);
         return "하트 생성 완료";
     }
 }

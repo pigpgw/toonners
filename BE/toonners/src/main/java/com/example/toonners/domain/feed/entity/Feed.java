@@ -44,6 +44,8 @@ public class Feed extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentFeed", orphanRemoval = true)
     private List<Feed> childFeed = new LinkedList<>();
 
+    private Long likeCounts = 0L;
+
 
     public void setHashtagGenre(String hashtagGenre) {
         this.hashtagGenre = hashtagGenre;
@@ -51,5 +53,8 @@ public class Feed extends BaseEntity {
 
     public void setHashtagVibe(String hashtagVibe) {
         this.hashtagVibe = hashtagVibe;
+    }
+    public void setLikeCounts(Long counts) {
+        this.likeCounts = counts;
     }
 }
