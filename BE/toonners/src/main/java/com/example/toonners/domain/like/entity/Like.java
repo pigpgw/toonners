@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Like")
+@Entity(name = "LIKES")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
