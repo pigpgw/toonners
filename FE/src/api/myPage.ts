@@ -26,7 +26,7 @@ export const getonMyFeed = async (): Promise<unknown> => {
   try {
     const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
     console.log(response.data);
-    return response.data;
+    return response.data.data;
   } catch (e) {
     console.log("내가 작성한 피드 가져오기 오류");
   }
