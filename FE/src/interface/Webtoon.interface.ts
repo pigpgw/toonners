@@ -19,7 +19,7 @@ export interface UserWebtoonListConfig {
   title: string;
   imageUrl: string;
   siteUrl: string;
-  rating?: string;
+  rating?: number;
   days: string[] | undefined;
 }
 
