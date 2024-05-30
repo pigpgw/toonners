@@ -278,10 +278,12 @@
     align-items: center;
     gap: 10px;
     > div {
-      width: 66px;
-      height: 94px;
-      border-radius: 6px;
-      background-color: var(--color-gray-1);
+      img {
+        width: 66px;
+        height: 94px;
+        border-radius: 6px;
+        background-color: var(--color-gray-1);
+      }
     }
   }
 

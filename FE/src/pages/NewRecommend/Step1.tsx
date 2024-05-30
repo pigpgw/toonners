@@ -35,6 +35,10 @@ const Step1 = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(recommendationData.context)
+  })
+
   const navigate = useNavigate();
 
   const goNextPage = () => {
@@ -87,7 +91,7 @@ const Step1 = () => {
           onChange={inputTitleChange}
         />
         <textarea
-          value={recommendationData.cotexts}
+          value={recommendationData.context}
           onChange={inputContentChange}
           className={styles.textarea}
           placeholder="내용을 입력하세요"

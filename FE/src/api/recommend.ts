@@ -13,7 +13,7 @@ type RecommendToonConfig = {
 
 type Config = {
   title: string;
-  cotexts: string;
+  context: string;
   recommendToons: RecommendToonConfig[];
 };
 
