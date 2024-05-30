@@ -1,6 +1,6 @@
-package com.example.toonners.domain.fire.entity;
+package com.example.toonners.domain.like.entity;
 
-import com.example.toonners.common.BaseEntity;
+import com.example.toonners.domain.feed.entity.Feed;
 import com.example.toonners.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,16 +12,20 @@ import org.hibernate.annotations.OnDeleteAction;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "FIRE")
-public class Fire extends BaseEntity {
+@Entity(name = "Like")
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FIRE_ID")
+    @Column(name = "LIKE_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
-    private Long chatRoomId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FEED_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Feed feed;
 }
