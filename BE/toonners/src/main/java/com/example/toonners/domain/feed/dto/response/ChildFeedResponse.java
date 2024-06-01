@@ -14,11 +14,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class ChildFeedResponse {
+    private Long childFeedId;
     private Float starring;
     private Set<String> hashtagGenre;
     private Set<String> hashtagVibe;
     private String toonName;
     private String toonImage;
+    private String toonSiteUrl;
 
     public static ChildFeedResponse fromEntity(Feed feed) {
 
@@ -29,11 +31,13 @@ public class ChildFeedResponse {
         Set<String> hashtagVibeSet = new HashSet<>(Arrays.asList(hashtagsVibe.split(" ")));
 
         return ChildFeedResponse.builder()
+                .childFeedId(feed.getId())
                 .starring(feed.getRating())
                 .hashtagGenre(hashtagGenreSet)
                 .hashtagVibe(hashtagVibeSet)
                 .toonName(feed.getToon().getTitle())
                 .toonImage(feed.getToon().getImageUrl())
+                .toonSiteUrl(feed.getToon().getSiteUrl())
                 .build();
     }
 }

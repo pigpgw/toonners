@@ -87,13 +87,13 @@ public class FeedService {
             for (String hashtagVibe : toon.getHashtagVibe()) {
                 vibes.append("#");
                 vibes.append(hashtagVibe);
-                hashtagsVibe.append(vibes);
             }
+            hashtagsVibe.append(vibes);
             StringBuilder genres = new StringBuilder();
             for (String hashtagGenre : toon.getHashtagGenre()) {
                 genres.append("#").append(hashtagGenre);
-                hashtagsGenre.append(genres);
             }
+            hashtagsGenre.append(genres);
             // 자식 피드 생성 후 저장 및 부모 피드에 담기
             Feed childfeed = Feed.builder()
                     .toon(toonDataRepository.findByTitle(toon.getTitle())
