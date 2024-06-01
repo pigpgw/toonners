@@ -25,6 +25,8 @@ public class FeedInfoResponse {
     private Set<ChildFeedResponse> childFeedList;
 
     private boolean bookmarked;
+    private boolean liked;
+    private Long likeCount;
 
     public static FeedInfoResponse fromEntity(Feed feed) {
 
@@ -41,6 +43,7 @@ public class FeedInfoResponse {
                 .hashtags(hashtagSet)
                 .childFeedList(feed.getChildFeed().stream()
                         .map(ChildFeedResponse::fromEntity).collect(Collectors.toSet()))
+                .likeCount(feed.getLikeCounts())
                 .build();
     }
 }
