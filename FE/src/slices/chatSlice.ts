@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
-
-interface UserWebtoonListConfig {
-  title: string;
-  rating: number;
-  imageUrl: string;
-  updateDays: string[];
-  url: string;
-}
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 
 interface State {
   selected: UserWebtoonListConfig;

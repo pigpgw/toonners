@@ -5,6 +5,7 @@ import Arrow from "@components/common/Arrow";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
 import TodayChatItem from "@components/home/chatroom/TodayChatItem";
 import RankingChatItem from "@components/home/chatroom/RankingChatItem";
+import { useEffect } from "react";
 
 interface Props {
   keyword: "today" | "rank" | "rest";
@@ -19,6 +20,10 @@ interface Props {
 
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }: Props) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("피드 확인", list);
+  });
+
   return (
     <div className={styles.frame}>
       <div className={styles.chatroom__title}>

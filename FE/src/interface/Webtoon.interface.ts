@@ -12,17 +12,15 @@ export interface WebtoonResponseConfig {
   img: string;
   updateDays: string[];
   fanCount?: string;
-  clicked?: boolean;
 }
 
 export interface UserWebtoonListConfig {
   title: string;
+  rating: number;
   imageUrl: string;
-  siteUrl: string;
-  rating?: number;
-  days: string[] | undefined;
+  updateDays: string[];
+  url: string;
 }
-
 
 export interface UserConfig {
   nickname: string;
