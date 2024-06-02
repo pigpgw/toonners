@@ -4,6 +4,7 @@ import com.example.toonners.common.ApiResponse;
 import com.example.toonners.domain.chat.dto.request.CreateChatRequest;
 import com.example.toonners.domain.chat.dto.response.ChatInfoResponse;
 import com.example.toonners.domain.chat.service.ChatService;
+import com.example.toonners.domain.chatRoom.dto.response.ChatRoomInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +31,12 @@ public class ChatController {
             @RequestParam(value = "chatroom-id") Long chatRoomId
     ) {
         return ApiResponse.createSuccess(chatService.searchChatByChatRoom(token, chatRoomId));
+    }
+
+    @GetMapping("/chatroom/search/participating-in")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomParticipating(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ApiResponse.createSuccess(chatService.searchChatRoomParticipating(token));
     }
 }
