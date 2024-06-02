@@ -22,7 +22,7 @@ export const updateUserData = async (userData: unknown): Promise<User> => {
   }
 };
 
-export const getonMyFeed = async (): Promise<unknown> => {
+export const getonMyFeed = async (): Promise<unknown | undefined> => {
   try {
     const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
     console.log(response.data);
@@ -32,11 +32,11 @@ export const getonMyFeed = async (): Promise<unknown> => {
   }
 };
 
-export const getonMyScrap = async (): Promise<unknown> => {
+export const getonMyScrap = async (): Promise<unknown | undefined> => {
   try {
     const response = await Axios.get(`${BASE_URL}/feed/search/bookmarked`);
     console.log(response.data);
-    return response.data;
+    return response.data.data;
   } catch (e) {
     console.log("내 스크랩 가져오기 실패");
   }

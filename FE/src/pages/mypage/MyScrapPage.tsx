@@ -20,11 +20,19 @@ const MyScrapPage = () => {
   };
 
   useEffect(() => {
-    const fe = async () => {
-      const res = await getonMyScrap();
-      setScrapList(res as FeedListConfig[]);
+    const fetchData = async () => {
+      try {
+        const res = await getonMyScrap();
+        if (res) {
+          setScrapList(res as FeedListConfig[]);
+        } else {
+          setScrapList([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch scrap list", error);
+      }
     };
-    fe();
+    fetchData();
   }, []);
 
   return (
