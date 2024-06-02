@@ -77,6 +77,15 @@ public class MemberService extends DefaultOAuth2UserService {
         return getInfoResponse(member);
     }
 
+    @Transactional
+    public Boolean checkNicknameAvailability(UpdateMemberRequest request) {
+        boolean exists = memberRepository.existsByNickname(request.getNickname());
+        if (exists) {
+            throw new DuplicatedUserException();
+        }
+        return false;
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/

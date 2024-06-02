@@ -56,6 +56,13 @@ public class MemberController {
         return ApiResponse.createSuccess(response);
     }
 
+    //사용할수 있는 닉네임인지 확인
+    @PostMapping("/member/check/nickname")
+    public ApiResponse<Boolean> checkNickname(@RequestBody UpdateMemberRequest request) {
+        Boolean response = memberService.checkNicknameAvailability(request);
+        return ApiResponse.createSuccessWithMessage(response, "사용하실 수 있는 닉네임 입니다");
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/

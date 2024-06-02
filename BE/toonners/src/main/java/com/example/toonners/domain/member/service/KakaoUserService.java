@@ -6,6 +6,7 @@ import com.example.toonners.domain.member.dto.request.SignUpRequest;
 import com.example.toonners.domain.member.dto.response.InfoResponse;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.exception.member.DuplicatedUserException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -96,7 +97,8 @@ public class KakaoUserService {
         // DB 에 중복된 Kakao Id 가 있는지 확인
         String sId = kakaoUserInfo.getEmail();
         String email = sId + "@tooners.com";
-        Member user = memberRepository.findByEmail(email).orElse(null);
+        Member user = memberRepository.findByEmail(email)
+                .orElseThrow(DuplicatedUserException::new);
 
         //비밀번호 랜덤 생성
         String password = UUID.randomUUID().toString();
