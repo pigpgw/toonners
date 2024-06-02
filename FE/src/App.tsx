@@ -29,9 +29,9 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/recommend/:id" element={<FeedDetail />} />
         <Route path="*" element={<div>잘못된 경로</div>} />
+        <Route path="/signup/*" element={<Signup />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/signup/*" element={<Signup />} />
           <Route path="/chatroom/:id" element={<ChatRoomMain />} />
           <Route path="/chatroom/create/*" element={<NewChatRoom />} />
           <Route path="/recommend/new/*" element={<NewRecommend />} />
