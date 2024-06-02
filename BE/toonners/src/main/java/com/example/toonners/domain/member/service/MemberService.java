@@ -15,12 +15,12 @@ import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -30,6 +30,7 @@ public class MemberService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public InfoResponse updateMember(UpdateMemberRequest request, String token) {
 
@@ -84,7 +85,7 @@ public class MemberService extends DefaultOAuth2UserService {
         if (exists) {
             throw new DuplicatedUserException();
         }
-
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         Member member = memberRepository.save(setAccount(request));
 
     }
@@ -102,6 +103,7 @@ public class MemberService extends DefaultOAuth2UserService {
                 .email(request.getEmail())
                 .role(Role.MEMBER)
                 .nickname(request.getNickname())
+                .password(request.getPassword())
                 .build();
     }
 
