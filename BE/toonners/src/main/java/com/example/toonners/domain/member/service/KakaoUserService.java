@@ -109,7 +109,7 @@ public class KakaoUserService {
             SignUpRequest socialUser = SignUpRequest.builder()
                     .email(email)
                     .nickname(nickName)
-                    .password(password)
+                    .password(encodedPassword)
                     .oauthType("kakao")
                     .build();
             user = memberRepository.save(setAccount(socialUser));
