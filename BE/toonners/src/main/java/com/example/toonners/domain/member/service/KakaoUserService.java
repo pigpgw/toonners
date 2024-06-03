@@ -6,22 +6,24 @@ import com.example.toonners.domain.member.dto.request.SignUpRequest;
 import com.example.toonners.domain.member.dto.response.InfoResponse;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.exception.member.DuplicatedUserException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +37,7 @@ public class KakaoUserService {
 
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String redirectUri;
@@ -94,10 +97,12 @@ public class KakaoUserService {
         // DB 에 중복된 Kakao Id 가 있는지 확인
         String sId = kakaoUserInfo.getEmail();
         String email = sId + "@tooners.com";
-        Member user = memberRepository.findByEmail(email).orElse(null);
+        Member user = memberRepository.findByEmail(email)
+                .orElseThrow(DuplicatedUserException::new);
 
         //비밀번호 랜덤 생성
         String password = UUID.randomUUID().toString();
+        String encodedPassword = passwordEncoder.encode(password);
 
         if (user == null) {
             // 회원가입
@@ -106,7 +111,7 @@ public class KakaoUserService {
             SignUpRequest socialUser = SignUpRequest.builder()
                     .email(email)
                     .nickname(nickName)
-                    .password(password)
+                    .password(encodedPassword)
                     .oauthType("kakao")
                     .build();
             user = memberRepository.save(setAccount(socialUser));
@@ -170,5 +175,46 @@ public class KakaoUserService {
         String token = tokenProvider.generateToken(userDetailsImpl.getEmail());
         response.addHeader("Authorization", "BEARER" + " " + token);
     }
+    // 카카오 로그아웃
+    @Transactional
+    public void logout(String token, HttpServletRequest request, HttpServletResponse response) {
+        // 1. 카카오 로그아웃 호출
+        String accessToken = tokenProvider.getAccessTokenFromToken(token);
+        try {
+            kakaoLogout(accessToken);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("카카오 로그아웃 중 오류 발생", e);
+        }
+
+        // 2. 서버 로그아웃 처리
+        SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.addHeader("Set-Cookie", "JSESSIONID=; Path=/; HttpOnly; Max-Age=0;");
+    }
+    public void kakaoLogout(String accessToken) throws JsonProcessingException {
+        // HTTP Header 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        // HTTP 요청 보내기
+        HttpEntity<MultiValueMap<String, String>> kakaoLogoutRequest = new HttpEntity<>(headers);
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<String> response = rt.exchange(
+                "https://kapi.kakao.com/v1/user/logout",
+                HttpMethod.POST,
+                kakaoLogoutRequest,
+                String.class
+        );
+
+        // 응답 처리
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new RuntimeException("카카오 로그아웃 실패");
+        }
+    }
+
 }
 

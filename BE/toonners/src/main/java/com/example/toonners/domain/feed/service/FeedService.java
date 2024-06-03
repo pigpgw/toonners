@@ -16,6 +16,7 @@ import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.feed.FeedDoseNotExistException;
+import com.example.toonners.exception.member.UnauthorizedRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +99,7 @@ public class FeedService {
             Feed childfeed = Feed.builder()
                     .toon(toonDataRepository.findByTitle(toon.getTitle())
                             .orElseThrow())
+                    .writer(member)
                     .title(toon.getTitle())
                     .rating(toon.getStarring())
                     .hashtagVibe(vibes.toString())
@@ -177,6 +179,15 @@ public class FeedService {
         return feedInfoResponses;
     }
 
+    @Transactional
+    public void deleteFeed(String token, Long feedId) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        Feed feed = feedRepository.findById(feedId).orElseThrow(FeedDoseNotExistException::new);
+        if (!member.getId().equals(feed.getWriter().getId())) {
+            throw new UnauthorizedRequestException();
+        }
+        feedRepository.delete(feed);
+    }
     // 내부 메서드
     private List<FeedInfoResponse> getFeedInfoResponses(Member member, List<Feed> feedList) {
         List<FeedInfoResponse> feedInfoResponses = feedList.stream()

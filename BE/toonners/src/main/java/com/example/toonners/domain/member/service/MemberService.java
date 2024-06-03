@@ -14,13 +14,17 @@ import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -30,6 +34,7 @@ public class MemberService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
     private final ToonDataRepository toonDataRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public InfoResponse updateMember(UpdateMemberRequest request, String token) {
 
@@ -76,6 +81,21 @@ public class MemberService extends DefaultOAuth2UserService {
         return getInfoResponse(member);
     }
 
+    @Transactional
+    public Boolean checkNicknameAvailability(UpdateMemberRequest request) {
+        boolean exists = memberRepository.existsByNickname(request.getNickname());
+        if (exists) {
+            throw new DuplicatedUserException();
+        }
+        return false;
+    }
+
+    @Transactional
+    public void deleteMember(String token) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        memberRepository.delete(member);
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/
@@ -84,7 +104,7 @@ public class MemberService extends DefaultOAuth2UserService {
         if (exists) {
             throw new DuplicatedUserException();
         }
-
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         Member member = memberRepository.save(setAccount(request));
 
     }
@@ -96,12 +116,25 @@ public class MemberService extends DefaultOAuth2UserService {
         return member;
     }
 
+    @Transactional
+    public void logout(String token, HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = tokenProvider.getAccessTokenFromToken(token);
+        // 2. 서버 로그아웃 처리
+        SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.addHeader("Set-Cookie", "JSESSIONID=; Path=/; HttpOnly; Max-Age=0;");
+    }
+
     // 내부 메서드
     private Member setAccount(SignUpRequest request) {
         return Member.builder()
                 .email(request.getEmail())
                 .role(Role.MEMBER)
                 .nickname(request.getNickname())
+                .password(request.getPassword())
                 .build();
     }
 

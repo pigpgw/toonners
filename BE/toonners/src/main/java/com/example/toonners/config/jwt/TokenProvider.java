@@ -86,6 +86,12 @@ public class TokenProvider {
                 .orElseThrow(UserDoesNotExistException::new);
     }
 
+    public String getAccessTokenFromToken(String token) {
+        String jwtToken = token.replace("Bearer ", "");
+        Claims claims = parsedClaims(jwtToken);
+        return claims.get("access_token", String.class);
+    }
+
     private Claims parsedClaims(String token) {
         try {
             String keyBase64Encoded = Base64.getEncoder().encodeToString(secretKey.getBytes());
