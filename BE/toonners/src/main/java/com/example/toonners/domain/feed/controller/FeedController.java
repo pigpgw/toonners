@@ -74,4 +74,13 @@ public class FeedController {
         List<FeedInfoResponse> responseList = feedService.searchAllParentFeedByPartOfTitle(token, partOfTitle);
         return ApiResponse.createSuccess(responseList);
     }
+
+    @DeleteMapping("/feed/delete/{feedId}")
+    public ApiResponse<?> deleteFeed(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long feedId
+    ) {
+        feedService.deleteFeed(token, feedId);
+        return ApiResponse.createMessage("피드 삭제 성공");
+    }
 }

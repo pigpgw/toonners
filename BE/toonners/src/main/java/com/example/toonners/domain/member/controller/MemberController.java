@@ -63,6 +63,13 @@ public class MemberController {
         return ApiResponse.createSuccessWithMessage(response, "사용하실 수 있는 닉네임 입니다");
     }
 
+    // 회원 탈퇴
+    @DeleteMapping("/member/delete")
+    public ApiResponse<?> delete(@RequestHeader("Authorization") String token) {
+        memberService.deleteMember(token);
+        return ApiResponse.createMessage("정상적으로 탈퇴되었습니다.");
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/

@@ -86,6 +86,12 @@ public class MemberService extends DefaultOAuth2UserService {
         return false;
     }
 
+    @Transactional
+    public void deleteMember(String token) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        memberRepository.delete(member);
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/
