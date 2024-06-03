@@ -9,12 +9,21 @@ interface Props {
   imgUrl: string;
   nickName: string;
   introduction: string;
-  editMode: boolean;
-  onEditMode: () => void;
-  offEditMode: () => void;
+  editMode?: boolean;
+  onEditMode?: () => void;
+  offEditMode?: () => void;
+  edit?: boolean;
 }
 
-const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, offEditMode }: Props) => {
+const MainProfile = ({
+  nickName,
+  introduction,
+  imgUrl,
+  edit,
+  editMode,
+  onEditMode = () => {},
+  offEditMode = () => {},
+}: Props) => {
   const { user, setDescription, setUserNickname } = useUserStore();
 
   const nicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,11 +38,12 @@ const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, off
     <div className={styles.ProfileContainer}>
       <div className={styles.btnWrapper}>
         <Profile imgUrl={imgUrl} />
-        {editMode ? (
-          <EditBtn btnName="완료하기" onClick={offEditMode} />
-        ) : (
-          <EditBtn btnName="편집하기" onClick={onEditMode} />
-        )}
+        {edit &&
+          (editMode ? (
+            <EditBtn btnName="완료하기" onClick={offEditMode} />
+          ) : (
+            <EditBtn btnName="편집하기" onClick={onEditMode} />
+          ))}
       </div>
       {editMode ? (
         <input type="text" className={styles.EditInput} value={user.nickname} onChange={nicknameChange} />

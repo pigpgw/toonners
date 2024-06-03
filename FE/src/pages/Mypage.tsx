@@ -6,7 +6,7 @@ import Text from "@/components/common/Text";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
 import BottomNav from "@/components/mypage/ButtonNav";
-import { getOnMyData, updateUserData } from "@/api/myPage";
+import { getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import { UserConfig } from "@/interface/Webtoon.interface";
 
@@ -19,9 +19,18 @@ const Mypage = () => {
     setEditMode(true);
   };
 
-  const withDraw = () => {
+  const withDraw = async () => {
+    await postWithDraw();
     localStorage.removeItem("accessToken");
     alert("회원 탈퇴되었습니다.!");
+    navigate("/");
+  };
+
+  const logOut =
+   async () => {
+    await postLogOut();
+    localStorage.removeItem("accessToken");
+    alert("로그아웃 되었습니다.!");
     navigate("/");
   };
 
@@ -101,8 +110,11 @@ const Mypage = () => {
             <Text bold="semi-bold">내가 작성한 Feed글</Text>
           </div>
         </div>
+        <div className={styles.withdrawBtn} onClick={logOut}>
+          로그아웃
+        </div>
         <div className={styles.withdrawBtn} onClick={withDraw}>
-          서비스 탈퇴하기
+          서비스 탈퇴
         </div>
       </div>
       <BottomNav />

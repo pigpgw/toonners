@@ -16,6 +16,7 @@ import MyScrapPage from "./pages/mypage/MyScrapPage";
 import MyFeedPage from "./pages/mypage/MyFeedPage";
 import FeedDetail from "./components/home/feed/FeedDetail";
 import { PrivateRoute } from "./routes/PrivateRoutes";
+import { OtherPage } from "./pages/OtherPage/OtherPage";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/feed" element={<MyFeedPage />} />
           <Route path="/mypage/scrap" element={<MyScrapPage />} />
-          <Route path="/profile/:userId" element={<div>상대방 프로필</div>} />
+          <Route path="/profile/:userId" element={<OtherPage />} />
           <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
           <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
         </Route>

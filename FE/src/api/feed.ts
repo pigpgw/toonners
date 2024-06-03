@@ -20,4 +20,9 @@ const getSearchFeed = async (keyword: string) => {
   return res.data.data;
 };
 
-export { getFeedList, getFeedItem, postBookMark, getSearchFeed };
+const getUserFeed = async (keyword: string) => {
+  const res = await Axios.get(HOST + `/feed/search/parent-feed/member?member-id=${keyword}`);
+  return res.data.data;
+};
+
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed };

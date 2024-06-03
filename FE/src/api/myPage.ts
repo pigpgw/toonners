@@ -52,3 +52,34 @@ export const getOnMyData = async (): Promise<User> => {
     throw new Error("Failed to fetch user data");
   }
 };
+
+export const postLogOut = async (): Promise<unknown> => {
+  try {
+    const response = await Axios.get(`${BASE_URL}/signout
+    `);
+    return response;
+  } catch (e) {
+    throw new Error("로그아웃 실패");
+  }
+};
+
+export const postWithDraw = async (): Promise<unknown> => {
+  try {
+    const response = await Axios.get(`${BASE_URL}/member/delete
+    `);
+    return response;
+  } catch (e) {
+    throw new Error("회원 탈퇴 실패");
+  }
+};
+
+export const getUserData = async (userId: string): Promise<User> => {
+  try {
+    const response = await Axios.get(`${BASE_URL}/member/search/member-info?member-id=${userId}`);
+    console.log("상대 정보 가져오기", response.data.data);
+    return response.data.data;
+  } catch (e) {
+    console.log("상대 정보 가져오기 실패");
+    throw new Error("Failed to fetch user data");
+  }
+};
