@@ -14,7 +14,11 @@ import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.member.DuplicatedUserException;
 import com.example.toonners.exception.member.UnauthorizedRequestException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
@@ -110,6 +114,18 @@ public class MemberService extends DefaultOAuth2UserService {
         Member member = memberRepository.findByEmail(request.getEmail())
                 .orElseThrow(RuntimeException::new);
         return member;
+    }
+
+    @Transactional
+    public void logout(String token, HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = tokenProvider.getAccessTokenFromToken(token);
+        // 2. 서버 로그아웃 처리
+        SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.addHeader("Set-Cookie", "JSESSIONID=; Path=/; HttpOnly; Max-Age=0;");
     }
 
     // 내부 메서드

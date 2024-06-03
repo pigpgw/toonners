@@ -10,6 +10,7 @@ import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.service.KakaoUserService;
 import com.example.toonners.domain.member.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +71,16 @@ public class MemberController {
         return ApiResponse.createMessage("정상적으로 탈퇴되었습니다.");
     }
 
+    // 카카오 로그아웃
+    @PostMapping("/logout")
+    public ApiResponse<?> kakaoLogout(
+            @RequestHeader("Authorization") String token
+            , HttpServletRequest request
+            , HttpServletResponse response) {
+        kakaoUserService.logout(token, request, response);
+        return ApiResponse.createMessage("정상적으로 로그아웃 하셨습니다.");
+    }
+
     /**
      * 기능 테스트를 위한 회원가입 및 로그인
      **/
@@ -87,4 +98,12 @@ public class MemberController {
         return ApiResponse.createSuccessWithMessage(InfoResponse.fromEntity(member), "로그인 되셧습니다");
     }
 
+    @PostMapping("/logout/server")
+    public ApiResponse<?> logout(
+            @RequestHeader("Authorization") String token
+            , HttpServletRequest request
+            , HttpServletResponse response) {
+        memberService.logout(token, request, response);
+        return ApiResponse.createMessage("정상적으로 로그아웃 하셨습니다.");
+    }
 }
