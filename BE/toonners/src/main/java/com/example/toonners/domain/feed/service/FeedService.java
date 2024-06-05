@@ -11,10 +11,12 @@ import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
 import com.example.toonners.domain.feed.entity.Feed;
 import com.example.toonners.domain.feed.repository.FeedRepository;
+import com.example.toonners.domain.like.repository.LikeRepository;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.feed.FeedDoseNotExistException;
+import com.example.toonners.exception.member.UnauthorizedRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,7 @@ public class FeedService {
     private final BookmarkRepository bookmarkRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomService chatRoomService;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
@@ -85,17 +88,18 @@ public class FeedService {
             for (String hashtagVibe : toon.getHashtagVibe()) {
                 vibes.append("#");
                 vibes.append(hashtagVibe);
-                hashtagsVibe.append(vibes);
             }
+            hashtagsVibe.append(vibes);
             StringBuilder genres = new StringBuilder();
             for (String hashtagGenre : toon.getHashtagGenre()) {
                 genres.append("#").append(hashtagGenre);
-                hashtagsGenre.append(genres);
             }
+            hashtagsGenre.append(genres);
             // 자식 피드 생성 후 저장 및 부모 피드에 담기
             Feed childfeed = Feed.builder()
                     .toon(toonDataRepository.findByTitle(toon.getTitle())
                             .orElseThrow())
+                    .writer(member)
                     .title(toon.getTitle())
                     .rating(toon.getStarring())
                     .hashtagVibe(vibes.toString())
@@ -150,6 +154,9 @@ public class FeedService {
                 member.getId(), feed.getId(), "feed").isPresent()) {
             feedInfoResponse.setBookmarked(true);
         }
+        if (likeRepository.findByMemberAndFeed(member,feed).isPresent()) {
+            feedInfoResponse.setLiked(true);
+        }
         return feedInfoResponse;
     }
 
@@ -172,6 +179,15 @@ public class FeedService {
         return feedInfoResponses;
     }
 
+    @Transactional
+    public void deleteFeed(String token, Long feedId) {
+        Member member = tokenProvider.getMemberFromToken(token);
+        Feed feed = feedRepository.findById(feedId).orElseThrow(FeedDoseNotExistException::new);
+        if (!member.getId().equals(feed.getWriter().getId())) {
+            throw new UnauthorizedRequestException();
+        }
+        feedRepository.delete(feed);
+    }
     // 내부 메서드
     private List<FeedInfoResponse> getFeedInfoResponses(Member member, List<Feed> feedList) {
         List<FeedInfoResponse> feedInfoResponses = feedList.stream()

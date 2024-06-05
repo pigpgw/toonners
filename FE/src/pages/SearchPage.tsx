@@ -31,7 +31,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <Header title="전체 검색" before={() => console.log("이전")} />
+      <Header title="전체 검색" />
       <div className={styles.search}>
         <InputWithButton
           inputText={keyword}

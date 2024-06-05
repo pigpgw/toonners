@@ -29,7 +29,6 @@ public class Feed extends BaseEntity {
     private Member writer;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TOONDATA_ID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private ToonData toon;
 
     private String title;
@@ -40,9 +39,12 @@ public class Feed extends BaseEntity {
 
     private boolean parentFlag;
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Feed parentFeed;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentFeed", orphanRemoval = true)
     private List<Feed> childFeed = new LinkedList<>();
+
+    private Long likeCounts = 0L;
 
 
     public void setHashtagGenre(String hashtagGenre) {
@@ -51,5 +53,8 @@ public class Feed extends BaseEntity {
 
     public void setHashtagVibe(String hashtagVibe) {
         this.hashtagVibe = hashtagVibe;
+    }
+    public void setLikeCounts(Long counts) {
+        this.likeCounts = counts;
     }
 }

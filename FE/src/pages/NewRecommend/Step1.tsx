@@ -69,7 +69,8 @@ const Step1 = () => {
     <>
       <Header
         title="웹툰 추천하기"
-        before={goHome}
+        before
+        beforeClick={goHome}
         button={
           <Button types="primary" sizes="small" onClick={clickShareBtn}>
             <Text types="button" bold="medium">

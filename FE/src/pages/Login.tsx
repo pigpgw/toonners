@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "@styles/login/LoginPage.module.scss";
 import MainImg from "@assets/images/login/MainImg.svg?react";
 import KakaoButton from "@components/common/Button/Kakao";
-import Button from "@components/common/Button";
+// import Button from "@components/common/Button";
 
 const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 const KAKAO_CLIENT_ID = "33391f8684ec1fcb9e918031bb236f4d";
@@ -16,9 +16,9 @@ const Login = () => {
     window.location.href = link;
   };
 
-  const goHome = () => {
-    navigate("/home");
-  };
+  // const goHome = () => {
+  //   navigate("/home");
+  // };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) navigate("/home");
@@ -30,9 +30,9 @@ const Login = () => {
       <MainImg />
       <div className={`${styles.btnContainer} ${styles.onAnimation}`}>
         <KakaoButton onClick={loginHandler} />
-        <Button onClick={goHome} types="black">
+        {/* <Button onClick={goHome} types="black">
           로그인 없이 둘러보기
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

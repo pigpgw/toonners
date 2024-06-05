@@ -51,7 +51,7 @@ public class ChatRoomService {
                     .rating(request.getFanCounts())
                     .days(request.getUpdateDay())
                     .build());
-        } else {
+        } else if (chatRoomRepository.findByToonName(request.getToonName()).isPresent()) {
             throw new ChatRoomAlreadyExistException();
         }
 

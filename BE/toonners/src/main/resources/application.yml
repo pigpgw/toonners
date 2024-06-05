@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     generate-ddl: true
     show-sql: true
     properties:
@@ -20,7 +20,7 @@ spring:
           kakao:
             client-id: ${kakao-client-id}
             client-secret: ${kakao-client-secret}
-            redirect-uri: http://localhost:3000/kakao_callback
+            redirect-uri: ${kakao-redirect-uri}
             client-authentication-method: client_secret_post
             authorization-grant-type: authorization_code
             scope: profile_nickname, profile_image, account_email
