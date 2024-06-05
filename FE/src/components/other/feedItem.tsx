@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "@styles/other/Other.module.scss";
 import Text from "@components/common/Text";
@@ -22,10 +22,6 @@ const FeedItem = ({ feed }: Props) => {
     navigate(`/profile/${feed.writerMemberId}`);
   };
 
-  useEffect(() => {
-    console.log(feed);
-  });
-
   return (
     <div className={styles.feed__item} onClick={handleFeedItem}>
       <div className={styles.feed__info}>
@@ -42,8 +38,8 @@ const FeedItem = ({ feed }: Props) => {
           </div>
         </div>
         {feed.childFeedList && feed.childFeedList.length > 0 && (
-            <img style={{ width: "46px", height: "66px" }} src={feed.childFeedList[0].toonImage} alt="" />
-          )}
+          <img style={{ width: "46px", height: "66px" }} src={feed.childFeedList[0].toonImage} alt="" />
+        )}
       </div>
       <div className={styles.feed__profile}>
         <Profile

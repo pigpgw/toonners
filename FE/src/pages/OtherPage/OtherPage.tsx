@@ -56,14 +56,12 @@ export const OtherPage = () => {
     <>
       <Header title="작성자 프로필 정보" before beforeClick={goBack} />
       <div className={styles.home}>
-        {user && (
-          <MainProfile
-            imgUrl={user?.image || ""}
-            introduction={user?.description}
-            nickName={user?.nickname}
-            edit={false}
-          />
-        )}
+        <MainProfile
+          imgUrl={user?.image || ""}
+          introduction={user?.description || "안녕하세요"}
+          nickName={user?.nickname || "유저"}
+          edit={false}
+        />
         <Text types="body-1" bold="bold">
           작성자가 참여중인 웹툰 단톡방
         </Text>

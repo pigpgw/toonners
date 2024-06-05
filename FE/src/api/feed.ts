@@ -8,11 +8,16 @@ const getFeedList = async () => {
 
 const getFeedItem = async (feedId: string) => {
   const res = await Axios.get(HOST + `/feed/search/detail/parent-feed?parent-feed-id=${feedId}`);
+  console.log("feed data 확인",res)
   return res.data.data;
 };
 
 const postBookMark = async (feedId: string) => {
-  await Axios.post(HOST + `/bookmark/feed?feed-id=${feedId}`);
+  try {
+    await Axios.post(HOST + `/bookmark/feed?feed-id=${feedId}`);
+  } catch (e) {
+    console.log("북마크 전송 실패");
+  }
 };
 
 const getSearchFeed = async (keyword: string) => {
