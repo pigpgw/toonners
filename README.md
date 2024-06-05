@@ -37,7 +37,8 @@ Toonners는 내가 평소 즐겨보는 웹툰에 대한 다른 사람들의 생�
 - 협업 툴 : Discord, Notion, Github, Figma
 - 서비스 배포 환경 : Ec2, Vercel
 
-## 팀원 소개
-| **박건우** | **강정현** | **강수진** | 
+## 팀원 소개 
+| **Frontend** | **Frontend** | **Backend** |
 | :------: |  :------: | :------: | 
-|[<img src="https://avatars.githubusercontent.com/u/133184988?v=4" height=150 width=150> <br/> @pigpgw](https://github.com/pigpgw) |  [<img src="https://avatars.githubusercontent.com/u/85155789?v=4" height=150 width=150> <br/> @hanur92](https://github.com/taboowiths)  | [<img src="https://avatars.githubusercontent.com/u/124652331?v=4" height=150 width=150> <br/> @Knagsoojin](https://github.com/Chan-hee822) |
+| **박건우** | **강정현** | **한찬희** |
+|[<img src="https://avatars.githubusercontent.com/u/133184988?v=4" height=150 width=150> <br/> @pigpgw](https://github.com/pigpgw) |  [<img src="https://avatars.githubusercontent.com/u/85155789?v=4" height=150 width=150> <br/> @taboowiths](https://github.com/taboowiths)  | [<img src="https://avatars.githubusercontent.com/u/124652331?v=4" height=150 width=150> <br/> @Chan-hee822](https://github.com/Chan-hee822) |
