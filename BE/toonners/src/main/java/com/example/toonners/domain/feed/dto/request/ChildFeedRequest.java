@@ -1,5 +1,6 @@
 package com.example.toonners.domain.feed.dto.request;
 
+import jakarta.persistence.Embeddable;
 import lombok.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Embeddable
 public class ChildFeedRequest {
     private Float starring;
     private Set<String> hashtagGenre;

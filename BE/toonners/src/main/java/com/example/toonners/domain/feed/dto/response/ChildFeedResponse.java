@@ -1,10 +1,8 @@
 package com.example.toonners.domain.feed.dto.response;
 
-import com.example.toonners.domain.feed.entity.Feed;
+import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
 import lombok.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -22,22 +20,14 @@ public class ChildFeedResponse {
     private String toonImage;
     private String toonSiteUrl;
 
-    public static ChildFeedResponse fromEntity(Feed feed) {
-
-        String hashtagsGenre = feed.getHashtagGenre().replaceAll("#", " ").trim();
-        Set<String> hashtagGenreSet = new HashSet<>(Arrays.asList(hashtagsGenre.split(" ")));
-
-        String hashtagsVibe = feed.getHashtagVibe().replaceAll("#", " ").trim();
-        Set<String> hashtagVibeSet = new HashSet<>(Arrays.asList(hashtagsVibe.split(" ")));
-
+    public static ChildFeedResponse fromRequest(ChildFeedRequest request) {
         return ChildFeedResponse.builder()
-                .childFeedId(feed.getId())
-                .starring(feed.getRating())
-                .hashtagGenre(hashtagGenreSet)
-                .hashtagVibe(hashtagVibeSet)
-                .toonName(feed.getToon().getTitle())
-                .toonImage(feed.getToon().getImageUrl())
-                .toonSiteUrl(feed.getToon().getSiteUrl())
+                .starring(request.getRating())
+                .hashtagGenre(request.getHashtagGenre())
+                .hashtagVibe(request.getHashtagVibe())
+                .toonName(request.getTitle())
+                .toonImage(request.getImageUrl())
+                .toonSiteUrl(request.getSiteUrl())
                 .build();
     }
 }

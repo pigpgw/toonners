@@ -41,8 +41,8 @@ public class FeedInfoResponse {
                 .feedTitle(feed.getTitle())
                 .feedContexts(feed.getContexts())
                 .hashtags(hashtagSet)
-                .childFeedList(feed.getChildFeed().stream()
-                        .map(ChildFeedResponse::fromEntity).collect(Collectors.toSet()))
+                .childFeedList(feed.getChildFeedRequests().stream()
+                        .map(ChildFeedResponse::fromRequest).collect(Collectors.toSet()))
                 .likeCount(feed.getLikeCounts())
                 .build();
     }
