@@ -92,6 +92,7 @@ const Mypage = () => {
             nickName={user.nickname}
             introduction={user.description}
             imgUrl="asd"
+            edit={true}
           />
           <MyWebtoonContainer
             category="내가 보는 웹툰"
