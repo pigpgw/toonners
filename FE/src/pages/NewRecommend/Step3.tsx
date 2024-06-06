@@ -4,16 +4,19 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../../components/common/Text/index";
 import Tag from "@/components/common/Tag";
 import { useNavigate } from "react-router-dom";
-// import Rating from "@/components/common/Rating";
 import Button from "@/components/common/Button";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Rating from "@/components/common/Rating";
+
+const genres = ["공포", "로맨스", "판타지", "학원물"];
+const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
 
 const Step3 = () => {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  // const [setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(0);
   const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
-  const { recommendConfig, resetRecommendConfig } = useRecommendConfigStore();
+  const { recommendConfig, setRecommendConfig, resetRecommendConfig } = useRecommendConfigStore();
   const { addRecommendation } = useRecommendationStore();
 
   const navigate = useNavigate();
@@ -21,11 +24,27 @@ const Step3 = () => {
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
     resetRecommendConfig();
-    console.log("나가기 버튼 누름");
   };
 
+  useEffect(() => {
+    setRecommendConfig({
+      hashtagGenre: selectedGenres,
+    });
+  }, [selectedGenres, setRecommendConfig]);
+  useEffect(() => {
+    setRecommendConfig({
+      hashtagVibe: selectedMoods,
+    });
+  }, [selectedMoods, setRecommendConfig]);
+  useEffect(() => {
+    setRecommendConfig({
+      starring: rating,
+    });
+  }, [rating, setRecommendConfig]);
+
   const clickAddWebtoon = () => {
-    if (recommendConfig.hashtagGenre.length === 0 && recommendConfig.hashtagVibe.length === 0) {
+    if (recommendConfig.hashtagGenre.length === 0 || recommendConfig.hashtagVibe.length === 0) {
+      console.log(recommendConfig);
       alert("최소 하나 이상의 장르와 분위기를 골라주세요");
       return;
     }
@@ -34,43 +53,24 @@ const Step3 = () => {
     navigate("/recommend/new/1");
   };
 
-  const genres = ["공포", "로맨스", "판타지", "학원물"];
-  const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
-
-  // const storeData = useCallback(() => {
-  //   setRecommendConfig({
-  //     starring: rating,
-  //     hashtagGenre: selectedGenres,
-  //     hashtagVibe: selectedMoods,
-  //   });
-  // }, [rating, selectedGenres, selectedMoods, setRecommendConfig]);
-
-  // useEffect(() => {
-  //   storeData();
-  // }, [storeData, selectedGenres, selectedMoods, rating]);
-
   const toggleGenreSelection = (label: string) => {
+    console.log("분위기 고름", label, selectedMoods);
     setSelectedGenres((prev) => {
       if (prev.includes(label)) {
         return prev.filter((item) => item !== label);
-      } else if (prev.length < 3) {
-        return [...prev, label];
       } else {
-        alert("장르는 최대 3개까지 선택 가능합니다.");
-        return prev;
+        return [...prev, label];
       }
     });
   };
 
   const toggleMoodSelection = (label: string) => {
+    console.log("분위기 고름", label, selectedMoods);
     setSelectedMoods((prev) => {
       if (prev.includes(label)) {
         return prev.filter((item) => item !== label);
-      } else if (prev.length < 3) {
-        return [...prev, label];
       } else {
-        alert("분위기는 최대 3개까지 선택 가능합니다.");
-        return prev;
+        return [...prev, label];
       }
     });
   };
@@ -98,7 +98,7 @@ const Step3 = () => {
           별점 매기기
         </Text>
         <div className={styles.tagBox}>
-          {/* <Rating sizes="large" onChange={(_, value) => value && setRating(value)} /> */}
+          <Rating sizes="large" onChange={(_, value) => value && setRating(value)} />
         </div>
         <hr className={styles.line} />
         <Text types="title" bold="bold">

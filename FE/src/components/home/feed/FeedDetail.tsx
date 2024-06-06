@@ -18,7 +18,13 @@ const FeedDetail = () => {
   const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
 
   const setBookMark = async () => {
-    await postBookMark(id!);
+    try {
+      console.log('북마크 버튼 누름')
+      await postBookMark(id!);
+      setChecked(!checked)
+    } catch (e) {
+      console.log('북마크 실패 로그',e)
+    }
   };
 
   useEffect(() => {

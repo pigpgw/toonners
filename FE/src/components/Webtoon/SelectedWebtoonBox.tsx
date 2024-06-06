@@ -1,10 +1,11 @@
 import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
 import ClickedWebtoonCard from "./ClickedWebtoonCard";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 
 interface Props {
-  selectedList: WebtoonConfig[];
-  removeSelect?: (webtoon: WebtoonConfig) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedList: any[];
+  removeSelect?: (webtoon: UserWebtoonListConfig) => void;
 }
 
 const SelectedWebtoonBox = ({ selectedList, removeSelect }: Props) => {

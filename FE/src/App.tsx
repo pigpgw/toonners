@@ -16,6 +16,7 @@ import MyScrapPage from "./pages/mypage/MyScrapPage";
 import MyFeedPage from "./pages/mypage/MyFeedPage";
 import FeedDetail from "./components/home/feed/FeedDetail";
 import { PrivateRoute } from "./routes/PrivateRoutes";
+import { OtherPage } from "./pages/OtherPage/OtherPage";
 
 function App() {
   return (
@@ -29,16 +30,16 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/recommend/:id" element={<FeedDetail />} />
         <Route path="*" element={<div>잘못된 경로</div>} />
+        <Route path="/signup/*" element={<Signup />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/signup/*" element={<Signup />} />
           <Route path="/chatroom/:id" element={<ChatRoomMain />} />
           <Route path="/chatroom/create/*" element={<NewChatRoom />} />
           <Route path="/recommend/new/*" element={<NewRecommend />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/feed" element={<MyFeedPage />} />
           <Route path="/mypage/scrap" element={<MyScrapPage />} />
-          <Route path="/profile/:userId" element={<div>상대방 프로필</div>} />
+          <Route path="/profile/:userId" element={<OtherPage />} />
           <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
           <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
         </Route>

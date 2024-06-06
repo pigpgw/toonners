@@ -6,7 +6,7 @@ import Text from "@/components/common/Text";
 import Input from "@/components/common/Input";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
 import Modal from "@/components/common/Modal";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { useChatActions } from "@/slices/chatSlice";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { getIsExist } from "@/api/chat";
@@ -16,10 +16,11 @@ const CreateChatRoom1 = () => {
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [isExist, setIsExist] = useState(0);
-  const [webtoonList, setWebtoonList] = useState<WebtoonConfig[]>([]);
+  const [webtoonList, setWebtoonList] = useState<UserWebtoonListConfig[]>([]);
   const { setSelected } = useChatActions();
 
-  const checkIsExist = async (webtoon: WebtoonConfig) => {
+  const checkIsExist = async (webtoon: UserWebtoonListConfig) => {
+    console.log("웹툰 데이터", webtoon);
     const res = await getIsExist(webtoon.title);
     if (res !== -1) {
       setIsExist(res);

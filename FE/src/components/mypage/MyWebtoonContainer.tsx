@@ -1,12 +1,12 @@
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import styles from "../../styles/mypage/Mypage.module.scss";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import Text from "../common/Text";
 import EditBtn from "../common/Button/Edit";
 
 interface Props {
   category: string;
-  webtoonList: WebtoonConfig[];
+  webtoonList: UserWebtoonListConfig[];
   onEditMode: () => void;
 }
 

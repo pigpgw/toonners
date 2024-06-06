@@ -1,9 +1,13 @@
+import { getonMyScrap } from "@/api/myPage";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
-import { ChangeEvent, useState } from "react";
+import FeedItem from "@/components/home/feed/FeedItem";
+import { FeedListConfig } from "@/interface/Feed.interface";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MyScrapPage = () => {
+  const [scrapList, setScrapList] = useState<FeedListConfig[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
 
@@ -15,13 +19,21 @@ const MyScrapPage = () => {
     setSearchQuery(e.target.value);
   };
 
-  // useEffect(() => {
-  //   const fe = async () => {
-  //     const res = await getonMyScrap();
-  //     setFeedList(res.data);
-  //   };
-  //   fe();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getonMyScrap();
+        if (res) {
+          setScrapList(res as FeedListConfig[]);
+        } else {
+          setScrapList([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch scrap list", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div
@@ -41,11 +53,11 @@ const MyScrapPage = () => {
           placeholder="검색어로 빠르게 스크랩한 글 찾기"
           onChange={onSearchQueryChange}
         />
-        {/* <div className={styles.feed}>
-          {feedList.map((feed, i) => {
-            return feed.feedTitle.includes(searchQuery) ? <FeedItem key={i} feed={feed} /> : "";
-          })}
-        </div> */}
+        {scrapList.length !== 0 ? (
+          scrapList.filter((scrap) => scrap.feedTitle.includes(searchQuery)).map((scrap) => <FeedItem feed={scrap} />)
+        ) : (
+          <div>스크랩이 없어요</div>
+        )}
       </div>
     </div>
   );
