@@ -10,6 +10,7 @@ import { useUserStore } from "@/slices/useStore";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
+  const [keyword, setKeyword] = useState("");
   const [serchedWebtoons, setFetchWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
@@ -20,13 +21,20 @@ const Signup2 = () => {
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await fetchWetboonInfo(search);
+        const response = await fetchWetboonInfo(keyword);
         setFetchWebtoons(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
     };
     fetchWebtoons();
+  }, [keyword]);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setKeyword(search);
+    }, 300);
+    return () => clearTimeout(debounce);
   }, [search]);
 
   const handleSelect = (webtoon: UserWebtoonListConfig) => {

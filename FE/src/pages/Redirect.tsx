@@ -32,6 +32,7 @@ const Redirect = () => {
     };
 
     postCode();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>로딩중</div>;

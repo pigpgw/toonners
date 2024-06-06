@@ -12,6 +12,7 @@ import { getOnMyData, updateUserData } from "@/api/myPage";
 
 const EditLikedWtnPage = () => {
   const [search, setSearch] = useState<string>("");
+  const [query, setQuery] = useState("");
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { user, addFavoriteToons, removeFavoriteToons, resetFavoriteToons } = useUserStore();
 
@@ -41,24 +42,32 @@ const EditLikedWtnPage = () => {
         (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
           addFavoriteToons({
             title: item.title,
-            siteUrl: item.siteUrl,
+            url: item.url,
             imageUrl: item.imageUrl,
             rating: item.rating,
-            days: item.days,
+            updateDays: item.updateDays,
           });
         });
       }
     };
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const getWebtoonData = async () => {
-      const res = await fetchWetboonInfo(search);
+      const res = await fetchWetboonInfo(query);
       setWebtoons(res);
     };
     getWebtoonData();
+  }, [query]);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQuery(search);
+    }, 300);
+    return () => clearTimeout(debounce);
   }, [search]);
 
   const removeSelect = (webtoon: UserWebtoonListConfig) => {

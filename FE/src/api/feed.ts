@@ -8,7 +8,6 @@ const getFeedList = async () => {
 
 const getFeedItem = async (feedId: string) => {
   const res = await Axios.get(HOST + `/feed/search/detail/parent-feed?parent-feed-id=${feedId}`);
-  console.log("feed data 확인",res)
   return res.data.data;
 };
 

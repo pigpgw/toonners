@@ -10,6 +10,7 @@ const FeedPage = () => {
   useEffect(() => {
     const getFeedItems = async () => {
       const res = await getFeedList();
+      res.reverse();
       setFeedList(res);
     };
     getFeedItems();

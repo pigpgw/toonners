@@ -26,8 +26,7 @@ const Mypage = () => {
     navigate("/");
   };
 
-  const logOut =
-   async () => {
+  const logOut = async () => {
     await postLogOut();
     localStorage.removeItem("accessToken");
     alert("로그아웃 되었습니다.!");
@@ -46,6 +45,7 @@ const Mypage = () => {
       console.log(e);
     }
   };
+
   const fetchData = async () => {
     const res = await getOnMyData();
     setUserNickname(res.nickname);
@@ -55,8 +55,10 @@ const Mypage = () => {
       setUser(res as UserConfig);
     }
   };
+
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const editSeeWebtoonList = () => {

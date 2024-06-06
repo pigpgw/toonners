@@ -30,11 +30,13 @@ const FeedDetail = () => {
   useEffect(() => {
     const getFeedDetail = async () => {
       const res = await getFeedItem(id!);
+      console.log(res)
       setDetail(res);
       setChecked(res.bookmarked);
     };
 
     getFeedDetail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

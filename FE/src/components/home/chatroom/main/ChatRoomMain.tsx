@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
@@ -34,10 +34,14 @@ const ChatRoomMain = () => {
     writeChatComment();
   };
 
-  const getChatRoomInfo = async () => {
-    const res = await getChatRoom(id!);
-    setChatroomInfo(res);
-  };
+  const getChatRoomInfo = useCallback(async () => {
+    try {
+      const res = await getChatRoom(id!);
+      setChatroomInfo(res);
+    } catch (error) {
+      console.error("Error fetching chat room info:", error);
+    }
+  }, [id]);
 
   const sendFireComment = async () => {
     const res = await postFireComment(id!);
@@ -64,7 +68,7 @@ const ChatRoomMain = () => {
     };
     getChatRoomInfo();
     getChatComments();
-  }, [getChatRoomInfo, id]);
+  }, [id, getChatRoomInfo]);
 
   useEffect(() => {
     // 맨 처음 로딩 시 스크롤이 제일 하단에 위치.
