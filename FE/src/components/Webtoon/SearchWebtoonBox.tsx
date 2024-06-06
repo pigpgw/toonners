@@ -2,14 +2,14 @@ import React, { ChangeEvent } from "react";
 import SearchedWebtoonCard from "./SearchedWebtoonCard";
 import styles from "@/styles/webtoon/SearchWebtoonBox.module.scss";
 import Input from "../common/Input";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 
 interface Props {
   height: number;
   webtoonTitle: string;
-  webToonList: WebtoonConfig[];
+  webToonList: UserWebtoonListConfig[];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleSelect: (webtoon: WebtoonConfig) => void;
+  handleSelect: (webtoon: UserWebtoonListConfig) => void;
 }
 
 const SearchWebtoonBox: React.FC<Props> = ({ webtoonTitle, webToonList, onChange, handleSelect, height }) => {
@@ -23,7 +23,6 @@ const SearchWebtoonBox: React.FC<Props> = ({ webtoonTitle, webToonList, onChange
               key={`${index}_li`}
               title={webtoon.title}
               imgUrl={webtoon.imageUrl}
-              clicked={webtoon.clicked}
               onClick={() => handleSelect(webtoon)}
             />
           ))}

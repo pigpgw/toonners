@@ -58,6 +58,11 @@ const postFireComment = async (roomId: string) => {
   return res.data.data;
 };
 
+const getMyTalk = async () => {
+  const res = await Axios.get(`${HOST}/chatroom/search/participating-in`);
+  return res.data.data;
+};
+
 export {
   getAllChatRoomList,
   getTodayChatRoomList,
@@ -69,4 +74,5 @@ export {
   getRankingChatRoomList,
   getIsExist,
   postFireComment,
+  getMyTalk,
 };

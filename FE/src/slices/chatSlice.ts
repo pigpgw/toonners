@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import { WebtoonConfig } from "@/interface/Webtoon.interface";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 
 interface State {
-  selected: WebtoonConfig;
+  selected: UserWebtoonListConfig;
   chatroomInfo: ChatRoomInfoConfig;
 }
 
 interface Action {
   actions: {
-    setSelected: (webtoon: WebtoonConfig) => void;
+    setSelected: (webtoon: UserWebtoonListConfig) => void;
     setChatRoomInfo: (info: ChatRoomInfoConfig) => void;
   };
 }
@@ -20,7 +20,7 @@ export const initialState = {
     url: "",
     imageUrl: "",
     updateDays: [],
-    fanCount: 0,
+    rating: 0,
   },
   chatroomInfo: {
     chatRoomId: 0,
@@ -36,7 +36,7 @@ export const initialState = {
 export const useChatStore = create<State & Action>((set) => ({
   ...initialState,
   actions: {
-    setSelected: (webtoon: WebtoonConfig) => set(() => ({ selected: webtoon })),
+    setSelected: (webtoon: UserWebtoonListConfig) => set(() => ({ selected: webtoon })),
     setChatRoomInfo: (info: ChatRoomInfoConfig) => set(() => ({ chatroomInfo: info })),
   },
 }));

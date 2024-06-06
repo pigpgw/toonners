@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import styles from "@styles/home/ChatRoom.module.scss";
@@ -23,14 +23,19 @@ const CreateChatRoom2 = () => {
       toonName: selected.title,
       toonImage: selected.imageUrl,
       toonUrl: selected.url,
-      fanCounts: selected.fanCount,
+      fanCounts: selected.rating,
       updateDay: selected.updateDays,
       contexts: description,
     };
+    console.log("data", data);
     const res = await postChatRoom(data);
     setChatRoomInfo(res);
     setModalOpen(true);
   };
+
+  useEffect(() => {
+    console.log("방 만들기 페이지", selected);
+  }, []);
 
   const handleBack = () => {
     navigate("/chatroom/create/1");

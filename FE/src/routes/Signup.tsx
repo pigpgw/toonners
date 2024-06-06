@@ -1,9 +1,22 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Signup1 from "@/pages/Signup/Signup1";
 import Signup2 from "@/pages/Signup/Signup2";
 import Signup3 from "@/pages/Signup/Signup3";
+import { useEffect } from "react";
+import { getOnMyData } from "@/api/myPage";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await getOnMyData();
+      if (res.nickname && res.watchingToons.length) {
+        navigate("/home");
+      }
+    };
+    fetchUser();
+  }, [navigate]);
   return (
     <Routes>
       <Route path="/" element={<Navigate to="1" />} />

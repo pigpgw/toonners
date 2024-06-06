@@ -5,13 +5,14 @@ import Arrow from "@components/common/Arrow";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
 import TodayChatItem from "@components/home/chatroom/TodayChatItem";
 import RankingChatItem from "@components/home/chatroom/RankingChatItem";
+import { useEffect } from "react";
 
 interface Props {
   keyword: "today" | "rank" | "rest";
-  title: string;
-  subtitle: string;
-  isMore: boolean;
-  more: string;
+  title?: string;
+  subtitle?: string;
+  isMore?: boolean;
+  more?: string | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   list: any[];
   onClick?: () => void;
@@ -19,6 +20,10 @@ interface Props {
 
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }: Props) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("피드 확인", list);
+  });
+
   return (
     <div className={styles.frame}>
       <div className={styles.chatroom__title}>
@@ -26,7 +31,7 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }
           <Text types="sub-header" bold="semi-bold">
             {title}
           </Text>
-          {isMore && <Arrow onClick={() => navigate(more)} />}
+          {isMore && <Arrow onClick={() => navigate(more || "")} />}
         </div>
         <Text types="body-1">{subtitle}</Text>
       </div>

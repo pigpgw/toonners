@@ -64,7 +64,7 @@ const ChatRoomMain = () => {
     };
     getChatRoomInfo();
     getChatComments();
-  }, []);
+  }, [getChatRoomInfo, id]);
 
   useEffect(() => {
     // 맨 처음 로딩 시 스크롤이 제일 하단에 위치.

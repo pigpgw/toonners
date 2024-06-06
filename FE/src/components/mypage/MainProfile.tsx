@@ -9,44 +9,54 @@ interface Props {
   imgUrl: string;
   nickName: string;
   introduction: string;
-  editMode: boolean;
-  onEditMode: () => void;
-  offEditMode: () => void;
+  editMode?: boolean;
+  onEditMode?: () => void;
+  offEditMode?: () => void;
+  edit?: boolean;
 }
 
-const MainProfile = ({ nickName, introduction, imgUrl, editMode, onEditMode, offEditMode }: Props) => {
-  const { setIntroDuction, setUserNickname } = useUserStore();
+const MainProfile = ({
+  nickName,
+  introduction,
+  imgUrl,
+  edit,
+  editMode,
+  onEditMode = () => {},
+  offEditMode = () => {},
+}: Props) => {
+  const { user, setDescription, setUserNickname } = useUserStore();
 
   const nicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserNickname(e.target.value);
   };
 
   const introductionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIntroDuction(e.target.value);
+    setDescription(e.target.value);
   };
 
   return (
     <div className={styles.ProfileContainer}>
       <div className={styles.btnWrapper}>
         <Profile imgUrl={imgUrl} />
-        {editMode ? (
-          <EditBtn btnName="완료하기" onClick={offEditMode} />
-        ) : (
-          <EditBtn btnName="편집하기" onClick={onEditMode} />
-        )}
+        {edit &&
+          (editMode ? (
+            <EditBtn btnName="완료하기" onClick={offEditMode} />
+          ) : (
+            <EditBtn btnName="편집하기" onClick={onEditMode} />
+          ))}
       </div>
       {editMode ? (
-        <input type="text" className={styles.EditInput} value={nickName} onChange={nicknameChange} /> 
+        <input type="text" className={styles.EditInput} value={user.nickname} onChange={nicknameChange} />
       ) : (
         <Text types="title" bold="bold">
           {nickName}
         </Text>
       )}
       {editMode ? (
-        <input type="text" className={styles.EditInput} value={introduction} onChange={introductionChange} />
+        <input type="text" className={styles.EditInput} value={user.description} onChange={introductionChange} />
       ) : (
         <Text types="body-1" bold="semi-bold">
-          {introduction ? introduction : '자기 소개글을 추가해 주세요'}
+          {introduction ? introduction : "자기 소개글을 추가해 주세요"}
         </Text>
       )}
     </div>
