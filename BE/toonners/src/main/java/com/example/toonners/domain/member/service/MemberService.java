@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -159,13 +160,22 @@ public class MemberService extends DefaultOAuth2UserService {
 
     private void insertToonSetToResponse(Set<String> member, Set<ToonInsertRequest> watchingToonSet) {
         for (String toon : member) {
-            ToonData toonData = toonDataRepository.findByTitle(toon).orElseThrow();
-            watchingToonSet.add(ToonInsertRequest.builder()
-                    .title(toonData.getTitle())
-                    .imageUrl(toonData.getImageUrl())
-                    .siteUrl(toonData.getSiteUrl())
-                    .days(toonData.getDays())
-                    .build());
+            if (toonDataRepository.findByTitle(toon).isEmpty()) {
+                watchingToonSet.add(ToonInsertRequest.builder()
+                        .title(toon)
+                        .imageUrl("")
+                        .siteUrl("")
+                        .days(new ArrayList<>())
+                        .build());
+            } else {
+                ToonData toonData = toonDataRepository.findByTitle(toon).orElse(null);
+                watchingToonSet.add(ToonInsertRequest.builder()
+                        .title(toonData.getTitle())
+                        .imageUrl(toonData.getImageUrl())
+                        .siteUrl(toonData.getSiteUrl())
+                        .days(toonData.getDays())
+                        .build());
+            }
         }
     }
 
