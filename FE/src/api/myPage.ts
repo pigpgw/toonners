@@ -14,41 +14,35 @@ type User = {
 export const updateUserData = async (userData: unknown): Promise<User> => {
   try {
     const response = await Axios.put(`${BASE_URL}/member/update`, userData);
-    console.log("Response data:", response.data);
     return response.data.data;
   } catch (error) {
-    console.error("Error updating user data:", error);
-    throw error;
+    throw new Error("유저 정보 수정 실패");
   }
 };
 
 export const getonMyFeed = async (): Promise<unknown | undefined> => {
   try {
     const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
-    console.log(response.data);
     return response.data.data;
   } catch (e) {
-    console.log("내가 작성한 피드 가져오기 오류");
+    throw new Error("내가 작성한 피드 가져오기 실패");
   }
 };
 
 export const getonMyScrap = async (): Promise<unknown | undefined> => {
   try {
     const response = await Axios.get(`${BASE_URL}/feed/search/bookmarked`);
-    console.log(response.data);
     return response.data.data;
   } catch (e) {
-    console.log("내 스크랩 가져오기 실패");
+    throw new Error("내 스크랩 가져오기 실패");
   }
 };
 
 export const getOnMyData = async (): Promise<User> => {
   try {
     const response = await Axios.get(`${BASE_URL}/member/search/my-info`);
-    console.log(response.data);
     return response.data.data;
   } catch (e) {
-    console.log("내정보 가져오기 실패");
     throw new Error("Failed to fetch user data");
   }
 };
@@ -76,10 +70,8 @@ export const postWithDraw = async (): Promise<unknown> => {
 export const getUserData = async (userId: string): Promise<User> => {
   try {
     const response = await Axios.get(`${BASE_URL}/member/search/member-info?member-id=${userId}`);
-    console.log("상대 정보 가져오기", response.data.data);
     return response.data.data;
   } catch (e) {
-    console.log("상대 정보 가져오기 실패");
     throw new Error("Failed to fetch user data");
   }
 };

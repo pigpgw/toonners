@@ -19,24 +19,24 @@ const FeedDetail = () => {
 
   const setBookMark = async () => {
     try {
-      console.log('북마크 버튼 누름')
+      console.log("북마크 버튼 누름");
       await postBookMark(id!);
-      setChecked(!checked)
+      setChecked(!checked);
     } catch (e) {
-      console.log('북마크 실패 로그',e)
+      console.log("북마크 실패 로그", e);
     }
   };
 
   useEffect(() => {
     const getFeedDetail = async () => {
       const res = await getFeedItem(id!);
-      console.log(res)
+      console.log(res);
       setDetail(res);
       setChecked(res.bookmarked);
     };
 
     getFeedDetail();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -49,7 +49,7 @@ const FeedDetail = () => {
       <div className={styles.feed__detail}>
         <div>
           <Profile
-            name="닉네임"
+            name={detail.writerMemberNickname}
             size="medium"
             number={detail.writerMemberImage}
             onClick={() => navigate(`/profile/${detail.writerMemberId}`)}
