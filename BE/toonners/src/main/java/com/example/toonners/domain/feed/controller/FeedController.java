@@ -2,6 +2,7 @@ package com.example.toonners.domain.feed.controller;
 
 import com.example.toonners.common.ApiResponse;
 import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
+import com.example.toonners.domain.feed.dto.request.UpdateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
 import com.example.toonners.domain.feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,16 @@ public class FeedController {
     ) {
         FeedInfoResponse response = feedService.createFeed(token, request);
         return ApiResponse.createSuccessWithMessage(response, "피드 생성 성공");
+    }
+
+    @PutMapping("/feed/update/{feedId}")
+    public ApiResponse<FeedInfoResponse> updateFeed(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long feedId,
+            @RequestBody UpdateFeedRequest request
+    ) {
+        return ApiResponse.createSuccessWithMessage(
+                feedService.updateFeed(token, feedId, request), "피드 수정 성공");
     }
 
     @GetMapping("/feed/search/all/parent-feed")
