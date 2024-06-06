@@ -10,15 +10,22 @@ import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRec
 
 const Step2 = () => {
   const [search, setSearch] = useState<string>("");
+  const [query, setQuery] = useState("");
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
-  // const [, setSelect] = useState<UserWebtoonListConfig>();
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();
 
   useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQuery(search);
+    }, 300);
+    return () => clearTimeout(debounce);
+  }, [search]);
+
+  useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await fetchWetboonInfo(search);
+        const response = await fetchWetboonInfo(query);
         setWebtoons(
           response.map((item) => ({
             ...item,
@@ -29,9 +36,9 @@ const Step2 = () => {
         console.error("오류 발생", e);
       }
     };
-    if (search) fetchWebtoons();
+    if (query) fetchWebtoons();
     else setWebtoons([]);
-  }, [search]);
+  }, [query]);
 
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
@@ -46,7 +53,7 @@ const Step2 = () => {
     }
     if (webtoon.title && webtoon.imageUrl) {
       // setSelect(webtoon);
-      setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.siteUrl, webtoon.days ? webtoon.days : []);
+      setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
       navigate("/recommend/new/3");
     } else {
       console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");
