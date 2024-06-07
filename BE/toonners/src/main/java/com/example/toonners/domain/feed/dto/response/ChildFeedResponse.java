@@ -12,7 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class ChildFeedResponse {
-    private Long childFeedId;
     private Float starring;
     private Set<String> hashtagGenre;
     private Set<String> hashtagVibe;
@@ -22,7 +21,7 @@ public class ChildFeedResponse {
 
     public static ChildFeedResponse fromRequest(ChildFeedRequest request) {
         return ChildFeedResponse.builder()
-                .starring(request.getRating())
+                .starring(request.getStarring())
                 .hashtagGenre(request.getHashtagGenre())
                 .hashtagVibe(request.getHashtagVibe())
                 .toonName(request.getTitle())
