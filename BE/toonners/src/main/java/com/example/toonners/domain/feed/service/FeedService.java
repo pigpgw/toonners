@@ -150,7 +150,7 @@ public class FeedService {
             Set<ChildFeedRequest> beforeRequestSet = new HashSet<>(beforeRequest);
             Set<ChildFeedRequest> requestSet = new HashSet<>(request);
             beforeRequestSet.removeAll(requestSet);
-            for (ChildFeedRequest toon : beforeRequest) {
+            for (ChildFeedRequest toon : beforeRequestSet) {
                 if (chatRoomRepository.findByToonName(toon.getTitle()).isPresent()) {
                     // 채팅방 별점 = total_point / count
                     ChatRoom chatRoom = chatRoomRepository.findByToonName(toon.getTitle()).orElseThrow();
