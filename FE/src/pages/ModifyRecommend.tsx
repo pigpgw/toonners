@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Input from "../../components/common/Input/index";
+import Input from "@/components/common/Input";
 import Header from "@/components/common/Header";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import AddButton from "@/components/newRecommend/Button";
@@ -10,9 +10,8 @@ import { postNewRecommend } from "@/api/recommend";
 import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
 
-const Step1 = () => {
-  const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
-    useRecommendationStore();
+const ModifyRecommend = () => {
+  const { recommendationData, setPostTitle, setPostcotexts, resetRecommendationData } = useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +34,10 @@ const Step1 = () => {
       alert(e);
     }
   };
+
+  useEffect(() => {
+    console.log(recommendationData.context);
+  });
 
   const navigate = useNavigate();
 
@@ -64,10 +67,6 @@ const Step1 = () => {
     resetRecommendConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const deleteWebtoon = (title: string) => {
-    removeRecommendation(title);
-  };
 
   return (
     <>
@@ -99,19 +98,14 @@ const Step1 = () => {
         />
         {recommendationData?.recommendToons?.map((item, index) => {
           return (
-            <>
-              <WebtoonCard
-                key={index}
-                title={item.title}
-                score={item.starring}
-                imgUrl={item.imageUrl}
-                moodList={item.hashtagVibe}
-                genreList={item.hashtagGenre}
-              />
-              <button onClick={() => {
-                deleteWebtoon(item.title)
-              }}>삭제하기</button>
-            </>
+            <WebtoonCard
+              key={index}
+              title={item.title}
+              score={item.starring}
+              imgUrl={item.imageUrl}
+              moodList={item.hashtagVibe}
+              genreList={item.hashtagGenre}
+            />
           );
         })}
         {recommendationData.recommendToons.length < 4 && <AddButton onClick={goNextPage} />}
@@ -121,4 +115,4 @@ const Step1 = () => {
   );
 };
 
-export default Step1;
+export default ModifyRecommend;

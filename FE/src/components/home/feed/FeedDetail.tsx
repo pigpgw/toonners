@@ -9,6 +9,8 @@ import FeedDetailCard from "./FeedDetailCard";
 import Bookmark from "@/components/common/Tag/Bookmark";
 import { getFeedItem, postBookMark } from "@/api/feed";
 import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
+import { getUserId } from "@/utils/authUtils";
+import { useRecommendationStore } from "@/slices/useRecommendationStore";
 
 const FeedDetail = () => {
   const navigate = useNavigate();
@@ -16,10 +18,13 @@ const FeedDetail = () => {
   const { id } = params;
   const [checked, setChecked] = useState(false);
   const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
+  const [mine, setMine] = useState(false);
+  const userId = getUserId();
+
+  const { recommendationData, setPostTitle, setPostcotexts, addRecommendation } = useRecommendationStore();
 
   const setBookMark = async () => {
     try {
-      console.log("북마크 버튼 누름");
       await postBookMark(id!);
       setChecked(!checked);
     } catch (e) {
@@ -30,7 +35,10 @@ const FeedDetail = () => {
   useEffect(() => {
     const getFeedDetail = async () => {
       const res = await getFeedItem(id!);
-      console.log(res);
+      console.log("피드 데이터", res);
+
+      if (res.writerMemberId === Number(userId)) setMine(true);
+      else setMine(false);
       setDetail(res);
       setChecked(res.bookmarked);
     };
@@ -39,12 +47,37 @@ const FeedDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const clickModift = () => {
+    setPostTitle(detail.feedTitle);
+    setPostcotexts(detail.feedContexts);
+    detail.childFeedList.map((feed) => {
+      addRecommendation({
+        title: feed.toonName,
+        imageUrl: feed.toonImage,
+        imageSiteUrl: feed.toonSiteUrl,
+        starring: feed.starring,
+        hashtagGenre: feed.hashtagGenre,
+        hashtagVibe: feed.hashtagVibe,
+      });
+    });
+    console.log("recommendationData", recommendationData);
+    navigate("/recommend/new");
+  };
+
   return (
     <>
       <Header
         title={detail.feedTitle}
-        before
-        button={<Bookmark label="스크랩" checked={checked} onChange={setChecked} onClick={setBookMark} />}
+        before={true}
+        button={
+          mine ? (
+            <button className={styles.editBtn} onClick={clickModift}>
+              수정
+            </button>
+          ) : (
+            <Bookmark label="스크랩" checked={checked} onChange={setChecked} onClick={setBookMark} />
+          )
+        }
       />
       <div className={styles.feed__detail}>
         <div>

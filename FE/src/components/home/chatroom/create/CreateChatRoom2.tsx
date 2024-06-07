@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import styles from "@styles/home/ChatRoom.module.scss";
@@ -32,10 +32,6 @@ const CreateChatRoom2 = () => {
     setChatRoomInfo(res);
     setModalOpen(true);
   };
-
-  useEffect(() => {
-    console.log("방 만들기 페이지", selected);
-  }, []);
 
   const handleBack = () => {
     navigate("/chatroom/create/1");

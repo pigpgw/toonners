@@ -1,16 +1,16 @@
 import { create } from "zustand";
 
-interface RecommendToonConfig {
+export interface RecommendToonConfig {
   starring: number;
   hashtagGenre: string[];
   hashtagVibe: string[];
   title: string;
   imageUrl: string;
   imageSiteUrl: string;
-  days: string[];
+  days?: string[];
 }
 
-interface Config {
+export interface Config {
   title: string;
   context: string;
   recommendToons: RecommendToonConfig[];

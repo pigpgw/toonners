@@ -17,6 +17,7 @@ export interface ChildFeedListConfig {
   starring: number;
   toonImage: string;
   toonName: string;
+  toonSiteUrl: string;
 }
 
 export const initialFeedList = {
@@ -29,6 +30,7 @@ export const initialFeedList = {
       starring: 0,
       toonImage: "",
       toonName: "",
+      toonSiteUrl: "",
     },
   ],
   feedContexts: "",
