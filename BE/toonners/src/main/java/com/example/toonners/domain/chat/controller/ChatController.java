@@ -39,4 +39,11 @@ public class ChatController {
     ) {
         return ApiResponse.createSuccess(chatService.searchChatRoomParticipating(token));
     }
+    @GetMapping("/chatroom/search/participating-in/member")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomParticipatingByMemberId(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "member-id") Long memberId
+    ) {
+        return ApiResponse.createSuccess(chatService.searchChatRoomParticipatingByMemberId(token, memberId));
+    }
 }
