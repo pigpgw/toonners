@@ -1,6 +1,8 @@
 package com.example.toonners.domain.feed.entity;
 
 import com.example.toonners.common.BaseEntity;
+import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
+import com.example.toonners.domain.feed.dto.request.UpdateFeedRequest;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import jakarta.persistence.*;
@@ -27,9 +29,6 @@ public class Feed extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member writer;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TOONDATA_ID")
-    private ToonData toon;
 
     private String title;
     private String contexts;
@@ -37,15 +36,22 @@ public class Feed extends BaseEntity {
     private String hashtagGenre;
     private String hashtagVibe;
 
-    private boolean parentFlag;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Feed parentFeed;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentFeed", orphanRemoval = true)
-    private List<Feed> childFeed = new LinkedList<>();
-
     private Long likeCounts = 0L;
 
+    @ElementCollection
+    private List<ChildFeedRequest> childFeedRequests = new LinkedList<>();
+
+    public void updateFields(UpdateFeedRequest request) {
+        if (request.getTitle() != null) {
+            title = request.getTitle();
+        }
+        if (request.getContext() != null) {
+            contexts = request.getContext();
+        }
+        if (request.getRecommendToons() != null) {
+            childFeedRequests = request.getRecommendToons();
+        }
+    }
 
     public void setHashtagGenre(String hashtagGenre) {
         this.hashtagGenre = hashtagGenre;
@@ -54,6 +60,7 @@ public class Feed extends BaseEntity {
     public void setHashtagVibe(String hashtagVibe) {
         this.hashtagVibe = hashtagVibe;
     }
+
     public void setLikeCounts(Long counts) {
         this.likeCounts = counts;
     }
