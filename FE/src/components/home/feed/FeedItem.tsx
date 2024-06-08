@@ -43,8 +43,12 @@ const FeedItem = ({ feed }: Props) => {
           <Text>{feed.feedContexts}</Text>
         </div>
         <div className={styles.rest__tags}>
-          {feed.hashtags.length > 0 &&
-            feed.hashtags.map((tag, i) => {
+          {feed.hashtagsGenre.length > 0 &&
+            feed.hashtagsGenre.map((tag, i) => {
+              return <Tag key={i} label={`# ${tag}`} sizes="small" />;
+            })}
+          {feed.hashtagsVibe.length > 0 &&
+            feed.hashtagsVibe.map((tag, i) => {
               return <Tag key={i} label={`# ${tag}`} sizes="small" />;
             })}
         </div>
@@ -55,9 +59,6 @@ const FeedItem = ({ feed }: Props) => {
             number={feed.writerMemberImage}
             onClick={(e) => handleProfile(e)}
           />
-          {/* <div onClick={(e) => e.stopPropagation()}>
-            <Bookmark label="스크랩" checked={check} onChange={setCheck} />
-          </div> */}
         </div>
       </div>
     </div>
@@ -65,3 +66,9 @@ const FeedItem = ({ feed }: Props) => {
 };
 
 export default FeedItem;
+
+{
+  /* <div onClick={(e) => e.stopPropagation()}>
+            <Bookmark label="스크랩" checked={check} onChange={setCheck} />
+          </div> */
+}

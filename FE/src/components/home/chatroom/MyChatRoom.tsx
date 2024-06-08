@@ -1,8 +1,13 @@
 import styles from "@styles/home/Home.module.scss";
 import Text from "@components/common/Text";
 import MyChatRoomItem from "@components/home/chatroom/MyChatRoomItem";
+import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
-const MyChatRoom = () => {
+interface Props {
+  chatList: ChatRoomInfoConfig[];
+}
+
+const MyChatRoom = ({ chatList }: Props) => {
   return (
     <div>
       <Text types="sub-header" bold="semi-bold">
@@ -10,13 +15,9 @@ const MyChatRoom = () => {
       </Text>
       <div className={styles.webtoon}>
         <div className={styles.webtoon__items}>
-          <MyChatRoomItem />
-          <MyChatRoomItem />
-          <MyChatRoomItem />
-          <MyChatRoomItem />
-          <MyChatRoomItem />
-          <MyChatRoomItem />
-          <MyChatRoomItem />
+          {chatList.map((chat, index: number) => {
+            return <MyChatRoomItem key={index} chat={chat} />;
+          })}
         </div>
       </div>
     </div>

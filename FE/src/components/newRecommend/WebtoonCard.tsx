@@ -2,7 +2,6 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../common/Text/index";
 import Tag from "@/components/common/Tag";
 import Rating from "@/components/common/Rating";
-import { useEffect } from "react";
 
 interface Props {
   title: string | undefined;
@@ -13,10 +12,6 @@ interface Props {
 }
 
 const WebtoonCard = ({ title, imgUrl, score, moodList, genreList }: Props) => {
-  useEffect(() => {
-    console.log(imgUrl);
-  });
-
   return (
     <div className={styles.webtoonCard}>
       <div>

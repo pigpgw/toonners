@@ -1,13 +1,16 @@
 import styles from "@styles/home/Home.module.scss";
-import Text from "@components/common/Text";
+import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
-const MyChatRoomItem = () => {
+interface Props {
+  chat: ChatRoomInfoConfig;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const MyChatRoomItem = ({ chat }: Props) => {
   return (
     <div className={styles.webtoon__item}>
-      <div className={styles.webtoon__img}></div>
-      <Text types="body-2" bold="medium">
-        웹툰 이름
-      </Text>
+      <img className={styles.webtoon__img} src={chat.toonImageUrl} alt="" />
+      <p className={styles.webtoon__title}> {chat.toonName}</p>
     </div>
   );
 };

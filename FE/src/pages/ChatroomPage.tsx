@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "@styles/home/Home.module.scss";
 import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
-// import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/common/Button/Create";
-import { getAllChatRoomList, getRankingChatRoomList, getTodayChatRoomList } from "@api/chat";
+import { getAllChatRoomList, getMyTalk, getRankingChatRoomList, getTodayChatRoomList } from "@api/chat";
+import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 
 interface ChatContentsConfig {
   keyword: "today" | "rank" | "rest";
@@ -51,6 +51,7 @@ const getRandomItems = (list: []) => {
 };
 
 const ChatroomPage = () => {
+  const [myTalkList, setMyTalkList] = useState([]);
   const [todayList, setTodayList] = useState([]);
   const [rankList, setrankList] = useState([]);
   const [restList, setRestList] = useState([]);
@@ -88,11 +89,20 @@ const ChatroomPage = () => {
     getRestList();
   }, []);
 
+  useEffect(() => {
+    fetchMyTalk();
+  }, []);
+
+  const fetchMyTalk = async () => {
+    const response = await getMyTalk();
+    setMyTalkList(response);
+  };
+
   return (
     <>
       <Banner className={styles.banner} />
       <div className={styles.chatroom}>
-        {/* <MyChatRoom /> */}
+        <MyChatRoom chatList={myTalkList} />
         {CHAT_CONTENTS.map((item, key) => {
           return (
             <HomeChatListFrame
