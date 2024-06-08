@@ -11,6 +11,7 @@ export interface RecommendToonConfig {
 }
 
 export interface Config {
+  parentFeedId: undefined | number;
   title: string;
   context: string;
   recommendToons: RecommendToonConfig[];
@@ -18,6 +19,7 @@ export interface Config {
 
 interface RecommendationStoreConfig {
   recommendationData: Config;
+  setPostId: (parentFeedId: number) => void;
   setPostTitle: (title: string) => void;
   setPostcotexts: (context: string) => void;
   addRecommendation: (recommendation: RecommendToonConfig) => void;
@@ -27,6 +29,7 @@ interface RecommendationStoreConfig {
 }
 
 const initialState: Config = {
+  parentFeedId: undefined,
   title: "",
   context: "",
   recommendToons: [],
@@ -34,6 +37,10 @@ const initialState: Config = {
 
 export const useRecommendationStore = create<RecommendationStoreConfig>((set) => ({
   recommendationData: initialState,
+  setPostId: (parentFeedId: number) =>
+    set((state) => ({
+      recommendationData: { ...state.recommendationData, parentFeedId },
+    })),
   setPostTitle: (title: string) =>
     set((state) => ({
       recommendationData: { ...state.recommendationData, title },

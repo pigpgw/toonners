@@ -20,17 +20,26 @@ const Mypage = () => {
   };
 
   const withDraw = async () => {
-    await postWithDraw();
-    localStorage.removeItem("accessToken");
-    alert("회원 탈퇴되었습니다.!");
-    navigate("/");
+    try {
+      await postWithDraw();
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
+      alert("회원 탈퇴되었습니다.!");
+      navigate("/");
+    } catch (e) {
+      throw new Error("회원탈퇴 실패");
+    }
   };
 
   const logOut = async () => {
-    await postLogOut();
-    localStorage.removeItem("accessToken");
-    alert("로그아웃 되었습니다.!");
-    navigate("/");
+    try {
+      await postLogOut();
+      localStorage.removeItem("accessToken");
+      alert("로그아웃 되었습니다.!");
+      navigate("/");
+    } catch (e) {
+      throw new Error("로그아웃 실패");
+    }
   };
 
   const offEditMode = async () => {
@@ -51,7 +60,6 @@ const Mypage = () => {
     setUserNickname(res.nickname);
     setDescription(res.description);
     if (res) {
-      console.log("res", res);
       setUser(res as UserConfig);
     }
   };

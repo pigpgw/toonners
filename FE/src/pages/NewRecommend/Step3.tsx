@@ -4,7 +4,6 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../../components/common/Text/index";
 import Tag from "@/components/common/Tag";
 import { useNavigate } from "react-router-dom";
-import Button from "@/components/common/Button";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import { useEffect, useState } from "react";
 import Rating from "@/components/common/Rating";
@@ -77,18 +76,7 @@ const Step3 = () => {
 
   return (
     <>
-      <Header
-        title="웹툰 추천하기"
-        before
-        beforeClick={clickOutBtn}
-        button={
-          <Button types="primary" sizes="small">
-            <Text types="button" bold="medium">
-              공유
-            </Text>
-          </Button>
-        }
-      />
+      <Header title="웹툰 추천하기" before beforeClick={clickOutBtn} />
       <div className={styles.container}>
         <div style={{ marginLeft: "85px" }}>
           <SearchedWebtoonCard title={recommendConfig.title} imgUrl={recommendConfig.imageUrl || ""} />

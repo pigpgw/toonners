@@ -29,4 +29,9 @@ const getUserFeed = async (keyword: string) => {
   return res.data.data;
 };
 
-export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const putUserFeed = async (feedId: number, feed: any) => {
+  await Axios.put(HOST + `/feed/update/${feedId}`, feed);
+};
+
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed };

@@ -1,14 +1,16 @@
 export interface FeedListConfig {
   parentFeedId: number;
-  bookmarked: boolean;
-
-  childFeedList: ChildFeedListConfig[];
-  feedContexts: string;
-  feedTitle: string;
-  hashtags: string[];
   writerMemberId: number;
   writerMemberImage: string;
   writerMemberNickname: string;
+  feedTitle: string;
+  feedContexts: string;
+  hashtagsVibe: string[];
+  hashtagsGenre: string[];
+  childFeedList: ChildFeedListConfig[];
+  bookmarked: boolean;
+  liked: boolean;
+  likeCount: number | null;
 }
 
 export interface ChildFeedListConfig {
@@ -20,23 +22,26 @@ export interface ChildFeedListConfig {
   toonSiteUrl: string;
 }
 
-export const initialFeedList = {
+export const initialFeedList: FeedListConfig = {
   parentFeedId: 0,
-  bookmarked: false,
+  writerMemberId: 0,
+  writerMemberNickname: "",
+  writerMemberImage: "",
+  feedTitle: "",
+  feedContexts: "",
+  hashtagsVibe: [],
+  hashtagsGenre: [],
   childFeedList: [
     {
+      starring: 0,
       hashtagGenre: [],
       hashtagVibe: [],
-      starring: 0,
-      toonImage: "",
       toonName: "",
+      toonImage: "",
       toonSiteUrl: "",
     },
   ],
-  feedContexts: "",
-  feedTitle: "",
-  hashtags: [],
-  writerMemberId: 0,
-  writerMemberImage: "",
-  writerMemberNickname: "",
+  bookmarked: false,
+  liked: false,
+  likeCount: null,
 };

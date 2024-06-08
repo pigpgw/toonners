@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "@styles/home/Home.module.scss";
 import chatStyles from "@styles/home/ChatRoom.module.scss";
@@ -31,10 +31,6 @@ const FeedDetailCard = ({ item }: Props) => {
 
   const moveToCreate = () => navigate("/chatroom/create");
   const moveToChatRoom = () => navigate(`/chatroom/${isExist}`);
-
-  useEffect(() => {
-    console.log(item.toonName, item.starring);
-  }, []);
 
   return (
     <>
@@ -72,7 +68,7 @@ const FeedDetailCard = ({ item }: Props) => {
               <Text types="caption">분위기</Text>
               <div>
                 {item.hashtagVibe.length > 0 &&
-                  item.hashtagGenre.map((tag, i) => {
+                  item.hashtagVibe.map((tag, i) => {
                     return <Tag key={i} label={`# ${tag}`} sizes="small" />;
                   })}
               </div>

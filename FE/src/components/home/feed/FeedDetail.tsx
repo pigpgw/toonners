@@ -21,7 +21,7 @@ const FeedDetail = () => {
   const [mine, setMine] = useState(false);
   const userId = getUserId();
 
-  const { recommendationData, setPostTitle, setPostcotexts, addRecommendation } = useRecommendationStore();
+  const { setPostId, setPostTitle, setPostcotexts, addRecommendation } = useRecommendationStore();
 
   const setBookMark = async () => {
     try {
@@ -35,7 +35,6 @@ const FeedDetail = () => {
   useEffect(() => {
     const getFeedDetail = async () => {
       const res = await getFeedItem(id!);
-      console.log("피드 데이터", res);
 
       if (res.writerMemberId === Number(userId)) setMine(true);
       else setMine(false);
@@ -60,7 +59,7 @@ const FeedDetail = () => {
         hashtagVibe: feed.hashtagVibe,
       });
     });
-    console.log("recommendationData", recommendationData);
+    setPostId(detail.parentFeedId);
     navigate("/recommend/new");
   };
 
@@ -89,11 +88,24 @@ const FeedDetail = () => {
           />
         </div>
         <div>
-          {detail.hashtags.length > 0 &&
-            detail.hashtags.map((tag, i) => {
+          <div className={styles.tagTitle}>
+            <Text types="caption">장르</Text>
+          </div>
+          {detail.hashtagsGenre.length > 0 &&
+            detail.hashtagsGenre.map((tag, i) => {
               return <Tag key={i} label={`# ${tag}`} sizes="small" />;
             })}
         </div>
+        <div>
+          <div className={styles.tagTitle}>
+            <Text types="caption">분위기</Text>{" "}
+          </div>
+          {detail.hashtagsVibe.length > 0 &&
+            detail.hashtagsVibe.map((tag, i) => {
+              return <Tag key={i} label={`# ${tag}`} sizes="small" />;
+            })}
+        </div>
+
         <div>
           <Text>{detail.feedContexts}</Text>
         </div>

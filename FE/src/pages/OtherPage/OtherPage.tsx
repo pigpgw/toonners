@@ -8,6 +8,7 @@ import { getUserFeed } from "@/api/feed";
 import FeedItem from "@/components/other/feedItem";
 import styles from "@/styles/other/Other.module.scss";
 import { getUserData } from "@/api/myPage";
+import { getOtherTalk } from "@/api/chat";
 
 type User = {
   id: number;
@@ -39,11 +40,15 @@ export const OtherPage = () => {
 
   const getUserFeedList = async (userId: string) => {
     const response = await getUserFeed(userId);
+    console.log("상대방 피드 리스트", response);
     setFeedList(response);
   };
 
   const getUserChatList = async (userId: string) => {
     console.log("해당 유저 채팅방 조회");
+    const res = await getOtherTalk(userId);
+    console.log("상배아 채팅 참여 리스트", res);
+    setChatList(res);
   };
 
   const getOtherUserData = async (userId: string) => {
@@ -73,9 +78,13 @@ export const OtherPage = () => {
         <Text types="body-1" bold="bold">
           작성자가 작성한 Feed글
         </Text>
-        {feedList.map((feed, i) => {
-          return <FeedItem key={i} feed={feed} />;
-        })}
+        {feedList.length > 0 ? (
+          feedList.map((feed, i) => {
+            return <FeedItem key={i} feed={feed} />;
+          })
+        ) : (
+          <div style={{ textAlign: "center" }}>작성한 피드가 없습니다!</div>
+        )}
       </div>
     </>
   );

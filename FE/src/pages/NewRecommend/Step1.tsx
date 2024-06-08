@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "../../components/common/Input/index";
 import Header from "@/components/common/Header";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
@@ -9,11 +9,13 @@ import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 import { postNewRecommend } from "@/api/recommend";
 import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
+import { putUserFeed } from "@/api/feed";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
+  const [modify, setModify] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const clickShareBtn = async () => {
@@ -26,7 +28,18 @@ const Step1 = () => {
       return;
     }
     try {
-      await postNewRecommend(recommendationData);
+      console.log("보낸 데이터 ", {
+        title: recommendationData.title,
+        context: recommendationData.context,
+        recommendToons: recommendationData.recommendToons,
+      });
+      if (modify)
+        await putUserFeed(recommendationData.parentFeedId!, {
+          title: recommendationData.title,
+          context: recommendationData.context,
+          recommendToons: recommendationData.recommendToons,
+        });
+      else await postNewRecommend(recommendationData);
       resetRecommendationData();
       resetRecommendConfig();
       alert("등록이 완료되었습니다.!");
@@ -61,7 +74,11 @@ const Step1 = () => {
   }, [recommendationData?.recommendToons?.length]);
 
   useEffect(() => {
-    resetRecommendConfig();
+    console.log("recommendationData", recommendationData);
+    if (recommendationData.parentFeedId) {
+      setModify(true);
+    }
+    // resetRecommendConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -108,9 +125,13 @@ const Step1 = () => {
                 moodList={item.hashtagVibe}
                 genreList={item.hashtagGenre}
               />
-              <button onClick={() => {
-                deleteWebtoon(item.title)
-              }}>삭제하기</button>
+              <button
+                onClick={() => {
+                  deleteWebtoon(item.title);
+                }}
+              >
+                삭제하기
+              </button>
             </>
           );
         })}
