@@ -66,4 +66,13 @@ public class ChatService {
                 .stream().map(Chat::getChatRoom).collect(Collectors.toSet());
         return chatRoomSet.stream().map(ChatRoomInfoResponse::fromEntity).toList();
     }
+
+    public List<ChatRoomInfoResponse> searchChatRoomParticipatingByMemberId(String token, Long memberId) {
+        // 맴버 정보 조회
+        Member member = memberRepository.findById(memberId).orElseThrow(UserDoesNotExistException::new);
+        // 해당 맴버가 쓴 채팅 조회 후 채팅방 객체 가져오고 중복 제거 위해 set 으로
+        Set<ChatRoom> chatRoomSet = chatRepository.findByChatMember(member)
+                .stream().map(Chat::getChatRoom).collect(Collectors.toSet());
+        return chatRoomSet.stream().map(ChatRoomInfoResponse::fromEntity).toList();
+    }
 }

@@ -21,7 +21,8 @@ public class FeedInfoResponse {
     private String writerMemberImage;
     private String feedTitle;
     private String feedContexts;
-    private Set<String> hashtags;
+    private Set<String> hashtagsVibe;
+    private Set<String> hashtagsGenre;
     private Set<ChildFeedResponse> childFeedList;
 
     private boolean bookmarked;
@@ -29,10 +30,12 @@ public class FeedInfoResponse {
     private Long likeCount;
 
     public static FeedInfoResponse fromEntity(Feed feed) {
-
-        String hasgtagsString = feed.getHashtagVibe() + feed.getHashtagGenre();
-        hasgtagsString = hasgtagsString.replaceAll("#", " ").trim();
-        Set<String> hashtagSet = new HashSet<>(Arrays.asList(hasgtagsString.split(" ")));
+        String hasgtagsVibeString = feed.getHashtagVibe();
+        hasgtagsVibeString = hasgtagsVibeString.replaceAll("#", " ").trim();
+        Set<String> hashtagVibeSet = new HashSet<>(Arrays.asList(hasgtagsVibeString.split(" ")));
+        String hasgtagsGenreString = feed.getHashtagGenre();
+        hasgtagsGenreString = hasgtagsGenreString.replaceAll("#", " ").trim();
+        Set<String> hashtagGenreSet = new HashSet<>(Arrays.asList(hasgtagsGenreString.split(" ")));
         return FeedInfoResponse.builder()
                 .parentFeedId(feed.getId())
                 .writerMemberId(feed.getWriter().getId())
@@ -40,7 +43,8 @@ public class FeedInfoResponse {
                 .writerMemberImage(feed.getWriter().getImage())
                 .feedTitle(feed.getTitle())
                 .feedContexts(feed.getContexts())
-                .hashtags(hashtagSet)
+                .hashtagsVibe(hashtagVibeSet)
+                .hashtagsGenre(hashtagGenreSet)
                 .childFeedList(feed.getChildFeedRequests().stream()
                         .map(ChildFeedResponse::fromRequest).collect(Collectors.toSet()))
                 .likeCount(feed.getLikeCounts())
