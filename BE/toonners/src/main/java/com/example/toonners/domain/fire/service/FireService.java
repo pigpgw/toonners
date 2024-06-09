@@ -7,7 +7,7 @@ import com.example.toonners.domain.fire.dto.request.CreateFireRequest;
 import com.example.toonners.domain.fire.entity.Fire;
 import com.example.toonners.domain.fire.repository.FireRepository;
 import com.example.toonners.domain.member.entity.Member;
-import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExist;
+import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +28,8 @@ public class FireService {
         //
         fireRepository.save(Fire.builder().member(member).chatRoomId(request.getChatRoomId()).build());
 
-        ChatRoom chatRoom = chatRoomRepository.findById(request.getChatRoomId()).orElseThrow(ChatRoomDoseNotExist::new);
+        ChatRoom chatRoom = chatRoomRepository.findById(request.getChatRoomId()).orElseThrow(ChatRoomDoseNotExistException::new);
         chatRoom.setFireTotalCount(chatRoom.getFireTotalCount() != null ? chatRoom.getFireTotalCount() + 1 : 1);
-        chatRoom.setFireTodayCount(chatRoom.getFireTodayCount() != null ? chatRoom.getFireTodayCount() + 1 : 1);
         chatRoomRepository.save(chatRoom);
 
         return "불 이모지 눌렀습니다.";
