@@ -21,6 +21,7 @@ public class ChatRoomInfoResponse {
     private String contexts;
     private Long fireTotalCount;
     private List<ChatInfoResponse> chatList;
+    private Long todayChatCount;
 
     public static ChatRoomInfoResponse fromEntity(ChatRoom chatRoom) {
         float rating = 0f;
@@ -35,6 +36,7 @@ public class ChatRoomInfoResponse {
                 .rating(rating)
                 .contexts(chatRoom.getContexts())
                 .fireTotalCount(chatRoom.getFireTotalCount())
+                .todayChatCount(chatRoom.getTodayChatCount())
                 .build();
     }
 }
