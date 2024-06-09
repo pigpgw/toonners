@@ -71,7 +71,7 @@ public class FeedService {
         // 보여줄 피드 리스트
         List<Feed> feedList = feedRepository.findAll();
         // response 로 변환
-        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponsesWithLiked(member, feedList);
         return feedInfoResponses;
     }
 
@@ -79,7 +79,7 @@ public class FeedService {
     public List<FeedInfoResponse> searchAllMyParentFeed(String token) {
         Member member = tokenProvider.getMemberFromToken(token);
         List<Feed> feedList = feedRepository.findAllByWriterId(member.getId());
-        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponsesWithLiked(member, feedList);
         return feedInfoResponses;
     }
 
@@ -87,7 +87,7 @@ public class FeedService {
     public List<FeedInfoResponse> searchAllParentFeedByMember(String token, Long memberId) {
         Member member = tokenProvider.getMemberFromToken(token);
         List<Feed> feedList = feedRepository.findAllByWriterId(memberId);
-        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponsesWithLiked(member, feedList);
         return feedInfoResponses;
     }
 
@@ -115,7 +115,7 @@ public class FeedService {
     public List<FeedInfoResponse> searchAllParentFeedByPartOfTitle(String token, String partOfTitle) {
         Member member = tokenProvider.getMemberFromToken(token);
         List<Feed> feedList = feedRepository.findAllByTitleContains(partOfTitle);
-        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponses(member, feedList);
+        List<FeedInfoResponse> feedInfoResponses = getFeedInfoResponsesWithLiked(member, feedList);
         return feedInfoResponses;
     }
 
@@ -210,16 +210,15 @@ public class FeedService {
         return getFeedInfoResponseWithBookmarkAndLike(member, updateFeed);
     }
 
-    private List<FeedInfoResponse> getFeedInfoResponses(Member member, List<Feed> feedList) {
+    private List<FeedInfoResponse> getFeedInfoResponsesWithLiked(Member member, List<Feed> feedList) {
         List<FeedInfoResponse> feedInfoResponses = feedList.stream()
                 .map(FeedInfoResponse::fromEntity).toList();
         // 피드 id와 맴버 id 로 북마크 객체 조회 및 response에 내 북마크 정보 삽입.
         for (int i = 0; i < feedInfoResponses.size(); i++) {
             Feed feed = feedList.get(i);
             FeedInfoResponse feedInfoResponse = feedInfoResponses.get(i);
-            if (bookmarkRepository.findByMemberIdAndFeedIdAndBookmarkType(
-                    member.getId(), feed.getId(), "feed").isPresent()) {
-                feedInfoResponse.setBookmarked(true);
+            if (likeRepository.findByMemberAndFeed(member, feed).isPresent()) {
+                feedInfoResponse.setLiked(true);
             }
         }
         return feedInfoResponses;
