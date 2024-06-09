@@ -73,7 +73,7 @@ export const OtherPage = () => {
         {chatList.length > 0 ? (
           <HomeChatListFrame keyword="rest" list={chatList} />
         ) : (
-          <div style={{ textAlign: "center" }}>참여중인 단톡방이 없습니다!</div>
+          <div style={{ textAlign: "center", margin: "40px",color:'var(--color-gray-2)' }}>참여중인 단톡방이 없습니다!</div>
         )}
         <Text types="body-1" bold="bold">
           작성자가 작성한 Feed글
