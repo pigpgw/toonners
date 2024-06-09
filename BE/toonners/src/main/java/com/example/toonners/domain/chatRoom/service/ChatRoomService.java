@@ -12,7 +12,7 @@ import com.example.toonners.domain.member.repository.MemberRepository;
 import com.example.toonners.domain.toondata.entity.ToonData;
 import com.example.toonners.domain.toondata.repository.ToonDataRepository;
 import com.example.toonners.exception.chatRoom.ChatRoomAlreadyExistException;
-import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExist;
+import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExistException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -106,6 +106,18 @@ public class ChatRoomService {
     }
 
     @Transactional
+    public List<ChatRoomInfoResponse> searchChatRoomTop5(String token) {
+        List<ChatRoom> chatRoomList = chatRoomRepository.findTop5ByOrderByTodayChatCountDescFireTotalCountDesc();
+        List<ChatRoomInfoResponse> responseList = chatRoomList.stream()
+                .map(ChatRoomInfoResponse::fromEntity).toList();
+        for (int i = 0; i < responseList.size(); i++) {
+            List<Chat> chatList = chatRepository.findTop3ByChatRoomOrderByCreatedAtDesc(chatRoomList.get(i));
+            responseList.get(i).setChatList(chatList.stream().map(ChatInfoResponse::fromEntity).toList());
+        }
+        return responseList;
+    }
+
+    @Transactional
     public List<ChatRoomInfoResponse> searchUpdatedChatRoom(String token) {
 
         // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
@@ -121,7 +133,7 @@ public class ChatRoomService {
     @Transactional
     public ChatRoomInfoResponse searchChatRoomDetail(Long chatroomId) {
         return ChatRoomInfoResponse.fromEntity(chatRoomRepository
-                .findById(chatroomId).orElseThrow(ChatRoomDoseNotExist::new));
+                .findById(chatroomId).orElseThrow(ChatRoomDoseNotExistException::new));
     }
 
     @Transactional
