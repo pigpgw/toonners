@@ -31,8 +31,12 @@ const FeedItem = ({ feed }: Props) => {
           </Text>
           <Text>{feed.feedContexts}</Text>
           <div className={styles.rest__tags}>
-            {feed.hashtags.length > 0 &&
-              feed.hashtags.map((tag, i) => {
+            {feed.hashtagsGenre.length > 0 &&
+              feed.hashtagsGenre.map((tag, i) => {
+                return <Tag key={i} label={`# ${tag}`} sizes="small" />;
+              })}
+            {feed.hashtagsVibe.length > 0 &&
+              feed.hashtagsVibe.map((tag, i) => {
                 return <Tag key={i} label={`# ${tag}`} sizes="small" />;
               })}
           </div>

@@ -47,24 +47,20 @@ export const getOnMyData = async (): Promise<User> => {
   }
 };
 
-export const postLogOut = async (): Promise<unknown> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const postLogOut = async (): Promise<any> => {
   try {
-    const response = await Axios.get(`${BASE_URL}/signout
-    `);
+    const response = await Axios.post(`${BASE_URL}/logout`);
     return response;
   } catch (e) {
     throw new Error("로그아웃 실패");
   }
 };
 
-export const postWithDraw = async (): Promise<unknown> => {
-  try {
-    const response = await Axios.get(`${BASE_URL}/member/delete
-    `);
-    return response;
-  } catch (e) {
-    throw new Error("회원 탈퇴 실패");
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const postWithDraw = async (): Promise<any> => {
+  await Axios.post(`${BASE_URL}/member/delete
+  `);
 };
 
 export const getUserData = async (userId: string): Promise<User> => {

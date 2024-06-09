@@ -34,46 +34,48 @@ const FeedDetailCard = ({ item }: Props) => {
 
   return (
     <>
-      <div className={styles.card}>
-        <div className={styles.card__info}>
-          <div>
-            <img src={item.toonImage} alt="웹툰 이미지" />
-          </div>
-          <div>
+      {item.toonName.length > 0 && (
+        <div className={styles.card}>
+          <div className={styles.card__info}>
             <div>
-              <Badge types="primary" label="Talk방 가기" sizes="small" clickable onClick={checkIsExist} />
-              {/* <Badge types="tertiary" label="웹툰 보러가기" sizes="small" /> */}
+              <img src={item.toonImage} alt="웹툰 이미지" />
             </div>
-            <Text types="sub-header" bold="semi-bold">
-              {item.toonName}
-            </Text>
+            <div>
+              <div>
+                <Badge types="primary" label="Talk방 가기" sizes="small" clickable onClick={checkIsExist} />
+                {/* <Badge types="tertiary" label="웹툰 보러가기" sizes="small" /> */}
+              </div>
+              <Text types="sub-header" bold="semi-bold">
+                {item.toonName}
+              </Text>
+            </div>
+          </div>
+          <div className={styles.card__rank}>
+            <div>
+              <Text types="caption">평점</Text>
+              <Rating sizes="medium" defaultValue={item.starring} readOnly />
+            </div>
+            <div>
+              <Text types="caption">장르</Text>
+              <div>
+                {item.hashtagGenre.length > 0 &&
+                  item.hashtagGenre.map((tag, i) => {
+                    return <Tag key={i} label={`# ${tag}`} sizes="small" />;
+                  })}
+              </div>
+            </div>
+            <div>
+              <Text types="caption">분위기</Text>
+              <div>
+                {item.hashtagVibe.length > 0 &&
+                  item.hashtagVibe.map((tag, i) => {
+                    return <Tag key={i} label={`# ${tag}`} sizes="small" />;
+                  })}
+              </div>
+            </div>
           </div>
         </div>
-        <div className={styles.card__rank}>
-          <div>
-            <Text types="caption">평점</Text>
-            <Rating sizes="medium" defaultValue={item.starring} readOnly />
-          </div>
-          <div>
-            <Text types="caption">장르</Text>
-            <div>
-              {item.hashtagGenre.length > 0 &&
-                item.hashtagGenre.map((tag, i) => {
-                  return <Tag key={i} label={`# ${tag}`} sizes="small" />;
-                })}
-            </div>
-          </div>
-          <div>
-            <Text types="caption">분위기</Text>
-            <div>
-              {item.hashtagVibe.length > 0 &&
-                item.hashtagGenre.map((tag, i) => {
-                  return <Tag key={i} label={`# ${tag}`} sizes="small" />;
-                })}
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
       {modalOpen && (
         <Modal
           open={modalOpen}

@@ -22,7 +22,6 @@ const MyFeedPage = () => {
   useEffect(() => {
     const fe = async () => {
       const res = await getonMyFeed();
-      console.log(res);
       if (res) {
         setFeedList(res as FeedListConfig[]);
       } else {
@@ -43,7 +42,7 @@ const MyFeedPage = () => {
       }}
     >
       <Header title="내가 작성한 피드" before beforeClick={goMypage} />
-      <div style={{ width: "340px", margin: "30px 0" }}>
+      <div style={{ width: "350px", margin: "30px 0" }}>
         <Input
           value={searchQuery}
           types="search"
@@ -51,9 +50,15 @@ const MyFeedPage = () => {
           onChange={onSearchQueryChange}
         />
         {feedList.length !== 0 ? (
-          feedList.filter((feed) => feed.feedTitle.includes(searchQuery)).map((feed) => <FeedItem feed={feed} />)
+          feedList
+            .filter((feed) => feed.feedTitle.includes(searchQuery))
+            .map((feed) => (
+              <div style={{ margin: "10px 0" }} key={feed.parentFeedId}>
+                <FeedItem feed={feed} />
+              </div>
+            ))
         ) : (
-          <div>피드가 없습니다.</div>
+          <div key="no-feed">피드가 없습니다.</div>
         )}
       </div>
     </div>

@@ -20,7 +20,6 @@ const CreateChatRoom1 = () => {
   const { setSelected } = useChatActions();
 
   const checkIsExist = async (webtoon: UserWebtoonListConfig) => {
-    console.log("웹툰 데이터", webtoon);
     const res = await getIsExist(webtoon.title);
     if (res !== -1) {
       setIsExist(res);

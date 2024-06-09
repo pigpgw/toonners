@@ -46,7 +46,7 @@ const MyScrapPage = () => {
       }}
     >
       <Header title="내 스크랩" before beforeClick={goMypage} />
-      <div style={{ width: "340px", margin: "30px 0" }}>
+      <div style={{ width: "350px", margin: "30px 0" }}>
         <Input
           value={searchQuery}
           types="search"
@@ -54,9 +54,15 @@ const MyScrapPage = () => {
           onChange={onSearchQueryChange}
         />
         {scrapList.length !== 0 ? (
-          scrapList.filter((scrap) => scrap.feedTitle.includes(searchQuery)).map((scrap) => <FeedItem feed={scrap} />)
+          scrapList
+            .filter((scrap) => scrap.feedTitle.includes(searchQuery))
+            .map((scrap) => (
+              <div style={{ margin: "10px 0" }} key={scrap.parentFeedId}>
+                <FeedItem feed={scrap} />
+              </div>
+            ))
         ) : (
-          <div>스크랩이 없어요</div>
+          <div key="no-scrap">스크랩이 없어요</div>
         )}
       </div>
     </div>

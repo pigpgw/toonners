@@ -63,6 +63,11 @@ const getMyTalk = async () => {
   return res.data.data;
 };
 
+const getOtherTalk = async (userId: string) => {
+  const res = await Axios.get(`${HOST}/chatroom/search/participating-in/member?member-id=${userId}`);
+  return res.data.data;
+};
+
 export {
   getAllChatRoomList,
   getTodayChatRoomList,
@@ -75,4 +80,5 @@ export {
   getIsExist,
   postFireComment,
   getMyTalk,
+  getOtherTalk,
 };
