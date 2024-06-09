@@ -25,8 +25,8 @@ public class ChatRoom {
     private Long ratingCount;
     private String contexts;
     private Long fireTotalCount;
-    private Long fireTodayCount;
     private String updatedDays;
+    private Long todayChatCount;
 
     @OneToOne
     private ToonData toonData;
@@ -44,7 +44,7 @@ public class ChatRoom {
         this.fireTotalCount = count;
     }
 
-    public void setFireTodayCount(Long count) {
-        this.fireTodayCount = count;
+    public void setTodayChatCount(Long count) {
+        this.todayChatCount = count;
     }
 }
