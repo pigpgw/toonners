@@ -4,7 +4,7 @@ import Header from "@/components/common/Header";
 import Input from "@components/common/Input";
 import TodayChatItem from "@components/home/chatroom/TodayChatItem";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
-import { getAllChatRoomList } from "@/api/chat";
+import { getAllChatRoomList, getTodayChatRoomList } from "@/api/chat";
 
 interface Props {
   types: "today" | "rest";
@@ -15,10 +15,8 @@ const ChatRoomListFrame = ({ types }: Props) => {
 
   useEffect(() => {
     const getChatroomList = async () => {
-      if (types === "rest") {
-        const res = await getAllChatRoomList();
-        setList(res);
-      }
+      const res = await (types === "rest" ? getAllChatRoomList() : getTodayChatRoomList());
+      setList(res);
     };
 
     getChatroomList();

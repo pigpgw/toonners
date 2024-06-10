@@ -10,6 +10,7 @@ import com.example.toonners.domain.chatRoom.entity.ChatRoom;
 import com.example.toonners.domain.chatRoom.repository.ChatRoomRepository;
 import com.example.toonners.domain.member.entity.Member;
 import com.example.toonners.domain.member.repository.MemberRepository;
+import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExistException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,13 +37,19 @@ public class ChatService {
             throw new UserDoesNotExistException();
         }
 
+        ChatRoom chatRoom = chatRoomRepository.findById(request.getChatRoomId())
+                .orElseThrow(ChatRoomDoseNotExistException::new);
+
         Chat chatMessage = Chat.builder()
                 .chatMember(tokenProvider.getMemberFromToken(token))
-                .chatRoom(chatRoomRepository.findById(request.getChatRoomId())
-                        .orElseThrow(UserDoesNotExistException::new))
+                .chatRoom(chatRoom)
                 .contexts(request.getContexts())
                 .build();
         chatRepository.save(chatMessage);
+
+        chatRoom.setTodayChatCount(
+                (chatRoom.getTodayChatCount() != null) ? chatRoom.getFireTotalCount() + 1 : 1);
+        chatRoomRepository.save(chatRoom);
 
         return ChatInfoResponse.fromEntity(chatMessage);
     }

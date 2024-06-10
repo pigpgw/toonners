@@ -66,4 +66,11 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService.searchChatRoomTop3(token));
     }
 
+    @GetMapping("/chatroom/search/realtime-top5")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomRealTimeTop5(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchChatRoomTop5(token));
+    }
+
 }

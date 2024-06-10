@@ -7,26 +7,29 @@ import Tag from "@/components/common/Tag";
 import Text from "@/components/common/Text";
 import FeedDetailCard from "./FeedDetailCard";
 import Bookmark from "@/components/common/Tag/Bookmark";
-import { getFeedItem, postBookMark } from "@/api/feed";
+import { getFeedItem, postBookMark, postFeedLike } from "@/api/feed";
 import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
 import { getUserId } from "@/utils/authUtils";
 import { useRecommendationStore } from "@/slices/useRecommendationStore";
+import Heart from "@/components/common/Like";
+import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
 
 const FeedDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
-  const [checked, setChecked] = useState(false);
+  const [bookmarkClicked, setBookmarkClicked] = useState(false);
+  const [likeClicked, setLikeClicked] = useState(false);
   const [detail, setDetail] = useState<FeedListConfig>(initialFeedList);
   const [mine, setMine] = useState(false);
   const userId = getUserId();
 
   const { setPostId, setPostTitle, setPostcotexts, addRecommendation } = useRecommendationStore();
-
+  const { feedLikesRefetch } = useFetchFeedLikes(String(detail.parentFeedId));
   const setBookMark = async () => {
     try {
       await postBookMark(id!);
-      setChecked(!checked);
+      setBookmarkClicked(!bookmarkClicked);
     } catch (e) {
       console.log("북마크 실패 로그", e);
     }
@@ -39,12 +42,14 @@ const FeedDetail = () => {
       if (res.writerMemberId === Number(userId)) setMine(true);
       else setMine(false);
       setDetail(res);
-      setChecked(res.bookmarked);
+      setBookmarkClicked(res.bookmarked);
+      setLikeClicked(res.liked);
+      console.log("피드 데이터 체크", res);
     };
 
     getFeedDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [likeClicked]);
 
   const clickModift = () => {
     setPostTitle(detail.feedTitle);
@@ -63,6 +68,16 @@ const FeedDetail = () => {
     navigate("/recommend/new");
   };
 
+  const clickLiked = async () => {
+    try {
+      await postFeedLike(detail.parentFeedId);
+      setLikeClicked(!likeClicked);
+      feedLikesRefetch();
+    } catch (e) {
+      console.log("좋아요 누르기 실패");
+    }
+  };
+
   return (
     <>
       <Header
@@ -74,18 +89,19 @@ const FeedDetail = () => {
               수정
             </button>
           ) : (
-            <Bookmark label="스크랩" checked={checked} onChange={setChecked} onClick={setBookMark} />
+            <Bookmark label="스크랩" checked={bookmarkClicked} onChange={setBookmarkClicked} onClick={setBookMark} />
           )
         }
       />
       <div className={styles.feed__detail}>
-        <div>
+        <div style={{ height: "60px", display: "flex", justifyContent: "space-between" }}>
           <Profile
             name={detail.writerMemberNickname}
             size="medium"
             number={detail.writerMemberImage}
             onClick={() => navigate(`/profile/${detail.writerMemberId}`)}
           />
+          <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={detail.parentFeedId} />
         </div>
         <div>
           <div className={styles.tagTitle}>

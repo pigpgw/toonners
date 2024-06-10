@@ -5,7 +5,6 @@ interface Props {
   chat: ChatRoomInfoConfig;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MyChatRoomItem = ({ chat }: Props) => {
   return (
     <div className={styles.webtoon__item}>

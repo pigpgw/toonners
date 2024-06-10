@@ -4,6 +4,7 @@ import Badge from "@components/common/Badge";
 import { RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import Button from "@/components/common/Button";
 import { useNavigate } from "react-router-dom";
+import useFetchTopChatList from "@/api/reactQuery/useFetchTopChatList";
 
 interface Props {
   item: RankChatRoomInfoConfig;
@@ -11,6 +12,9 @@ interface Props {
 
 const RankingChatItem = ({ item }: Props) => {
   const navigate = useNavigate();
+  const { topChatListLoading, topChatListError } = useFetchTopChatList();
+  if (topChatListLoading) return <div>인기 채팅방 리스트를 불러오는 중입니다.</div>;
+  if (topChatListError) return <div>인기 채팅방 리스트 불러오기 실패</div>;
   return (
     <div className={styles.rank__item}>
       <div>
@@ -26,7 +30,11 @@ const RankingChatItem = ({ item }: Props) => {
             {item.chatList &&
               item.chatList.length > 0 &&
               item.chatList.slice(0, 2).map((chat, i) => {
-                return <Text key={i}>{chat.chatMessage}</Text>;
+                return (
+                  <div key={i} className={styles.chat}>
+                    <Text>{chat.chatMessage}</Text>
+                  </div>
+                );
               })}
           </div>
         </div>
