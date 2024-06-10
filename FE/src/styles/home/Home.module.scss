@@ -433,3 +433,13 @@
   border: 1.5px solid var(--color-accent-1);
   background-color: var(--color-white);
 }
+
+
+.chat {
+ animation: slidein 1s ease-out;
+}
+
+@keyframes slidein {
+  from {transform: translateY(100%);}
+  to {transform: translateY(0);}
+}
