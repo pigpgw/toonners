@@ -1,10 +1,13 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "@styles/home/Home.module.scss";
 import Text from "@components/common/Text";
 import Tag from "@components/common/Tag";
 import Profile from "@components/common/Profile";
 import { FeedListConfig } from "@/interface/Feed.interface";
+import Heart from "@/components/common/Like";
+import { postFeedLike } from "@/api/feed";
+import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
 
 interface Props {
   feed: FeedListConfig;
@@ -12,7 +15,8 @@ interface Props {
 
 const FeedItem = ({ feed }: Props) => {
   const navigate = useNavigate();
-
+  const [likeClicked, setLikeClicked] = useState(feed.liked);
+  const { feedLikesRefetch } = useFetchFeedLikes(String(feed.parentFeedId));
   const handleFeedItem = () => {
     navigate(`/recommend/${feed.parentFeedId}`);
   };
@@ -21,6 +25,27 @@ const FeedItem = ({ feed }: Props) => {
     e.stopPropagation();
     navigate(`/profile/${feed.writerMemberId}`);
   };
+
+  const clickLiked = async (e?: MouseEvent<HTMLDivElement>) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    try {
+      await postFeedLike(feed.parentFeedId);
+      console.log("좋아요 누르기 성공");
+      feedLikesRefetch();
+      setLikeClicked(!likeClicked);
+      if (likeClicked === true) {
+        console.log("d");
+      }
+    } catch (e) {
+      console.log("좋아요 누르기 실패");
+    }
+  };
+
+  useEffect(() => {
+    setLikeClicked(feed.liked);
+  }, []);
 
   return (
     <div className={styles.feed__item} onClick={handleFeedItem}>
@@ -59,6 +84,7 @@ const FeedItem = ({ feed }: Props) => {
             number={feed.writerMemberImage}
             onClick={(e) => handleProfile(e)}
           />
+          <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={feed.parentFeedId} />
         </div>
       </div>
     </div>
@@ -66,9 +92,3 @@ const FeedItem = ({ feed }: Props) => {
 };
 
 export default FeedItem;
-
-{
-  /* <div onClick={(e) => e.stopPropagation()}>
-            <Bookmark label="스크랩" checked={check} onChange={setCheck} />
-          </div> */
-}

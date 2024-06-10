@@ -34,4 +34,12 @@ const putUserFeed = async (feedId: number, feed: any) => {
   await Axios.put(HOST + `/feed/update/${feedId}`, feed);
 };
 
-export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed };
+const postFeedLike = async (feedId: number) => {
+  try {
+    await Axios.post(HOST + `/like/feed?feed-id=${feedId}`);
+  } catch (e) {
+    console.log("좋아요 실패");
+  }
+};
+
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed, postFeedLike };

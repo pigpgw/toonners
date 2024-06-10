@@ -5,6 +5,7 @@ import Rating from "@components/common/Rating";
 import Badge from "@components/common/Badge";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface Props {
   item: ChatRoomInfoConfig;
@@ -12,6 +13,9 @@ interface Props {
 
 const TodayChatItem = ({ item }: Props) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("오늘뜬 웹툰 톡", item);
+  }, []);
   return (
     <div className={styles.today__item}>
       <div>

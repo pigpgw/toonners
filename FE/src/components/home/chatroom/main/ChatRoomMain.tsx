@@ -1,4 +1,5 @@
-import { KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "@styles/home/ChatRoom.module.scss";
 import Header from "@components/common/Header";
@@ -8,40 +9,35 @@ import Text from "@/components/common/Text";
 import Badge from "@/components/common/Badge";
 import ChatItem from "@components/home/chatroom/main/ChatItem";
 import CustomAccordion from "./Accordian";
-import { getChatCommentList, getChatRoom, postChatComment, postFireComment } from "@api/chat";
-import { ChatCommentConfig, ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
-import { initialState } from "@/slices/chatSlice";
+import { postChatComment, postFireComment } from "@api/chat";
+import useFetchChatMessages from "@/api/reactQuery/useFetchChatMessages";
+import useFetchChatRoomInfo from "@/api/reactQuery/useFetchChatRoomInfo";
 
 const ChatRoomMain = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
   const userId = Number(localStorage.getItem("userId"));
-
-  const [chatroomInfo, setChatroomInfo] = useState<ChatRoomInfoConfig>(initialState.chatroomInfo);
-  const [chatList, setChatList] = useState<ChatCommentConfig[]>([]);
   const [comment, setComment] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
+
+  const { chatMessagesState, chatMessagesRefetch } = useFetchChatMessages(id!);
+  const { chatRoomInfoState } = useFetchChatRoomInfo(id!);
 
   const handleBack = () => {
     navigate("/home");
   };
 
-  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter" || comment === "") return;
-    writeChatComment();
-  };
-
-  const getChatRoomInfo = useCallback(async () => {
-    try {
-      const res = await getChatRoom(id!);
-      setChatroomInfo(res);
-    } catch (error) {
-      console.error("Error fetching chat room info:", error);
+  const handleEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
+      writeChatComment();
     }
-  }, [id]);
+  };
 
   const sendFireComment = async () => {
     const res = await postFireComment(id!);
@@ -49,75 +45,78 @@ const ChatRoomMain = () => {
       setIsClicked(true);
     }
     setModalOpen(true);
-    getChatRoomInfo();
   };
 
   const writeChatComment = async () => {
-    const res: ChatCommentConfig = await postChatComment({
-      chatRoomId: id!,
-      contexts: comment,
-    });
-    setChatList([...chatList, res]);
-    setComment("");
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await postChatComment({
+        chatRoomId: id!,
+        contexts: comment,
+      });
+      setComment("");
+      chatMessagesRefetch();
+    } catch (error) {
+      console.error("채팅 메세지 제출 에러:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  useEffect(() => {
-    const getChatComments = async () => {
-      const res = await getChatCommentList(id!);
-      setChatList(res);
-    };
-    getChatRoomInfo();
-    getChatComments();
-  }, [id, getChatRoomInfo]);
 
   useEffect(() => {
     // 맨 처음 로딩 시 스크롤이 제일 하단에 위치.
     if (endRef.current) {
       endRef.current.scrollIntoView();
     }
-  }, [chatList]);
+  }, [chatMessagesState]);
 
   return (
     <>
-      <Header
-        title={chatroomInfo.toonName}
-        before
-        beforeClick={handleBack}
-        button={
-          <Badge
-            label={`🔥 ${chatroomInfo.fireTotalCount === null ? 0 : chatroomInfo.fireTotalCount}`}
-            sizes="small"
-            types="primary"
+      {chatRoomInfoState && (
+        <>
+          <Header
+            title={chatRoomInfoState.toonName}
+            before
+            beforeClick={handleBack}
+            button={
+              <Badge
+                label={`🔥 ${chatRoomInfoState.fireTotalCount === null ? 0 : chatRoomInfoState.fireTotalCount}`}
+                sizes="small"
+                types="primary"
+              />
+            }
           />
-        }
-      />
-      <CustomAccordion info={chatroomInfo} />
+          <CustomAccordion info={chatRoomInfoState} />
+        </>
+      )}
       <div className={styles.main}>
         <div className={styles.main__chat}>
           <div className={styles.chat__list}>
-            {chatList.map((chat, i) => {
-              return chat.memberId === userId ? (
-                <ChatItem
-                  key={i}
-                  mine={true}
-                  memberId={chat.memberId}
-                  nickname={chat.memberNickname}
-                  profileImg={chat.memberImage}
-                  time={chat.createdAt}
-                  contents={chat.chatMessage}
-                />
-              ) : (
-                <ChatItem
-                  key={i}
-                  mine={false}
-                  memberId={chat.memberId}
-                  nickname={chat.memberNickname}
-                  profileImg={chat.memberImage}
-                  time={chat.createdAt}
-                  contents={chat.chatMessage}
-                />
-              );
-            })}
+            {chatMessagesState &&
+              chatMessagesState.map((chat: any, i: number) => {
+                return chat.memberId === userId ? (
+                  <ChatItem
+                    key={i}
+                    mine={true}
+                    memberId={chat.memberId}
+                    nickname={chat.memberNickname}
+                    profileImg={chat.memberImage}
+                    time={chat.createdAt}
+                    contents={chat.chatMessage}
+                  />
+                ) : (
+                  <ChatItem
+                    key={i}
+                    mine={false}
+                    memberId={chat.memberId}
+                    nickname={chat.memberNickname}
+                    profileImg={chat.memberImage}
+                    time={chat.createdAt}
+                    contents={chat.chatMessage}
+                  />
+                );
+              })}
             <div ref={endRef} />
           </div>
           <div>

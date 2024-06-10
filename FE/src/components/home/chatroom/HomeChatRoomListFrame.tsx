@@ -17,8 +17,11 @@ interface Props {
   onClick?: () => void;
 }
 
-const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }: Props) => {
+const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Props) => {
   const navigate = useNavigate();
+  if (!Array.isArray(list)) {
+    return null;
+  }
 
   return (
     <div className={styles.frame}>
@@ -32,13 +35,14 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list = [] }
         <Text types="body-1">{subtitle}</Text>
       </div>
       <div className={styles[`${keyword}`]}>
-        {list.map((item, i) => {
-          return {
-            today: <TodayChatItem key={i} item={item} />,
-            rank: <RankingChatItem key={i} item={item} />,
-            rest: <RestChatItem key={i} item={item} />,
-          }[keyword];
-        })}
+        {list &&
+          list.map((item, i) => {
+            return {
+              today: <TodayChatItem key={i} item={item} />,
+              rank: <RankingChatItem key={i} item={item} />,
+              rest: <RestChatItem key={i} item={item} />,
+            }[keyword];
+          })}
       </div>
     </div>
   );
