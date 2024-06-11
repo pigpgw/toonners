@@ -57,15 +57,14 @@ const ChatroomPage = () => {
   const [restList, setRestList] = useState([]);
 
   const { topChatListState } = useFetchTopChatList();
-  useEffect(() => {
-    console.log("topChatListState", topChatListState);
-  }, [topChatListState]);
+
   useEffect(() => {
     const getTodayList = async () => {
       const res = await getTodayChatRoomList();
-      if (res.length <= 3) setTodayList(res);
+      if (res.length >= 3) setTodayList(res);
       else {
-        const result = getRandomItems(res);
+        const response = await getAllChatRoomList();
+        const result = getRandomItems(response);
         setTodayList(result);
       }
     };
