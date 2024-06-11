@@ -32,7 +32,6 @@ const FeedItem = ({ feed }: Props) => {
     }
     try {
       await postFeedLike(feed.parentFeedId);
-      console.log("좋아요 누르기 성공");
       feedLikesRefetch();
       setLikeClicked(!likeClicked);
       if (likeClicked === true) {
