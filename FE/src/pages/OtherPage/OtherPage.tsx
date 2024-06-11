@@ -32,7 +32,6 @@ export const OtherPage = () => {
 
   useEffect(() => {
     const otherId = location.href.split("/")[4];
-    console.log(otherId);
     getOtherUserData(otherId);
     getUserChatList(otherId);
     getUserFeedList(otherId);
@@ -40,20 +39,16 @@ export const OtherPage = () => {
 
   const getUserFeedList = async (userId: string) => {
     const response = await getUserFeed(userId);
-    console.log("상대방 피드 리스트", response);
     setFeedList(response);
   };
 
   const getUserChatList = async (userId: string) => {
-    console.log("해당 유저 채팅방 조회");
     const res = await getOtherTalk(userId);
-    console.log("상배아 채팅 참여 리스트", res);
     setChatList(res);
   };
 
   const getOtherUserData = async (userId: string) => {
     const response = await getUserData(userId);
-    console.log(response);
     setUser(response);
   };
 
