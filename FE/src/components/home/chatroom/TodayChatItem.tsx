@@ -13,6 +13,7 @@ interface Props {
 const TodayChatItem = ({ item }: Props) => {
   const navigate = useNavigate();
 
+  if (!item) return null;
   return (
     <div className={styles.today__item}>
       <div>
