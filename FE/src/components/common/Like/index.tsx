@@ -11,6 +11,7 @@ interface Props {
 
 const Heart = ({ liked, clickLikeBtn, feedId }: Props) => {
   const { feedLikesState, feedLikesError, feedLkesLoading } = useFetchFeedLikes(String(feedId));
+  if (!feedLikesState) return null;
 
   if (feedLkesLoading) {
     return <div className={styles.heart}>...</div>;
@@ -21,13 +22,15 @@ const Heart = ({ liked, clickLikeBtn, feedId }: Props) => {
   }
   return (
     <div className={styles.heart}>
-      {!liked ? (
-        <HeartSvg className={styles.heart__logo} onClick={clickLikeBtn} />
-      ) : (
-        <ClickedHeartSvg className={styles.heart__logo__clicked} onClick={clickLikeBtn} />
-      )}
       {feedLikesState !== undefined && (
-        <p className={styles.heart__cnt}>공감 {feedLikesState ? feedLikesState : 0}개</p>
+        <>
+          {!liked ? (
+            <HeartSvg className={styles.heart__logo} onClick={clickLikeBtn} />
+          ) : (
+            <ClickedHeartSvg className={styles.heart__logo__clicked} onClick={clickLikeBtn} />
+          )}
+          <p className={styles.heart__cnt}>공감 {feedLikesState ? feedLikesState : 0}개</p>
+        </>
       )}
     </div>
   );
