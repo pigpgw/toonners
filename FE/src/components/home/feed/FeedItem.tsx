@@ -45,7 +45,7 @@ const FeedItem = ({ feed }: Props) => {
 
   useEffect(() => {
     setLikeClicked(feed.liked);
-  }, []);
+  }, [feed.liked]);
 
   return (
     <div className={styles.feed__item} onClick={handleFeedItem}>
