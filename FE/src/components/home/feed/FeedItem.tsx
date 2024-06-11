@@ -83,7 +83,7 @@ const FeedItem = ({ feed }: Props) => {
             number={feed.writerMemberImage}
             onClick={(e) => handleProfile(e)}
           />
-          <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={feed.parentFeedId} />
+          {feed.liked && <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={feed.parentFeedId} />}
         </div>
       </div>
     </div>
