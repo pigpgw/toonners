@@ -10,7 +10,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const Button = ({ children = "Button", types = "primary", sizes = "big", ...rest }: Props) => {
+const DeleteButton = ({ children = "Button", types = "primary", sizes = "big", ...rest }: Props) => {
   return (
     <button className={[styles.button, styles[`__${types}`], styles[`__${sizes}`]].join(" ")} {...rest}>
       <Text types="button" bold={sizes === "small" ? "regular" : "bold"}>
@@ -20,4 +20,4 @@ const Button = ({ children = "Button", types = "primary", sizes = "big", ...rest
   );
 };
 
-export default Button;
+export default DeleteButton;

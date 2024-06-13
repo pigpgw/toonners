@@ -7,14 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 import { postNewRecommend } from "@/api/recommend";
-import Button from "@/components/common/Button";
+import DeleteButton from "@/components/common/Button/delete";
+import Button from "@/components/common/Button/index";
 import Text from "@/components/common/Text";
 import { putUserFeed } from "@/api/feed";
+import { deleteFeed } from "@/api/feed";
+import Modal from "@/components/common/Modal";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
+  const [deleteModal, setDeleteModal] = useState(false);
   const [modify, setModify] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -79,6 +83,21 @@ const Step1 = () => {
     removeRecommendation(title);
   };
 
+  const handleDeleteModal = async () => {
+    setDeleteModal(!deleteModal);
+  };
+
+  const clickDeleteBtn = async () => {
+    try {
+      await deleteFeed(recommendationData.parentFeedId!);
+      resetRecommendConfig();
+      resetRecommendationData();
+      navigate("/");
+    } catch (e) {
+      console.log("피드 삭제 실패", e);
+    }
+  };
+
   return (
     <>
       <Header
@@ -129,7 +148,17 @@ const Step1 = () => {
             </>
           );
         })}
+        {deleteModal && (
+          <Modal
+            open={deleteModal}
+            onClose={() => setDeleteModal(false)}
+            onClick={clickDeleteBtn}
+            title="피드를 삭제 하시겠습니까."
+            btnTitle="삭제하기"
+          />
+        )}
         {recommendationData.recommendToons.length < 4 && <AddButton onClick={goNextPage} />}
+        {modify && <DeleteButton onClick={handleDeleteModal}>피드 삭제하기</DeleteButton>}
         <div ref={scrollRef}></div>
       </div>
     </>
