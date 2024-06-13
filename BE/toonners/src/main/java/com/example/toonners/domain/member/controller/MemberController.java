@@ -12,6 +12,7 @@ import com.example.toonners.domain.member.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -78,6 +79,15 @@ public class MemberController {
             , HttpServletRequest request
             , HttpServletResponse response) {
         kakaoUserService.logout(token, request, response);
+        return ApiResponse.createMessage("정상적으로 로그아웃 하셨습니다.");
+    }
+
+    // 카카오 로그아웃2
+    @PostMapping("/logout2")
+    public ApiResponse<?> kakaoLogout2(
+            @RequestHeader("Authorization") String token
+            , HttpSession session) {
+        kakaoUserService.kakaoLogout(session);
         return ApiResponse.createMessage("정상적으로 로그아웃 하셨습니다.");
     }
 
