@@ -86,8 +86,9 @@ public class MemberController {
     @PostMapping("/logout2")
     public ApiResponse<?> kakaoLogout2(
             @RequestHeader("Authorization") String token
-            , HttpSession session) {
-        kakaoUserService.kakaoLogout(session);
+            , HttpServletRequest request
+            , HttpServletResponse response) {
+        kakaoUserService.kakaoLogout(token, request, response);
         return ApiResponse.createMessage("정상적으로 로그아웃 하셨습니다.");
     }
 

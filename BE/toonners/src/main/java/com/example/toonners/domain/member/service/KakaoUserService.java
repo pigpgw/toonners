@@ -222,9 +222,9 @@ public class KakaoUserService {
      *
      * @return
      */
-    public String kakaoLogout(HttpSession session) {
-        String accessToken = (String) session.getAttribute("kakaoToken");
-
+    public String kakaoLogout(String token, HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = tokenProvider.getAccessTokenFromToken(token);
+        HttpSession session = request.getSession(false); // 현재 세션 가져오기
         if (accessToken != null && !"".equals(accessToken)) {
             try {
                 kakaoDisconnect(accessToken);
