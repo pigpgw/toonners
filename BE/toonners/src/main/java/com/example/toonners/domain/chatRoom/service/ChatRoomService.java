@@ -125,7 +125,7 @@ public class ChatRoomService {
 
         String day = whichDay();
         System.out.println(day);
-        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysContaining(day);
 
         return chatRoomList.stream()
                 .map(ChatRoomInfoResponse::fromEntity).toList();
@@ -137,7 +137,7 @@ public class ChatRoomService {
         // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
         Long memberId = tokenProvider.getMemberFromToken(token).getId();
 
-        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysContaining(day);
 
         return chatRoomList.stream()
                 .map(ChatRoomInfoResponse::fromEntity).toList();

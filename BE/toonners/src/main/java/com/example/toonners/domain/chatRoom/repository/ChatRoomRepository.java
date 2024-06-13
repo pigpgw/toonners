@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
-    List<ChatRoom> findByUpdatedDaysLike(String day);
+    List<ChatRoom> findByUpdatedDaysContaining(String day);
 
     Optional<ChatRoom> findByToonName(String toonName);
 
