@@ -131,6 +131,18 @@ public class ChatRoomService {
     }
 
     @Transactional
+    public List<ChatRoomInfoResponse> searchChatRoomByDay(String token, String day) {
+
+        // 북마크 등 개인 상호 작용 결과 삽입을 위한 맴버 정보
+        Long memberId = tokenProvider.getMemberFromToken(token).getId();
+
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
+
+        return chatRoomList.stream()
+                .map(ChatRoomInfoResponse::fromEntity).toList();
+    }
+
+    @Transactional
     public ChatRoomInfoResponse searchChatRoomDetail(Long chatroomId) {
         return ChatRoomInfoResponse.fromEntity(chatRoomRepository
                 .findById(chatroomId).orElseThrow(ChatRoomDoseNotExistException::new));
