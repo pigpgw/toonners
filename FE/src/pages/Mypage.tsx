@@ -18,14 +18,6 @@ const Mypage = () => {
   const navigate = useNavigate();
   const { user, setUser, setUserNickname, setDescription } = useUserStore();
 
-  const toggleLogOutModal = () => {
-    setLogOutModal(!logOutModal);
-  };
-
-  const toggleWithDrawModal = () => {
-    setWithDrawModal(!withDrawModal);
-  };
-
   const onEditMode = () => {
     setEditMode(true);
   };

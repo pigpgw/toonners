@@ -117,6 +117,14 @@ const Step1 = () => {
         {recommendationData?.recommendToons?.map((item, index) => {
           return (
             <>
+              <button
+                className={styles.deleteBtn}
+                onClick={() => {
+                  deleteWebtoon(item.title);
+                }}
+              >
+                X
+              </button>
               <WebtoonCard
                 key={index}
                 title={item.title}
@@ -125,13 +133,6 @@ const Step1 = () => {
                 moodList={item.hashtagVibe}
                 genreList={item.hashtagGenre}
               />
-              <button
-                onClick={() => {
-                  deleteWebtoon(item.title);
-                }}
-              >
-                삭제하기
-              </button>
             </>
           );
         })}
