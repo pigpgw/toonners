@@ -28,11 +28,6 @@ const Step1 = () => {
       return;
     }
     try {
-      console.log("보낸 데이터 ", {
-        title: recommendationData.title,
-        context: recommendationData.context,
-        recommendToons: recommendationData.recommendToons,
-      });
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {
           title: recommendationData.title,
@@ -74,11 +69,9 @@ const Step1 = () => {
   }, [recommendationData?.recommendToons?.length]);
 
   useEffect(() => {
-    console.log("recommendationData", recommendationData);
     if (recommendationData.parentFeedId) {
       setModify(true);
     }
-    // resetRecommendConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -117,21 +110,22 @@ const Step1 = () => {
         {recommendationData?.recommendToons?.map((item, index) => {
           return (
             <>
+              <button
+                className={styles.deleteBtn}
+                onClick={() => {
+                  deleteWebtoon(item.title);
+                }}
+              >
+                X
+              </button>
               <WebtoonCard
-                key={index}
+                key={`WebtoonCard_${index}`}
                 title={item.title}
                 score={item.starring}
                 imgUrl={item.imageUrl}
                 moodList={item.hashtagVibe}
                 genreList={item.hashtagGenre}
               />
-              <button
-                onClick={() => {
-                  deleteWebtoon(item.title);
-                }}
-              >
-                삭제하기
-              </button>
             </>
           );
         })}

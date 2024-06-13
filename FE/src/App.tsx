@@ -17,7 +17,6 @@ import MyFeedPage from "./pages/mypage/MyFeedPage";
 import FeedDetail from "./components/home/feed/FeedDetail";
 import { PrivateRoute } from "./routes/PrivateRoutes";
 import { OtherPage } from "./pages/OtherPage/OtherPage";
-// import ModifyRecommend from "./pages/ModifyRecommend";
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
         <Route path="/chatroom/rest" element={<ChatRoomListFrame types="rest" />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/recommend/:id" element={<FeedDetail />} />
-        {/* <Route path="/recommend/modify" element={<ModifyRecommend />} /> */}
         <Route path="*" element={<div>잘못된 경로</div>} />
         <Route path="/signup/*" element={<Signup />} />
 

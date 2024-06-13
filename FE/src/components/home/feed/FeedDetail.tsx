@@ -44,14 +44,13 @@ const FeedDetail = () => {
       setDetail(res);
       setBookmarkClicked(res.bookmarked);
       setLikeClicked(res.liked);
-      console.log("피드 데이터 체크", res);
     };
 
     getFeedDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likeClicked]);
 
-  const clickModift = () => {
+  const clickModifyBtn = () => {
     setPostTitle(detail.feedTitle);
     setPostcotexts(detail.feedContexts);
     detail.childFeedList.map((feed) => {
@@ -85,7 +84,7 @@ const FeedDetail = () => {
         before={true}
         button={
           mine ? (
-            <button className={styles.editBtn} onClick={clickModift}>
+            <button className={styles.editBtn} onClick={clickModifyBtn}>
               수정
             </button>
           ) : (
