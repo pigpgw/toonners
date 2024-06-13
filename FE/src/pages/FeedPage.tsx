@@ -13,9 +13,10 @@ const FeedPage = () => {
     <>
       <Banner />
       <div className={styles.feed}>
-        {feedListState.map((feed: FeedListConfig, i: number) => {
-          return <FeedItem key={i} feed={feed} />;
-        })}
+        {feedListState &&
+          feedListState.map((feed: FeedListConfig, i: number) => {
+            return <FeedItem key={i} feed={feed} />;
+          })}
         <CreateButton />
       </div>
     </>

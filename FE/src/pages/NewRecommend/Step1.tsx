@@ -28,11 +28,6 @@ const Step1 = () => {
       return;
     }
     try {
-      console.log("보낸 데이터 ", {
-        title: recommendationData.title,
-        context: recommendationData.context,
-        recommendToons: recommendationData.recommendToons,
-      });
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {
           title: recommendationData.title,
