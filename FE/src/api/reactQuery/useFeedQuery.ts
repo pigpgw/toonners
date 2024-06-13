@@ -9,6 +9,7 @@ const useFeedQuery = () => {
   } = useQuery({
     queryKey: ["feedList"],
     queryFn: () => getFeedList(),
+    select: (data) => [...data].reverse()
   });
 
   return { feedListState, feedListLoading, feedListError };

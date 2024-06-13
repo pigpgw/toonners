@@ -27,7 +27,6 @@ const CreateChatRoom2 = () => {
       updateDay: selected.updateDays,
       contexts: description,
     };
-    console.log("data", data);
     const res = await postChatRoom(data);
     setChatRoomInfo(res);
     setModalOpen(true);

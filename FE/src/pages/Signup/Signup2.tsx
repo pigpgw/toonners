@@ -60,7 +60,6 @@ const Signup2 = () => {
   const goNext = () => {
     if (user.watchingToons.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
     else {
-      console.log(user);
       navigator("/signup/3");
     }
   };

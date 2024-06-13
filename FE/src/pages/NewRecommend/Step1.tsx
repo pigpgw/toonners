@@ -74,11 +74,9 @@ const Step1 = () => {
   }, [recommendationData?.recommendToons?.length]);
 
   useEffect(() => {
-    console.log("recommendationData", recommendationData);
     if (recommendationData.parentFeedId) {
       setModify(true);
     }
-    // resetRecommendConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -126,7 +124,7 @@ const Step1 = () => {
                 X
               </button>
               <WebtoonCard
-                key={index}
+                key={`WebtoonCard_${index}`}
                 title={item.title}
                 score={item.starring}
                 imgUrl={item.imageUrl}
