@@ -42,4 +42,8 @@ const postFeedLike = async (feedId: number) => {
   }
 };
 
-export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed, postFeedLike };
+const deleteFeed = async (feedId:number) => {
+  await Axios.delete(HOST + `/feed/delete/${feedId}`);
+}
+
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed, postFeedLike,deleteFeed };

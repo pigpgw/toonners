@@ -17,7 +17,7 @@ const Modal = ({ open, onClose, title, btnTitle, onClick }: Props) => {
     <MuiModal open={open} onClose={onClose}>
       <div className={styles.modal}>
         <CloseIcon onClick={onClose} />
-        {title}
+        <span>{title}</span>
         <Button onClick={onClick}>{btnTitle}</Button>
       </div>
     </MuiModal>
