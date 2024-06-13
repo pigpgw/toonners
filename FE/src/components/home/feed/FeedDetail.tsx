@@ -101,7 +101,7 @@ const FeedDetail = () => {
             number={detail.writerMemberImage}
             onClick={() => navigate(`/profile/${detail.writerMemberId}`)}
           />
-          <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={detail.parentFeedId} />
+          {detail.liked && <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={detail.parentFeedId} />}
         </div>
         <div>
           <div className={styles.tagTitle}>

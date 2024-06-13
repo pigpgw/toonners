@@ -34,7 +34,7 @@ function App() {
         <Route path="*" element={<div>잘못된 경로</div>} />
         <Route path="/signup/*" element={<Signup />} />
 
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}>
           <Route path="/chatroom/:id" element={<ChatRoomMain />} />
           <Route path="/chatroom/create/*" element={<NewChatRoom />} />
           <Route path="/recommend/new/*" element={<NewRecommend />} />
@@ -44,7 +44,16 @@ function App() {
           <Route path="/profile/:userId" element={<OtherPage />} />
           <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
           <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
-        </Route>
+        </Route> */}
+        <Route path="/chatroom/:id" element={<ChatRoomMain />} />
+        <Route path="/chatroom/create/*" element={<NewChatRoom />} />
+        <Route path="/recommend/new/*" element={<NewRecommend />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage/feed" element={<MyFeedPage />} />
+        <Route path="/mypage/scrap" element={<MyScrapPage />} />
+        <Route path="/profile/:userId" element={<OtherPage />} />
+        <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
+        <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
       </Routes>
     </>
   );
