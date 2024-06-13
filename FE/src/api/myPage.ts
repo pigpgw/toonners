@@ -49,12 +49,7 @@ export const getOnMyData = async (): Promise<User> => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const postLogOut = async (): Promise<any> => {
-  try {
-    const response = await Axios.post(`${BASE_URL}/logout`);
-    return response;
-  } catch (e) {
-    throw new Error("로그아웃 실패");
-  }
+  await Axios.post(`${BASE_URL}/logout`);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

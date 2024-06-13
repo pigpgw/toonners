@@ -11,7 +11,7 @@ export interface RecommendToonConfig {
 }
 
 export interface Config {
-  parentFeedId: undefined | number;
+  parentFeedId?: undefined | number;
   title: string;
   context: string;
   recommendToons: RecommendToonConfig[];

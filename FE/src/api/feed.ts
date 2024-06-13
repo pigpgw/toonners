@@ -1,4 +1,5 @@
 import Axios from "@api/JsonAxios";
+import { Config } from "@/slices/useRecommendationStore";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 const getFeedList = async () => {
@@ -29,8 +30,7 @@ const getUserFeed = async (keyword: string) => {
   return res.data.data;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const putUserFeed = async (feedId: number, feed: any) => {
+const putUserFeed = async (feedId: number, feed: Config) => {
   await Axios.put(HOST + `/feed/update/${feedId}`, feed);
 };
 

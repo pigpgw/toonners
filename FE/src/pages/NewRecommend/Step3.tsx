@@ -43,7 +43,6 @@ const Step3 = () => {
 
   const clickAddWebtoon = () => {
     if (recommendConfig.hashtagGenre.length === 0 || recommendConfig.hashtagVibe.length === 0) {
-      console.log(recommendConfig);
       alert("최소 하나 이상의 장르와 분위기를 골라주세요");
       return;
     }
@@ -53,7 +52,6 @@ const Step3 = () => {
   };
 
   const toggleGenreSelection = (label: string) => {
-    console.log("분위기 고름", label, selectedMoods);
     setSelectedGenres((prev) => {
       if (prev.includes(label)) {
         return prev.filter((item) => item !== label);
@@ -64,7 +62,6 @@ const Step3 = () => {
   };
 
   const toggleMoodSelection = (label: string) => {
-    console.log("분위기 고름", label, selectedMoods);
     setSelectedMoods((prev) => {
       if (prev.includes(label)) {
         return prev.filter((item) => item !== label);

@@ -6,12 +6,15 @@ import Text from "@/components/common/Text";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
 import BottomNav from "@/components/mypage/ButtonNav";
-import { getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
+import { getOnMyData, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import { UserConfig } from "@/interface/Webtoon.interface";
+import Modal from "@/components/common/Modal";
 
 const Mypage = () => {
   const [editMode, setEditMode] = useState(false);
+  const [logOutModal, setLogOutModal] = useState(false);
+  const [withDrawModal, setWithDrawModal] = useState(false);
   const navigate = useNavigate();
   const { user, setUser, setUserNickname, setDescription } = useUserStore();
 
@@ -21,7 +24,7 @@ const Mypage = () => {
 
   const withDraw = async () => {
     try {
-      await postWithDraw();
+      // await postWithDraw();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       alert("회원 탈퇴되었습니다.!");
@@ -33,8 +36,9 @@ const Mypage = () => {
 
   const logOut = async () => {
     try {
-      await postLogOut();
+      // await postLogOut();
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
       alert("로그아웃 되었습니다.!");
       navigate("/");
     } catch (e) {
@@ -121,10 +125,40 @@ const Mypage = () => {
             <Text bold="semi-bold">내가 작성한 Feed글</Text>
           </div>
         </div>
-        <div className={styles.withdrawBtn} onClick={logOut}>
+        {logOutModal && (
+          <Modal
+            open={logOutModal}
+            onClose={() => setLogOutModal(false)}
+            btnTitle="로그아웃"
+            title={
+              <div className={styles.text}>
+                <Text types="title" bold="semi-bold">
+                  정말 로그아웃 하시겠습니까?
+                </Text>
+              </div>
+            }
+            onClick={logOut}
+          />
+        )}
+        <div className={styles.withdrawBtn} onClick={() => setLogOutModal(true)}>
           로그아웃
         </div>
-        <div className={styles.withdrawBtn} onClick={withDraw}>
+        {withDrawModal && (
+          <Modal
+            open={withDrawModal}
+            onClose={() => setWithDrawModal(false)}
+            btnTitle="회원 탈퇴"
+            title={
+              <div className={styles.text}>
+                <Text types="title" bold="semi-bold">
+                  정말 탈퇴 하시겠습니까?
+                </Text>
+              </div>
+            }
+            onClick={withDraw}
+          />
+        )}
+        <div className={styles.withdrawBtn} onClick={() => setWithDrawModal(true)}>
           서비스 탈퇴
         </div>
       </div>

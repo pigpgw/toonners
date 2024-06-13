@@ -11,8 +11,6 @@ interface Props {
 
 const Heart = ({ liked, clickLikeBtn, feedId }: Props) => {
   const { feedLikesState, feedLikesError, feedLkesLoading } = useFetchFeedLikes(String(feedId));
-  if (!feedLikesState) return null;
-
   if (feedLkesLoading) {
     return <div className={styles.heart}>...</div>;
   }

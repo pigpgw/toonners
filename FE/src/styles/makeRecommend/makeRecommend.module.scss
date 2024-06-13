@@ -16,7 +16,6 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 10px 12px;
-  gap: 10px;
 
   width: 310px;
   height: 210px;
@@ -25,7 +24,7 @@
   border-radius: 10px;
 
   border: 0;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .btnContainer {
@@ -167,4 +166,24 @@
       margin-left: 3px;
     }
   }
+}
+
+.deleteBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 18px;
+
+  position: relative;
+  left: 95%;
+  top: 35px;
+
+  background: var(--color-black);
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
 }
