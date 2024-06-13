@@ -39,6 +39,14 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService.searchUpdatedChatRoom(token));
     }
 
+    @GetMapping("/chatroom/search/day")
+    public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomByDay(
+            @RequestHeader("Authorization") String token
+            , @RequestParam String day
+    ) {
+        return ApiResponse.createSuccess(chatRoomService.searchChatRoomByDay(token, day));
+    }
+
     @GetMapping("/chatroom/search/detail/{chatRoomId}")
     public ApiResponse<ChatRoomInfoResponse> searchChatRoomDetail(
             @PathVariable(value = "chatRoomId") Long chatRoomId
@@ -59,6 +67,7 @@ public class ChatRoomController {
         return ApiResponse.createSuccess(chatRoomService
                 .searchAllChatRoomByPartOfChatRoomName(partOfChatRoomName));
     }
+
     @GetMapping("/chatroom/search/top3")
     public ApiResponse<List<ChatRoomInfoResponse>> searchChatRoomTop3(
             @RequestHeader("Authorization") String token
