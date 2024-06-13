@@ -124,6 +124,7 @@ public class ChatRoomService {
         Long memberId = tokenProvider.getMemberFromToken(token).getId();
 
         String day = whichDay();
+        System.out.println(day);
         List<ChatRoom> chatRoomList = chatRoomRepository.findByUpdatedDaysLike(day);
 
         return chatRoomList.stream()
