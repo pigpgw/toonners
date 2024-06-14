@@ -33,7 +33,7 @@ export const getOnMyData = async (): Promise<User> => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const postLogOut = async (): Promise<any> => {
-  await Axios.post(`${BASE_URL}/logout`);
+  await Axios.post(`${BASE_URL}/logout2`);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
