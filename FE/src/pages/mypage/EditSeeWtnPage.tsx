@@ -34,20 +34,27 @@ const EditSeeWtnPage = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     resetSeeWebtoon();
     const fetchData = async () => {
-      const res = await getOnMyData();
-      if (res) {
-        (res.watchingToons as UserWebtoonListConfig[]).map((item) => {
-          addSeeWebtoon({
-            title: item.title,
-            url: item.url,
-            imageUrl: item.imageUrl,
-            rating: item.rating,
-            updateDays: item.updateDays,
+      try {
+        const res = await getOnMyData();
+        if (res) {
+          (res.watchingToons as UserWebtoonListConfig[]).map((item) => {
+            addSeeWebtoon({
+              title: item.title,
+              url: item.url,
+              imageUrl: item.imageUrl,
+              rating: item.rating,
+              updateDays: item.updateDays,
+            });
           });
-        });
+        }
+      } catch (e) {
+        alert("내가 보는 웹툰 데이터 불러오기 실패");
+        navigate("/");
       }
     };
 

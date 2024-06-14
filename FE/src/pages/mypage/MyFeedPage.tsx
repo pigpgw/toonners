@@ -21,14 +21,20 @@ const MyFeedPage = () => {
 
   useEffect(() => {
     const fe = async () => {
-      const res = await getonMyFeed();
-      if (res) {
-        setFeedList(res as FeedListConfig[]);
-      } else {
-        setFeedList([]);
+      try {
+        const res = await getonMyFeed();
+        if (res) {
+          setFeedList(res as FeedListConfig[]);
+        } else {
+          setFeedList([]);
+        }
+      } catch (e) {
+        alert("내가 작성한 피드 불러오기 실패");
+        goMypage();
       }
     };
     fe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -13,11 +13,7 @@ const getFeedItem = async (feedId: string) => {
 };
 
 const postBookMark = async (feedId: string) => {
-  try {
-    await Axios.post(HOST + `/bookmark/feed?feed-id=${feedId}`);
-  } catch (e) {
-    console.log("북마크 전송 실패");
-  }
+  await Axios.post(HOST + `/bookmark/feed?feed-id=${feedId}`);
 };
 
 const getSearchFeed = async (keyword: string) => {
@@ -35,15 +31,11 @@ const putUserFeed = async (feedId: number, feed: Config) => {
 };
 
 const postFeedLike = async (feedId: number) => {
-  try {
-    await Axios.post(HOST + `/like/feed?feed-id=${feedId}`);
-  } catch (e) {
-    console.log("좋아요 실패");
-  }
+  await Axios.post(HOST + `/like/feed?feed-id=${feedId}`);
 };
 
-const deleteFeed = async (feedId:number) => {
+const deleteFeed = async (feedId: number) => {
   await Axios.delete(HOST + `/feed/delete/${feedId}`);
-}
+};
 
-export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed, postFeedLike,deleteFeed };
+export { getFeedList, getFeedItem, postBookMark, getSearchFeed, getUserFeed, putUserFeed, postFeedLike, deleteFeed };

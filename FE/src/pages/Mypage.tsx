@@ -60,11 +60,16 @@ const Mypage = () => {
   };
 
   const fetchData = async () => {
-    const res = await getOnMyData();
-    setUserNickname(res.nickname);
-    setDescription(res.description);
-    if (res) {
-      setUser(res as UserConfig);
+    try {
+      const res = await getOnMyData();
+      setUserNickname(res.nickname);
+      setDescription(res.description);
+      if (res) {
+        setUser(res as UserConfig);
+      }
+    } catch (e) {
+      alert("내 정보 가져오기 실패");
+      navigate("/");
     }
   };
 
