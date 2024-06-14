@@ -29,10 +29,12 @@ const MyScrapPage = () => {
           setScrapList([]);
         }
       } catch (error) {
-        console.error("Failed to fetch scrap list", error);
+        alert("내 스크랩 리스트 가져오기 실패");
+        goMypage();
       }
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

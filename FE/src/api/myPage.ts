@@ -12,39 +12,23 @@ type User = {
 };
 
 export const updateUserData = async (userData: unknown): Promise<User> => {
-  try {
-    const response = await Axios.put(`${BASE_URL}/member/update`, userData);
-    return response.data.data;
-  } catch (error) {
-    throw new Error("유저 정보 수정 실패");
-  }
+  const response = await Axios.put(`${BASE_URL}/member/update`, userData);
+  return response.data.data;
 };
 
 export const getonMyFeed = async (): Promise<unknown | undefined> => {
-  try {
-    const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
-    return response.data.data;
-  } catch (e) {
-    throw new Error("내가 작성한 피드 가져오기 실패");
-  }
+  const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
+  return response.data.data;
 };
 
 export const getonMyScrap = async (): Promise<unknown | undefined> => {
-  try {
-    const response = await Axios.get(`${BASE_URL}/feed/search/bookmarked`);
-    return response.data.data;
-  } catch (e) {
-    throw new Error("내 스크랩 가져오기 실패");
-  }
+  const response = await Axios.get(`${BASE_URL}/feed/search/bookmarked`);
+  return response.data.data;
 };
 
 export const getOnMyData = async (): Promise<User> => {
-  try {
-    const response = await Axios.get(`${BASE_URL}/member/search/my-info`);
-    return response.data.data;
-  } catch (e) {
-    throw new Error("Failed to fetch user data");
-  }
+  const response = await Axios.get(`${BASE_URL}/member/search/my-info`);
+  return response.data.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,10 +43,6 @@ export const postWithDraw = async (): Promise<any> => {
 };
 
 export const getUserData = async (userId: string): Promise<User> => {
-  try {
-    const response = await Axios.get(`${BASE_URL}/member/search/member-info?member-id=${userId}`);
-    return response.data.data;
-  } catch (e) {
-    throw new Error("Failed to fetch user data");
-  }
+  const response = await Axios.get(`${BASE_URL}/member/search/member-info?member-id=${userId}`);
+  return response.data.data;
 };

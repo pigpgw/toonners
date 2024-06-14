@@ -35,6 +35,7 @@ export const OtherPage = () => {
     getOtherUserData(otherId);
     getUserChatList(otherId);
     getUserFeedList(otherId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUserFeedList = async (userId: string) => {
@@ -48,8 +49,13 @@ export const OtherPage = () => {
   };
 
   const getOtherUserData = async (userId: string) => {
-    const response = await getUserData(userId);
-    setUser(response);
+    try {
+      const response = await getUserData(userId);
+      setUser(response);
+    } catch (e) {
+      alert("유저 데이터 가져오기 실패");
+      navigate("/home");
+    }
   };
 
   return (
@@ -68,7 +74,9 @@ export const OtherPage = () => {
         {chatList.length > 0 ? (
           <HomeChatListFrame keyword="rest" list={chatList} />
         ) : (
-          <div style={{ textAlign: "center", margin: "40px",color:'var(--color-gray-2)' }}>참여중인 단톡방이 없습니다!</div>
+          <div style={{ textAlign: "center", margin: "40px", color: "var(--color-gray-2)" }}>
+            참여중인 단톡방이 없습니다!
+          </div>
         )}
         <Text types="body-1" bold="bold">
           작성자가 작성한 Feed글
