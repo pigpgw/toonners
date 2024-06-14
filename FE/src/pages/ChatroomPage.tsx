@@ -61,11 +61,9 @@ const ChatroomPage = () => {
   useEffect(() => {
     const getTodayList = async () => {
       const res = await getTodayChatRoomList();
-      if (res.length >= 3) setTodayList(res);
+      if (res.length >= 1) setTodayList(res);
       else {
-        const response = await getAllChatRoomList();
-        const result = getRandomItems(response);
-        setTodayList(result);
+        setTodayList([]);
       }
     };
 

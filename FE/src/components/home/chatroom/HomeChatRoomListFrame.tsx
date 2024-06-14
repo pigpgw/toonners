@@ -35,14 +35,19 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Pro
         <Text types="body-1">{subtitle}</Text>
       </div>
       <div className={styles[`${keyword}`]}>
-        {list &&
+        {list.length >= 1 ? (
           list.map((item, i) => {
             return {
               today: <TodayChatItem key={i} item={item} />,
               rank: <RankingChatItem key={i} item={item} />,
               rest: <RestChatItem key={i} item={item} />,
             }[keyword];
-          })}
+          })
+        ) : (
+          <div className={styles.none}>
+            <Text types="body-2">검색 결과가 없습니다.</Text>
+          </div>
+        )}
       </div>
     </div>
   );
