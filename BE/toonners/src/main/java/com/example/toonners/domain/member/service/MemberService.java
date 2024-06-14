@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -160,7 +161,8 @@ public class MemberService extends DefaultOAuth2UserService {
 
     private void insertToonSetToResponse(Set<String> member, Set<ToonInsertRequest> watchingToonSet) {
         for (String toon : member) {
-            if (toonDataRepository.findByTitle(toon).isEmpty()) {
+            Optional<ToonData> toonDataOptional = toonDataRepository.findByTitle(toon);
+            if (toonDataOptional.isEmpty()) {
                 watchingToonSet.add(ToonInsertRequest.builder()
                         .title(toon)
                         .imageUrl("")
@@ -168,7 +170,7 @@ public class MemberService extends DefaultOAuth2UserService {
                         .days(new ArrayList<>())
                         .build());
             } else {
-                ToonData toonData = toonDataRepository.findByTitle(toon).orElse(null);
+                ToonData toonData = toonDataOptional.get();
                 watchingToonSet.add(ToonInsertRequest.builder()
                         .title(toonData.getTitle())
                         .imageUrl(toonData.getImageUrl())

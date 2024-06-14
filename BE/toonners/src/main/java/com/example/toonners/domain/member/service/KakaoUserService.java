@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
@@ -96,6 +97,7 @@ public class KakaoUserService {
         // DB 에 중복된 Kakao Id 가 있는지 확인
         String sId = kakaoUserInfo.getEmail();
         String email = sId + "@tooners.com";
+        System.out.println(email);
         Member user = memberRepository.findByEmail(email)
                 .orElse(null);
 
@@ -147,18 +149,29 @@ public class KakaoUserService {
                 new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
         rt.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
+        try {
+            ResponseEntity<String> response = rt.exchange(
+                    "https://kauth.kakao.com/oauth/token",
+                    HttpMethod.POST,
+                    kakaoTokenRequest,
+                    String.class
+            );
 
-        // HTTP 응답 (JSON) -> 액세스 토큰 파싱
-        String responseBody = response.getBody();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-        return jsonNode.get("access_token").asText();
+            // HTTP 응답 (JSON) -> 액세스 토큰 파싱
+            String responseBody = response.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+            return jsonNode.get("access_token").asText();
+        } catch (HttpClientErrorException e) {
+            // 오류 응답의 상태 코드와 메시지를 출력
+            System.err.println("HTTP error: " + e.getStatusCode());
+            System.err.println("Response body: " + e.getResponseBodyAsString());
+        } catch (Exception e) {
+            // 그 외의 모든 예외를 출력
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private Authentication forceLoginKakaoUser(Member kakaoUser) {
@@ -174,6 +187,7 @@ public class KakaoUserService {
         String token = tokenProvider.generateToken(userDetailsImpl.getEmail());
         response.addHeader("Authorization", "BEARER" + " " + token);
     }
+
     // 카카오 로그아웃
     @Transactional
     public void logout(String token, HttpServletRequest request, HttpServletResponse response) {
