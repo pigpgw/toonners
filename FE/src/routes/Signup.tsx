@@ -10,8 +10,13 @@ const Signup = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await getOnMyData();
-      if (res.nickname && res.watchingToons.length) {
+      try {
+        const res = await getOnMyData();
+        if (res.nickname && res.watchingToons.length) {
+          navigate("/home");
+        }
+      } catch (e) {
+        alert("유저 정보 가져오기 실패");
         navigate("/home");
       }
     };

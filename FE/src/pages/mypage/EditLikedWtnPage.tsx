@@ -34,25 +34,32 @@ const EditLikedWtnPage = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     resetFavoriteToons();
     const fetchData = async () => {
-      const res = await getOnMyData();
-      if (res) {
-        (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
-          addFavoriteToons({
-            title: item.title,
-            url: item.url,
-            imageUrl: item.imageUrl,
-            rating: item.rating,
-            updateDays: item.updateDays,
+      try {
+        const res = await getOnMyData();
+        if (res) {
+          (res.favoriteToons as UserWebtoonListConfig[]).map((item) => {
+            addFavoriteToons({
+              title: item.title,
+              url: item.url,
+              imageUrl: item.imageUrl,
+              rating: item.rating,
+              updateDays: item.updateDays,
+            });
           });
-        });
+        }
+      } catch (e) {
+        alert("내 인생 웹툰 가져오기 실패");
+        navigate("/");
       }
     };
 
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -81,8 +88,13 @@ const EditLikedWtnPage = () => {
       alert("보고있는 웹툰을 1개 이상 추가해주세요");
       return;
     }
-    await updateUserData({ favoriteToons: user.favoriteToons });
-    cancle();
+    try {
+      await updateUserData({ favoriteToons: user.favoriteToons });
+      cancle();
+    } catch (e) {
+      alert("업데이트 실패");
+      cancle();
+    }
   };
   const cancle = () => {
     navigator("/mypage");
