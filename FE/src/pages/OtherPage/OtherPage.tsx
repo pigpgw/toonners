@@ -31,7 +31,6 @@ export const OtherPage = () => {
 
   const getUserFeedList = async (userId: string) => {
     const response = await getUserFeed(userId);
-    console.log(response);
     setFeedList(response);
   };
 

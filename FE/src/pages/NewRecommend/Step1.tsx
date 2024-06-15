@@ -95,6 +95,7 @@ const Step1 = () => {
       navigate("/");
     } catch (e) {
       console.log("피드 삭제 실패", e);
+      navigate("/");
     }
   };
 

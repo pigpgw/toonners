@@ -26,7 +26,6 @@ const Redirect = () => {
           throw new Error("서버 응답이 200이 아닙니다.");
         }
       } catch (e) {
-        console.error(e);
         alert("로그인에 실패했습니다.");
         navigate("/");
       }
