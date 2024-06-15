@@ -6,16 +6,20 @@ import Text from "@/components/common/Text";
 import Input from "@/components/common/Input";
 import Header from "@/components/common/Header";
 import FeedItem from "@/components/home/feed/FeedItem";
+import { FEED_SCRAP_TYPES } from "@/constants/ComponentTypes";
 import styles from "@styles/mypage/Mypage.module.scss";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 interface Props {
   type: string;
 }
 
 const FeedScrapPanel = ({ type }: Props) => {
-  const [feedList, setFeedList] = useState<FeedListConfig[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [feedList, setFeedList] = useState<FeedListConfig[]>([]);
+
+  const isScrapType = type === FEED_SCRAP_TYPES.Scrap;
 
   const goMypage = useCallback(() => {
     navigate("/mypage");
@@ -28,20 +32,21 @@ const FeedScrapPanel = ({ type }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await (type === "scrap" ? getonMyScrap() : getonMyFeed());
+        const res = await (isScrapType ? getonMyScrap() : getonMyFeed());
         res ? setFeedList(res) : setFeedList([]);
-        console.log('res',res)
+        console.log("res", res);
       } catch (error) {
         alert(`내 ${type} 리스트 가져오기 실패`);
         goMypage();
       }
     };
     fetchData();
-  }, [type, goMypage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.panelWrapper}>
-      <Header title={type === "scrap" ? "내 스크랩 목록" : "내가 작성한 피드"} before beforeClick={goMypage} />
+      <Header title={isScrapType ? "내 스크랩 목록" : "내가 작성한 피드"} before beforeClick={goMypage} />
       <div className={styles.contentWrapper}>
         <Input
           value={searchQuery}
@@ -59,9 +64,7 @@ const FeedScrapPanel = ({ type }: Props) => {
             ))
         ) : (
           <div className={styles.none}>
-            <Text types="body-2">
-              {type === "scrap" ? "스크랩한 피드가 없습니다." : "내가 작성한 피드가 없습니다."}
-            </Text>
+            <Text types="body-2">{isScrapType ? ERROR_MESSAGE.NO_SCRAPPED_MY_FEEDS : ERROR_MESSAGE.NO_AUTHORED_FEEDS}</Text>
           </div>
         )}
       </div>

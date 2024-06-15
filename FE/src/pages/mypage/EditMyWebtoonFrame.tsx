@@ -8,7 +8,9 @@ import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { getOnMyData, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 import styles from "@/styles/signup/Signup.module.scss";
+import { EDIT_MY_WEBTOON_TYPES } from "@/constants/ComponentTypes";
 
 const EditMyWebtoonFrame = ({ type }: { type: string }) => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
     resetFavoriteToons,
     removeSeeWebtoon,
   } = useUserStore();
-  const isLikedType = type === "liked";
+  const isLikedType = type === EDIT_MY_WEBTOON_TYPES.Like;
   const userWebtoonList = isLikedType ? user.favoriteToons : user.watchingToons;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -32,7 +34,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
 
   const handleSelect = (webtoon: UserWebtoonListConfig) => {
     if (userWebtoonList.length >= 4) {
-      alert("최대 4개의 웹툰만 선택할 수 있습니다.");
+      alert(ERROR_MESSAGE.MAX_SELECTION_ERROR);
       return;
     }
 
@@ -40,7 +42,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
       isLikedType ? addFavoriteToons(webtoon) : addSeeWebtoon(webtoon);
       setSearch("");
     } else {
-      alert("이미 선택된 웹툰입니다.");
+      alert(ERROR_MESSAGE.ALREADY_SELECTED_ERROR);
     }
   };
 
@@ -94,7 +96,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
 
   const goNext = async () => {
     if (userWebtoonList.length === 0) {
-      alert(isLikedType ? "인생 웹툰을 1개 이상 추가해주세요" : "보고있는 웹툰을 1개 이상 추가해주세요");
+      alert(ERROR_MESSAGE.MIN_SELECTION_ERROR);
       return;
     }
     try {
@@ -102,7 +104,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
       await updateUserData(dataToUpdate);
       cancle();
     } catch (e) {
-      alert("업데이트 실패");
+      alert(ERROR_MESSAGE.UPDATE_ERROR);
       cancle();
     }
   };

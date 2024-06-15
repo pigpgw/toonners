@@ -13,6 +13,8 @@ import AddButton from "@/components/newRecommend/Button";
 import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 import DeleteButton from "@/components/common/Button/delete";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import { SUCCESS_MESSAGE } from "@/constants/SuccessTypes";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
@@ -24,11 +26,11 @@ const Step1 = () => {
 
   const clickShareBtn = async () => {
     if (recommendationData.title.length === 0) {
-      alert("추천글 제목을 입력해주세요");
+      alert(ERROR_MESSAGE.TITLE_REQUIRED);
       return;
     }
     if (recommendationData.recommendToons.length === 0) {
-      alert("웹툰 1가지 이상 추천해주세요");
+      alert(ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED);
       return;
     }
     try {
@@ -41,7 +43,7 @@ const Step1 = () => {
       else await postNewRecommend(recommendationData);
       resetRecommendationData();
       resetRecommendConfig();
-      alert("등록이 완료되었습니다.!");
+      alert(SUCCESS_MESSAGE.SUCCESS_POST);
       navigate("/home");
     } catch (e) {
       alert(e);
@@ -94,7 +96,7 @@ const Step1 = () => {
       resetRecommendationData();
       navigate("/");
     } catch (e) {
-      console.log("피드 삭제 실패", e);
+      alert(ERROR_MESSAGE.DELETE_FEED_ERROR);
       navigate("/");
     }
   };

@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { getOnMyData } from "@/api/myPage";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 import Signup1 from "@/pages/Signup/Signup1";
 import Signup2 from "@/pages/Signup/Signup2";
 import Signup3 from "@/pages/Signup/Signup3";
-import { useEffect } from "react";
-import { getOnMyData } from "@/api/myPage";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Signup = () => {
           navigate("/home");
         }
       } catch (e) {
-        alert("유저 정보 가져오기 실패");
+        alert(ERROR_MESSAGE.FETCH_MT_DATA_ERROR);
         navigate("/home");
       }
     };

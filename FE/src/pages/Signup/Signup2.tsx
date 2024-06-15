@@ -7,6 +7,7 @@ import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
@@ -39,7 +40,7 @@ const Signup2 = () => {
 
   const handleSelect = (webtoon: UserWebtoonListConfig) => {
     if (user.watchingToons.length >= 4) {
-      alert("최대 4개의 웹툰만 선택할 수 있습니다.");
+      alert(ERROR_MESSAGE.MAX_SELECTION_ERROR);
       return;
     }
 
@@ -47,7 +48,7 @@ const Signup2 = () => {
       addSeeWebtoon(webtoon);
       setSearch("");
     } else {
-      alert("이미 선택된 웹툰입니다.");
+      alert(ERROR_MESSAGE.ALREADY_SELECTED_ERROR);
     }
   };
 
@@ -58,7 +59,7 @@ const Signup2 = () => {
   const navigator = useNavigate();
 
   const goNext = () => {
-    if (user.watchingToons.length === 0) alert("보고있는 웹툰을 1개 이상 추가해주세요");
+    if (user.watchingToons.length === 0) alert(ERROR_MESSAGE.MIN_SELECTION_ERROR);
     else {
       navigator("/signup/3");
     }

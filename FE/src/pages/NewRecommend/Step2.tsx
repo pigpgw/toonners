@@ -7,10 +7,12 @@ import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
 import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const Step2 = () => {
-  const [search, setSearch] = useState<string>("");
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [search, setSearch] = useState<string>("");
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();
@@ -33,30 +35,28 @@ const Step2 = () => {
           })),
         );
       } catch (e) {
-        console.error("오류 발생", e);
+        alert(ERROR_MESSAGE.FETCH_WEBTOON_ERROR);
+        navigate("/");
       }
     };
     if (query) fetchWebtoons();
     else setWebtoons([]);
-  }, [query]);
+  }, [navigate, query]);
 
   const clickOutBtn = () => {
     navigate("/recommend/new/1");
   };
 
-  const navigate = useNavigate();
-
   const selectWebtoon = (webtoon: UserWebtoonListConfig) => {
     if (recommendationData.recommendToons.filter((item) => item.title === webtoon.title).length !== 0) {
-      alert("이미 추천한 웹툰입니다.");
+      alert(ERROR_MESSAGE.ALREADY_RECOMMENDED);
       return;
     }
     if (webtoon.title && webtoon.imageUrl) {
-      // setSelect(webtoon);
       setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
       navigate("/recommend/new/3");
     } else {
-      console.error("웹툰의 title 또는 img가 정의되지 않았습니다.");
+      console.error(ERROR_MESSAGE.TITLE_OR_IMAGE_UNDEFINED);
     }
   };
 

@@ -1,9 +1,10 @@
-import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup.module.scss";
-import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import InputWithButton from "@/components/common/InputWithButton";
+import { useNavigate } from "react-router-dom";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 import { useUserStore } from "../../slices/useStore";
+import Text from "@/components/common/Text";
+import InputWithButton from "@/components/common/InputWithButton";
+import styles from "@/styles/signup/Signup.module.scss";
 
 const Signup1 = () => {
   const [nickname, setNickname] = useState<string>("");
@@ -21,7 +22,7 @@ const Signup1 = () => {
       setUserNickname(nickname);
       navigate("/signup/2");
     } catch (e) {
-      alert("이미 존재하는 닉네임 입니다.!");
+      alert(ERROR_MESSAGE.EXISTING_NICKNAME);
     }
   };
 
