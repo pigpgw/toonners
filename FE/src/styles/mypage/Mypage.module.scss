@@ -106,7 +106,7 @@
   border-radius: 16px;
   font-weight: 500;
   font-size: var(--font-body-1);
-  
+
   color: red;
 }
 
@@ -232,4 +232,10 @@
       gap: 12px;
     }
   }
+}
+
+.none {
+  margin: 40px 40px;
+  text-align: center;
+  color: var(--color-gray-2);
 }

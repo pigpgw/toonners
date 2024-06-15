@@ -1,3 +1,4 @@
+import styles from "@styles/mypage/Mypage.module.scss";
 import { getonMyFeed } from "@/api/myPage";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
@@ -5,6 +6,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FeedItem from "@/components/home/feed/FeedItem";
 import { FeedListConfig } from "@/interface/Feed.interface";
+import Text from "@/components/common/Text";
 
 const MyFeedPage = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -64,7 +66,9 @@ const MyFeedPage = () => {
               </div>
             ))
         ) : (
-          <div key="no-feed">피드가 없습니다.</div>
+          <div className={styles.none}>
+            <Text types="body-2">스크랩한 피드가 없습니다.</Text>
+          </div>
         )}
       </div>
     </div>

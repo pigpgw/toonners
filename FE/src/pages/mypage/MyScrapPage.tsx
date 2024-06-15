@@ -1,7 +1,9 @@
+import styles from "@styles/mypage/Mypage.module.scss";
 import { getonMyScrap } from "@/api/myPage";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
 import FeedItem from "@/components/home/feed/FeedItem";
+import Text from "@/components/common/Text";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +36,7 @@ const MyScrapPage = () => {
       }
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -64,7 +66,9 @@ const MyScrapPage = () => {
               </div>
             ))
         ) : (
-          <div key="no-scrap">스크랩이 없어요</div>
+          <div className={styles.none}>
+            <Text types="body-2">스크랩한 피드가 없습니다.</Text>
+          </div>
         )}
       </div>
     </div>
