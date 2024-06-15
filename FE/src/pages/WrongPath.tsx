@@ -1,8 +1,8 @@
-import styles from "@styles/wrong/index.module.scss";
-import MainImg from "@assets/images/login/MainImg.svg?react";
-import Text from "@/components/common/Text";
 import { useNavigate } from "react-router-dom";
+import Text from "@/components/common/Text";
 import Button from "@components/common/Button/index";
+import MainImg from "@assets/images/login/MainImg.svg?react";
+import styles from "@styles/wrong/index.module.scss";
 
 const WrongPath = () => {
   const navigate = useNavigate();

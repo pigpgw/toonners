@@ -1,6 +1,6 @@
-import styles from "@/styles/webtoon/SearchedWebtoonCard.module.scss";
 import { ReactNode } from "react";
 import DeleteWebtoonBtn from "./deleteBtn";
+import styles from "@/styles/webtoon/SearchedWebtoonCard.module.scss";
 
 interface Props {
   title: string;

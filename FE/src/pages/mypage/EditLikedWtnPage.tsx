@@ -1,14 +1,14 @@
-import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import Text from "@/components/common/Text";
+import Header from "@/components/common/Header";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import { useUserStore } from "@/slices/useStore";
-import Header from "@/components/common/Header";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { getOnMyData, updateUserData } from "@/api/myPage";
+import styles from "@/styles/signup/Signup.module.scss";
 
 const EditLikedWtnPage = () => {
   const [search, setSearch] = useState<string>("");

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import styles from "@styles/mypage/Mypage.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
-import SearchIcon from "@mui/icons-material/Search";
 import FaceIcon from "@mui/icons-material/Face";
+import SearchIcon from "@mui/icons-material/Search";
+import styles from "@styles/mypage/Mypage.module.scss";
 
 const ButtomNav = () => {
   const navigate = useNavigate();

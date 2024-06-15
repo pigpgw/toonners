@@ -1,6 +1,6 @@
-import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
-import ClickedWebtoonCard from "./ClickedWebtoonCard";
 import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
+import ClickedWebtoonCard from "./ClickedWebtoonCard";
+import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

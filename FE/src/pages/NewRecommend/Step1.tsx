@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import Input from "../../components/common/Input/index";
-import Header from "@/components/common/Header";
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
-import AddButton from "@/components/newRecommend/Button";
 import { useNavigate } from "react-router-dom";
-import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import WebtoonCard from "@/components/newRecommend/WebtoonCard";
-import { postNewRecommend } from "@/api/recommend";
-import DeleteButton from "@/components/common/Button/delete";
-import Button from "@/components/common/Button/index";
-import Text from "@/components/common/Text";
 import { putUserFeed } from "@/api/feed";
 import { deleteFeed } from "@/api/feed";
+import { postNewRecommend } from "@/api/recommend";
+import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
+import Input from "../../components/common/Input/index";
+import Text from "@/components/common/Text";
 import Modal from "@/components/common/Modal";
+import Button from "@/components/common/Button/index";
+import Header from "@/components/common/Header";
+import AddButton from "@/components/newRecommend/Button";
+import WebtoonCard from "@/components/newRecommend/WebtoonCard";
+import DeleteButton from "@/components/common/Button/delete";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 const Step1 = () => {
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =

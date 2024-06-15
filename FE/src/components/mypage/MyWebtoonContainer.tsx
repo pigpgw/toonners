@@ -1,8 +1,8 @@
-import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
-import styles from "../../styles/mypage/Mypage.module.scss";
-import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import Text from "../common/Text";
 import EditBtn from "../common/Button/Edit";
+import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
+import styles from "../../styles/mypage/Mypage.module.scss";
 
 interface Props {
   category: string;
@@ -22,9 +22,7 @@ const MyWebtoonContainer = ({ category, webtoonList, onEditMode }: Props) => {
       {webtoonList && webtoonList.length !== 0 ? (
         <SelectedWebtoonBox selectedList={webtoonList} />
       ) : (
-        <div style={{ width: "100%", fontSize: "12px", color: "gray", textAlign: "center", padding: "10px 0" }}>
-          웹툰을 추가해주세요
-        </div>
+        <div className={styles.text}>웹툰을 추가해주세요</div>
       )}
     </div>
   );

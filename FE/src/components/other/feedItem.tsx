@@ -1,10 +1,10 @@
 import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "@styles/other/Other.module.scss";
-import Text from "@components/common/Text";
-import Tag from "@components/common/Tag";
-import Profile from "@components/common/Profile";
 import { FeedListConfig } from "@/interface/Feed.interface";
+import Tag from "@components/common/Tag";
+import Text from "@components/common/Text";
+import Profile from "@components/common/Profile";
+import styles from "@styles/other/Other.module.scss";
 
 interface Props {
   feed: FeedListConfig;
@@ -42,7 +42,7 @@ const FeedItem = ({ feed }: Props) => {
           </div>
         </div>
         {feed.childFeedList && feed.childFeedList.length > 0 && (
-          <img style={{ width: "46px", height: "66px" }} src={feed.childFeedList[0].toonImage} alt="" />
+          <img className={styles.itemImg} src={feed.childFeedList[0].toonImage} alt="" />
         )}
       </div>
       <div className={styles.feed__profile}>

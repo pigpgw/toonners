@@ -1,5 +1,6 @@
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../common/Text";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
+
 const AddButton = ({ ...rest }) => {
   return (
     <div className={styles.AddButton} {...rest}>
