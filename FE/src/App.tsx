@@ -12,8 +12,7 @@ import ChatRoomListFrame from "@components/home/chatroom/ChatRoomListFrame";
 import ChatRoomMain from "@components/home/chatroom/main/ChatRoomMain";
 import EditSeeWtnPage from "./pages/mypage/EditSeeWtnPage";
 import EditLikedWtnPage from "./pages/mypage/EditLikedWtnPage";
-import MyScrapPage from "./pages/mypage/MyScrapPage";
-import MyFeedPage from "./pages/mypage/MyFeedPage";
+import FeedScrapPanel from "./pages/mypage/FeedScrapPanel";
 import FeedDetail from "./components/home/feed/FeedDetail";
 import { PrivateRoute } from "./routes/PrivateRoutes";
 import { OtherPage } from "./pages/OtherPage/OtherPage";
@@ -38,8 +37,8 @@ function App() {
           <Route path="/chatroom/create/*" element={<NewChatRoom />} />
           <Route path="/recommend/new/*" element={<NewRecommend />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/mypage/feed" element={<MyFeedPage />} />
-          <Route path="/mypage/scrap" element={<MyScrapPage />} />
+          <Route path="/mypage/feed" element={<FeedScrapPanel type="feed" />} />
+          <Route path="/mypage/scrap" element={<FeedScrapPanel type="scrap" />} />
           <Route path="/profile/:userId" element={<OtherPage />} />
           <Route path="/modify/likedWebToonList" element={<EditLikedWtnPage />} />
           <Route path="/modify/seeWebtoonList" element={<EditSeeWtnPage />} />
