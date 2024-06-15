@@ -1,9 +1,9 @@
-import styles from "@styles/home/Home.module.scss";
+import useFeedQuery from "@/api/reactQuery/useFeedQuery";
+import { FeedListConfig } from "@/interface/Feed.interface";
 import FeedItem from "@/components/home/feed/FeedItem";
 import CreateButton from "@components/common/Button/Create";
 import Banner from "@assets/images/home/banner2.svg?react";
-import useFeedQuery from "@/api/reactQuery/useFeedQuery";
-import { FeedListConfig } from "@/interface/Feed.interface";
+import styles from "@styles/home/Home.module.scss";
 
 const FeedPage = () => {
   const { feedListState, feedListLoading, feedListError } = useFeedQuery();

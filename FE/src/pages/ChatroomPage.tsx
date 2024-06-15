@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import styles from "@styles/home/Home.module.scss";
-import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
+import { getAllChatRoomList, getMyTalk, getTodayChatRoomList } from "@api/chat";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/common/Button/Create";
-import { getAllChatRoomList, getMyTalk, getTodayChatRoomList } from "@api/chat";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import useFetchTopChatList from "@/api/reactQuery/useFetchTopChatList";
+import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
+import styles from "@styles/home/Home.module.scss";
 
 interface ChatContentsConfig {
   keyword: "today" | "rank" | "rest";
@@ -77,7 +77,6 @@ const ChatroomPage = () => {
     };
 
     getTodayList();
-
     getRestList();
   }, []);
 

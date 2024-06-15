@@ -1,5 +1,4 @@
 import { KeyboardEvent, useState } from "react";
-import styles from "@styles/Search.module.scss";
 import Header from "@components/common/Header";
 import InputWithButton from "@components/common/InputWithButton";
 import SearchList from "@components/search/SearchList";
@@ -8,6 +7,7 @@ import { getSearchChatRoom } from "@/api/chat";
 import { getSearchFeed } from "@/api/feed";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { FeedListConfig } from "@/interface/Feed.interface";
+import styles from "@styles/Search.module.scss";
 
 const SearchPage = () => {
   const [isSearched, setisSearched] = useState(false);

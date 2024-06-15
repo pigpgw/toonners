@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MainProfile from "@components/mypage/MainProfile";
+import { getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
+import { useUserStore } from "@/slices/useStore";
 import Text from "@/components/common/Text";
+import Modal from "@/components/common/Modal";
+import BottomNav from "@/components/mypage/ButtonNav";
+import MainProfile from "@components/mypage/MainProfile";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
-import BottomNav from "@/components/mypage/ButtonNav";
-import { getOnMyData, updateUserData } from "@/api/myPage";
-import { useUserStore } from "@/slices/useStore";
-import { UserConfig } from "@/interface/Webtoon.interface";
-import Modal from "@/components/common/Modal";
 
 const Mypage = () => {
   const [editMode, setEditMode] = useState(false);
@@ -24,7 +22,7 @@ const Mypage = () => {
 
   const withDraw = async () => {
     try {
-      // await postWithDraw();
+      await postWithDraw();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       alert("회원 탈퇴되었습니다.!");
@@ -36,7 +34,7 @@ const Mypage = () => {
 
   const logOut = async () => {
     try {
-      // await postLogOut();
+      await postLogOut();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       alert("로그아웃 되었습니다.!");
@@ -65,7 +63,7 @@ const Mypage = () => {
       setUserNickname(res.nickname);
       setDescription(res.description);
       if (res) {
-        setUser(res as UserConfig);
+        setUser(res);
       }
     } catch (e) {
       alert("내 정보 가져오기 실패");

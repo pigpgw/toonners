@@ -1,27 +1,18 @@
-import Header from "@/components/common/Header";
-import MainProfile from "@/components/mypage/MainProfile";
-import Text from "@/components/common/Text";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
-import { getUserFeed } from "@/api/feed";
-import FeedItem from "@/components/other/feedItem";
-import styles from "@/styles/other/Other.module.scss";
 import { getUserData } from "@/api/myPage";
 import { getOtherTalk } from "@/api/chat";
-
-type User = {
-  id: number;
-  email: string;
-  nickname: string;
-  description: string;
-  image: string | null;
-  favoriteToons: unknown[];
-  watchingToons: unknown[];
-};
+import { getUserFeed } from "@/api/feed";
+import { UserConfig } from "@/interface/Webtoon.interface";
+import Text from "@/components/common/Text";
+import Header from "@/components/common/Header";
+import FeedItem from "@/components/other/feedItem";
+import MainProfile from "@/components/mypage/MainProfile";
+import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
+import styles from "@/styles/other/Other.module.scss";
 
 export const OtherPage = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserConfig>();
   const [chatList, setChatList] = useState([]);
   const [feedList, setFeedList] = useState([]);
   const navigate = useNavigate();
@@ -74,9 +65,7 @@ export const OtherPage = () => {
         {chatList.length > 0 ? (
           <HomeChatListFrame keyword="rest" list={chatList} />
         ) : (
-          <div style={{ textAlign: "center", margin: "40px", color: "var(--color-gray-2)" }}>
-            참여중인 단톡방이 없습니다!
-          </div>
+          <div className={styles.textInfo}>참여중인 단톡방이 없습니다!</div>
         )}
         <Text types="body-1" bold="bold">
           작성자가 작성한 Feed글
@@ -86,7 +75,7 @@ export const OtherPage = () => {
             return <FeedItem key={i} feed={feed} />;
           })
         ) : (
-          <div style={{ textAlign: "center" }}>작성한 피드가 없습니다!</div>
+          <div className={styles.textInfo}>작성한 피드가 없습니다!</div>
         )}
       </div>
     </>

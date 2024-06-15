@@ -1,7 +1,7 @@
-import styles from "@styles/common/Profile.module.scss";
-import { Avatar } from "@mui/material";
-import Text from "@components/common/Text";
 import { MouseEvent, useEffect } from "react";
+import Text from "@components/common/Text";
+import { Avatar } from "@mui/material";
+import styles from "@styles/common/Profile.module.scss";
 
 interface Props {
   name: string;
@@ -17,6 +17,7 @@ const Profile = ({ name, size, number = "2", ...rest }: Props) => {
 
   useEffect(() => {
     createImageElement();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const profileSize = {
