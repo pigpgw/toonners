@@ -77,7 +77,6 @@ const ChatroomPage = () => {
     };
 
     getTodayList();
-
     getRestList();
   }, []);
 

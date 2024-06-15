@@ -22,7 +22,8 @@ const MyWebtoonContainer = ({ category, webtoonList, onEditMode }: Props) => {
       {webtoonList && webtoonList.length !== 0 ? (
         <SelectedWebtoonBox selectedList={webtoonList} />
       ) : (
-        <div className={styles.text}>웹툰을 추가해주세요</div>
+        <div className={styles.text}>웹툰을 추가
+        해주세요</div>
       )}
     </div>
   );

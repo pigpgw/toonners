@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
-import { UserConfig } from "@/interface/Webtoon.interface";
 import Text from "@/components/common/Text";
 import Modal from "@/components/common/Modal";
 import BottomNav from "@/components/mypage/ButtonNav";
@@ -65,7 +63,7 @@ const Mypage = () => {
       setUserNickname(res.nickname);
       setDescription(res.description);
       if (res) {
-        setUser(res as UserConfig);
+        setUser(res);
       }
     } catch (e) {
       alert("내 정보 가져오기 실패");

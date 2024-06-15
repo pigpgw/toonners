@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserData } from "@/api/myPage";
 import { getOtherTalk } from "@/api/chat";
 import { getUserFeed } from "@/api/feed";
+import { UserConfig } from "@/interface/Webtoon.interface";
 import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
 import FeedItem from "@/components/other/feedItem";
@@ -10,18 +11,8 @@ import MainProfile from "@/components/mypage/MainProfile";
 import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
 import styles from "@/styles/other/Other.module.scss";
 
-type User = {
-  id: number;
-  email: string;
-  nickname: string;
-  description: string;
-  image: string | null;
-  favoriteToons: unknown[];
-  watchingToons: unknown[];
-};
-
 export const OtherPage = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserConfig>();
   const [chatList, setChatList] = useState([]);
   const [feedList, setFeedList] = useState([]);
   const navigate = useNavigate();
@@ -40,7 +31,7 @@ export const OtherPage = () => {
 
   const getUserFeedList = async (userId: string) => {
     const response = await getUserFeed(userId);
-    console.log(response)
+    console.log(response);
     setFeedList(response);
   };
 

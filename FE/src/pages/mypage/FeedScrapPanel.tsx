@@ -29,7 +29,7 @@ const FeedScrapPanel = ({ type }: Props) => {
     const fetchData = async () => {
       try {
         const res = await (type === "scrap" ? getonMyScrap() : getonMyFeed());
-        res ? setFeedList(res as FeedListConfig[]) : setFeedList([]);
+        res ? setFeedList(res) : setFeedList([]);
         console.log('res',res)
       } catch (error) {
         alert(`내 ${type} 리스트 가져오기 실패`);

@@ -16,7 +16,6 @@ interface Props {
   list: any[];
   onClick?: () => void;
 }
-
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Props) => {
   const navigate = useNavigate();
   if (!Array.isArray(list)) {

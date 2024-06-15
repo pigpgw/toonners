@@ -3,8 +3,7 @@ import ClickedWebtoonCard from "./ClickedWebtoonCard";
 import styles from "../../styles/webtoon/SelectedWebtoonBox.module.scss";
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedList: any[];
+  selectedList: UserWebtoonListConfig[];
   removeSelect?: (webtoon: UserWebtoonListConfig) => void;
 }
 
