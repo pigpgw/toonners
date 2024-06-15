@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loding";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 const Redirect = () => {
@@ -25,17 +26,16 @@ const Redirect = () => {
           throw new Error("서버 응답이 200이 아닙니다.");
         }
       } catch (e) {
-        console.error(e);
         alert("로그인에 실패했습니다.");
         navigate("/");
       }
     };
 
     postCode();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div>로딩중</div>;
+  return <Loading />;
 };
 
 export default Redirect;

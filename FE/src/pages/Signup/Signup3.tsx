@@ -16,6 +16,7 @@ const Signup3 = () => {
         alert("가입이 성공적으로 완료되었습니다.");
       } catch (e) {
         console.log("error", e);
+        navigate("/home");
       }
   };
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import styles from "@styles/home/ChatRoom.module.scss";
-import Modal from "@/components/common/Modal";
 import Text from "@/components/common/Text";
+import Modal from "@/components/common/Modal";
+import styles from "@styles/home/ChatRoom.module.scss";
 
 export const PrivateRoute = () => {
   const navigate = useNavigate();

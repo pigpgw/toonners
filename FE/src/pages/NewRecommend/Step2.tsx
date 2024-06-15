@@ -1,12 +1,12 @@
-import Header from "@/components/common/Header";
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import { useEffect, useState } from "react";
-import Text from "@/components/common/Text";
-import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
+import { useNavigate } from "react-router-dom";
 import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
-import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
+import Text from "@/components/common/Text";
+import Header from "@/components/common/Header";
+import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 const Step2 = () => {
   const [search, setSearch] = useState<string>("");

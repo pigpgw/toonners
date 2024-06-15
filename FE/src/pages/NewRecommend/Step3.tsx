@@ -1,12 +1,12 @@
-import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
-import Header from "@/components/common/Header";
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
-import Text from "../../components/common/Text/index";
-import Tag from "@/components/common/Tag";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
-import { useEffect, useState } from "react";
+import Tag from "@/components/common/Tag";
+import Text from "../../components/common/Text/index";
+import Header from "@/components/common/Header";
 import Rating from "@/components/common/Rating";
+import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 const genres = ["공포", "로맨스", "판타지", "학원물"];
 const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];

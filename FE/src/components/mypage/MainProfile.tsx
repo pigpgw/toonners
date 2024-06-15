@@ -1,9 +1,9 @@
-import styles from "@styles/mypage/Mypage.module.scss";
+import { ChangeEvent } from "react";
 import Profile from "./Profile";
 import Text from "../common/Text";
 import EditBtn from "../common/Button/Edit";
-import { ChangeEvent } from "react";
 import { useUserStore } from "@/slices/useStore";
+import styles from "@styles/mypage/Mypage.module.scss";
 
 interface Props {
   imgUrl: string;

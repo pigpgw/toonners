@@ -1,9 +1,9 @@
-import styles from "@styles/Search.module.scss";
 import Text from "@components/common/Text";
-import RestChatItem from "@components/home/chatroom/RestChatItem";
 import FeedItem from "@components/home/feed/FeedItem";
+import RestChatItem from "@components/home/chatroom/RestChatItem";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import { FeedListConfig } from "@/interface/Feed.interface";
+import styles from "@styles/Search.module.scss";
 
 interface Props {
   title: "chatroom" | "feed";

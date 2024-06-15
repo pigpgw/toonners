@@ -1,7 +1,7 @@
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import Text from "../common/Text/index";
 import Tag from "@/components/common/Tag";
 import Rating from "@/components/common/Rating";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 interface Props {
   title: string | undefined;

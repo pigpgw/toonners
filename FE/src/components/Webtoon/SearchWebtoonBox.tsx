@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
+import Input from "../common/Input";
 import SearchedWebtoonCard from "./SearchedWebtoonCard";
 import styles from "@/styles/webtoon/SearchWebtoonBox.module.scss";
-import Input from "../common/Input";
-import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 
 interface Props {
   height: number;
