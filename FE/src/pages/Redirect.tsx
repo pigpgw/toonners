@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loding";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 const Redirect = () => {
@@ -32,10 +33,10 @@ const Redirect = () => {
     };
 
     postCode();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div>로딩중</div>;
+  return <Loading />;
 };
 
 export default Redirect;

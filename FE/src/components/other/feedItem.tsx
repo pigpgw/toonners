@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import Tag from "@components/common/Tag";
@@ -21,6 +21,10 @@ const FeedItem = ({ feed }: Props) => {
     e.stopPropagation();
     navigate(`/profile/${feed.writerMemberId}`);
   };
+
+  useEffect(() => {
+    console.log(feed)
+  })
 
   return (
     <div className={styles.feed__item} onClick={handleFeedItem}>
