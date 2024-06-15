@@ -64,7 +64,7 @@ const FeedScrapPanel = ({ type }: Props) => {
             ))
         ) : (
           <div className={styles.none}>
-            <Text types="body-2">{isScrapType ? ERROR_MESSAGE.NO_SCRAPPED_MY_FEEDS : ERROR_MESSAGE.NO_AUTHORED_FEEDS}</Text>
+            <Text types="body-2">{isScrapType ? ERROR_MESSAGE.NO_SCRAPPED_MY_FEEDS : ERROR_MESSAGE.NO_AUTHORED_MY_FEEDS}</Text>
           </div>
         )}
       </div>
