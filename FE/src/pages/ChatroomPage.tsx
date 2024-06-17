@@ -25,7 +25,8 @@ const ChatroomPage = () => {
 
     const getRestList = async () => {
       const res = await getAllChatRoomList();
-      if (res) setRestList(res);
+      const slicedList = res.slice(0, 3);
+      if (res) setRestList(slicedList);
       else setRestList([]);
     };
 
