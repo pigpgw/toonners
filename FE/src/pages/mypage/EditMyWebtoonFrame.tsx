@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "@/slices/useStore";
+import useDebounce from "@/hooks/useDebounce";
+import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { getOnMyData, updateUserData } from "@/api/myPage";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
 import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
-import fetchWetboonInfo from "@/api/fetchWetboonInfo";
-import { getOnMyData, updateUserData } from "@/api/myPage";
-import { useUserStore } from "@/slices/useStore";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
-import styles from "@/styles/signup/Signup.module.scss";
 import { EDIT_MY_WEBTOON_TYPES } from "@/constants/ComponentTypes";
+import styles from "@/styles/signup/Signup.module.scss";
 
 const EditMyWebtoonFrame = ({ type }: { type: string }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const [query, setQuery] = useState("");
+  const debounced = useDebounce(search,300)
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const {
     user,
@@ -77,18 +78,12 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
 
   useEffect(() => {
     const getWebtoonData = async () => {
-      const res = await fetchWetboonInfo(query);
+      console.log(debounced)
+      const res = await fetchWetboonInfo(debounced);
       setWebtoons(res);
     };
     getWebtoonData();
-  }, [query]);
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      setQuery(search);
-    }, 300);
-    return () => clearTimeout(debounce);
-  }, [search]);
+  }, [debounced]);
 
   const removeSelect = (webtoon: UserWebtoonListConfig) => {
     isLikedType ? removeFavoriteToons(webtoon) : removeSeeWebtoon(webtoon);

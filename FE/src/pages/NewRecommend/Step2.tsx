@@ -1,33 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
+import useDebounce from "@/hooks/useDebounce";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
 import SearchWebtoonBox from "@/components/Webtoon/SearchWebtoonBox";
-import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 const Step2 = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
   const [search, setSearch] = useState<string>("");
+  const debounced = useDebounce(search, 300);
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      setQuery(search);
-    }, 300);
-    return () => clearTimeout(debounce);
-  }, [search]);
-
-  useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await fetchWetboonInfo(query);
+        const response = await fetchWetboonInfo(debounced);
         setWebtoons(
           response.map((item) => ({
             ...item,
@@ -39,9 +33,9 @@ const Step2 = () => {
         navigate("/");
       }
     };
-    if (query) fetchWebtoons();
+    if (debounced) fetchWebtoons();
     else setWebtoons([]);
-  }, [navigate, query]);
+  }, [navigate, debounced]);
 
   const clickOutBtn = () => {
     navigate("/recommend/new/1");

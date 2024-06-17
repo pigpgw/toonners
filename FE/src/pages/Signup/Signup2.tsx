@@ -1,17 +1,18 @@
-import Text from "@/components/common/Text";
-import styles from "@/styles/signup/Signup.module.scss";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useUserStore } from "@/slices/useStore";
+import useDebounce from "@/hooks/useDebounce";
 import fetchWetboonInfo from "@/api/fetchWetboonInfo";
+import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
+import Text from "@/components/common/Text";
 import SelectedWebtoonBox from "@/components/Webtoon/SelectedWebtoonBox";
 import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
-import { UserWebtoonListConfig } from "@/interface/Webtoon.interface";
-import { useUserStore } from "@/slices/useStore";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import styles from "@/styles/signup/Signup.module.scss";
 
 const Signup2 = () => {
   const [search, setSearch] = useState<string>("");
-  const [keyword, setKeyword] = useState("");
+  const debounced = useDebounce(search, 300);
   const [serchedWebtoons, setFetchWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 
@@ -22,21 +23,14 @@ const Signup2 = () => {
   useEffect(() => {
     const fetchWebtoons = async () => {
       try {
-        const response = await fetchWetboonInfo(keyword);
+        const response = await fetchWetboonInfo(debounced);
         setFetchWebtoons(response);
       } catch (e) {
         console.error("오류 발생", e);
       }
     };
     fetchWebtoons();
-  }, [keyword]);
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      setKeyword(search);
-    }, 300);
-    return () => clearTimeout(debounce);
-  }, [search]);
+  }, [debounced]);
 
   const handleSelect = (webtoon: UserWebtoonListConfig) => {
     if (user.watchingToons.length >= 4) {
