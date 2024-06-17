@@ -10,6 +10,7 @@ export enum ERROR_MESSAGE {
   NO_SCRAPPED_MY_FEEDS = "내가 스크랩한 피드가 없습니다.",
 
   UPDATE_ERROR = "업데이트 실패",
+  LIKED_ERROR = "좋아요 실패",
   BOOKMARK_ERROR = "북마크 실패",
   DELETE_FEED_ERROR = "피드 삭제 실패",
 
