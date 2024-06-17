@@ -29,11 +29,13 @@ const Step3 = () => {
       hashtagGenre: selectedGenres,
     });
   }, [selectedGenres, setRecommendConfig]);
+
   useEffect(() => {
     setRecommendConfig({
       hashtagVibe: selectedMoods,
     });
   }, [selectedMoods, setRecommendConfig]);
+
   useEffect(() => {
     setRecommendConfig({
       starring: rating,

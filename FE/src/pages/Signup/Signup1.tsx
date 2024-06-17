@@ -7,15 +7,13 @@ import InputWithButton from "@/components/common/InputWithButton";
 import styles from "@/styles/signup/Signup.module.scss";
 
 const Signup1 = () => {
-  const [nickname, setNickname] = useState<string>("");
-
   const navigate = useNavigate();
+  const [nickname, setNickname] = useState<string>("");
+  const { setUserNickname } = useUserStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
-
-  const { setUserNickname } = useUserStore();
 
   const nextStep = () => {
     try {

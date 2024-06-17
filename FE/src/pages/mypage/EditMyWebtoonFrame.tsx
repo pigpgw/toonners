@@ -78,7 +78,6 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
 
   useEffect(() => {
     const getWebtoonData = async () => {
-      console.log(debounced)
       const res = await fetchWetboonInfo(debounced);
       setWebtoons(res);
     };
