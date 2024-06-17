@@ -52,9 +52,6 @@ const FeedItem = ({ feed }: Props) => {
           number={feed.writerMemberImage}
           onClick={(e) => handleProfile(e)}
         />
-        {/* <div onClick={(e) => e.stopPropagation()}>
-            <Bookmark label="스크랩" checked={check} onChange={setCheck} />
-          </div> */}
       </div>
     </div>
   );

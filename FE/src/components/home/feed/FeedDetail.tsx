@@ -13,6 +13,7 @@ import { getUserId } from "@/utils/authUtils";
 import { useRecommendationStore } from "@/slices/useRecommendationStore";
 import Heart from "@/components/common/Like";
 import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const FeedDetail = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const FeedDetail = () => {
       await postBookMark(id!);
       setBookmarkClicked(!bookmarkClicked);
     } catch (e) {
-      console.log("북마크 실패 로그", e);
+      alert(ERROR_MESSAGE.BOOKMARK_ERROR);
     }
   };
 

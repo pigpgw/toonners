@@ -10,8 +10,9 @@ import FeedItem from "@/components/other/feedItem";
 import MainProfile from "@/components/mypage/MainProfile";
 import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
 import styles from "@/styles/other/Other.module.scss";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
-export const OtherPage = () => {
+const OtherPage = () => {
   const [user, setUser] = useState<UserConfig>();
   const [chatList, setChatList] = useState([]);
   const [feedList, setFeedList] = useState([]);
@@ -44,7 +45,7 @@ export const OtherPage = () => {
       const response = await getUserData(userId);
       setUser(response);
     } catch (e) {
-      alert("유저 데이터 가져오기 실패");
+      alert(ERROR_MESSAGE.FETCH_USER_DATA_ERROR);
       navigate("/home");
     }
   };
@@ -81,3 +82,5 @@ export const OtherPage = () => {
     </>
   );
 };
+
+export default OtherPage;

@@ -8,6 +8,8 @@ import BottomNav from "@/components/mypage/ButtonNav";
 import MainProfile from "@components/mypage/MainProfile";
 import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
+import { SUCCESS_MESSAGE } from "@/constants/SuccessTypes";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const Mypage = () => {
   const [editMode, setEditMode] = useState(false);
@@ -25,10 +27,10 @@ const Mypage = () => {
       await postWithDraw();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
-      alert("회원 탈퇴되었습니다.!");
+      alert(SUCCESS_MESSAGE.WITHDRAW_SUCCESS_ALERT);
       navigate("/");
     } catch (e) {
-      throw new Error("회원탈퇴 실패");
+      throw new Error(ERROR_MESSAGE.WITHDRAW_ERROR);
     }
   };
 
@@ -37,10 +39,10 @@ const Mypage = () => {
       await postLogOut();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
-      alert("로그아웃 되었습니다.!");
+      alert(SUCCESS_MESSAGE.LOGOUT_SUCCESS_ALERT);
       navigate("/");
     } catch (e) {
-      throw new Error("로그아웃 실패");
+      throw new Error(ERROR_MESSAGE.LOGOUT_ERROR);
     }
   };
 
@@ -66,7 +68,7 @@ const Mypage = () => {
         setUser(res);
       }
     } catch (e) {
-      alert("내 정보 가져오기 실패");
+      alert(ERROR_MESSAGE.FETCH_MT_DATA_ERROR);
       navigate("/");
     }
   };

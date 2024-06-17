@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import { GENRES, MOODS } from "@/constants/Tags";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import Tag from "@/components/common/Tag";
 import Text from "../../components/common/Text/index";
@@ -7,9 +9,6 @@ import Header from "@/components/common/Header";
 import Rating from "@/components/common/Rating";
 import SearchedWebtoonCard from "@/components/Webtoon/SearchedWebtoonCard";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
-
-const genres = ["공포", "로맨스", "판타지", "학원물"];
-const moods = ["설레는", "신나는", "소름돋는", "잔잔한"];
 
 const Step3 = () => {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -43,7 +42,7 @@ const Step3 = () => {
 
   const clickAddWebtoon = () => {
     if (recommendConfig.hashtagGenre.length === 0 || recommendConfig.hashtagVibe.length === 0) {
-      alert("최소 하나 이상의 장르와 분위기를 골라주세요");
+      alert(ERROR_MESSAGE.SELECT_GENRE_AND_MOOD_MESSAGE);
       return;
     }
 
@@ -90,7 +89,7 @@ const Step3 = () => {
           장르
         </Text>
         <div className={styles.tagBox}>
-          {genres.map((genre) => (
+          {GENRES.map((genre) => (
             <Tag
               key={genre}
               sizes="medium"
@@ -106,7 +105,7 @@ const Step3 = () => {
           분위기
         </Text>
         <div className={styles.tagBox}>
-          {moods.map((mood) => (
+          {MOODS.map((mood) => (
             <Tag
               key={mood}
               sizes="medium"
