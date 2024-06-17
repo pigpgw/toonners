@@ -5,6 +5,7 @@ import { useUserStore } from "../../slices/useStore";
 import Text from "@/components/common/Text";
 import InputWithButton from "@/components/common/InputWithButton";
 import styles from "@/styles/signup/Signup.module.scss";
+import { filterNickname } from "@/utils/filterValue";
 
 const Signup1 = () => {
   const navigate = useNavigate();
@@ -17,6 +18,12 @@ const Signup1 = () => {
 
   const nextStep = () => {
     try {
+      if (filterNickname(nickname)) {
+        setUserNickname(nickname);
+      } else {
+        alert(ERROR_MESSAGE.INVALID_NICKNAME);
+        return;
+      }
       setUserNickname(nickname);
       navigate("/signup/2");
     } catch (e) {

@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "@styles/home/ChatRoom.module.scss";
-import Header from "@components/common/Header";
-import InputWithButton from "@/components/common/InputWithButton";
-import Modal from "@/components/common/Modal";
-import Text from "@/components/common/Text";
-import Badge from "@/components/common/Badge";
-import ChatItem from "@components/home/chatroom/main/ChatItem";
-import CustomAccordion from "./Accordian";
 import { postChatComment, postFireComment } from "@api/chat";
 import useFetchChatMessages from "@/api/reactQuery/useFetchChatMessages";
 import useFetchChatRoomInfo from "@/api/reactQuery/useFetchChatRoomInfo";
+import { filterProfanity } from "@/utils/filterValue";
+import Text from "@/components/common/Text";
+import Modal from "@/components/common/Modal";
+import Badge from "@/components/common/Badge";
+import Header from "@components/common/Header";
+import ChatItem from "@components/home/chatroom/main/ChatItem";
+import InputWithButton from "@/components/common/InputWithButton";
+import CustomAccordion from "./Accordian";
+import styles from "@styles/home/ChatRoom.module.scss";
 
 const ChatRoomMain = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const ChatRoomMain = () => {
     try {
       await postChatComment({
         chatRoomId: id!,
-        contexts: comment,
+        contexts: filterProfanity(comment),
       });
       setComment("");
       chatMessagesRefetch();
