@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loding";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 const Redirect = () => {
@@ -26,7 +27,7 @@ const Redirect = () => {
           throw new Error("서버 응답이 200이 아닙니다.");
         }
       } catch (e) {
-        alert("로그인에 실패했습니다.");
+        alert(ERROR_MESSAGE.LOGIN_ERROR);
         navigate("/");
       }
     };

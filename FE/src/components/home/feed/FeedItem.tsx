@@ -1,13 +1,14 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "@styles/home/Home.module.scss";
-import Text from "@components/common/Text";
-import Tag from "@components/common/Tag";
-import Profile from "@components/common/Profile";
-import { FeedListConfig } from "@/interface/Feed.interface";
-import Heart from "@/components/common/Like";
 import { postFeedLike } from "@/api/feed";
 import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
+import { FeedListConfig } from "@/interface/Feed.interface";
+import Tag from "@components/common/Tag";
+import Text from "@components/common/Text";
+import Profile from "@components/common/Profile";
+import Heart from "@/components/common/Like";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import styles from "@styles/home/Home.module.scss";
 
 interface Props {
   feed: FeedListConfig;
@@ -15,8 +16,8 @@ interface Props {
 
 const FeedItem = ({ feed }: Props) => {
   const navigate = useNavigate();
-  const [likeClicked, setLikeClicked] = useState(feed.liked);
-  const { feedLikesRefetch } = useFetchFeedLikes(String(feed.parentFeedId));
+  const { feedLikesState, feedLikesRefetch } = useFetchFeedLikes(String(feed.parentFeedId));
+
   const handleFeedItem = () => {
     navigate(`/recommend/${feed.parentFeedId}`);
   };
@@ -33,15 +34,10 @@ const FeedItem = ({ feed }: Props) => {
     try {
       await postFeedLike(feed.parentFeedId);
       feedLikesRefetch();
-      setLikeClicked(!likeClicked);
     } catch (e) {
-      console.log("좋아요 누르기 실패");
+      alert(ERROR_MESSAGE.LIKED_ERROR);
     }
   };
-
-  useEffect(() => {
-    setLikeClicked(feed.liked);
-  }, [feed.liked]);
 
   return (
     <div className={styles.feed__item} onClick={handleFeedItem}>
@@ -80,7 +76,7 @@ const FeedItem = ({ feed }: Props) => {
             number={feed.writerMemberImage}
             onClick={(e) => handleProfile(e)}
           />
-          <Heart liked={likeClicked} clickLikeBtn={clickLiked} feedId={feed.parentFeedId} />
+          <Heart liked={feedLikesState} clickLikeBtn={clickLiked} feedId={feed.parentFeedId} />
         </div>
       </div>
     </div>

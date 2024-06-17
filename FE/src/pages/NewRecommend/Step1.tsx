@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { putUserFeed } from "@/api/feed";
 import { deleteFeed } from "@/api/feed";
 import { postNewRecommend } from "@/api/recommend";
+import { isValidValue } from "@/utils/isValidValue";
 import { useRecommendConfigStore, useRecommendationStore } from "@/slices/useRecommendationStore";
 import Input from "../../components/common/Input/index";
 import Text from "@/components/common/Text";
@@ -12,25 +13,22 @@ import Header from "@/components/common/Header";
 import AddButton from "@/components/newRecommend/Button";
 import WebtoonCard from "@/components/newRecommend/WebtoonCard";
 import DeleteButton from "@/components/common/Button/delete";
+import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import { SUCCESS_MESSAGE } from "@/constants/SuccessTypes";
 import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 
 const Step1 = () => {
+  const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [modify, setModify] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [modify, setModify] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const clickShareBtn = async () => {
-    if (recommendationData.title.length === 0) {
-      alert("추천글 제목을 입력해주세요");
-      return;
-    }
-    if (recommendationData.recommendToons.length === 0) {
-      alert("웹툰 1가지 이상 추천해주세요");
-      return;
-    }
+    isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED);
+    isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED);
     try {
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {
@@ -41,14 +39,12 @@ const Step1 = () => {
       else await postNewRecommend(recommendationData);
       resetRecommendationData();
       resetRecommendConfig();
-      alert("등록이 완료되었습니다.!");
+      alert(SUCCESS_MESSAGE.SUCCESS_POST);
       navigate("/home");
     } catch (e) {
       alert(e);
     }
   };
-
-  const navigate = useNavigate();
 
   const goNextPage = () => {
     navigate("/recommend/new/2");
@@ -94,7 +90,7 @@ const Step1 = () => {
       resetRecommendationData();
       navigate("/");
     } catch (e) {
-      console.log("피드 삭제 실패", e);
+      alert(ERROR_MESSAGE.DELETE_FEED_ERROR);
       navigate("/");
     }
   };
