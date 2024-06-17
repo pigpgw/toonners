@@ -11,6 +11,7 @@ import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 import styles from "@/styles/signup/Signup.module.scss";
 
 const Signup2 = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
   const debounced = useDebounce(search, 300);
   const [serchedWebtoons, setFetchWebtoons] = useState<UserWebtoonListConfig[]>([]);
@@ -50,12 +51,10 @@ const Signup2 = () => {
     removeSeeWebtoon(webtoon);
   };
 
-  const navigator = useNavigate();
-
   const goNext = () => {
     if (user.watchingToons.length === 0) alert(ERROR_MESSAGE.MIN_SELECTION_ERROR);
     else {
-      navigator("/signup/3");
+      navigate("/signup/3");
     }
   };
 

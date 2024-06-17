@@ -12,10 +12,10 @@ import { SUCCESS_MESSAGE } from "@/constants/SuccessTypes";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const Mypage = () => {
+  const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [logOutModal, setLogOutModal] = useState(false);
   const [withDrawModal, setWithDrawModal] = useState(false);
-  const navigate = useNavigate();
   const { user, setUser, setUserNickname, setDescription } = useUserStore();
 
   const onEditMode = () => {
