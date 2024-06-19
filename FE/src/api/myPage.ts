@@ -11,7 +11,6 @@ export const updateUserData = async (userData: unknown): Promise<UserConfig> => 
 
 export const checkValidNickname = async (userData: unknown): Promise<UserConfig> => {
   const response = await Axios.post(`${BASE_URL}/member/check/nickname`, userData);
-  console.log('ddd',response.status)
   return response.data.data;
 };
 
