@@ -12,7 +12,6 @@ import com.example.toonners.domain.member.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +28,7 @@ public class MemberController {
     private final TokenProvider tokenProvider;
 
     @PostMapping("/oauth2/callback/kakao")
-    public InfoResponse kakaoLogin(@RequestBody String code, HttpServletResponse response)
+    public InfoResponse kakaoLogin(@RequestParam String code, HttpServletResponse response)
             throws JsonProcessingException {
         return kakaoUserService.kakaoLogin(code, response);
     }
