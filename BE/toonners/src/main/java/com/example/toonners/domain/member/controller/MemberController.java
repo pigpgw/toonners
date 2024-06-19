@@ -28,7 +28,7 @@ public class MemberController {
     private final TokenProvider tokenProvider;
 
     @PostMapping("/oauth2/callback/kakao")
-    public InfoResponse kakaoLogin(@RequestParam String code, HttpServletResponse response)
+    public InfoResponse kakaoLogin(@RequestBody String code, HttpServletResponse response)
             throws JsonProcessingException {
         return kakaoUserService.kakaoLogin(code, response);
     }
