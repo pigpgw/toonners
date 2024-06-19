@@ -23,6 +23,8 @@ const Mypage = () => {
     description: "",
   });
   const { user, setUser } = useUserStore();
+  const nicknameChanged = user.nickname !== originUserInfo.nickname;
+  const descriptionChanged = user.description !== originUserInfo.description;
 
   const onEditMode = () => {
     setEditMode(true);
@@ -54,8 +56,6 @@ const Mypage = () => {
 
   const offEditMode = async () => {
     const isValidNickname = filterNickname(user.nickname);
-    const nicknameChanged = user.nickname !== originUserInfo.nickname;
-    const descriptionChanged = user.description !== originUserInfo.description;
 
     try {
       if (!isValidNickname) {
