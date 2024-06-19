@@ -9,7 +9,7 @@ export interface WebtoonConfig {
 export interface WebtoonResponseConfig {
   title: string;
   url: string;
-  img: string;
+  thumbnail: string;
   updateDays: string[];
   fanCount?: string;
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
+import { AxiosError } from "axios";
+import { checkValidNickname, getOnMyData, postLogOut, postWithDraw, updateUserData } from "@/api/myPage";
 import { useUserStore } from "@/slices/useStore";
 import Text from "@/components/common/Text";
 import Modal from "@/components/common/Modal";
@@ -10,13 +11,18 @@ import MyWebtoonContainer from "@/components/mypage/MyWebtoonContainer";
 import styles from "../styles/mypage/Mypage.module.scss";
 import { SUCCESS_MESSAGE } from "@/constants/SuccessTypes";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import { filterNickname } from "@/utils/filterValue";
 
 const Mypage = () => {
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [logOutModal, setLogOutModal] = useState(false);
   const [withDrawModal, setWithDrawModal] = useState(false);
-  const { user, setUser, setUserNickname, setDescription } = useUserStore();
+  const [originUserInfo, setOriginUserInfo] = useState({
+    nickname: "",
+    description: "",
+  });
+  const { user, setUser } = useUserStore();
 
   const onEditMode = () => {
     setEditMode(true);
@@ -47,26 +53,48 @@ const Mypage = () => {
   };
 
   const offEditMode = async () => {
-    setEditMode(false);
+    const isValidNickname = filterNickname(user.nickname);
+    const nicknameChanged = user.nickname !== originUserInfo.nickname;
+    const descriptionChanged = user.description !== originUserInfo.description;
+
     try {
-      await updateUserData({
-        nickname: user.nickname,
-        description: user.description,
-      });
-      fetchData();
+      if (!isValidNickname) {
+        alert(ERROR_MESSAGE.INVALID_NICKNAME);
+        fetchData();
+        return;
+      }
+
+      if (nicknameChanged || descriptionChanged) {
+        if (nicknameChanged) {
+          await checkValidNickname({
+            nickname: user.nickname,
+          });
+        }
+
+        await updateUserData({
+          ...(nicknameChanged && { nickname: user.nickname }),
+          ...(descriptionChanged && { description: user.description }),
+        });
+      }
+      setEditMode(false);
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError && e.response?.data?.message) {
+        alert(e.response.data.message);
+      } else {
+        alert(ERROR_MESSAGE.FAIL_MODIFY);
+      }
+      fetchData();
     }
   };
 
   const fetchData = async () => {
     try {
       const res = await getOnMyData();
-      setUserNickname(res.nickname);
-      setDescription(res.description);
-      if (res) {
-        setUser(res);
-      }
+      setUser(res);
+      setOriginUserInfo({
+        nickname: res.nickname,
+        description: res.description,
+      });
     } catch (e) {
       alert(ERROR_MESSAGE.FETCH_MT_DATA_ERROR);
       navigate("/");
