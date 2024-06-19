@@ -245,6 +245,7 @@
   &__tags {
     display: flex;
     gap: 2px;
+    flex-wrap: wrap;
   }
 
   &__img {

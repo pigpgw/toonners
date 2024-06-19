@@ -104,12 +104,12 @@
 .webtoonCard {
   display: flex;
   padding: 20px 20px;
-  gap: 10px;
 
   width: 310px;
   background: #ffffff;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.14);
   border-radius: 16px;
+  gap: 10px;
 
   display: flex;
   justify-content: center;
@@ -175,7 +175,7 @@
 
   position: relative;
   left: 95%;
-  top: 35px;
+  top: 25px;
 
   background: var(--color-black);
   color: white;
@@ -184,4 +184,9 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 5px;
+}
+
+
+.ref {
+  margin-bottom: 10px;
 }
