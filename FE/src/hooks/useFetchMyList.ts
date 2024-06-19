@@ -13,6 +13,7 @@ const useFetchMyList = ({ isScrapType, goSomeWhere }: Props) => {
     const fetchData = async () => {
       try {
         const res = await (isScrapType ? getonMyScrap() : getonMyFeed());
+        res.reverse()
         res ? setFeedList(res) : setFeedList([]);
       } catch (error) {
         alert(`내 ${isScrapType ? "내 스트랩" : "내가 작성한 피드"} 리스트 가져오기 실패`);

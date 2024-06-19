@@ -9,6 +9,11 @@ export const updateUserData = async (userData: unknown): Promise<UserConfig> => 
   return response.data.data;
 };
 
+export const checkValidNickname = async (userData: unknown): Promise<UserConfig> => {
+  const response = await Axios.post(`${BASE_URL}/member/check/nickname`, userData);
+  return response.data.data;
+};
+
 export const getonMyFeed = async (): Promise<FeedListConfig[]> => {
   const response = await Axios.get(`${BASE_URL}/feed/search/my-parent-feed`);
   return response.data.data;

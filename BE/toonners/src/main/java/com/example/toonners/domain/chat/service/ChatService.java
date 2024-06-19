@@ -14,6 +14,7 @@ import com.example.toonners.exception.chatRoom.ChatRoomDoseNotExistException;
 import com.example.toonners.exception.member.UserDoesNotExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ public class ChatService {
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public ChatInfoResponse createChat(
             String token, CreateChatRequest request
     ) {
@@ -48,7 +50,7 @@ public class ChatService {
         chatRepository.save(chatMessage);
 
         chatRoom.setTodayChatCount(
-                (chatRoom.getTodayChatCount() != null) ? chatRoom.getFireTotalCount() + 1 : 1);
+                (chatRoom.getTodayChatCount() != null) ? chatRoom.getTodayChatCount() + 1 : 1);
         chatRoomRepository.save(chatRoom);
 
         return ChatInfoResponse.fromEntity(chatMessage);

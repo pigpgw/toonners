@@ -3,7 +3,9 @@ export enum ERROR_MESSAGE {
   LOGOUT_ERROR = "로그아웃 실패",
   WITHDRAW_ERROR = "회원 탈퇴 실패",
   INVALID_NICKNAME = "부적절한 닉네임입니다.",
+  INVALID_NICKNAME_LENGTH = "닉네임은 16자리 이하로 설정해주세요",
   EXISTING_NICKNAME = "이미 존재하는 닉네임입니다.!",
+  FAIL_MODIFY = "닉네임 수정 중 오류가 발생했습니다.",
 
   FETCH_MT_DATA_ERROR = "내 정보 가져오기 실패",
   FETCH_USER_DATA_ERROR = "유저 정보 가져오기 실패",
