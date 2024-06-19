@@ -6,7 +6,7 @@ import { getUserFeed } from "@/api/feed";
 import { UserConfig } from "@/interface/Webtoon.interface";
 import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
-import FeedItem from "@/components/other/feedItem";
+import FeedItem from "@/components/other/FeedItem";
 import MainProfile from "@/components/mypage/MainProfile";
 import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
 import styles from "@/styles/other/Other.module.scss";
