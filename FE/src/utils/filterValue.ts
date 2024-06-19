@@ -11,11 +11,8 @@ export const filterProfanity = (text: string) => {
 export const filterNickname = (nickname: string): boolean => {
   for (const profanity of profanities) {
     if (nickname.includes(profanity)) {
-      console.log('있음',profanity)
-      profanity
       return false;
     }
   }
-  console.log('업승ㅁ')
   return true;
 };
