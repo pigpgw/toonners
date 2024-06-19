@@ -7,3 +7,10 @@ export const isValidValue = (content: string | RecommendToonConfig[], warningCom
   }
   return true;
 };
+
+export const isValidLength = (content: string, limitLength: number): boolean => {
+  if (content.length >= limitLength) {
+    return false;
+  }
+  return true;
+};

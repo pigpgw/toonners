@@ -6,6 +6,7 @@ import Text from "@/components/common/Text";
 import InputWithButton from "@/components/common/InputWithButton";
 import styles from "@/styles/signup/Signup.module.scss";
 import { filterNickname } from "@/utils/filterValue";
+import { isValidLength } from "@/utils/isValidValue";
 
 const Signup1 = () => {
   const navigate = useNavigate();
@@ -19,12 +20,15 @@ const Signup1 = () => {
   const nextStep = () => {
     try {
       if (filterNickname(nickname)) {
-        setUserNickname(nickname);
+        if (isValidLength(nickname, 16)) setUserNickname(nickname);
+        else {
+          alert(ERROR_MESSAGE.INVALID_NICKNAME_LENGTH);
+          return;
+        }
       } else {
         alert(ERROR_MESSAGE.INVALID_NICKNAME);
         return;
       }
-      setUserNickname(nickname);
       navigate("/signup/2");
     } catch (e) {
       alert(ERROR_MESSAGE.EXISTING_NICKNAME);
