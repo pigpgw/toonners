@@ -27,9 +27,14 @@ const CreateChatRoom2 = () => {
       updateDay: selected.updateDays,
       contexts: description,
     };
-    const res = await postChatRoom(data);
-    setChatRoomInfo(res);
-    setModalOpen(true);
+    try {
+      const res = await postChatRoom(data);
+      setChatRoomInfo(res);
+      setModalOpen(true);
+    } catch (e) {
+      alert(e);
+      navigate(-1)
+    }
   };
 
   const handleBack = () => {

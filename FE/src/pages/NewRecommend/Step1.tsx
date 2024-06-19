@@ -156,7 +156,7 @@ const Step1 = () => {
         )}
         {recommendationData.recommendToons.length < 4 && <AddButton onClick={goNextPage} />}
         {modify && <DeleteButton onClick={handleDeleteModal}>피드 삭제하기</DeleteButton>}
-        <div ref={scrollRef}></div>
+        <div className={styles.ref} ref={scrollRef}></div>
       </div>
     </>
   );
