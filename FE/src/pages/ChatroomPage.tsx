@@ -3,7 +3,7 @@ import { CHAT_CONTENTS } from "../constants/pages/ChatroomPage";
 import { getAllChatRoomList, getMyTalk, getTodayChatRoomList } from "@api/chat";
 import useFetchTopChatList from "@/api/reactQuery/useFetchTopChatList";
 import Banner from "@assets/images/home/banner1.svg?react";
-import CreateButton from "@/components/common/Button/Create";
+import CreateButton from "@/components/home/chatroom/create/CreateButton";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
 import styles from "@styles/home/Home.module.scss";
