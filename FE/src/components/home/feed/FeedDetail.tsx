@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "@styles/home/Home.module.scss";
-import Header from "@/components/common/Header";
-import Profile from "@/components/common/Profile";
+import { getFeedItem, postBookMark, postFeedLike } from "@/api/feed";
+import { useFetchFeedLikes } from "@/api/reactQuery/useFeed";
+import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
+import { useRecommendationStore } from "@/slices/useRecommendationStore";
 import Tag from "@/components/common/Tag";
 import Text from "@/components/common/Text";
+import Heart from "@/components/common/Like";
+import Header from "@/components/common/Header";
+import Profile from "@/components/common/Profile";
 import FeedDetailCard from "./FeedDetailCard";
 import Bookmark from "@/components/common/Tag/Bookmark";
-import { getFeedItem, postBookMark, postFeedLike } from "@/api/feed";
-import { FeedListConfig, initialFeedList } from "@/interface/Feed.interface";
 import { getUserId } from "@/utils/authUtils";
-import { useRecommendationStore } from "@/slices/useRecommendationStore";
-import Heart from "@/components/common/Like";
-import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
+import styles from "@styles/home/Home.module.scss";
 
 const FeedDetail = () => {
   const navigate = useNavigate();

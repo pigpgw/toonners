@@ -4,7 +4,7 @@ import Badge from "@components/common/Badge";
 import { RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import Button from "@/components/common/Button";
 import { useNavigate } from "react-router-dom";
-import useFetchTopChatList from "@/api/reactQuery/useFetchTopChatList";
+import { useFetchTopChatList } from "@/api/reactQuery/useChat";
 
 interface Props {
   item: RankChatRoomInfoConfig;
