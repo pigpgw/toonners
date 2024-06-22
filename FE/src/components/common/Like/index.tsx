@@ -1,7 +1,7 @@
 import styles from "@styles/common/Like.module.scss";
 import HeartSvg from "@assets/images/home/heart.svg?react";
 import ClickedHeartSvg from "@assets/images/home/Fill.svg?react";
-import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
+import { useFetchFeedLikes } from "@/api/reactQuery/useFeed";
 
 interface Props {
   liked: boolean;
