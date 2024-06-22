@@ -1,7 +1,7 @@
 import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { postFeedLike } from "@/api/feed";
-import useFetchFeedLikes from "@/api/reactQuery/useFetchFeedLikes";
+import {useFetchFeedLikes} from "@/api/reactQuery/useFeed";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import Tag from "@components/common/Tag";
 import Text from "@components/common/Text";

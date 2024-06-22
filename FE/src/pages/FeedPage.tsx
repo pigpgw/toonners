@@ -1,7 +1,7 @@
-import useFeedQuery from "@/api/reactQuery/useFeedQuery";
+import {useFeedQuery} from "@/api/reactQuery/useFeed";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import FeedItem from "@/components/home/feed/FeedItem";
-import CreateButton from "@components/common/Button/Create";
+import CreateButton from "@/components/home/chatroom/create/CreateButton";
 import Banner from "@assets/images/home/banner2.svg?react";
 import styles from "@styles/home/Home.module.scss";
 
