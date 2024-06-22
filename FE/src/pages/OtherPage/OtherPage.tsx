@@ -13,10 +13,10 @@ import styles from "@/styles/other/Other.module.scss";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 
 const OtherPage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<UserConfig>();
   const [chatList, setChatList] = useState([]);
   const [feedList, setFeedList] = useState([]);
-  const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
