@@ -2,8 +2,6 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { postChatComment, postFireComment } from "@api/chat";
-import useFetchChatMessages from "@/api/reactQuery/useFetchChatMessages";
-import useFetchChatRoomInfo from "@/api/reactQuery/useFetchChatRoomInfo";
 import { filterProfanity } from "@/utils/filterValue";
 import Text from "@/components/common/Text";
 import Modal from "@/components/common/Modal";
@@ -13,6 +11,7 @@ import ChatItem from "@components/home/chatroom/main/ChatItem";
 import InputWithButton from "@/components/common/InputWithButton";
 import CustomAccordion from "./Accordian";
 import styles from "@styles/home/ChatRoom.module.scss";
+import { useFetchChatRoomInfo,useFetchChatMessages } from "@api/reactQuery/useChat"
 
 const ChatRoomMain = () => {
   const navigate = useNavigate();

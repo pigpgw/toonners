@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CHAT_CONTENTS } from "../constants/pages/ChatroomPage";
 import { getAllChatRoomList, getMyTalk, getTodayChatRoomList } from "@api/chat";
-import useFetchTopChatList from "@/api/reactQuery/useFetchTopChatList";
+import { useFetchTopChatList } from '@/api/reactQuery/useChat';
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/home/chatroom/create/CreateButton";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";

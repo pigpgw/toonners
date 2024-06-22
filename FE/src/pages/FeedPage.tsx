@@ -1,4 +1,4 @@
-import useFeedQuery from "@/api/reactQuery/useFeedQuery";
+import {useFeedQuery} from "@/api/reactQuery/useFeed";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import FeedItem from "@/components/home/feed/FeedItem";
 import CreateButton from "@/components/home/chatroom/create/CreateButton";
