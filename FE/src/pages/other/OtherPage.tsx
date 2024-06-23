@@ -6,7 +6,7 @@ import { getUserFeed } from "@/api/feed";
 import { UserConfig } from "@/interface/Webtoon.interface";
 import Text from "@/components/common/Text";
 import Header from "@/components/common/Header";
-import FeedItem from '@/components/other/FeedItem';
+import OtherPorofile from '@/components/other/OtherPorofile';
 import MainProfile from "@/components/mypage/MainProfile";
 import HomeChatListFrame from "@/components/home/chatroom/HomeChatRoomListFrame";
 import styles from "@/styles/other/Other.module.scss";
@@ -73,7 +73,7 @@ const OtherPage = () => {
         </Text>
         {feedList.length > 0 ? (
           feedList.map((feed, i) => {
-            return <FeedItem key={i} feed={feed} />;
+            return <OtherPorofile key={i} feed={feed} />;
           })
         ) : (
           <div className={styles.textInfo}>작성한 피드가 없습니다!</div>
