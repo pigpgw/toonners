@@ -10,7 +10,7 @@ interface Props {
   feed: FeedListConfig;
 }
 
-const FeedItem = ({ feed }: Props) => {
+const OtherPorofile = ({ feed }: Props) => {
   const navigate = useNavigate();
 
   const handleFeedItem = () => {
@@ -57,4 +57,4 @@ const FeedItem = ({ feed }: Props) => {
   );
 };
 
-export default FeedItem;
+export default OtherPorofile;
