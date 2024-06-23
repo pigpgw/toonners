@@ -14,7 +14,7 @@ import EditMyWebtoonFrame from "./pages/mypage/EditMyWebtoonFrame";
 import FeedScrapPanel from "./pages/mypage/FeedScrapPanel";
 import FeedDetail from "./components/home/feed/FeedDetail";
 import { PrivateRoute } from "./routes/PrivateRoutes";
-import OtherPage from "./pages/OtherPage/OtherPage";
+import OtherPage from "./pages/other/OtherPage";
 import WrongPath from "./pages/WrongPath";
 import { CHAT_ROOM_TYPES, FEED_SCRAP_TYPES, EDIT_MY_WEBTOON_TYPES } from "./constants/ComponentTypes";
 
