@@ -67,8 +67,8 @@ const ChatroomPage = () => {
             />
           );
         })}
-        <CreateButton />
       </div>
+      <CreateButton />
     </>
   );
 };
