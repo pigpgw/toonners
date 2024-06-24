@@ -1,53 +1,27 @@
-import { useEffect, useState } from "react";
-import { CHAT_CONTENTS } from "../constants/pages/ChatroomPage";
-import { getAllChatRoomList, getMyTalk, getTodayChatRoomList } from "@api/chat";
-import { useFetchTopChatList } from '@/api/reactQuery/useChat';
+import {
+  useFetchAllChatList,
+  useFetchMyChatList,
+  useFetchTodayChatList,
+  useFetchTopChatList,
+} from "@/api/reactQuery/useChat";
 import Banner from "@assets/images/home/banner1.svg?react";
 import CreateButton from "@/components/home/chatroom/create/CreateButton";
 import MyChatRoom from "@/components/home/chatroom/MyChatRoom";
 import HomeChatListFrame from "@components/home/chatroom/HomeChatRoomListFrame";
+import { CHAT_CONTENTS } from "../constants/pages/ChatroomPage";
 import styles from "@styles/home/Home.module.scss";
 
 const ChatroomPage = () => {
-  const [myTalkList, setMyTalkList] = useState([]);
-  const [todayList, setTodayList] = useState([]);
-  const [restList, setRestList] = useState([]);
+  const { myChatListState } = useFetchMyChatList();
+  const { todayChatListState } = useFetchTodayChatList();
   const { topChatListState } = useFetchTopChatList();
-
-  useEffect(() => {
-    const getTodayList = async () => {
-      const res = await getTodayChatRoomList();
-      if (res.length >= 1) setTodayList(res);
-      else {
-        setTodayList([]);
-      }
-    };
-
-    const getRestList = async () => {
-      const res = await getAllChatRoomList();
-      const slicedList = res.slice(0, 3);
-      if (res) setRestList(slicedList);
-      else setRestList([]);
-    };
-
-    getTodayList();
-    getRestList();
-  }, []);
-
-  const fetchMyTalk = async () => {
-    const response = await getMyTalk();
-    setMyTalkList(response);
-  };
-
-  useEffect(() => {
-    fetchMyTalk();
-  }, []);
+  const { allChatListState } = useFetchAllChatList();
 
   return (
     <>
       <Banner className={styles.banner} />
       <div className={styles.chatroom}>
-        <MyChatRoom chatList={myTalkList} />
+        <MyChatRoom chatList={myChatListState} />
         {CHAT_CONTENTS.map((item, key) => {
           return (
             <HomeChatListFrame
@@ -59,9 +33,9 @@ const ChatroomPage = () => {
               more={item.more}
               list={
                 {
-                  today: todayList,
+                  today: todayChatListState,
                   rank: topChatListState,
-                  rest: restList,
+                  rest: allChatListState,
                 }[item.keyword]
               }
             />

@@ -4,7 +4,7 @@ import MyChatRoomItem from "@components/home/chatroom/MyChatRoomItem";
 import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
 interface Props {
-  chatList: ChatRoomInfoConfig[];
+  chatList: ChatRoomInfoConfig[] | undefined;
 }
 
 const MyChatRoom = ({ chatList }: Props) => {
@@ -15,7 +15,7 @@ const MyChatRoom = ({ chatList }: Props) => {
       </Text>
       <div className={styles.webtoon}>
         <div className={styles.webtoon__items}>
-          {chatList.map((chat, index: number) => {
+          {chatList?.map((chat, index: number) => {
             return <MyChatRoomItem key={index} chat={chat} />;
           })}
         </div>
