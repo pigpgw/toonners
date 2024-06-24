@@ -42,13 +42,12 @@
   position: sticky;
   bottom: 0px;
   background-color: var(--color-white);
+  margin-top: 10px;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
   z-index: 3;
-  position: fixed;
-
   > div {
     box-sizing: border-box;
     display: flex;
@@ -436,12 +435,15 @@
   background-color: var(--color-white);
 }
 
-
 .chat {
- animation: slidein 1s ease-out;
+  animation: slidein 1s ease-out;
 }
 
 @keyframes slidein {
-  from {transform: translateY(100%);}
-  to {transform: translateY(0);}
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

@@ -62,8 +62,9 @@
 }
 
 .create__open {
-  position: sticky;
-  bottom: 88px;
+  position: fixed;
+  bottom: 80px;
+  right: 23%;
 
   width: 100%;
   display: flex;
@@ -90,8 +91,9 @@
 }
 
 .create__close {
-  position: sticky;
-  bottom: 88px;
+  position: fixed;
+  bottom: 80px;
+  right: 23%;
   width: 100%;
 
   display: flex;

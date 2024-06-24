@@ -1,18 +1,19 @@
-import {useFeedQuery} from "@/api/reactQuery/useFeed";
+import { useFeedQuery } from "@/api/reactQuery/useFeed";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import FeedItem from "@/components/home/feed/FeedItem";
 import CreateButton from "@/components/home/chatroom/create/CreateButton";
+import Loading from "./Loding";
 import Banner from "@assets/images/home/banner2.svg?react";
 import styles from "@styles/home/Home.module.scss";
 
 const FeedPage = () => {
   const { feedListState, feedListLoading, feedListError } = useFeedQuery();
-  if (feedListError) return <div>전체 피드 리스트 불러오기 실패</div>;
-  if (feedListLoading) return <div>피드 불러오는중</div>;
   return (
     <>
       <Banner />
       <div className={styles.feed}>
+        {feedListError && <Loading comment="피드 리스트 불러오기 실패" />}
+        {feedListLoading && <Loading comment="피드 리스트 불러오는중" />}
         {feedListState &&
           feedListState.map((feed: FeedListConfig, i: number) => {
             return <FeedItem key={i} feed={feed} />;

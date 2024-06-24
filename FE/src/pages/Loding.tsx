@@ -1,9 +1,17 @@
+import Text from "@/components/common/Text";
 import MainImg from "@assets/images/login/MainImg.svg?react";
-import styles from "@/styles/loading/index.module.scss"
+import styles from "@/styles/loading/index.module.scss";
 
-const Loading = () => {
+interface Props {
+  comment?: string;
+}
+
+const Loading = ({ comment }: Props) => {
   return (
-    <div className={styles.loadingContainer}>
+    <div className={styles.wrapper}>
+      <Text types="headline" bold="bold">
+        {comment}
+      </Text>
       <MainImg />
     </div>
   );

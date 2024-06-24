@@ -1,7 +1,7 @@
-.loadingContainer {
-  min-height: 100dvh;
+.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
