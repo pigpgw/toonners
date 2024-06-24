@@ -63,7 +63,8 @@
 
 .create__open {
   position: sticky;
-  bottom: 88px;
+  bottom: 75px;
+  padding-right: 10px;
 
   width: 100%;
   display: flex;
@@ -91,8 +92,9 @@
 
 .create__close {
   position: sticky;
-  bottom: 88px;
+  bottom: 75px;
   width: 100%;
+  padding-right: 10px;
 
   display: flex;
   justify-content: flex-end;
@@ -156,7 +158,6 @@
   border-radius: 10px;
 }
 
-
 .deleteBtn {
   margin-top: 20px;
   padding: 20px 20px;
@@ -167,7 +168,7 @@
   border-radius: 16px;
   font-weight: 500;
   font-size: var(--font-body-1);
-  
+
   color: red;
 
   border: 0;
