@@ -18,8 +18,8 @@ const FeedPage = () => {
           feedListState.map((feed: FeedListConfig, i: number) => {
             return <FeedItem key={i} feed={feed} />;
           })}
-        <CreateButton />
       </div>
+      <CreateButton />
     </>
   );
 };
