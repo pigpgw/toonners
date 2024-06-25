@@ -25,6 +25,8 @@ const isRankChatRoomInfoConfig = (
 
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Props) => {
   const navigate = useNavigate();
+  const type = keyword === "today" ? "오늘뜬" : keyword === "rest" ? "다른" : "실시간";
+
   if (!Array.isArray(list)) {
     return null;
   }
@@ -55,7 +57,7 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Pro
           })
         ) : (
           <div className={styles.none}>
-            <Text types="body-2">검색 결과가 없습니다.</Text>
+            <Text types="body-2">{type} 채팅방이 없습니다.</Text>
           </div>
         )}
       </div>
