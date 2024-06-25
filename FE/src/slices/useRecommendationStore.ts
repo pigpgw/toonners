@@ -1,34 +1,13 @@
 import { create } from "zustand";
+import {
+  RecommendConfigStore,
+  RecommendConfigStoreProps,
+  RecommendToonConfig,
+  RecommendationDataConfig,
+  RecommendationStoreConfig,
+} from "@/interface/Recommend.interface";
 
-export interface RecommendToonConfig {
-  starring: number;
-  hashtagGenre: string[];
-  hashtagVibe: string[];
-  title: string;
-  imageUrl: string;
-  imageSiteUrl: string;
-  days?: string[];
-}
-
-export interface Config {
-  parentFeedId?: undefined | number;
-  title: string;
-  context: string;
-  recommendToons: RecommendToonConfig[];
-}
-
-interface RecommendationStoreConfig {
-  recommendationData: Config;
-  setPostId: (parentFeedId: number) => void;
-  setPostTitle: (title: string) => void;
-  setPostcotexts: (context: string) => void;
-  addRecommendation: (recommendation: RecommendToonConfig) => void;
-  removeRecommendation: (title: string) => void;
-  clearRecommendations: () => void;
-  resetRecommendationData: () => void;
-}
-
-const initialState: Config = {
+const initialState: RecommendationDataConfig = {
   parentFeedId: undefined,
   title: "",
   context: "",
@@ -76,19 +55,6 @@ export const useRecommendationStore = create<RecommendationStoreConfig>((set) =>
     }),
 }));
 
-interface RecommendConfigStore {
-  recommendConfig: RecommendToonConfig;
-  setRecommendConfig: (config: Props) => void;
-  setimageUrlAndTitle: (imageUrl: string, title: string, imageSiteUrl: string, days: string[]) => void;
-  resetRecommendConfig: () => void;
-}
-
-interface Props {
-  starring?: number;
-  hashtagGenre?: string[];
-  hashtagVibe?: string[];
-}
-
 export const useRecommendConfigStore = create<RecommendConfigStore>((set) => ({
   recommendConfig: {
     title: "",
@@ -103,7 +69,7 @@ export const useRecommendConfigStore = create<RecommendConfigStore>((set) => ({
     set((state) => ({
       recommendConfig: { ...state.recommendConfig, imageUrl, title, imageSiteUrl, days },
     })),
-  setRecommendConfig: (config: Props) =>
+  setRecommendConfig: (config: RecommendConfigStoreProps) =>
     set((state) => ({
       recommendConfig: { ...state.recommendConfig, ...config },
     })),

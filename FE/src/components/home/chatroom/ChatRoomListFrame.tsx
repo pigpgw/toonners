@@ -12,9 +12,9 @@ interface Props {
 }
 
 const ChatRoomListFrame = ({ types }: Props) => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<ChatRoomInfoConfig[]>([]);
   const [keyword, setKeyword] = useState("");
-  const [searchedList, setSearchedList] = useState([]);
+  const [searchedList, setSearchedList] = useState<ChatRoomInfoConfig[]>([]);
 
   useEffect(() => {
     const getChatroomList = async () => {

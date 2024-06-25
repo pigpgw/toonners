@@ -1,29 +1,40 @@
-export interface RecommendConfig {
-  webtoonTitle?: string;
-  imgUrl?: string;
-  score?: number;
-  genre?: string[];
-  mood?: string[];
+export interface RecommendToonConfig {
+  starring: number;
+  hashtagGenre: string[];
+  hashtagVibe: string[];
+  title: string;
+  imageUrl: string;
+  imageSiteUrl: string;
+  days?: string[];
 }
 
-export interface RecommendationConfig {
+export interface RecommendationDataConfig {
+  parentFeedId?: number;
   title: string;
-  content: string;
-  recommendationList: RecommendConfig[];
+  context: string;
+  recommendToons: RecommendToonConfig[];
 }
 
 export interface RecommendationStoreConfig {
-  recommendationData: RecommendationConfig;
+  recommendationData: RecommendationDataConfig;
+  setPostId: (parentFeedId: number) => void;
   setPostTitle: (title: string) => void;
-  setPostContent: (content: string) => void;
-  addRecommendation: (recommendation: RecommendConfig) => void;
+  setPostcotexts: (context: string) => void;
+  addRecommendation: (recommendation: RecommendToonConfig) => void;
   removeRecommendation: (title: string) => void;
   clearRecommendations: () => void;
+  resetRecommendationData: () => void;
+}
+
+export interface RecommendConfigStoreProps {
+  starring?: number;
+  hashtagGenre?: string[];
+  hashtagVibe?: string[];
 }
 
 export interface RecommendConfigStore {
-  recommendConfig: RecommendConfig;
-  setRecommendConfig: (config: RecommendConfig) => void;
-  setImgUrlAndTitle: (imgUrl: string, title: string) => void;
+  recommendConfig: RecommendToonConfig;
+  setRecommendConfig: (config: RecommendConfigStoreProps) => void;
+  setimageUrlAndTitle: (imageUrl: string, title: string, imageSiteUrl: string, days: string[]) => void;
   resetRecommendConfig: () => void;
 }

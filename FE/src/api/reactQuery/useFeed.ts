@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getFeedItem, getFeedList } from "../feed";
+import { FeedListConfig } from "@/interface/Feed.interface";
 
 export const useFeedQuery = () => {
   const {
     data: feedListState,
     isLoading: feedListLoading,
     isError: feedListError,
-  } = useQuery({
+  } = useQuery<FeedListConfig[]>({
     queryKey: ["feedList"],
     queryFn: () => getFeedList(),
     select: (data) => [...data].reverse(),
