@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import styles from "@styles/home/Home.module.scss";
+import { ChatRoomInfoConfig, RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import Text from "@components/common/Text";
 import Arrow from "@components/common/Arrow";
 import RestChatItem from "@components/home/chatroom/RestChatItem";
 import TodayChatItem from "@components/home/chatroom/TodayChatItem";
 import RankingChatItem from "@components/home/chatroom/RankingChatItem";
+import styles from "@styles/home/Home.module.scss";
 
 interface Props {
   keyword: "today" | "rank" | "rest";
@@ -12,12 +13,20 @@ interface Props {
   subtitle?: string;
   isMore?: boolean;
   more?: string | undefined;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  list: any[];
+  list?: (ChatRoomInfoConfig | RankChatRoomInfoConfig)[];
   onClick?: () => void;
 }
+
+const isRankChatRoomInfoConfig = (
+  item: ChatRoomInfoConfig | RankChatRoomInfoConfig,
+): item is RankChatRoomInfoConfig => {
+  return (item as RankChatRoomInfoConfig).chatList !== undefined;
+};
+
 const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Props) => {
   const navigate = useNavigate();
+  const type = keyword === "today" ? "오늘뜬" : keyword === "rest" ? "다른" : "실시간";
+
   if (!Array.isArray(list)) {
     return null;
   }
@@ -36,15 +45,19 @@ const HomeChatListFrame = ({ keyword, title, subtitle, isMore, more, list }: Pro
       <div className={styles[`${keyword}`]}>
         {list.length >= 1 ? (
           list.map((item, i) => {
-            return {
-              today: <TodayChatItem key={i} item={item} />,
-              rank: <RankingChatItem key={i} item={item} />,
-              rest: <RestChatItem key={i} item={item} />,
-            }[keyword];
+            if (keyword === "rank" && isRankChatRoomInfoConfig(item)) {
+              return <RankingChatItem key={i} item={item} />;
+            }
+            if (keyword === "today") {
+              return <TodayChatItem key={i} item={item} />;
+            }
+            if (keyword === "rest") {
+              return <RestChatItem key={i} item={item} />;
+            }
           })
         ) : (
           <div className={styles.none}>
-            <Text types="body-2">검색 결과가 없습니다.</Text>
+            <Text types="body-2">{type} 채팅방이 없습니다.</Text>
           </div>
         )}
       </div>

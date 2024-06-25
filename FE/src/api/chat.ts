@@ -1,22 +1,23 @@
+import { ChatRoomInfoConfig, RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 import Axios from "@api/JsonAxios";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
-const getAllChatRoomList = async () => {
+const getAllChatRoomList = async (): Promise<ChatRoomInfoConfig[]> => {
   const res = await Axios.get(HOST + "/chatroom/search/all");
   return res.data.data;
 };
 
-const getTodayChatRoomList = async () => {
+const getTodayChatRoomList = async (): Promise<ChatRoomInfoConfig[]> => {
   const res = await Axios.get(HOST + "/chatroom/search/updated-day");
   return res.data.data;
 };
 
-const getRankingChatRoomList = async () => {
+const getRankingChatRoomList = async (): Promise<RankChatRoomInfoConfig[]> => {
   const res = await Axios.get(HOST + "/chatroom/search/top3");
   return res.data.data;
 };
 
-const getChatRoom = async (roomId: string) => {
+const getChatRoom = async (roomId: string): Promise<ChatRoomInfoConfig> => {
   const res = await Axios.get(HOST + `/chatroom/search/detail/${roomId}`);
   return res.data.data;
 };
@@ -58,7 +59,7 @@ const postFireComment = async (roomId: string) => {
   return res.data.data;
 };
 
-const getMyTalk = async () => {
+const getMyTalk = async (): Promise<ChatRoomInfoConfig[]> => {
   const res = await Axios.get(`${HOST}/chatroom/search/participating-in`);
   return res.data.data;
 };

@@ -1,5 +1,5 @@
 import Axios from "@api/JsonAxios";
-import { Config } from "@/slices/useRecommendationStore";
+import { RecommendationDataConfig } from "@/interface/Recommend.interface";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 const getFeedList = async () => {
@@ -26,7 +26,7 @@ const getUserFeed = async (keyword: string) => {
   return res.data.data;
 };
 
-const putUserFeed = async (feedId: number, feed: Config) => {
+const putUserFeed = async (feedId: number, feed: RecommendationDataConfig) => {
   await Axios.put(HOST + `/feed/update/${feedId}`, feed);
 };
 

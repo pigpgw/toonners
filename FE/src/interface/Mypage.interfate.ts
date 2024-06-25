@@ -1,4 +1,4 @@
-export default interface WatchingToonCofing {
+export interface WatchingToonCofing {
   title: string;
   image_url: string;
   site_url: string;
@@ -6,9 +6,13 @@ export default interface WatchingToonCofing {
   days: string[];
 }
 
-export default interface UserData {
+export interface UserData {
+  nickname?: string;
+  description?: string;
+  watching_toons?: WatchingToonCofing[];
+  favorite_toons?: WatchingToonCofing[];
+}
+
+export interface UserNicknameConfig {
   nickname: string;
-  description: string;
-  watching_toons: WatchingToonCofing[];
-  favorite_toons: WatchingToonCofing[];
 }

@@ -1,4 +1,4 @@
-import { RecommendToonConfig } from "@/slices/useRecommendationStore";
+import { RecommendToonConfig } from "@/interface/Recommend.interface";
 
 export const isValidValue = (content: string | RecommendToonConfig[], warningComent: string) => {
   if (content.length === 0) {

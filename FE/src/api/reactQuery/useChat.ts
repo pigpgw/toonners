@@ -3,19 +3,21 @@ import {
   getAllChatRoomList,
   getChatCommentList,
   getChatRoom,
+  getMyTalk,
   getRankingChatRoomList,
   getTodayChatRoomList,
 } from "../chat";
+import { ChatRoomInfoConfig, RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
 export const useFetchAllChatList = () => {
   const {
     data: allChatListState,
     isLoading: allChatListLoading,
     isError: allChatListError,
-  } = useQuery({
-    queryKey: ["topChat"],
+  } = useQuery<ChatRoomInfoConfig[]>({
+    queryKey: ["allChat"],
     queryFn: () => getAllChatRoomList(),
-    select: (data) => [...data].splice(Math.floor(Math.random() * [...data].length), 1)[0],
+    select: (data) => [...data].splice(Math.floor(Math.random() * [...data].length), 3),
   });
   return { allChatListState, allChatListLoading, allChatListError };
 };
@@ -38,7 +40,7 @@ export const useFetchChatRoomInfo = (roomId: string) => {
     data: chatRoomInfoState,
     isLoading: chatRoomInfoLoading,
     isError: chatRoomInfoError,
-  } = useQuery({
+  } = useQuery<ChatRoomInfoConfig>({
     queryKey: ["chatRoom", roomId],
     queryFn: () => getChatRoom(roomId),
   });
@@ -50,9 +52,9 @@ export const useFetchMyChatList = () => {
     data: myChatListState,
     isLoading: myChatListLoading,
     isError: myChatListError,
-  } = useQuery({
-    queryKey: ["topChat"],
-    queryFn: () => getAllChatRoomList(),
+  } = useQuery<ChatRoomInfoConfig[]>({
+    queryKey: ["myChat"],
+    queryFn: () => getMyTalk(),
   });
   return { myChatListState, myChatListLoading, myChatListError };
 };
@@ -62,8 +64,8 @@ export const useFetchTodayChatList = () => {
     data: todayChatListState,
     isLoading: todayChatListLoading,
     isError: todayChatListError,
-  } = useQuery({
-    queryKey: ["topChat"],
+  } = useQuery<ChatRoomInfoConfig[]>({
+    queryKey: ["todayChat"],
     queryFn: () => getTodayChatRoomList(),
   });
 
@@ -75,7 +77,8 @@ export const useFetchTopChatList = () => {
     data: topChatListState,
     isLoading: topChatListLoading,
     isError: topChatListError,
-  } = useQuery({
+  } = useQuery<RankChatRoomInfoConfig[]>({
+    
     queryKey: ["topChat"],
     queryFn: () => getRankingChatRoomList(),
     refetchInterval: 20000,
