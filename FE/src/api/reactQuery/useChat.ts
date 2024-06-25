@@ -7,7 +7,7 @@ import {
   getRankingChatRoomList,
   getTodayChatRoomList,
 } from "../chat";
-import { ChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
+import { ChatRoomInfoConfig, RankChatRoomInfoConfig } from "@/interface/ChatRoom.interface";
 
 export const useFetchAllChatList = () => {
   const {
@@ -77,7 +77,7 @@ export const useFetchTopChatList = () => {
     data: topChatListState,
     isLoading: topChatListLoading,
     isError: topChatListError,
-  } = useQuery<ChatRoomInfoConfig[]>({
+  } = useQuery<RankChatRoomInfoConfig[]>({
     
     queryKey: ["topChat"],
     queryFn: () => getRankingChatRoomList(),

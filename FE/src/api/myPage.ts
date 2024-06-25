@@ -1,15 +1,16 @@
 import Axios from "./JsonAxios";
 import { FeedListConfig } from "@/interface/Feed.interface";
 import { UserConfig } from "@/interface/Webtoon.interface";
+import { UserData, UserNicknameConfig } from "../interface/Mypage.interfate";
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
-export const updateUserData = async (userData: unknown): Promise<UserConfig> => {
+export const updateUserData = async (userData: UserData): Promise<UserConfig> => {
   const response = await Axios.put(`${BASE_URL}/member/update`, userData);
   return response.data.data;
 };
 
-export const checkValidNickname = async (userData: unknown): Promise<UserConfig> => {
+export const checkValidNickname = async (userData: UserNicknameConfig): Promise<UserConfig> => {
   const response = await Axios.post(`${BASE_URL}/member/check/nickname`, userData);
   return response.data.data;
 };
