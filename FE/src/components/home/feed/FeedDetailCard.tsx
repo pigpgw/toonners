@@ -52,11 +52,16 @@ const FeedDetailCard = ({ item }: Props) => {
           </div>
           <div className={styles.card__rank}>
             <div>
-              <Text types="caption">평점</Text>
+              <div>
+                <Text types="caption">평점</Text>
+              </div>
               <Rating sizes="medium" defaultValue={item.starring} readOnly />
             </div>
             <div>
-              <Text types="caption">장르</Text>
+              <div>
+                {" "}
+                <Text types="caption">장르</Text>
+              </div>
               <div>
                 {item.hashtagGenre.length > 0 &&
                   item.hashtagGenre.map((tag, i) => {
@@ -65,7 +70,10 @@ const FeedDetailCard = ({ item }: Props) => {
               </div>
             </div>
             <div>
-              <Text types="caption">분위기</Text>
+              <div>
+                {" "}
+                <Text types="caption">분위기</Text>
+              </div>
               <div>
                 {item.hashtagVibe.length > 0 &&
                   item.hashtagVibe.map((tag, i) => {

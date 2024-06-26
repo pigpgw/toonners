@@ -13,7 +13,7 @@ const FeedPage = () => {
       <Banner />
       <div className={styles.feed}>
         {feedListError && <Loading comment="피드 리스트 불러오기 실패" />}
-        {feedListLoading && <Loading comment="피드 리스트 불러오는중" />}
+        {feedListLoading && <Loading imgNeed={false} comment="피드 리스트 불러오는중" />}
         {feedListState &&
           feedListState.map((feed: FeedListConfig, i: number) => {
             return <FeedItem key={i} feed={feed} />;
