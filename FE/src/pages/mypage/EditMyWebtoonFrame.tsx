@@ -12,11 +12,12 @@ import SearchWebtoonContainer from "@/components/Webtoon/SearchWebtoonBox";
 import { ERROR_MESSAGE } from "@/constants/ErrorTypes";
 import { EDIT_MY_WEBTOON_TYPES } from "@/constants/ComponentTypes";
 import styles from "@/styles/signup/Signup.module.scss";
+import { UserData } from "@/interface/Mypage.interfate";
 
 const EditMyWebtoonFrame = ({ type }: { type: string }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const debounced = useDebounce(search,300)
+  const debounced = useDebounce(search, 300);
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const {
     user,
@@ -94,7 +95,26 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
       return;
     }
     try {
-      const dataToUpdate = isLikedType ? { favoriteToons: userWebtoonList } : { watchingToons: userWebtoonList };
+      const dataToUpdate: UserData = {
+        favorite_toons: isLikedType
+          ? userWebtoonList.map((webtoon) => ({
+              title: webtoon.title,
+              image_url: webtoon.imageUrl,
+              site_url: webtoon.url,
+              rating: webtoon.rating,
+              days: webtoon.updateDays,
+            }))
+          : undefined,
+        watching_toons: !isLikedType
+          ? userWebtoonList.map((webtoon) => ({
+              title: webtoon.title,
+              image_url: webtoon.imageUrl,
+              site_url: webtoon.url,
+              rating: webtoon.rating,
+              days: webtoon.updateDays,
+            }))
+          : undefined,
+      };
       await updateUserData(dataToUpdate);
       cancle();
     } catch (e) {
