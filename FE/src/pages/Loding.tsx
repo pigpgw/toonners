@@ -4,15 +4,16 @@ import styles from "@/styles/loading/index.module.scss";
 
 interface Props {
   comment?: string;
+  imgNeed?: boolean;
 }
 
-const Loading = ({ comment }: Props) => {
+const Loading = ({ comment, imgNeed = true }: Props) => {
   return (
     <div className={styles.wrapper}>
       <Text types="headline" bold="bold">
         {comment}
       </Text>
-      <MainImg />
+      {imgNeed && <MainImg />}
     </div>
   );
 };
