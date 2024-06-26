@@ -199,6 +199,7 @@
     height: 66px;
     border-radius: 20px;
     background-color: var(--color-gray-1);
+    margin-top: 5px;
 
     > img {
       width: 100%;
@@ -437,6 +438,11 @@
 
 .chat {
   animation: slidein 1s ease-out;
+  width: 154px;
+  // height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @keyframes slidein {
