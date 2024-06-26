@@ -37,7 +37,7 @@ const Redirect = () => {
   }, []);
 
   return (
-    <div style={{ paddingTop: "400px" }}>
+    <div style={{ paddingTop: "15vh" }}>
       <Loading />
     </div>
   );
