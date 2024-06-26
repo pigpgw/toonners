@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import Text from "@/components/common/Text";
-import CreateIcon from "@mui/icons-material/Create";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
 const MakeChatBtn = () => {
   const navigate = useNavigate();
 
   return (
-    <div onClick={() => navigate("/recommend/new")}>
-      <CreateIcon sx={{ color: "var(--color-accent-1)" }} />
+    <div onClick={() => navigate("/chatroom/create")}>
+      <ChatBubbleIcon sx={{ color: "var(--color-primary)" }} />
       <Text types="body-2" bold="medium">
-        Feed 작성하기
+        Talk방 만들기
       </Text>
     </div>
   );

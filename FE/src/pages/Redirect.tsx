@@ -36,7 +36,11 @@ const Redirect = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <Loading />;
+  return (
+    <div style={{ paddingTop: "400px" }}>
+      <Loading />
+    </div>
+  );
 };
 
 export default Redirect;
