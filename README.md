@@ -40,6 +40,19 @@ Toonners는 내가 평소 즐겨보는 웹툰에 대한 다른 사람들의 생�
 - 협업 툴 : Discord, Notion, Github, Figma
 - 서비스 배포 환경 : Ec2, Vercel
 
+### 로그인
+[![Video 1](https://github.com/ProjectRunners/toonners/assets/133184988/b4ff80c4-6a31-4566-b427-1e4b08292023)](https://github.com/ProjectRunners/toonners/assets/133184988/b4ff80c4-6a31-4566-b427-1e4b08292023)
+
+### 채팅방 (채팅, 채팅방 추천, 실시간 댓글, 채팅방 생성)
+[![Video 2](https://github.com/ProjectRunners/toonners/assets/133184988/3fa6cc59-1d08-4b5f-820a-b694fc481bde)](https://github.com/ProjectRunners/toonners/assets/133184988/3fa6cc59-1d08-4b5f-820a-b694fc481bde)
+
+### 피드 (생성, 수정, 삭제, 좋아요, 스크랩)
+[![Video 3](https://github.com/ProjectRunners/toonners/assets/133184988/a12758ce-df77-4001-841e-7b0d5e5a5539)](https://github.com/ProjectRunners/toonners/assets/133184988/a12758ce-df77-4001-841e-7b0d5e5a5539)
+
+### 마이페이지
+[![Video 4](https://github.com/ProjectRunners/toonners/assets/133184988/97276268-e982-44da-9734-1388ad93d92d)](https://github.com/ProjectRunners/toonners/assets/133184988/97276268-e982-44da-9734-1388ad93d92d)
+
+
 ## 팀원 소개 
 | **Frontend** | **Frontend** | **Backend** |
 | :------: |  :------: | :------: | 
