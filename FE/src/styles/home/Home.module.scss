@@ -112,6 +112,11 @@
     display: grid;
     gap: 22px;
     grid-auto-flow: column;
+    .infoText {
+      text-align: center;
+      color: var(--color-gray-2);
+      margin-top: 5px;
+    }
   }
 
   &__item {
@@ -410,7 +415,7 @@
     margin-top: 10px;
     box-sizing: border-box;
     > div {
-      >div {
+      > div {
         width: 40px;
         text-align: center;
       }
@@ -448,6 +453,14 @@
   text-overflow: ellipsis;
 }
 
+.ChatRoomListFrame {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 75vh;
+  overflow-y: scroll;
+}
+
 @keyframes slidein {
   from {
     transform: translateY(100%);
@@ -456,3 +469,4 @@
     transform: translateY(0);
   }
 }
+

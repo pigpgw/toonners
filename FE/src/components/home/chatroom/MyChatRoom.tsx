@@ -15,9 +15,16 @@ const MyChatRoom = ({ chatList }: Props) => {
       </Text>
       <div className={styles.webtoon}>
         <div className={styles.webtoon__items}>
-          {chatList?.map((chat, index: number) => {
-            return <MyChatRoomItem key={index} chat={chat} />;
-          })}
+          {chatList &&
+            (chatList.length >= 1 ? (
+              chatList.map((chat, index: number) => {
+                return <MyChatRoomItem key={index} chat={chat} />;
+              })
+            ) : (
+              <div className={styles.infoText}>
+                <Text types="body-2">참여중인 채팅방이 없습니다.</Text>
+              </div>
+            ))}
         </div>
       </div>
     </div>

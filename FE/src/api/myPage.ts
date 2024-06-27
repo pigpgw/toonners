@@ -35,7 +35,7 @@ export const postLogOut = async (): Promise<undefined> => {
 };
 
 export const postWithDraw = async (): Promise<undefined> => {
-  await Axios.post(`${BASE_URL}/member/delete
+  await Axios.delete(`${BASE_URL}/member/delete
   `);
 };
 
