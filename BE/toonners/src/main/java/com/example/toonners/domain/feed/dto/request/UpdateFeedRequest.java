@@ -1,5 +1,6 @@
 package com.example.toonners.domain.feed.dto.request;
 
+import com.example.toonners.domain.feed.entity.ChildFeedRequest;
 import lombok.*;
 
 import java.util.List;
