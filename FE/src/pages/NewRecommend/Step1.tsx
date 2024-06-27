@@ -27,8 +27,13 @@ const Step1 = () => {
   const { resetRecommendConfig } = useRecommendConfigStore();
 
   const clickShareBtn = async () => {
-    isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED);
-    isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED);
+    if (
+      !isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED) ||
+      !isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED)
+    ) {
+      return;
+    }
+
     try {
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {

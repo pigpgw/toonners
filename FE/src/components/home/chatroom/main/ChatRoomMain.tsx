@@ -11,7 +11,7 @@ import ChatItem from "@components/home/chatroom/main/ChatItem";
 import InputWithButton from "@/components/common/InputWithButton";
 import CustomAccordion from "./Accordian";
 import styles from "@styles/home/ChatRoom.module.scss";
-import { useFetchChatRoomInfo,useFetchChatMessages } from "@api/reactQuery/useChat"
+import { useFetchChatRoomInfo, useFetchChatMessages } from "@api/reactQuery/useChat";
 
 const ChatRoomMain = () => {
   const navigate = useNavigate();
