@@ -1,10 +1,8 @@
 package com.example.toonners.domain.feed.entity;
 
 import com.example.toonners.common.BaseEntity;
-import com.example.toonners.domain.feed.dto.request.ChildFeedRequest;
 import com.example.toonners.domain.feed.dto.request.UpdateFeedRequest;
 import com.example.toonners.domain.member.entity.Member;
-import com.example.toonners.domain.toondata.entity.ToonData;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -38,7 +36,7 @@ public class Feed extends BaseEntity {
 
     private Long likeCounts = 0L;
 
-    @ElementCollection
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChildFeedRequest> childFeedRequests = new LinkedList<>();
 
     public void updateFields(UpdateFeedRequest request) {
