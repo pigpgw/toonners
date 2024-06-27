@@ -13,7 +13,7 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 const Step2 = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const debounced = useDebounce(search, 300);
+  const debounced = useDebounce(search, 200);
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { recommendationData } = useRecommendationStore();
   const { setimageUrlAndTitle } = useRecommendConfigStore();

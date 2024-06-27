@@ -27,14 +27,9 @@ const Step1 = () => {
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
 
-  const isValidFeed = () => {
-    if (
-      !isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED) ||
-      !isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED)
-    ) {
-      return;
-    }
-  };
+  useEffect(() => {
+    console.log("recommendationData", recommendationData);
+  }, []);
 
   const uploadFeed = async () => {
     try {
@@ -52,7 +47,12 @@ const Step1 = () => {
   };
 
   const clickShareBtn = async () => {
-    isValidFeed();
+    if (
+      !isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED) ||
+      !isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED)
+    ) {
+      return;
+    }
     uploadFeed();
   };
 
