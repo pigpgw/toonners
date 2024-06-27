@@ -20,15 +20,23 @@ import styles from "@/styles/makeRecommend/makeRecommend.module.scss";
 const Step1 = () => {
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [successModal, setSuccessModal] = useState(false);
   const [modify, setModify] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const { recommendationData, setPostTitle, setPostcotexts, removeRecommendation, resetRecommendationData } =
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
 
-  const clickShareBtn = async () => {
-    isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED);
-    isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED);
+  const isValidFeed = () => {
+    if (
+      !isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED) ||
+      !isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED)
+    ) {
+      return;
+    }
+  };
+
+  const uploadFeed = async () => {
     try {
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {
@@ -37,13 +45,15 @@ const Step1 = () => {
           recommendToons: recommendationData.recommendToons,
         });
       else await postNewRecommend(recommendationData);
-      resetRecommendationData();
-      resetRecommendConfig();
-      alert(SUCCESS_MESSAGE.SUCCESS_POST);
-      navigate("/home");
+      setSuccessModal(true);
     } catch (e) {
       alert(e);
     }
+  };
+
+  const clickShareBtn = async () => {
+    isValidFeed();
+    uploadFeed();
   };
 
   const goNextPage = () => {
@@ -145,6 +155,15 @@ const Step1 = () => {
             </>
           );
         })}
+        {successModal && (
+          <Modal
+            open={successModal}
+            onClose={() => setSuccessModal(false)}
+            onClick={goHome}
+            title={SUCCESS_MESSAGE.SUCCESS_POST}
+            btnTitle="홈으로"
+          />
+        )}
         {deleteModal && (
           <Modal
             open={deleteModal}

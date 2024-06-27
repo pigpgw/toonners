@@ -7,13 +7,12 @@ import Banner from "@assets/images/home/banner2.svg?react";
 import styles from "@styles/home/Home.module.scss";
 
 const FeedPage = () => {
-  const { feedListState, feedListLoading, feedListError } = useFeedQuery();
+  const { feedListState, feedListError } = useFeedQuery();
   return (
     <>
       <Banner />
       <div className={styles.feed}>
         {feedListError && <Loading comment="피드 리스트 불러오기 실패" />}
-        {feedListLoading && <Loading imgNeed={false} comment="피드 리스트 불러오는중" />}
         {feedListState &&
           feedListState.map((feed: FeedListConfig, i: number) => {
             return <FeedItem key={i} feed={feed} />;
