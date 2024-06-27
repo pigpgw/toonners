@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -151,22 +152,21 @@ public class FeedService {
             Set<ChildFeedRequest> requestSet = new HashSet<>(request);
             beforeRequestSet.removeAll(requestSet);
             for (ChildFeedRequest toon : beforeRequestSet) {
-                if (chatRoomRepository.findByToonName(toon.getTitle()).isPresent()) {
+                Optional<ChatRoom> optionalChatRoom = chatRoomRepository.findByToonName(toon.getTitle());
+                optionalChatRoom.ifPresent(chatRoom -> {
                     // 채팅방 별점 = total_point / count
-                    ChatRoom chatRoom = chatRoomRepository.findByToonName(toon.getTitle()).orElseThrow();
                     // 웹툰 추천 시 별점 채팅방 총 별점에 추가
                     chatRoom.setRatingTotalPoint(
-                            (chatRoom.getRatingTotalPoint() != null)
-                                    ? chatRoom.getRatingTotalPoint() + toon.getStarring()
-                                    : toon.getStarring());
+                            Optional.ofNullable(chatRoom.getRatingTotalPoint())
+                                    .orElse(0F) + toon.getStarring());
+
                     // 웹툰 추천 시 별점 count 1 증가
-                    if (chatRoom.getRatingCount() != null) {
-                        chatRoom.setRatingCount(chatRoom.getRatingCount() + 1L);
-                    } else {
-                        chatRoom.setRatingCount(1L);
-                    }
+                    chatRoom.setRatingCount(
+                            Optional.ofNullable(chatRoom.getRatingCount())
+                                    .orElse(0L) + 1L);
+
                     chatRoomRepository.save(chatRoom);
-                }
+                });
             }
         }
         // 해시태그 변경
@@ -183,6 +183,22 @@ public class FeedService {
                         .days(toon.getDays())
                         .build());
             }
+            // 채팅방 별점 삽입
+            Optional<ChatRoom> optionalChatRoom = chatRoomRepository.findByToonName(toon.getTitle());
+            optionalChatRoom.ifPresent(chatRoom -> {
+                // 채팅방 별점 = total_point / count
+                // 웹툰 추천 시 별점 채팅방 총 별점에 추가
+                chatRoom.setRatingTotalPoint(
+                        Optional.ofNullable(chatRoom.getRatingTotalPoint())
+                                .orElse(0F) + toon.getStarring());
+
+                // 웹툰 추천 시 별점 count 1 증가
+                chatRoom.setRatingCount(
+                        Optional.ofNullable(chatRoom.getRatingCount())
+                                .orElse(0L) + 1L);
+
+                chatRoomRepository.save(chatRoom);
+            });
             //클라이언트로 반환 해줄 때 해시태그 set으로 반환해주기 위해 '#'으로 구분자 만들어서 string으로 변환
             StringBuilder vibes = new StringBuilder();
             if (toon.getHashtagVibe() != null) {
