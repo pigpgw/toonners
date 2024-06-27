@@ -39,7 +39,7 @@ const ChatRoomListFrame = ({ types }: Props) => {
       <Header before title={types === "today" ? "오늘 뜬 웹툰" : "전체 Talk"} />
       <div className={styles.chatroom__list}>
         <Input types="search" placeholder="웹툰 이름을 입력하세요." onChange={handleInputChange} />
-        <div className={styles[`${types}`]}>
+        <div className={styles.ChatRoomListFrame}>
           {searchedList.length === 0
             ? list.map((item, key) => {
                 return (
