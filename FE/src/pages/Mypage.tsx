@@ -38,6 +38,7 @@ const Mypage = () => {
       alert(SUCCESS_MESSAGE.WITHDRAW_SUCCESS_ALERT);
       navigate("/");
     } catch (e) {
+      console.log(e);
       throw new Error(ERROR_MESSAGE.WITHDRAW_ERROR);
     }
   };

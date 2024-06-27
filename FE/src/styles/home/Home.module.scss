@@ -453,6 +453,14 @@
   text-overflow: ellipsis;
 }
 
+.ChatRoomListFrame {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 75vh;
+  overflow-y: scroll;
+}
+
 @keyframes slidein {
   from {
     transform: translateY(100%);
@@ -461,3 +469,4 @@
     transform: translateY(0);
   }
 }
+
