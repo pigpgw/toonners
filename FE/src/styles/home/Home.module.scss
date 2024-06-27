@@ -112,6 +112,11 @@
     display: grid;
     gap: 22px;
     grid-auto-flow: column;
+    .infoText {
+      text-align: center;
+      color: var(--color-gray-2);
+      margin-top: 5px;
+    }
   }
 
   &__item {
@@ -410,7 +415,7 @@
     margin-top: 10px;
     box-sizing: border-box;
     > div {
-      >div {
+      > div {
         width: 40px;
         text-align: center;
       }
