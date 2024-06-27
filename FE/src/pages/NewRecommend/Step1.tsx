@@ -26,14 +26,16 @@ const Step1 = () => {
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
 
-  const clickShareBtn = async () => {
+  const isValidFeed = () => {
     if (
       !isValidValue(recommendationData.title, ERROR_MESSAGE.TITLE_REQUIRED) ||
       !isValidValue(recommendationData.recommendToons, ERROR_MESSAGE.TOON_RECOMMENDATION_REQUIRED)
     ) {
       return;
     }
+  };
 
+  const uploadFeed = async () => {
     try {
       if (modify)
         await putUserFeed(recommendationData.parentFeedId!, {
@@ -49,6 +51,11 @@ const Step1 = () => {
     } catch (e) {
       alert(e);
     }
+  };
+
+  const clickShareBtn = async () => {
+    isValidFeed();
+    uploadFeed();
   };
 
   const goNextPage = () => {
