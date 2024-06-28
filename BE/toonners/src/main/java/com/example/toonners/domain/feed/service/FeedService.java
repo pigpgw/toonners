@@ -8,8 +8,9 @@ import com.example.toonners.domain.chatRoom.repository.ChatRoomRepository;
 import com.example.toonners.domain.feed.dto.request.CreateFeedRequest;
 import com.example.toonners.domain.feed.dto.request.UpdateFeedRequest;
 import com.example.toonners.domain.feed.dto.response.FeedInfoResponse;
-import com.example.toonners.domain.feed.entity.ChildFeedRequest;
+import com.example.toonners.domain.feed.entity.ChildFeed;
 import com.example.toonners.domain.feed.entity.Feed;
+import com.example.toonners.domain.feed.repository.ChildFeedRepository;
 import com.example.toonners.domain.feed.repository.FeedRepository;
 import com.example.toonners.domain.like.repository.LikeRepository;
 import com.example.toonners.domain.member.entity.Member;
@@ -21,10 +22,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -36,6 +34,7 @@ public class FeedService {
     private final BookmarkRepository bookmarkRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final LikeRepository likeRepository;
+    private final ChildFeedRepository childFeedRepository;
 
     @Transactional
     public FeedInfoResponse createFeed(String token, CreateFeedRequest request) {
@@ -46,10 +45,26 @@ public class FeedService {
                 .writer(member)
                 .title(request.getTitle())
                 .contexts(request.getContext())
-                .childFeedRequests(request.getRecommendToons())
                 .build();
+        feedRepository.save(feed);
+        // ChildFeed 리스트 생성 및 저장
+        List<ChildFeed> childFeedRequests = new ArrayList<>();
+        for (ChildFeed child : request.getRecommendToons()) {
+            ChildFeed childFeed = ChildFeed.builder()
+                    .starring(child.getStarring())
+                    .hashtagGenre(child.getHashtagGenre())
+                    .hashtagVibe(child.getHashtagVibe())
+                    .title(child.getTitle())
+                    .imageUrl(child.getImageUrl())
+                    .siteUrl(child.getSiteUrl())
+                    .days(child.getDays())
+                    .feed(feed)
+                    .build();
+            childFeedRequests.add(childFeedRepository.save(childFeed));
+        }
+        feed.setChildFeedRequests(childFeedRequests);
         // 해시태그 정보 및 채팅방, 툰 정보 삽입
-        return getFeedInfoResponseWithHashtagAndToon(request.getRecommendToons(), feed, null, null);
+        return getFeedInfoResponseWithHashtagAndToon(childFeedRequests, feed, null, null);
     }
 
     @Transactional
@@ -59,10 +74,28 @@ public class FeedService {
         if (!member.getId().equals(feed.getWriter().getId())) {
             throw new UnauthorizedRequestException();
         }
-        List<ChildFeedRequest> beforeChildFeedList = feed.getChildFeedRequests();
+        List<ChildFeed> beforeChildFeedList = feed.getChildFeedRequests();
         feed.updateFields(request);
+        // 새로운 ChildFeed 리스트 생성 및 설정
+        List<ChildFeed> childFeedRequests = new ArrayList<>();
+        if (request.getRecommendToons() != null) {
+            for (ChildFeed child : request.getRecommendToons()) {
+                ChildFeed childFeed = ChildFeed.builder()
+                        .starring(child.getStarring())
+                        .hashtagGenre(child.getHashtagGenre())
+                        .hashtagVibe(child.getHashtagVibe())
+                        .title(child.getTitle())
+                        .imageUrl(child.getImageUrl())
+                        .siteUrl(child.getSiteUrl())
+                        .days(child.getDays())
+                        .feed(feed)
+                        .build();
+                childFeedRequests.add(childFeedRepository.save(childFeed));
+            }
+        }
+        feed.setChildFeedRequests(childFeedRequests);
         // 해시태그 저장 및 채팅방 별점 추가, db 데이터 삽입
-        return getFeedInfoResponseWithHashtagAndToon(request.getRecommendToons(), feed, beforeChildFeedList, member);
+        return getFeedInfoResponseWithHashtagAndToon(childFeedRequests, feed, beforeChildFeedList, member);
     }
 
     @Transactional
@@ -144,14 +177,14 @@ public class FeedService {
     }
 
     private FeedInfoResponse getFeedInfoResponseWithHashtagAndToon(
-            List<ChildFeedRequest> request, Feed feed,
-            List<ChildFeedRequest> beforeRequest, Member member) {
+            List<ChildFeed> request, Feed feed,
+            List<ChildFeed> beforeRequest, Member member) {
         // 새로 추가한 웹툰 있으면 해당 웹툰방 별점 추가
         if (beforeRequest != null) {
-            Set<ChildFeedRequest> beforeRequestSet = new HashSet<>(beforeRequest);
-            Set<ChildFeedRequest> requestSet = new HashSet<>(request);
+            Set<ChildFeed> beforeRequestSet = new HashSet<>(beforeRequest);
+            Set<ChildFeed> requestSet = new HashSet<>(request);
             beforeRequestSet.removeAll(requestSet);
-            for (ChildFeedRequest toon : beforeRequestSet) {
+            for (ChildFeed toon : beforeRequestSet) {
                 Optional<ChatRoom> optionalChatRoom = chatRoomRepository.findByToonName(toon.getTitle());
                 optionalChatRoom.ifPresent(chatRoom -> {
                     // 채팅방 별점 = total_point / count
@@ -172,7 +205,7 @@ public class FeedService {
         // 해시태그 변경
         StringBuilder hashtagsGenre = new StringBuilder();
         StringBuilder hashtagsVibe = new StringBuilder();
-        for (ChildFeedRequest toon : request) {
+        for (ChildFeed toon : request) {
             //웹툰 데이터 없으면 웹툰 db에 삽입
             if (toonDataRepository.findByTitle(toon.getTitle()).isEmpty()) {
                 toonDataRepository.save(ToonData.builder()

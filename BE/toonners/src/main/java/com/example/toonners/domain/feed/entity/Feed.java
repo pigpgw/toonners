@@ -36,8 +36,8 @@ public class Feed extends BaseEntity {
 
     private Long likeCounts = 0L;
 
-    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChildFeedRequest> childFeedRequests = new LinkedList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChildFeed> childFeedRequests;
 
     public void updateFields(UpdateFeedRequest request) {
         if (request.getTitle() != null) {
@@ -45,9 +45,6 @@ public class Feed extends BaseEntity {
         }
         if (request.getContext() != null) {
             contexts = request.getContext();
-        }
-        if (request.getRecommendToons() != null) {
-            childFeedRequests = request.getRecommendToons();
         }
     }
 
@@ -61,5 +58,17 @@ public class Feed extends BaseEntity {
 
     public void setLikeCounts(Long counts) {
         this.likeCounts = counts;
+    }
+
+    public void setChildFeedRequests(List<ChildFeed> newChildFeeds) {
+        if (this.childFeedRequests == null) {
+            this.childFeedRequests = new LinkedList<>();
+        }
+        // 기존 리스트 클리어
+        this.childFeedRequests.clear();
+        // 새로운 리스트 추가
+        if (newChildFeeds != null) {
+            this.childFeedRequests.addAll(newChildFeeds);
+        }
     }
 }
