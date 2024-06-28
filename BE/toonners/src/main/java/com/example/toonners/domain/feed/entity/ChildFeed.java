@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 @Builder
 @Entity(name = "CHILD_FEED_REQUEST")
-public class ChildFeedRequest {
+public class ChildFeed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHILD_FEED_REQUEST_ID")
