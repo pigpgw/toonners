@@ -27,10 +27,6 @@ const Step1 = () => {
     useRecommendationStore();
   const { resetRecommendConfig } = useRecommendConfigStore();
 
-  useEffect(() => {
-    console.log("recommendationData", recommendationData);
-  }, []);
-
   const uploadFeed = async () => {
     try {
       if (modify)

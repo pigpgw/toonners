@@ -5,13 +5,10 @@ import CreateButton from "@/components/home/chatroom/create/CreateButton";
 import Loading from "./Loding";
 import Banner from "@assets/images/home/banner2.svg?react";
 import styles from "@styles/home/Home.module.scss";
-import { useEffect } from "react";
 
 const FeedPage = () => {
   const { feedListState, feedListError } = useFeedQuery();
-  useEffect(() => {
-    console.log('feedListState',feedListState)
-  },[])
+
   return (
     <>
       <Banner />
