@@ -1,6 +1,6 @@
 package com.example.toonners.domain.feed.dto.request;
 
-import com.example.toonners.domain.feed.entity.ChildFeedRequest;
+import com.example.toonners.domain.feed.entity.ChildFeed;
 import lombok.*;
 
 import java.util.List;
@@ -15,6 +15,6 @@ public class CreateFeedRequest {
 
     private String title;
     private String context;
-    private List<ChildFeedRequest> recommendToons;
+    private List<ChildFeed> recommendToons;
 
 }

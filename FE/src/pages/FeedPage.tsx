@@ -8,6 +8,7 @@ import styles from "@styles/home/Home.module.scss";
 
 const FeedPage = () => {
   const { feedListState, feedListError } = useFeedQuery();
+
   return (
     <>
       <Banner />

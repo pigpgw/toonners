@@ -13,7 +13,7 @@ import styles from "@/styles/signup/Signup.module.scss";
 const Signup2 = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const debounced = useDebounce(search, 300);
+  const debounced = useDebounce(search, 200);
   const [serchedWebtoons, setFetchWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const { user, addSeeWebtoon, removeSeeWebtoon } = useUserStore();
 

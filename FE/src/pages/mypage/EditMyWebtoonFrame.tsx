@@ -17,7 +17,7 @@ import { UserData } from "@/interface/Mypage.interfate";
 const EditMyWebtoonFrame = ({ type }: { type: string }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const debounced = useDebounce(search, 300);
+  const debounced = useDebounce(search, 200);
   const [webtoons, setWebtoons] = useState<UserWebtoonListConfig[]>([]);
   const {
     user,

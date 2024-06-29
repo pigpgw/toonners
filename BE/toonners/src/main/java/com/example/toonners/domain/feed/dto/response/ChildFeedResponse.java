@@ -1,6 +1,6 @@
 package com.example.toonners.domain.feed.dto.response;
 
-import com.example.toonners.domain.feed.entity.ChildFeedRequest;
+import com.example.toonners.domain.feed.entity.ChildFeed;
 import lombok.*;
 
 import java.util.Set;
@@ -19,7 +19,7 @@ public class ChildFeedResponse {
     private String toonImage;
     private String toonSiteUrl;
 
-    public static ChildFeedResponse fromRequest(ChildFeedRequest request) {
+    public static ChildFeedResponse fromRequest(ChildFeed request) {
         return ChildFeedResponse.builder()
                 .starring(request.getStarring())
                 .hashtagGenre(request.getHashtagGenre())
