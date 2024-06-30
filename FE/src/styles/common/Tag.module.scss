@@ -8,12 +8,18 @@
   background-color: var(--color-gray-1);
 }
 
+span {
+  text-wrap: nowrap;
+  margin-bottom: 2px;
+}
+
 .tag,
 .tag label {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 100px;
+  margin: 0;
   text-wrap: nowrap;
   @extend %gray;
 
