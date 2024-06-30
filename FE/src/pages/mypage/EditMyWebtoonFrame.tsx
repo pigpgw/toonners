@@ -96,20 +96,20 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
     }
     try {
       const dataToUpdate: UserData = {
-        favorite_toons: isLikedType
+        favoriteToons: isLikedType
           ? userWebtoonList.map((webtoon) => ({
               title: webtoon.title,
-              image_url: webtoon.imageUrl,
-              site_url: webtoon.url,
+              imageUrl: webtoon.imageUrl,
+              siteUrl: webtoon.url,
               rating: webtoon.rating,
               days: webtoon.updateDays,
             }))
           : undefined,
-        watching_toons: !isLikedType
+        watchingToons: !isLikedType
           ? userWebtoonList.map((webtoon) => ({
               title: webtoon.title,
-              image_url: webtoon.imageUrl,
-              site_url: webtoon.url,
+              imageUrl: webtoon.imageUrl,
+              siteUrl: webtoon.url,
               rating: webtoon.rating,
               days: webtoon.updateDays,
             }))
@@ -122,6 +122,10 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
       cancle();
     }
   };
+
+  useEffect(() => {
+    console.log(user);
+  });
 
   const cancle = () => {
     navigate("/mypage");

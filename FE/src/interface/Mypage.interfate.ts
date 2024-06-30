@@ -1,7 +1,7 @@
 export interface WatchingToonCofing {
   title: string;
-  image_url: string;
-  site_url: string;
+  imageUrl: string;
+  siteUrl: string;
   rating: number;
   days: string[];
 }
@@ -9,8 +9,8 @@ export interface WatchingToonCofing {
 export interface UserData {
   nickname?: string;
   description?: string;
-  watching_toons?: WatchingToonCofing[];
-  favorite_toons?: WatchingToonCofing[];
+  watchingToons?: WatchingToonCofing[];
+  favoriteToons?: WatchingToonCofing[];
 }
 
 export interface UserNicknameConfig {
