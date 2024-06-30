@@ -18,8 +18,8 @@ export interface UserWebtoonListConfig {
   title: string;
   rating: number;
   imageUrl: string;
-  updateDays: string[];
-  url: string;
+  days: string[];
+  siteUrl: string;
 }
 
 export interface UserConfig {

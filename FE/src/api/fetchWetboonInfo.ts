@@ -9,9 +9,9 @@ const fetchWebtoonInfo = async (title: string): Promise<UserWebtoonListConfig[]>
     .filter((webtoon: WebtoonResponseConfig) => !invalidPattern.test(webtoon.title))
     .map((webtoon: WebtoonResponseConfig) => ({
       title: webtoon.title,
-      url: webtoon.url,
+      siteUrl: webtoon.url,
       imageUrl: webtoon.thumbnail[0],
-      updateDays: webtoon.updateDays,
+      days: webtoon.updateDays,
       rating: webtoon.fanCount,
     }));
 

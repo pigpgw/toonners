@@ -57,14 +57,7 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
         if (res) {
           const webtoonsToAdd = isLikedType ? res.favoriteToons : res.watchingToons;
           webtoonsToAdd.forEach((item) => {
-            const webtoon = {
-              title: item.title,
-              url: item.url,
-              imageUrl: item.imageUrl,
-              rating: item.rating,
-              updateDays: item.updateDays,
-            };
-            isLikedType ? addFavoriteToons(webtoon) : addSeeWebtoon(webtoon);
+            isLikedType ? addFavoriteToons(item) : addSeeWebtoon(item);
           });
         }
       } catch (e) {
@@ -96,24 +89,8 @@ const EditMyWebtoonFrame = ({ type }: { type: string }) => {
     }
     try {
       const dataToUpdate: UserData = {
-        favoriteToons: isLikedType
-          ? userWebtoonList.map((webtoon) => ({
-              title: webtoon.title,
-              imageUrl: webtoon.imageUrl,
-              siteUrl: webtoon.url,
-              rating: webtoon.rating,
-              days: webtoon.updateDays,
-            }))
-          : undefined,
-        watchingToons: !isLikedType
-          ? userWebtoonList.map((webtoon) => ({
-              title: webtoon.title,
-              imageUrl: webtoon.imageUrl,
-              siteUrl: webtoon.url,
-              rating: webtoon.rating,
-              days: webtoon.updateDays,
-            }))
-          : undefined,
+        favoriteToons: isLikedType ? userWebtoonList : undefined,
+        watchingToons: !isLikedType ? userWebtoonList : undefined,
       };
       await updateUserData(dataToUpdate);
       cancle();

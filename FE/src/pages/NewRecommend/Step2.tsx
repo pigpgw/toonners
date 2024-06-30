@@ -47,7 +47,7 @@ const Step2 = () => {
       return;
     }
     if (webtoon.title && webtoon.imageUrl) {
-      setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.url, webtoon.updateDays ? webtoon.updateDays : []);
+      setimageUrlAndTitle(webtoon.imageUrl, webtoon.title, webtoon.siteUrl, webtoon.days ? webtoon.days : []);
       navigate("/recommend/new/3");
     } else {
       console.error(ERROR_MESSAGE.TITLE_OR_IMAGE_UNDEFINED);

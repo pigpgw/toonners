@@ -22,9 +22,9 @@ const CreateChatRoom2 = () => {
     const data = {
       toonName: selected.title,
       toonImage: selected.imageUrl,
-      toonUrl: selected.url,
+      toonUrl: selected.siteUrl,
       fanCounts: selected.rating,
-      updateDay: selected.updateDays,
+      updateDay: selected.days,
       contexts: description,
     };
     try {
