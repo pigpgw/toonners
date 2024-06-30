@@ -40,6 +40,9 @@ Toonners는 내가 평소 즐겨보는 웹툰에 대한 다른 사람들의 생�
 - 협업 툴 : Discord, Notion, Github, Figma
 - 서비스 배포 환경 : AWS Ec2, AWS CodeDeploy, Github Actions, Vercel
 
+## ERD
+![toonnersERD](https://github.com/ProjectRunners/toonners/assets/124652331/3a654dec-f1c7-4718-aa36-9fc646952809)
+
 ### 로그인
 [![Video 1](https://github.com/ProjectRunners/toonners/assets/133184988/b4ff80c4-6a31-4566-b427-1e4b08292023)](https://github.com/ProjectRunners/toonners/assets/133184988/b4ff80c4-6a31-4566-b427-1e4b08292023)
 
