@@ -23,6 +23,7 @@ const Signup = () => {
     };
     fetchUser();
   }, [navigate]);
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="1" />} />
